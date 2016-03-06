@@ -1,0 +1,32 @@
+{
+  "name": "gulp-tasks",
+  "version": "0.0.0",
+  "dependencies": {
+    "compression": "^1.6.0",
+    "express": "^4.13.3",
+    "serve-static": "^1.10.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "connect-history-api-fallback": "^1.1.0",
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.3",
+    "gulp-cssmin": "^0.1.6",
+    "gulp-inject": "^1.1.1",
+    "gulp-jshint": "^1.9.0",
+    "gulp-less": "^3.0.5",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace-task": "^0.11.0",
+    "gulp-serve": "^1.0.0",
+    "gulp-uglify": "^1.0.2",
+    "gulp-util": "^3.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "baseWeb"
+  },
+  "author": "lgzhang08@tfedu.net",
+  "license": "tfedu"
+}

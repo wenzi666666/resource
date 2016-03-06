@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+        <meta name="renderer" content="webkit">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<meta http-equiv="Content-Security-Policy">
+		<title>双课堂</title>
+		<meta name="keywords" content="双课堂">
+        <meta name="description" content="双课堂">
+		<link rel="shortcut icon" href="favicon.ico">
+
+		<link rel="stylesheet" href="app.min.css">
+
+        <!-- 百度统计 -->
+
+        <!-- 缓存刷新
+		<script type="text/javascript">
+			 //更新
+			window.addEventListener('load', function(e) {
+				window.applicationCache.addEventListener('updateready', function(e) {
+					if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+						//更新本地缓存
+						window.applicationCache.swapCache();
+						window.location.reload();
+					}
+				}, false);
+			}, false);
+		</script> -->
+	</head>
+
+	<body ng-app="webApp">
+		<div ui-view='content' ng-controller="MainCtrl"><div class="loading"><ion-spinner icon="bubbles"></ion-spinner></div></div>	
+	</body>
+    <script src="lib.min.js"></script>
+    <script src="app.min.js"></script>
+
+</html>
