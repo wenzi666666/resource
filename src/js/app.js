@@ -9,10 +9,10 @@
 	// }])
 	.config(['$httpProvider', '$urlRouterProvider', function($httpProvider, $urlRouterProvider) {
 		//默认登陆页 认证成功后默认动态页
-		if(window.localStorage.getItem("credentials")) 
-			$urlRouterProvider.otherwise('/nav/info');
-		else
-			$urlRouterProvider.otherwise('/content');
+//		if(window.localStorage.getItem("credentials")) 
+//			$urlRouterProvider.otherwise('/nav/info');
+//		else
+			$urlRouterProvider.otherwise('/systemres');
 
 		//注入
 		$httpProvider.interceptors.push('CacheInterceptor');
