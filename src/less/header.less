@@ -1,136 +1,69 @@
 // header样式
-*{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-
 #header{
-    
-    height: 450px;
-    background: url(../assets/img/repeat.jpg) repeat-x bottom left;
-    position: relative;
+    height: 400px;
 }
-.logo{
-    position: absolute;
-    top: 5px;
-    margin-left: 50px;
-    z-index: 100000;
-    width: 25%;
+#header .header-top{
+   height: 70px;
+   margin-top: 30px;
 }
-.abc{
-    position: absolute;
-    bottom: 121px;
-    left: 576px;
-    z-index: 99999;
-    width: 10%;
+#header .logo{
+    height: 50px;
 }
-.book{
-    width: 10%;
-    position: absolute;
-    left: 143px;
-    top: 175px;
-    z-index: 99999;
-}
-.plane{
-    position: absolute;
-    top: 66px;
-    left: 295px;
-    width: 10%;
-    z-index: 99998;
-}
-.classsub{
-    position: absolute;
-    top: 107px;
-    left: 437px;
-    z-index: 99999;
-    width: 45%;
-}
-.tree{
-    position: absolute;
-    bottom: 58px;
-    z-index: 99997;
-    left: 44px;
-    width: 40%;
-}
-.whitec{
-    position: absolute;
-    bottom: 20px;
-    left: 560px;
-    z-index: 99999;
-}
-.redc{
-    position: absolute;
-    bottom: 39px;
-    right: 292px;
+#header .message{
+    float: right;
 }
 
-.lunc{
-    position: absolute;
-    bottom: 55px;
-    right: 20px
-}
-
-.clound1{
-    position: absolute;
-    right: 0;
-    top: 52px;
-    width: 15%;
-}
-.sea{
-    position: absolute;
-    right: -228px;
-    top: 216px;
-    width: 15%;
-}
-.set{
-    position: absolute;
-    right: -24px;
-    top: 160px;
-    width: 3%;
-}
-
-.message{
-    position: absolute;
-    right:0;
-}
-
-.message li{
+#header .message li{
     float: left;
     margin: 10px;
     position: relative;
 }
-.message li a{
-    color: #054E5D;
+#header .message li a{
+    color: @msgColor;
 }
-.reds{
-    position: absolute;
-    top: -2px;
-    right: -8px;
+
+#header .banner{
+    z-index: -1;
+    position: relative;
 }
-.nav{
-    background-color: #128799;
-    color: white;
-    position: absolute;
-    bottom: -40px;
+#header .banner-footer{
+    margin-top: -30px;
 }
-.nav li{
+
+#header .banner-footer-header{
+    height: 7px;
+    background: url(assets/images/banner-footer.png) repeat-x;
+}
+#header .banner-footer-footer{
+    height: 35px;
+    background: @bannerFooterBgColor;
+}
+
+#header .nav{
+    background-color: @navBgColor;
+    color: #fff;
+}
+#header .main-nav{
+    padding: 0;
+}
+#header .main-nav li{
     float: left;
-    margin: 10px;
-    width: 138px;
+    width: 160px;
     height: 49px;
     vertical-align: middle;
     line-height: 49px;
     text-align: center;
 }
-.nav li.on{
-    background: url(../assets/img/nav_bj.png) no-repeat; 
+.main-nav li.on{
+    background: url(assets/img/nav_bj.png) no-repeat; 
     box-sizing: border-box;
 }
-
-.nav li img{
-    width: 20%;
+#header .nav-tools {
+    float: left;
+    margin-right: 10px;
+}
+#header .nav-tools img{
+    width: 30px;
 }
 
 
