@@ -147,17 +147,17 @@
     })
 
     //两种不同模式的显示
-    $('.t1').click(function(){
-    	$('.t1').attr('src','img/tab1.png');
-    	$('.t2').attr('src','img/tab2.png');
+    $('.meg-tab1').click(function(){
+    	$('.meg-tab1').attr('src','img/tab1.png');
+    	$('.meg-tab2').attr('src','img/tab2.png');
     	$('.base-r-main').css('display','block');
     	$('.base-r-main-s').css('display','none');
     })
-     $('.t2').click(function(){
-     	$('.t1').attr('src','img/tab11.png');
-    	$('.t2').attr('src','img/tab22.png');
-    	$('.base-r-main').css('display','none');
-    	$('.base-r-main-s').css('display','block');
+     $('.meg-tab2').click(function(){
+     	$('.meg-tab1').attr('src','img/tab1.png');
+    	$('.meg-tab2').attr('src','img/tab2.png');
+    	$('.res-r-main').css('display','none');
+    	$('.res-r-main-s').css('display','block');
     })
      	//span1下单击button按钮事件
     var $input = $(".base-ul li input[type='checkbox']");

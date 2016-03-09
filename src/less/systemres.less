@@ -1,6 +1,5 @@
 /*顶部*/
 .res-header {
-  background: #fff;
   margin-top: 40px;
 }
 .res-rtitle {
@@ -33,7 +32,7 @@
   display: inline-block;
   height: 40px;
 }
-input[type=search] {
+.res-search {
   height: 30px;
   width: 343px;
   line-height: 30px;
@@ -73,38 +72,42 @@ input[type=search] {
 }
 .res-rbody {
   display: block;
+  background: @color6;
 }
-.res-rbody div {
-  border-bottom: 1px solid #dbdbdb;
+.res-rbody .res-school {
+  border-bottom: 1px dashed @fff;
   line-height: 65px;
-  color: #8d8d8d;
+  color: @color1;
   font-size: 20px;
 }
 .res-rbody a:hover {
   color: #e78024;
 }
-.span-1 {
+.res-school-phase {
   display: inline-block;
   width: 115px;
   text-align: center;
+  color: @color1;
 }
-.span-21 {
+.res-school-phase-sort1 {
   display: inline-block;
   
 }
-.span-2 a,
-.span-21 a,
-.span-22 a {
+.res-school-phase-sort a,
+.res-school-phase-sort1 a,
+.res-school-phase-sort2 a {
   padding-right: 35px;
   padding-left: 10px;
 }
-.span-22 {
+.res-school-phase-sort2 {
   display: none;
   width: 1000px;
   margin-left: 119px;
 }
-.span-3 {
+.res-school-phase-more {
   cursor: pointer;
+  float: right;
+  margin-right: 40px;
 }
 .img-transform {
   -moz-transform: rotate(-180deg);
@@ -131,7 +134,7 @@ input[type=search] {
 }
 .res-rli {
   width: 1200px;
-  height: 500px;
+  height: 1130px;
   border: 1px solid #bebebe;
   margin: 0 auto;
   margin-top: 50px;
@@ -153,8 +156,10 @@ input[type=search] {
 }
 /*右侧*/
 .res-rright {
-  float: right;
+  float: left;
   background: #fff;
+  height: 1130px;
+  width: 910px;
 }
 .res-rright .res-rright-title {
   color: #666666;
@@ -236,16 +241,16 @@ input[type=search] {
   font-size: 18px;
   padding: 0 5px 0 0px;
 }
-.t1,
-.t2 {
+.meg-tab1,
+.meg-tab2 {
   position: relative;
   cursor: pointer;
 }
-.t1 {
+.meg-tab1 {
   top: 0px;
   margin-left: 12px;
 }
-.t2 {
+.meg-tab2 {
   left: -6px;
   top: 1px;
 }
@@ -268,7 +273,7 @@ input[type=search] {
 .res-ul .span1 {
   width: 56px;
 }
-.i-c {
+.in-checkbox {
   width: 19px;
   height: 25px;
   padding: 0 5px 0 0;
@@ -280,7 +285,7 @@ input[type=search] {
   left: 20px;
   top: 50px;
 }
-.d {
+.check-img {
   position: relative;
   top: 48px;
   left: -9px;
@@ -402,7 +407,7 @@ input[type=search] {
 /*缩略图*/
 .li-s {
   width: 288px;
-  height: 345px;
+  height: 380px;
   border: 1px solid #b1b1b1;
   float: left;
   margin-left: 15px;
@@ -431,7 +436,7 @@ input[type=search] {
   font-size: 16px;
   padding-left: 5px;
 }
-.li-s .s-left .q-c {
+.li-s .s-left .s-left-num {
   color: #0094ce;
 }
 .li-s .i-right {
