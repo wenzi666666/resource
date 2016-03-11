@@ -20,11 +20,15 @@
 }
 #header .message li a{
     color: @msgColor;
+    font-size: @msgFontSize;
 }
 
 #header .banner{
     z-index: -1;
-    position: relative;
+    position: relative; 
+}
+#header .banner img{
+    width: 100%;
 }
 #header .banner-footer{
     margin-top: -30px;
@@ -39,7 +43,7 @@
     background: @bannerFooterBgColor;
 }
 
-#header .nav{
+#header .main-nav{
     background-color: @navBgColor;
     color: #fff;
 }
@@ -54,18 +58,18 @@
     line-height: 49px;
     text-align: center;
 }
-.main-nav li.on{
-    background: url(assets/img/nav_bj.png) no-repeat; 
-    box-sizing: border-box;
+.main-nav li>a{
+    color:#fff;
+    font-size: 16px;
+    padding: 0;
 }
-#header .nav-tools {
-    float: right;
-    margin-right: 15px;
+.main-nav li>a:visited,.main-nav li>a:hover,.main-nav li>a:focus{
+    background: url(assets/images/nav_active.png) no-repeat;
+    
 }
-#header .nav-tools img{
-    width: 30px;
+.main-nav .onactive{
+    background: url(assets/images/nav_active.png) no-repeat; 
 }
-
 
 
 
