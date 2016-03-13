@@ -27,6 +27,22 @@ a,a:hover{
 ::-webkit-scrollbar-track:hover {
   background-color: rgba(50, 50, 50, 0.2);
 }
+// 购物车
+.shakeit {
+     -webkit-animation-name: thumb;
+    -webkit-animation-duration: 200ms;
+    -webkit-transform-origin:50% 50%;
+    -webkit-animation-iteration-count: 2;
+    -webkit-animation-timing-function: linear;
+}
+.itemaddedanimate {
+  -webkit-transition: all ease-in-out 0.5s;
+}
+@-webkit-keyframes thumb {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(0.8); }
+    100% { -webkit-transform: scale(1); }
+}
 // 资源页公用样式
 #res-container{
     
