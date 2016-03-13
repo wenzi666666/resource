@@ -1,7 +1,5 @@
 /*顶部*/
 .res-header {
-}
-.res-header {
   height: 55px;
   background: @resNavHeaderBGColor;
   line-height: 55px;
@@ -52,22 +50,14 @@
   background: #0094ce;
   display: inline-block;
   position: relative;
-  top: 10px;
+  top: 9px;
 }
 .res-header .icon-search{
     position: absolute;
     color: #fff;
     font-size: 16px;
-    top: 8px;
+    top: 6px;
     left: 8px;
-}
-.res-rtitle .version-wr {
-  width: 19px;
-  background: #12879A;
-  padding: 4px;
-  top: -2px;
-  position: relative;
-  left: -22px;
 }
 .select-tips {
   font-size: 20px;
@@ -80,80 +70,105 @@
   line-height: 27px;
   text-indent: 5px;
 }
-.res-rbody {
+.res-navbody {
   display: block;
   background: @color6;
+  clear: both;
 }
-.res-rbody .res-school {
+.res-navbody .res-body-content {
   border-bottom: 1px dashed @fff;
   line-height: 65px;
   color: @color1;
   font-size: 20px;
+  position: relative;
 }
-.res-rbody a:hover {
-  color: #e78024;
+.res-navbody .res-body-content{
+    border-top: 1px dashed @fff;
+    border-bottom: none;
 }
-.res-school-phase {
-  display: inline-block;
-  width: 115px;
-  text-align: center;
-  color: @color1;
+.res-navbody .res-content-left{
+    margin-right: 10px;
+    padding-left: 20px;
+    float: left;
 }
-.res-school-phase-sort1 {
-  display: inline-block;
-  
+.res-navbody .select-item{
+    text-align: center;
+    padding: 3px 10px;
+    cursor: pointer;
 }
-.res-school-phase-sort a,
-.res-school-phase-sort1 a,
-.res-school-phase-sort2 a {
-  padding-right: 35px;
-  padding-left: 10px;
+.res-navbody .select-item:hover {
+  color: #FFF;
+  background: @color8;
 }
-.res-school-phase-sort2 {
-  display: none;
-  width: 1000px;
-  margin-left: 119px;
+.res-navbody .res-subject-wrapper{
+    width: 70%;
+    float: left;
 }
-.res-school-phase-more {
+.res-navbody .res-more {
   cursor: pointer;
-  float: right;
-  margin-right: 40px;
+  position: absolute;
+  top:0;
+  right: 30px;
 }
-.img-transform {
-  -moz-transform: rotate(-180deg);
-  -webkit-transform: rotate(-180deg);
+
+.res-navbody  .res-material-version{
+    clear: both;
 }
-.res-rbody .orange-style-current {
-  padding: 5px 10px;
-  color: #fff;
-  background: #e78024;
-  border-radius: 2px;
-  margin-right: 25px;
+.res-navbody .res-content-footer{
+    position: relative;
 }
-.res-rbody .orange-style-current:hover {
-  color: #fff;
+.res-navbody .res-content-footer img{
+    position: absolute;
+    right: 5px;
+    top:-80px;
 }
-/*中间*/
-.res-r-main {
-  height: 925px;
+.res-navbody .res-content-footer div{
+    height: 6px;
+    background: #B0D042;
 }
-.res-r-main-s {
-  height: 300px;
-  display: none;
-  margin-top: 30px;
-}
-.res-rli {
-  height: 1130px;
-  border: 1px solid #bebebe;
-  margin: 0 auto;
-  margin-top: 50px;
-}
+
 /*右侧*/
-.res-rright {
-  float: left;
-  background: #fff;
-  height: 1130px;
+#res-content-right{
+    margin-top: 30px;
 }
+.res-header-catogry{
+    background: #DDD;
+    color: #5d5d5d;
+    font-size: 16px;
+}
+.res-header-catogry .catogry-item{
+    padding: 2px 10px;
+    margin: 6px;
+}
+.res-header-catogry .catogry-item:hover{
+    background: @color5;
+}
+
+.res-header-type{
+    margin: 20px;
+    font-size: 16px;
+}
+.res-header-type .type-title{
+    font-weight: bold;
+}
+.type-active{
+    background: @color5;
+}
+.res-header-type .type-list:hover{
+    background: @color5;
+    color: #fff;
+}
+.res-header-type .type-list{
+    padding: 3px 6px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
 .res-rright .res-rright-title {
   color: #666666;
   background: #dedede;

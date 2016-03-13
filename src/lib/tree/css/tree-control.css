@@ -18,7 +18,7 @@ treecontrol ul {
     padding: 0;
     list-style: none;
     border: none;
-    overflow: hidden;
+    overflow: auto;
 }
 
 treecontrol li {
@@ -94,6 +94,7 @@ treecontrol.tree-light li.tree-leaf i.tree-leaf-head {
 
 treecontrol.tree-light li .tree-selected {
     font-weight: bold;
+    color:#DF3D6D
 }
 
 treecontrol.tree-light li .tree-unselectable {
@@ -149,4 +150,20 @@ treecontrol treeitem treeitem .li-left-space{
 }
 treecontrol>ul>li>.li-left-space{
 	display: none !important;
+}
+treecontrol>ul>li:last-child li:last-child{
+	border-left: none;
+}
+treecontrol>ul>li:last-child li:last-child>.li-left-border {
+	position: absolute;
+	height:10px;
+	border-left: 1px solid #598FBE;
+}
+treecontrol treeitem treeitem>ul>li:last-child{
+	border-left:none;
+}
+treecontrol treeitem treeitem>ul>li:last-child .li-left-border{
+	position: absolute;
+	height:10px;
+	border-left: 1px solid #B7B7B7 !important;
 }

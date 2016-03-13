@@ -56,9 +56,14 @@
 			     };
 			     
 			    $scope.expandedNodes = [$scope.treedata[0],
-			         $scope.treedata[3],
-			         $scope.treedata[3].children[2],
-			         $scope.treedata[3].children[2].children[1]];
+			    $scope.treedata[1],
+			    $scope.treedata[2],
+			    $scope.treedata[3],
+
+			         $scope.treedata[0].children[0],
+			          $scope.treedata[0].children[1],
+			           $scope.treedata[0].children[2],
+			            $scope.treedata[0].children[3]];
 			    $scope.setExpanded = function() {
 			         $scope.expandedNodes = [$scope.treedata[1],
 			             $scope.treedata[2],
