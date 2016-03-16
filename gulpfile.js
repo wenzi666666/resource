@@ -54,7 +54,7 @@ var config = {
             src: ["src/less/*.less"]
         },
         assets: {
-            src: ["src/lib/ionic/fonts/**", "src/assets/**","src/favicon.ico"]
+            src: ["src/lib/bootstrap/fonts/**", "src/lib/font-awesome/font/**", "src/assets/**","src/favicon.ico","src/lib/tree//images/**"]
         }
     }
 }
@@ -102,10 +102,14 @@ gulp.task('mincss', function() {
 gulp.task('movassets', function() {
     gulp.src(config.paths.assets.src[0])
         .pipe(gulp.dest('./dist/fonts'))
-    gulp.src(config.paths.assets.src[1])
-        .pipe(gulp.dest('./dist/assets'))
+     gulp.src(config.paths.assets.src[1])
+        .pipe(gulp.dest('./dist/font'))
     gulp.src(config.paths.assets.src[2])
+        .pipe(gulp.dest('./dist/assets'))
+    gulp.src(config.paths.assets.src[3])
         .pipe(gulp.dest('./dist'));
+    gulp.src(config.paths.assets.src[4])
+        .pipe(gulp.dest('./dist/images'));
 });
 
 // 打包

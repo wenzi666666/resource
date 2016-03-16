@@ -4,7 +4,7 @@ var serveStatic = require('serve-static');
 var compression = require('compression');
 
 //端口
-var port = 6060;
+var port = 12306;
 var app = express();
 //浏览器刷新
 app.use(history());

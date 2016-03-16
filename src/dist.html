@@ -7,9 +7,9 @@
         <meta name="renderer" content="webkit">
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 		<meta http-equiv="Content-Security-Policy">
-		<title>双课堂</title>
-		<meta name="keywords" content="双课堂">
-        <meta name="description" content="双课堂">
+		<title>资源平台</title>
+		<meta name="keywords" content="资源平台">
+        <meta name="description" content="资源平台">
 		<link rel="shortcut icon" href="favicon.ico">
 
 		<link rel="stylesheet" href="app.min.css">
@@ -32,7 +32,9 @@
 	</head>
 
 	<body ng-app="webApp">
-		<div ui-view='content' ng-controller="MainCtrl"><div class="loading"><ion-spinner icon="bubbles"></ion-spinner></div></div>	
+		<div ui-view='header'></div>
+		<div ui-view='content'><div class="loading"><i class="fa fa-spinner fa-spin fa-5x"></i></div></div>
+		<div ui-view='footer'></div>
 	</body>
     <script src="lib.min.js"></script>
     <script src="app.min.js"></script>

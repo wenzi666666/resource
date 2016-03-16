@@ -1,20 +1,72 @@
 <!--系统资源页头部-->
-<div class="res-header">
+<div class="res-header" ng-controller="SystemResHeaderController">
 	<!-- 选择 导航 展示-->
-	<label>您已选择：</label>
-	<select class="res-select-grade">
-		<option>小学</option>
-		<option>初中</option>
-		<option selected>高中</option>
-	</select>
-	<i class="icon-angle-right"></i>
-	<select class="res-select-subject">
-		<option>语文</option>
-		<option>数学</option>
-		<option selected>英语</option>
-	</select>
-	<i class="icon-angle-right"></i>
-	<a class="select-tips">全部</a>
+	<div class="left-tips">您已选择：</div>
+	<div class="select-nav-item">
+		<div class="menu-drop">
+			<div class="trigger">
+				<span class="select-current" href="">小学</span>
+				<i class="icon-angle-down"></i>
+				<i class="icon-angle-up"></i>
+			</div>
+			
+			<div class="menu-drop-main">
+				<ul class="menu-drop-list">
+					<li class="selected"><span>小学</span></li>
+					<li><span>初中</span></li>
+					<li><span>高中</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="seperate-right"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item">
+		<div class="menu-drop">
+			<div class="trigger">
+				<span class="select-current" href="">语文</span>
+				<i class="icon-angle-down"></i>
+				<i class="icon-angle-up"></i>
+			</div>
+			
+			<div class="menu-drop-main">
+				<ul class="menu-drop-list">
+					<li class="selected"><span>语文</span></li>
+					<li><span>数学</span></li>
+					<li><span>英语</span></li>
+					<li><span>物理</span></li>
+					<li><span>化学</span></li>
+					<li><span>通用技术</span></li>
+					<li><span>英语</span></li>
+					<li><span>英语</span></li>
+					<li><span>英语</span></li>
+					<li><span>英语</span></li>
+					<li><span>英语</span></li>
+					<li><span>英语</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="seperate-right" ng-show="Select.currentVersionShow"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item"  ng-show="Select.currentVersionShow">
+		<div class="menu-drop">
+			<div class="trigger" ng-click="closeCurrentVersion()">
+				<span class="select-current" href="">{{Select.currentVersion}}</span>
+				<i class="icon-remove"></i>
+			</div>
+		</div>
+	</div>
+	<div class="seperate-right" ng-show="Select.currentMaterialShow"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item"  ng-show="Select.currentMaterialShow">
+		<div class="menu-drop">
+			<div class="trigger" ng-click="closeCurrentMaterial()">
+				<span class="select-current" href="">{{Select.currentMaterial}}</span>
+				<i class="icon-remove"></i>
+			</div>
+		</div>
+	</div>
+	
+	<!--<i class="icon-angle-right"></i>
+	<a class="select-tips">全部</a>-->
 	<div class="res-filter">
 		<label class="right-label">收起筛选</label>
 		<input class="res-search" type="search" placeholder="在当前条件下搜索" />
@@ -26,7 +78,7 @@
 
 <!--筛选主内容 -->
 <div class="res-navbody">
-	<div class="res-body-content res-grade">
+	<!--<div class="res-body-content res-grade">
 		<span class="res-content-left">学段:</span>
 		<span class="select-item res-grade-content">小学</span>
 		<span class="select-item res-grade-content">初中</span>
@@ -58,18 +110,21 @@
 		<span class="res-more">
 		   	<a>更多<i class="icon-angle-down"></i></a>
 		</span>
-	</div>
-	<div class="res-body-content res-material-version">
+	</div>-->
+	<!--<div class="clearfix"></div>-->
+	<div class="res-body-content res-material-version" ng-hide="Select.currentVersionShow">
 		<div class="res-content-left">版本:</div>
-		<span class="select-item res-material-content">北师大版本</span>
-		<span class="select-item res-material-content">人教版</span>
-		<span class="select-item res-material-content">鲁教版</span>
-		<span class="select-item res-material-content">苏科版</span>
-		<span class="select-item res-material-content">粤教版</span>
-		<span class="select-item res-material-content">华东师大版本</span>
+		<span ng-repeat="v in Select.version track by $index" class="select-item res-material-content" ng-click="Select.selectVersion($index)">{{ v }}</span>
 	</div>
-	<div class="res-content-footer">
+	<div class="clearfix"></div>
+
+	<div class="res-body-content res-material-version" ng-hide="Select.currentMaterialShow || !Select.currentVersionShow">
+		<div class="res-content-left">教材:</div>
+		<span ng-repeat="v in Select.material track by $index" class="select-item res-material-content" ng-click="Select.selectMaterial($index)">{{ v }}</span>
+	</div>
+	<div class="res-content-footer" ng-hide="Select.currentMaterialShow">
 		<img src="assets/img/res-nav-footer.png">
 		<div></div>
 	</div>
+	<div class="clearfix"></div>
 </div>

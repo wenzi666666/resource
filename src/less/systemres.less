@@ -6,13 +6,91 @@
   font-size: @resNavFontSize;
   color: #fff;
 }
-.res-header label {
-  padding-left: 30px;
+
+// 顶部筛选
+.select-nav-item{
+    float: left;
+    margin: 0 5px;
+    position: relative;
 }
+
+.menu-drop .trigger {
+    background: #fff;
+    margin-top: 15px;
+    padding-left: 6px;
+    height: 30px;
+    line-height: 30px;
+    padding-right: 0;
+}
+
+.menu-drop .select-current{
+    height: 20px;
+    color: #4D4D4D;
+}
+.menu-drop .trigger i{
+    background: @color1;
+    font-size: 18px;
+    margin: 1px;
+    margin-left: 5px;
+    padding: 1px 5px;
+    color: #fff;
+    width: 15px;
+}
+.menu-drop .icon-angle-up{
+    display: none;
+}
+.menu-drop .icon-angle-down:before, .menu-drop .icon-angle-up:before, .menu-drop .icon-remove:before{
+    padding-right: 5px; 
+}
+.menu-drop .menu-drop-main{
+    position: absolute;
+    background: #fff;
+    border: 1px solid @color2;
+    border-top: none;
+    left:-1px;
+    width: 200px;
+    z-index: 999;
+    display: none;
+}
+.menu-drop-main .selected{
+    color: #12879A;
+}
+.menu-drop-main .menu-drop-list{
+    padding: 0;
+    color: #4d4d4d;
+}
+.menu-drop-main .menu-drop-list li{
+    float: left;
+    padding:8px;
+    line-height: 20px;
+}
+.menu-drop:hover .icon-angle-down{
+    display: none;
+}
+.menu-drop:hover .menu-drop-main{
+    display: block;
+}
+.menu-drop:hover .icon-angle-up{
+    display: inline;
+}
+.seperate-right{
+    float: left;
+    margin-top: 5px;
+}
+
+
+.res-header .left-tips {
+  padding-left: 30px;
+  float: left;
+}
+
+
 .res-header img {
   position: relative;
   top: 3px;
 }
+
+
 .res-header select {
   color: @color11;
   width: 66px;
@@ -77,7 +155,7 @@
 }
 .res-navbody .res-body-content {
   border-bottom: 1px dashed @fff;
-  line-height: 65px;
+  line-height: 50px;
   color: @color1;
   font-size: 20px;
   position: relative;
@@ -126,6 +204,7 @@
     height: 6px;
     background: #B0D042;
 }
+
 
 /*右侧*/
 #res-content-right{

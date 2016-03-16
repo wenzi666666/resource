@@ -7,7 +7,7 @@
 
 	// Define frontend.public module
 
-	ApplicationConfiguration.registerModule('webApp.coms.systemres');
+//	ApplicationConfiguration.registerModule('webApp.coms.systemres');
 	// Module configuration
 	angular.module('webApp.coms.systemres')
 		.config(['$stateProvider',
@@ -43,9 +43,22 @@
 		])
 		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 
 			function($scope, $stateParams, $state, $location) {
+				// 筛选 主controller 
+				// 变量共享
+				$scope.Select = {};
 				
+				// 关闭版本筛选
+				$scope.closeCurrentVersion = function() {
+					$scope.Select.currentVersionShow = false;
+					$scope.Select.currentMaterialShow = false;
+				}
+				// 关闭教材筛选
+				$scope.closeCurrentMaterial = function() {
+					$scope.Select.currentMaterialShow = false;
+				}
 				// list切换
 				$scope.isList = true;
+				
 				
 			    $scope.switchList = function(list){
 			    	$scope.isList = list;
