@@ -49,6 +49,11 @@
 				        else
 				            return [];
 				    }
+				    $scope.opts = {
+				        isLeaf: function(node) {
+				            return node.i % 2 == 0;
+				        }
+				     };
 								    
 				 $scope.treedata=createSubTree(3, 4, "");
 			     $scope.showSelected = function(sel) {

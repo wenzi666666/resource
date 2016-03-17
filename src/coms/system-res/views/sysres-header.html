@@ -5,16 +5,14 @@
 	<div class="select-nav-item">
 		<div class="menu-drop">
 			<div class="trigger">
-				<span class="select-current" href="">小学</span>
+				<span class="select-current" href="">{{Select.currentGrade}}</span>
 				<i class="icon-angle-down"></i>
 				<i class="icon-angle-up"></i>
 			</div>
 			
 			<div class="menu-drop-main">
 				<ul class="menu-drop-list">
-					<li class="selected"><span>小学</span></li>
-					<li><span>初中</span></li>
-					<li><span>高中</span></li>
+					<li ng-repeat="grade in Select.grade track by $index" ng-class="Select.currentGradeSeclet[$index]?'selected':''" ng-click="Select.selectGrade($index)"><span>{{ grade }}</span></li>
 				</ul>
 			</div>
 		</div>
@@ -23,25 +21,14 @@
 	<div class="select-nav-item">
 		<div class="menu-drop">
 			<div class="trigger">
-				<span class="select-current" href="">语文</span>
+				<span class="select-current">{{Select.currentSubject}}</span>
 				<i class="icon-angle-down"></i>
 				<i class="icon-angle-up"></i>
 			</div>
 			
 			<div class="menu-drop-main">
 				<ul class="menu-drop-list">
-					<li class="selected"><span>语文</span></li>
-					<li><span>数学</span></li>
-					<li><span>英语</span></li>
-					<li><span>物理</span></li>
-					<li><span>化学</span></li>
-					<li><span>通用技术</span></li>
-					<li><span>英语</span></li>
-					<li><span>英语</span></li>
-					<li><span>英语</span></li>
-					<li><span>英语</span></li>
-					<li><span>英语</span></li>
-					<li><span>英语</span></li>
+					<li ng-repeat="subject in Select.subject track by $index" ng-class="Select.currentSubjectSeclet[$index]?'selected':''" ng-click="Select.selectSubject($index)"><span>{{ subject }}</span></li>
 				</ul>
 			</div>
 		</div>
@@ -68,7 +55,7 @@
 	<!--<i class="icon-angle-right"></i>
 	<a class="select-tips">全部</a>-->
 	<div class="res-filter">
-		<label class="right-label">收起筛选</label>
+		<!--<label class="right-label">收起筛选</label>-->
 		<input class="res-search" type="search" placeholder="在当前条件下搜索" />
 		<span class="res-search-btn">
 			<i class="icon-search"></i>	   
@@ -78,40 +65,20 @@
 
 <!--筛选主内容 -->
 <div class="res-navbody">
-	<!--<div class="res-body-content res-grade">
+	<div class="res-body-content res-grade">
 		<span class="res-content-left">学段:</span>
-		<span class="select-item res-grade-content">小学</span>
-		<span class="select-item res-grade-content">初中</span>
-		<span class="select-item res-grade-content">高中</span>
+		<span class="select-item res-grade-content" ng-repeat="grade in Select.grade track by $index" ng-class="Select.currentGradeSeclet[$index]?'selected':''" ng-click="Select.selectGrade($index)">{{ grade }}</span>
 	</div>
 	<div class="res-body-content res-subject">
 		<div class="res-content-left">学科:</div>
 		<div class="res-subject-wrapper"> 
-			<span class="select-item res-subject-content">语文</span>
-			<span class="select-item res-subject-content">数学</span>
-			<span class="select-item res-subject-content">英语</span>
-			<span class="select-item res-subject-content">物理</span>
-			<span class="select-item res-subject-content">化学</span>
-			<span class="select-item res-subject-content">地理</span>
-			<span class="select-item res-subject-content">历史</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
-			<span class="select-item res-subject-content">政治</span>
+			<span class="select-item res-subject-content" ng-repeat="subject in Select.subject track by $index" ng-class="Select.currentSubjectSeclet[$index]?'selected':''" ng-click="Select.selectSubject($index)">{{ subject }}</span>
 		</div>
-		<span class="res-more">
+		<!--<span class="res-more">
 		   	<a>更多<i class="icon-angle-down"></i></a>
-		</span>
-	</div>-->
-	<!--<div class="clearfix"></div>-->
+		</span>-->
+	</div>
+	<div class="clearfix"></div>
 	<div class="res-body-content res-material-version" ng-hide="Select.currentVersionShow">
 		<div class="res-content-left">版本:</div>
 		<span ng-repeat="v in Select.version track by $index" class="select-item res-material-content" ng-click="Select.selectVersion($index)">{{ v }}</span>
