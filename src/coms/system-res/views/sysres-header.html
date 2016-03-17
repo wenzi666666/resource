@@ -33,8 +33,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="seperate-right" ng-show="Select.currentVersionShow"><i class="icon-angle-right"></i></div>
-	<div class="select-nav-item"  ng-show="Select.currentVersionShow">
+	<div class="seperate-right" ng-show="Select.currentVersionShow || Select.currentVersionTmpShow"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item"  ng-show="Select.currentVersionShow || Select.currentVersionTmpShow">
 		<div class="menu-drop">
 			<div class="trigger" ng-click="closeCurrentVersion()">
 				<span class="select-current" href="">{{Select.currentVersion}}</span>
@@ -65,11 +65,11 @@
 
 <!--筛选主内容 -->
 <div class="res-navbody">
-	<div class="res-body-content res-grade">
+	<div class="res-body-content res-grade" ng-hide="Select.currentHeader">
 		<span class="res-content-left">学段:</span>
 		<span class="select-item res-grade-content" ng-repeat="grade in Select.grade track by $index" ng-class="Select.currentGradeSeclet[$index]?'selected':''" ng-click="Select.selectGrade($index)">{{ grade }}</span>
 	</div>
-	<div class="res-body-content res-subject">
+	<div class="res-body-content res-subject" ng-hide="Select.currentHeader">
 		<div class="res-content-left">学科:</div>
 		<div class="res-subject-wrapper"> 
 			<span class="select-item res-subject-content" ng-repeat="subject in Select.subject track by $index" ng-class="Select.currentSubjectSeclet[$index]?'selected':''" ng-click="Select.selectSubject($index)">{{ subject }}</span>

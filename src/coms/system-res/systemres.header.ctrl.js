@@ -65,9 +65,15 @@
 			    setTimeout(function(){
 			    	$('.res-material-content').eq(0).addClass('selected')
 			    },100)
+			    $scope.Select.currentVersion = $scope.Select.version[0];
+			    $scope.Select.currentVersionTmpShow = true;
 			    $scope.Select.selectVersion = function(index){
 			    	$scope.Select.currentVersion = $scope.Select.version[index];
 			    	$scope.Select.currentVersionShow = true;
+			    	
+			    	//隐藏学科学段
+			    	$scope.Select.currentHeader = true;
+			    	$scope.Select.currentVersionTmpShow = false;
 			    }
 			    
 			    // 教材
