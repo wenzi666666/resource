@@ -13,7 +13,10 @@
     ApplicationConfiguration.registerModule('webApp.coms.layout');
     // 登陆
     ApplicationConfiguration.registerModule('webApp.coms.login');
-    //系统资源
+    // 系统资源
     ApplicationConfiguration.registerModule('webApp.coms.systemres');
-    
+    // 校本资源
+    ApplicationConfiguration.registerModule('webApp.coms.schoolres');
+    // 区本资源
+    ApplicationConfiguration.registerModule('webApp.coms.areares');
 }());

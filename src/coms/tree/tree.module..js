@@ -8,33 +8,6 @@
 	ApplicationConfiguration.registerModule('webApp.coms.tree');
 	// Module configuration
 	angular.module('webApp.coms.tree')
-		.config(['$stateProvider',
-			function($stateProvider) {
-				$stateProvider
-					.state('tree', {
-						url: '/tree',
-						data: {
-							access: 0
-						},
-						views: {
-							'content@': {
-								templateUrl: '/coms/system-res/tree/views/tree.html',
-								controller: 'TreeController'
-							}
-						}
-					})
-			}
-		])
-		.factory('Tree', ['$resource', 'Constants',
-			function($resource, Constants) {
-				return $resource('', {}, {
-					total: {
-						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
-					}
-				})
-			}
-		])
 		.controller("TreeController", ['$scope', '$stateParams', '$state', '$location', 
 			function($scope, $stateParams, $state, $location) {
 				    function createSubTree(level, width, prefix) {
