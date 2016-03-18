@@ -12,13 +12,16 @@
 	// .run(['', function() {
 
 	// }])
-	.config(['$httpProvider', '$urlRouterProvider', function($httpProvider, $urlRouterProvider) {
+	.config(['$httpProvider', '$urlRouterProvider', '$locationProvider',function($httpProvider, $urlRouterProvider, $locationProvider) {
 		//默认登陆页 认证成功后默认动态页
 //		if(window.localStorage.getItem("credentials")) 
 //			$urlRouterProvider.otherwise('/nav/info');
 //		else
 			$urlRouterProvider.otherwise('/systemres');
-
+			
+		// url格式
+		 $locationProvider.html5Mode(true).hashPrefix('!');
+		 
 		//注入
 		$httpProvider.interceptors.push('CacheInterceptor');
 
