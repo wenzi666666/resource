@@ -1,12 +1,10 @@
 /**
- * Angular module for frontend.examples.about component. Basically this file contains actual angular module initialize
- * and route definitions for this module.
+ * 目录树 模块
  */
 (function() {
 	'use strict';
 
-	// Define frontend.public module
-
+	// 目录树 相对独立，可直接在模块里注入
 	ApplicationConfiguration.registerModule('webApp.coms.tree');
 	// Module configuration
 	angular.module('webApp.coms.tree')

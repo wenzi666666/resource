@@ -1,28 +1,12 @@
 /**
- * Angular module for frontend.examples.about component. Basically this file contains actual angular module initialize
- * and route definitions for this module.
+ * 系统资源 header controller
  */
 (function() {
 	'use strict';
 
-	// Define frontend.public module
-
-	ApplicationConfiguration.registerModule('webApp.coms.systemres');
-	// Module configuration
 	angular.module('webApp.coms.systemres')
-//		.factory('SystemRes', ['$resource', 'Constants',
-//			function($resource, Constants) {
-//				return $resource('', {}, {
-//					total: {
-//						method: "GET",
-//						url: BackendUrl + "/api/discuss/home/total"
-//					}
-//				})
-//			}
-//		])
 		.controller("SystemResHeaderController", ['$scope', '$stateParams', '$state', '$location', 
 			function($scope, $stateParams, $state, $location) {
-				
 				// 变量
 				$scope.Select.grade = ["小学","初中","高中"];
 				$scope.Select.subject = ["语文","数学","英语","物理","化学","生物","地理","政治","信息技术"];
@@ -80,8 +64,7 @@
 			    $scope.Select.selectMaterial = function(index){
 			    	$scope.Select.currentMaterial = $scope.Select.material[index];
 			    	$scope.Select.currentMaterialShow = true;
-			    }
-				
+			    }	
 			}
 		])
 }());

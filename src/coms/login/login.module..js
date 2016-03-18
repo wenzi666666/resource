@@ -1,13 +1,8 @@
 /**
- * Angular module for frontend.examples.about component. Basically this file contains actual angular module initialize
- * and route definitions for this module.
+ * 登陆 模块
  */
 (function() {
 	'use strict';
-
-	// Define frontend.public module
-
-	ApplicationConfiguration.registerModule('webApp.coms.login');
 	// Module configuration
 	angular.module('webApp.coms.login')
 		.config(['$stateProvider',

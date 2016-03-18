@@ -1,13 +1,8 @@
 /**
- * Angular module for frontend.examples.about component. Basically this file contains actual angular module initialize
- * and route definitions for this module.
+ * 系统资源 模块
  */
 (function() {
 	'use strict';
-
-	// Define frontend.public module
-
-//	ApplicationConfiguration.registerModule('webApp.coms.systemres');
 	// Module configuration
 	angular.module('webApp.coms.systemres')
 		.config(['$stateProvider',
@@ -22,7 +17,7 @@
 							},
 							'header@': {
 								templateUrl: '/coms/layout/header/header.html',
-								controller: 'LayoutntController'
+								controller: 'LayoutController'
 							},
 							'footer@': {
 								templateUrl: '/coms/layout/footer/footer.html'
