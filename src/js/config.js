@@ -1,3 +1,5 @@
+// 全局配置文件
+
 // 七牛 文件服务域名
 window.FileServer = "http://7xpwjy.com1.z0.glb.clouddn.com/";
 // 后端jsonapi代理

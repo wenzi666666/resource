@@ -1,3 +1,8 @@
+/**
+ * 主入口文件
+ * 核心模块 引入
+ * 定义基本对api请求的处理
+ */
 (function() {
 	//依赖的模块 注入
 	var module = ['ui.router', 'ui.bootstrap', 'ngResource', 'ngStorage', 'tmp', 'treeControl']
