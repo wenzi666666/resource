@@ -1,0 +1,21 @@
+﻿<div class="container" id="prepare-container">
+	<!--header导航-->
+	<div class="second-banner">
+		<img src="assets/img/prepare/prepare-banner.png" />
+		<span class="head-title">备课夹</span>
+		<button class="btn btn-primary new-prepare">新建</button>
+	</div>
+	<div class="clearfix"></div>
+	<div data-ng-include="'/coms/layout/views/res/res-header.html'"></div>
+	<!--左侧目录-->
+	<div class="col-md-3 catalog">
+		<div class="catalog-header"></div>
+		<div class="catalog-content">
+			<div class="catalog-tip"><img src="assets/img/catalog/catalog-tip.png"></div>
+			<div class="catalog-tree" data-ng-include="'/coms/tree/views/tree.html'"></div>
+		</div>
+		
+	</div>
+	<!--右侧资源列表-->
+	<div class="col-md-9" data-ng-include="'/coms/prepare/views/prepare-content.html'"></div>
+</div>
