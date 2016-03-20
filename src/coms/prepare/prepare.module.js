@@ -46,6 +46,7 @@
 				$scope.closeCurrentVersion = function() {
 					$scope.Select.currentVersionShow = false;
 					$scope.Select.currentMaterialShow = false;
+					$scope.Select.isList = true;
 				}
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
@@ -55,9 +56,139 @@
 				$scope.isList = true;
 				
 				
-			    $scope.switchList = function(list){
-			    	$scope.isList = list;
+			    $scope.switchList = true;
+			    
+			    
+			    // 备课夹 临时数据
+			    $scope.switch = function(index){
+			    	_.each($scope.listData, function(v,i){
+			    		$scope.listData[i].active = false
+			    	})
+			    	$scope.listData[index].active = true
 			    }
+			    $scope.listData = [{
+			    	title: "荷塘月色",
+			    	active: true,
+			    	date: "一周内",
+			    	children:[{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	}]
+			    },{
+			    	title: "荷塘月色",
+			    	date: "一周内",
+			    	children:[{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	}]
+			    },{
+			    	title: "荷塘月色",
+			    	date: "一周内",
+			    	children:[{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	}]
+			    },{
+			    	title: "荷塘月色",
+			    	date: "一周内",
+			    	children:[{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	}]
+			    },{
+			    	title: "荷塘月色",
+			    	date: "一周内",
+			    	children:[{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	}]
+			    },{
+			    	title: "荷塘月色",
+			    	date: "一周内",
+			    	children:[{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	},{
+			    		title: "荷塘月色-课件1",
+			    		type: "动画",
+			    		size: "15M"
+			    	}]
+			    }]
+			    
 				
 			}
 		])

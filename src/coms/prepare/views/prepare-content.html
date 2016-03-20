@@ -1,78 +1,38 @@
-<div class="res-content-header"></div>
-<div id="res-content-right">
-	<div class="res-header-catogry">
-		<span class="catogry-item">全部</span>
-		<span class="catogry-item">动画教具库</span>
-		<span class="catogry-item">名师微课库</span>
-		<span class="catogry-item">教学案例库</span>
-		<span class="catogry-item">教学素材库</span>
-		<span class="catogry-item">多媒体教辅库</span>
-		<span class="catogry-item">理化生实验室</span>
-		<span class="catogry-item">情景英语</span>
-		<span class="catogry-item">题库</span>
-	</div>
-	<div class="res-header-type">
-		<span class="type-title">资源类型:</span>
-		<span class="type-list type-active">全部</span>
-		<span class="type-list">动画</span>
-		<span class="type-list">视频</span>
-		<span class="type-list">音频</span>
-		<span class="type-list">图片</span>
-		<span class="type-list">网页</span>
-		<span class="type-list">课件</span>
-		<span class="type-list">教案</span>
-		<span class="type-list">文本</span>
-		<span class="type-list">试题</span>
-	</div>
-	<div class="statistic-tab">
-		<span class="statistic-item"><i class="icon-bar-chart"></i>推荐指数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>评分星级</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>下载次数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>收藏次数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>浏览次数</span>
-		<span class="statistic-item"></span>
-		<span class="statistic-item" ng-click="switchList(true)"><i class="icon-th-list"></i></span>
-		<span class="statistic-item" ng-click="switchList(false)"><i class="icon-th-large"></i></span>
-	</div>
-
-	<div class="res-list-main">
-		<ul class="res-ul-list" ng-show="isList">
-			<li class="res-list-item" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
-				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" src="assets/img/title.jpg">
-				<span class="res-list-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label><br>
-					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-					
-					<label class="res-number">281浏览/5下载</label>
-				</span>
-				<span class="res-list-tools">
-					<add-to-cart-button class="res-select">加入备课夹</add-to-cart-button><br>
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
-				</span>
-			</li>
-		</ul>
-		<ul class="res-ul-thubmlist" ng-show="!isList">
-			<li class="res-thubmlist-item col-md-4" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
-				<input class="res-checkbox" type="checkbox">
-				<img class="res-thubmlist-thumb" src="assets/img/title.jpg">
-				<span class="res-thubmlist-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label><br>
-					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-					
-					<label class="res-number">281浏览/5下载</label>
-				</span>
-				<span class="res-thubmlist-tools">
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
-					<add-to-cart-button class="res-select">加入备课夹</add-to-cart-button>
-				</span>
-			</li>
-		</ul>
-		<div style="clear:both"></div>
-		<div style="width:100%;margin: 25px;"><img style="width:90%;" src="assets/img/tmp.png"/></div>
+<div id="prepare-content">
+	<div class="prepare-list" ng-repeat="list in listData track by $index">
+		<div class="list-header" ng-click="switch($index)">
+			<span class="list-header-title">{{$index+1}}、{{list.title}}</span>
+			<i class="icon-edit edit-prepare"></i> 
+			<i class="icon-trash"></i>
+			<span class="online-course"><i class="icon-play-circle"></i>在线授课</span>
+			<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
+			
+		</div>
+		<div class="list-content" ng-show="list.active">
+			<span class="hold-on"><i class="icon-plus-sign"></i>继续逛逛</span>
+			<span class="local-res"><i class="icon-plus-sign"></i>本地资源</span>
+			<div class="clearfix">
+				
+			</div>
+			<div class="list-item" ng-repeat="item in list.children">
+				<input type="checkbox"/>
+				<img class="list-item-thumb" src="assets/img/title.jpg"/>
+				<div class="item-info">
+					<span class="item-info-title">{{item.title}}</span><br>
+					<span class="item-info-type">类型: {{item.type}}</span>
+					<span class="item-info-size">大小：{{item.size}}</span>
+				</div>
+				<span class="prepare-download"><i class="icon-download-alt"></i></span>
+				<span><i class="icon-plus-sign"></i></span>
+				<div class="right-tools">
+					<div>基础资源</div>
+					<span><i class="icon-plus-sign"></i></span>
+					<span><i class="icon-plus-sign"></i></span>
+					<span><i class="icon-plus-sign"></i></span>
+					<span><i class="icon-plus-sign"></i></span>
+				</div>
+				
+			</div>
+		</div>
 	</div>
 </div>

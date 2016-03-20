@@ -7,8 +7,10 @@
 	</div>
 	<div class="clearfix"></div>
 	<div data-ng-include="'/coms/layout/views/res/res-header.html'"></div>
+	
+	<!--带目录显示-->
 	<!--左侧目录-->
-	<div class="col-md-3 catalog">
+	<div class="col-md-3 catalog" ng-show="!Select.isList">
 		<div class="catalog-header"></div>
 		<div class="catalog-content">
 			<div class="catalog-tip"><img src="assets/img/catalog/catalog-tip.png"></div>
@@ -17,5 +19,8 @@
 		
 	</div>
 	<!--右侧资源列表-->
-	<div class="col-md-9" data-ng-include="'/coms/prepare/views/prepare-content.html'"></div>
+	<div ng-show="!Select.isList" class="col-md-9" data-ng-include="'/coms/prepare/views/prepare-content.html'"></div>
+	
+	<!--不带目录显示-->
+	<div ng-show="Select.isList" data-ng-include="'/coms/prepare/views/prepare-content-list.html'"></div>
 </div>

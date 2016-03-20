@@ -41,6 +41,9 @@
 			    	})
 			    	$scope.Select.currentSubjectSeclet[index] = true;
 			    	
+			    	//备课夹 视图切换 临时
+			    	$scope.Select.isList = false;
+			    	
 			    	$scope.Select.currentVersionShow = false;
 					$scope.Select.currentMaterialShow = false;
 			    }
@@ -58,6 +61,9 @@
 			    	//隐藏学科学段
 			    	$scope.Select.currentHeader = true;
 			    	$scope.Select.currentVersionTmpShow = false;
+			    	
+			    	//备课夹 视图切换 临时
+			    	$scope.Select.isList = false;
 			    }
 			    
 			    // 教材

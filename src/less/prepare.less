@@ -1,4 +1,165 @@
 /*备课夹*/
 .new-prepare{
+   position: absolute;
+   right: 50px;
+   bottom: 15px;
+}
+
+/*备课夹 content*/
+#prepare-content {
+    background: #fff;
+    margin-top: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-size: 16px;
+}
+#prepare-content .prepare-list{
+    margin:10px 0;
+}
+#prepare-content .list-header{
+    line-height: 40px;
+    background: #A9DCEA;
+    padding:3px 10px;
+    cursor: pointer;
+}
+#prepare-content .list-header-title{
+    color: #0094CE;
+    font-size: 18px;
+}
+
+#prepare-content .list-header i{
+    color: #0094CE;
+    margin:0 5px;
+    font-size: 20px;
+}
+#prepare-content .list-header i:hover{
+    color: #26A3D5;
+}
+#prepare-content .list-header .edit-prepare{
+    margin-left: 60px;
+}
+
+#prepare-content .zip-download{
     float: right;
+    padding:5px 10px;
+    margin-top:6px;
+    margin-right:10px;
+    background: @color2;
+    line-height: 20px;
+    color: #fff;
+    border-radius: 5px;
+}
+#prepare-content .zip-download i{
+    color: #fff;
+    margin-top: 10px;
+}
+#prepare-content .zip-download i:hover{
+    color: #ddd;
+}
+#prepare-content .online-course {
+    float: right;
+    text-decoration: underline;
+    color: @color1;
+}
+#prepare-content .online-course i{
+    text-decoration: none;
+}
+#prepare-content .list-content{
+    margin: 10px;
+}
+.list-content .hold-on, .list-content .local-res{
+    color: @color2;
+    float: right;
+    margin-right: 10px;
+    padding:5px;
+}
+.list-content .list-item{
+   padding: 15px 0;
+   margin-top: 5px;
+}
+.list-content .list-item:hover{
+  background: @color4;
+}
+.list-content .item-info{
+   display: inline-block;
+   margin-left: 10px;
+}
+.list-content .list-item i{
+   color: @color5;
+   margin: 5px;
+   padding: 5px;
+   border-radius: 3px;
+}
+.list-content .list-item i:hover{
+   color: #fff;
+   background: @color5;
+}
+.list-content .list-item-thumb{
+    width: 100px;
+    height: 60px;
+}
+.list-content .item-info-title{
+    padding-top: 10px;
+}
+.list-content .prepare-download {
+    margin-left: 50px;
+}
+.list-content .right-tools{
+    float: right;
+}
+
+//备课夹列表
+#prepare-content-list {
+    margin-top: 30px;
+    padding: 15px;
+    font-size: 16px;
+}
+.search-prepare{
+    float: right;
+}
+.search-prepare input{
+    margin: 6px;
+    padding:3px;
+    border: 1px solid @color1;
+}
+.search-prepare span{
+    background: @color1;
+    padding: 5px 10px;
+    display: inline-block;
+    color: #fff;
+}
+.prepare-all-list{
+    background: #fff;
+    margin: 10px 0 30px 0;
+}
+.prepare-all-header-img{
+    margin-top: -15px;
+    width: 50px;
+}
+.prepare-gallery{
+    margin: 10px
+}
+.list-all-item{
+    display: inline-block;
+    margin:5px 0;
+    padding:10px;
+}
+.list-all-item:hover{
+    background: @color4;
+}
+.prepare-gallery{
+    padding: 0 15px;
+}
+.prepare-all-item-img{
+    width: 70%;
+}
+#prepare-content-list .zip-download{
+    padding:5px 10px;
+    background: @color2;
+    line-height: 20px;
+    color: #fff;
+    border-radius: 5px;  
+}
+.list-all-item i{
+    margin-left:10px
 }

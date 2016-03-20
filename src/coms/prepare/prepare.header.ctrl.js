@@ -54,7 +54,7 @@
 			    $scope.Select.selectVersion = function(index){
 			    	$scope.Select.currentVersion = $scope.Select.version[index];
 			    	$scope.Select.currentVersionShow = true;
-			    	
+			    	$scope.Select.isList = false;
 			    	//隐藏学科学段
 			    	$scope.Select.currentHeader = true;
 			    	$scope.Select.currentVersionTmpShow = false;
@@ -64,6 +64,7 @@
 			    $scope.Select.selectMaterial = function(index){
 			    	$scope.Select.currentMaterial = $scope.Select.material[index];
 			    	$scope.Select.currentMaterialShow = true;
+			    	$scope.Select.isList = false;
 			    }	
 			}
 		])
