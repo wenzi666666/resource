@@ -217,7 +217,7 @@ gulp.task('disthtml', function() {
                 }
             ]
         }))
-//      .pipe(g.rename('dist.html'))
+        .pipe(g.rename('index.html'))
         .pipe(gulp.dest('./dist'));
 });
 gulp.task('default', ['less', 'watch']);
