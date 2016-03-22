@@ -19,6 +19,8 @@
     ApplicationConfiguration.registerModule('webApp.coms.schoolres');
     // 区本资源
     ApplicationConfiguration.registerModule('webApp.coms.areares');
+    // 资源预览页
+    ApplicationConfiguration.registerModule('webApp.coms.previewres');
      // 备课夹
     ApplicationConfiguration.registerModule('webApp.coms.prepare');
 }());
