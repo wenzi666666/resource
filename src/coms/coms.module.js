@@ -25,4 +25,8 @@
     ApplicationConfiguration.registerModule('webApp.coms.prepare');
     // 帮助中心
     ApplicationConfiguration.registerModule('webApp.coms.help');
+    // 消息中心
+    ApplicationConfiguration.registerModule('webApp.coms.message');
+    // 个人设置
+    ApplicationConfiguration.registerModule('webApp.coms.settings');
 }());

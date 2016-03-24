@@ -4,16 +4,16 @@
 (function() {
 	'use strict';
 	// Module configuration
-	angular.module('webApp.coms.help')
+	angular.module('webApp.coms.message')
 		.config(['$stateProvider',
 			function($stateProvider) {
 				$stateProvider
-					.state('help', {
-						url: '/help',
+					.state('message', {
+						url: '/message',
 						views: {
 							'content@': {
-								templateUrl: '/coms/help/views/help.html',
-								controller: 'HelpController'
+								templateUrl: '/coms/message/views/message.html',
+								controller: 'MessageController'
 							},
 							'header@': {
 								templateUrl: '/coms/layout/header/header3.html',
@@ -26,7 +26,7 @@
 					})
 			}
 		])
-		.factory('Help', ['$resource', 'Constants',
+		.factory('Message', ['$resource', 'Constants',
 			function($resource, Constants) {
 				return $resource('', {}, {
 					total: {
@@ -36,12 +36,10 @@
 				})
 			}
 		])
-		.controller("HelpController", ['$scope', '$stateParams', '$state', '$location', 
+		.controller("MessageController", ['$scope', '$stateParams', '$state', '$location', 
 			function($scope, $stateParams, $state, $location) {
 				// 变量共享
 				$scope.VM = {};
-
-				
 			}
 		])
 }());
