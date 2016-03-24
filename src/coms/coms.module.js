@@ -21,6 +21,8 @@
     ApplicationConfiguration.registerModule('webApp.coms.areares');
     // 资源预览页
     ApplicationConfiguration.registerModule('webApp.coms.previewres');
-     // 备课夹
+    // 备课夹
     ApplicationConfiguration.registerModule('webApp.coms.prepare');
+    // 帮助中心
+    ApplicationConfiguration.registerModule('webApp.coms.help');
 }());
