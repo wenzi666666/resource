@@ -40,16 +40,16 @@
 			function($scope, $stateParams, $state, $location) {
 				// 筛选 主controller 
 				// 变量共享
-				$scope.Select = {};
+				$scope.VM = {};
 				
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
-					$scope.Select.currentVersionShow = false;
-					$scope.Select.currentMaterialShow = false;
+					$scope.VM.currentVersionShow = false;
+					$scope.VM.currentMaterialShow = false;
 				}
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
-					$scope.Select.currentMaterialShow = false;
+					$scope.VM.currentMaterialShow = false;
 				}
 				// list切换
 				$scope.isList = true;

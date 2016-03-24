@@ -27,6 +27,8 @@
 				     };
 								    
 				 $scope.treedata=createSubTree(3, 4, "");
+				 window.localStorage.setItem("test", JSON.stringify($scope.treedata))
+				 console.log($scope.treedata)
 			     $scope.showSelected = function(sel) {
 			         $scope.selectedNode = sel;
 			     };
