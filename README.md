@@ -24,4 +24,4 @@
 
 ## 要求
 - css 用less开发
-- js angular.js ionic
+- js angular.js bootstrap fontawsome
