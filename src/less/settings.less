@@ -1,0 +1,398 @@
+.settings-main {
+    background-color: #FFFFFF;
+    height: 700px;
+    position: relative;
+}
+
+.tabs {
+    width: 21%;
+    height: 100%;
+    float: left;
+}
+
+.tabs ul{
+    background-color: #D3EDE5;
+    color: #12879A;
+    height: 100%;
+}
+
+.info-icon {
+    margin-right: 14px;
+}
+
+.tabs li {
+    height: 66px;
+    float: left;
+    width: 100%;
+}
+
+.tabs li>a{
+    height: 100%;
+    border: none;
+    font-size: @leftTabSize;
+    text-align: center;
+    margin-right: 0;
+    line-height: 46px;
+}
+
+.tabs li>a:hover, .tabs li>a:focus{
+    background-color: #D3EDE5;
+    color: #12879A;
+}
+
+.tabs li.active>a {
+    background-color: #41C9A9;
+    border: none;
+    color: #FFFFFF;
+}
+
+.tabs li.active>a:hover {
+    background-color: #41C9A9;
+    color: #FFFFFF;
+    border: none;
+}
+
+.tab-content {
+    width: 79%;
+    height: 100%;
+    float: left;
+    background-color: #FFFFFF;
+}
+
+.tab-content-body {
+    width: 100%;
+    padding-top: 60px;
+    margin-bottom: 50px;
+}
+
+.main-left {
+    width: 30%;
+    float: left;
+    padding: 10px 30px;
+    text-align: center;
+}
+
+.main-left img {
+    width: 80%;
+}
+
+.btn-general {
+    height: 35px;
+    margin-top: 15px;
+    border: none;
+    background-color: #219B81;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.btn-change-avatar {
+    width: 90%;
+    letter-spacing: 6px;
+}
+
+.hint-one {
+    display: inline-block;
+    margin-top: 10px;
+    color: #878787;
+    font-size: @hintfont;
+}
+
+.hint-two {
+    display: inline;
+}
+
+.main-right {
+    width: 70%;
+    float: left;
+    padding: 10px 10px;
+}
+
+.user-info {
+    min-height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    position: relative;
+    color: #878787;
+    font-size: @settingMainFont;
+}
+
+.info-label {
+    width: 100px;
+    display: inline-block;
+}
+
+.user-info-form {
+    color: #878787;
+    font-weight: normal;
+}
+
+.user-info-form label {
+    font-weight: normal;
+    margin-right: 20px;
+}
+
+.user-info-input {
+    height: 40px; 
+    border: 1px #DDDDDD solid;
+    border-radius: 2px;
+    padding: 10px 10px;
+    margin-right: 5px;
+    color: #000000;
+}
+
+.true-name-input {  
+    width: 200px;    
+}
+
+
+.passwd-input {
+    width: 40%
+}
+
+.user-info ul {
+    position: absolute;
+    top: 5px;
+    left: 80px; 
+    padding: 0px;   
+}
+
+.user-info li {
+    float: left;
+    margin: 0 10px;
+    padding: 0 15px;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+}
+
+.user-info li.active {
+    background: #3FBBCF;
+    color: #FFFFFF;
+}
+
+.clear-float {
+    clear: both;
+}
+
+.tab-content-footer {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.tab-content-footer button {
+    margin: 0 15px;
+}
+
+.main-body {
+    padding: 50px 70px;
+    padding-top: 0px;
+}
+
+.main-body .user-info {
+    margin-bottom: 40px;
+}
+
+//头像选择模态框
+.avatar-box {
+    background-color: #FFFFFF;
+    border: 1px #41C9A9 solid;
+}
+
+//模态框样式控制
+.avatar-tabs {
+    height: 44px;
+    line-height: 44px;
+    background-color: rgba(255,255,255,0);
+    border-bottom: none;
+    position: relative;
+}
+
+.modal-dialog {
+    width: 670px;
+}
+
+.modal-content {
+    background-color: rgba(255,255,255,0);
+    border-radius: 12px;
+}
+
+.avatar-modal-body {
+   padding: 0; 
+}
+
+.avatar-tabs ul {
+    padding-left: 0px;
+}
+
+.avatar-tabs li {
+    float: left;
+    width: 220px;
+    color: #FFFFFF;
+    font-size: 1.7rem;
+    padding: 4px 0 0 43px;
+}
+
+.avatar-tabs li>a {
+    color: #FFFFFF;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.avatar-tabs li:first-child {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(../../../assets/img/settings/tab_active.png) no-repeat;    
+    z-index: 1000;
+}
+
+.avatar-tabs li:last-child {
+    position: absolute;
+    top: 0;
+    left: 140px;
+    background: url(../../../assets/img/settings/tab2_active.png) no-repeat;
+    height: 44px;
+}
+
+.avatar-tab-content {
+    width: 100%;
+    border: 2px #41C9A9 solid;
+    border-top: 8px #41C9A9 solid;
+    border-bottom: none;
+    padding: 15px;
+}
+
+.avatar-tab-content ul, .self-avatar-panel {
+    padding: 15px 10px 15px 10px;
+    background-color: #E4F3F7;
+}
+
+ .self-avatar-panel {
+     height: 405px;
+     vertical-align: middle;
+ }
+ 
+.avatar-tab-content li {
+    width: 15%;
+    float: left;
+    margin: 5px 5px;
+}
+
+.avatar-tab-content li img {
+    width: 100%;
+}
+
+.button-group {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-footer {
+    background-color: #FFFFFF;
+    text-align: center;
+    border: 2px #41C9A9 solid;
+    border-radius: 12px;
+}
+
+.modal-footer button {
+    margin: 0 10px;
+}
+
+.self-avatar-panel ul {
+     height: 100%;
+     vertical-align: middle;
+     padding: 80px;
+ }
+
+.self-avatar-panel li {
+    height: 80px;
+    width: 280px;
+    float: none;
+    margin: 25px auto;
+    cursor: pointer;
+}
+
+.self-avatar-panel li:first-child {
+    margin-top: 0;
+}
+
+.self-avatar-panel li:last-child {
+    margin-bottom: 0;
+}
+
+.panel-two {
+    background-color: #FFFFFF;
+    padding-left: 0;
+}
+
+.panel-two img {
+    vertical-align: middle;
+    margin-top: 20px;
+}
+
+.panel-two-left {
+    width: 76%;
+    height: 100%;
+    padding: 15px 0 15px 0px;
+    background-color: #E4F3F7;
+    position: relative;
+    text-align: center;
+    float: left;
+    font-size: 0;
+}
+
+.panel-two-right {
+    width: 23%;
+    padding: 15px 0 15px 25px;
+    float: left;
+    position: relative;
+}
+
+#btn-change-size {
+   position: absolute;
+   left: 19px;
+   top: 50px; 
+}
+
+.btn-box button{
+    float: none;
+    height: 30px;
+}
+
+.panel-three {
+    background-color: #FFFFFF;
+}
+
+.panel-three .img-box {
+    width: 100%;
+    height: 340px;
+    padding: 15px 15px;
+    position: relative;
+    background-color: #E4F3F7;
+}
+
+.panel-three img {
+    float: left;
+    margin: 30px 15px 0 0px;
+}
+
+.hint-three {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: #666666;
+    font-size: 1.4rem;
+}
+
+.hint-four {
+    font-size: 1.6rem;
+    color: #1C8C80;
+    margin-right: 20px;
+}
+
+.panel-three .btn-box {
+    text-align: right;
+}
