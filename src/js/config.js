@@ -4,6 +4,8 @@
 window.FileServer = "http://7xpwjy.com1.z0.glb.clouddn.com/";
 // 后端jsonapi代理
 window.BackendUrl = "http://chat.tfedu.net:3030";
+// 后端tomcat服务
+window.TomcatUrl = "http://chat.tfedu.net:8080";
 // 头像服务
 window.AvatarServer =  "http://yun.tfedu.net/";
 // 批注服务 

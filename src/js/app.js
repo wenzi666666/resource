@@ -2,16 +2,16 @@
  * 主入口文件
  * 核心模块 引入
  * 定义基本对api请求的处理
- */
+ */ 	
 (function() {
 	//依赖的模块 注入
 	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'tmp', 'treeControl']
 	
 	angular.module('webApp', module)
-	//初始化
-	// .run(['', function() {
-
-	// }])
+//	//初始化
+//	 .run(function($http){
+//	     $http.defaults.headers.common['Access-Control-Allow-Headers'] = "SM_USER";
+//	})
 	.config(['$httpProvider', '$urlRouterProvider', '$locationProvider',function($httpProvider, $urlRouterProvider, $locationProvider) {
 		//默认登陆页 认证成功后默认动态页
 //		if(window.localStorage.getItem("credentials")) 
@@ -26,12 +26,21 @@
 		$httpProvider.interceptors.push('CacheInterceptor');
 
 		//设置请求头格式
-		$httpProvider.defaults.useXDomain = true;
-		$httpProvider.defaults.withCredentials = false;
-		delete $httpProvider.defaults.headers.common['X-Requested-With'];
+//		$httpProvider.defaults.useXDomain = true;
+//		delete $httpProvider.defaults.headers.common['X-Requested-With'];		
+//		$httpProvider.defaults.withCredentials = false;
+		
 
+//		$httpProvider.defaults.headers.put['SM_USER'] = 'testsss';
+//		$httpProvider.defaults.headers.post['SM_USER'] = 'testsss';
+//		$httpProvider.defaults.headers.common['sm_user'] = 'testsss';
+		
+		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 		$httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
 		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+//		console.log($httpProvider.defaults.headers)
+		
 		// Override $http service's default transformRequest
 		$httpProvider.defaults.transformRequest = [function(data) {
 			/**
