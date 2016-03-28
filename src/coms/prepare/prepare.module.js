@@ -58,6 +58,9 @@
 				
 			    $scope.switchList = true;
 			    
+			     $scope.maxSize = 3;
+				$scope.bigTotalItems = 175;
+				$scope.bigCurrentPage = 1;
 			    
 			    // 备课夹 临时数据
 			    $scope.switch = function(index){
