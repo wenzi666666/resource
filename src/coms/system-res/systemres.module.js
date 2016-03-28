@@ -77,6 +77,10 @@
 			    $scope.switchList = function(list){
 			    	$scope.isList = list;
 			    }
+			    
+  			   $scope.maxSize = 3;
+				$scope.bigTotalItems = 175;
+				$scope.bigCurrentPage = 1;
 				
 			}
 		])
