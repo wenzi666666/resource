@@ -1,13 +1,16 @@
-﻿<div class="container" id="prepare-container">
-	<!--header导航-->
-	<div class="second-banner">
+﻿<!--header导航-->
+<div class="second-banner">
+	<div class="container" style="position: relative;">
 		<img src="assets/img/prepare/prepare-banner.png" />
 		<span class="head-title">备课夹</span>
-		<button class="btn btn-primary new-prepare">新建</button>
+		<button class="btn btn-success new-prepare">新建</button>
 	</div>
+</div>
+<div class="empty-nav empty-nav-custom"></div>
+<div class="container" id="prepare-container">
 	<div class="clearfix"></div>
 	<div data-ng-include="'/coms/layout/views/res/res-header.html'"></div>
-	
+
 	<!--带目录显示-->
 	<!--左侧目录-->
 	<div class="col-md-3 catalog" ng-show="!VM.isList">
@@ -16,11 +19,11 @@
 			<div class="catalog-tip"><img src="assets/img/catalog/catalog-tip.png"></div>
 			<div class="catalog-tree" data-ng-include="'/coms/tree/views/tree.html'"></div>
 		</div>
-		
+
 	</div>
 	<!--右侧资源列表-->
 	<div ng-show="!VM.isList" class="col-md-9" data-ng-include="'/coms/prepare/views/prepare-content.html'"></div>
-	
+
 	<!--不带目录显示-->
 	<div ng-show="VM.isList" data-ng-include="'/coms/prepare/views/prepare-content-list.html'"></div>
 </div>

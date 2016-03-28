@@ -16,7 +16,7 @@
 								controller: 'PrepareController'
 							},
 							'header@': {
-								templateUrl: '/coms/layout/header/header2.html',
+								templateUrl: '/coms/layout/header/header3.html',
 								controller: 'LayoutController'
 							},
 							'footer@': {
