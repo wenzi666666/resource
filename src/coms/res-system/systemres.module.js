@@ -12,7 +12,7 @@
 						url: '/systemres',
 						views: {
 							'content@': {
-								templateUrl: '/coms/system-res/views/systemres.html',
+								templateUrl: '/coms/res-system/views/systemres.html',
 								controller: 'SystemResController'
 							},
 							'header@': {

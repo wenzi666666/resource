@@ -29,4 +29,6 @@
     ApplicationConfiguration.registerModule('webApp.coms.message');
     // 个人设置
     ApplicationConfiguration.registerModule('webApp.coms.settings');
+    // 资源定制
+    ApplicationConfiguration.registerModule('webApp.coms.customres');
 }());
