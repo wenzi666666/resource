@@ -31,4 +31,6 @@
     ApplicationConfiguration.registerModule('webApp.coms.settings');
     // 资源定制
     ApplicationConfiguration.registerModule('webApp.coms.customres');
+     // 在线授课
+    ApplicationConfiguration.registerModule('webApp.coms.onlineres');
 }());

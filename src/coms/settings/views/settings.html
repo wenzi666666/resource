@@ -1,3 +1,180 @@
-﻿<div class="container" id="settings-container">
-	个人设置页面
+﻿<div class="avatar-box" ng-controller="avatarSettingController">
+	    <script type="text/ng-template" id="avatar.html">
+	        <div class="modal-body avatar-modal-body">
+	            <div class="nav nav-tabs avatar-tabs" role="tablist">
+	            	<ul>
+	            		<!--<img class="tab-active" src="../../../assets/img/settings/tab_active.png">-->
+	            		<li role="presentation" class="active"><a href="#system-avatar" aria-controls="system-avatar" role="tab" data-toggle="tab">系统头像</a></li>
+	            		<li role="presentation"><a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab">自定义头像</a></li>
+	            	</ul>
+	            </div>
+	            <div class="tab-content avatar-tab-content">
+	            	<div role="tabpanel" class="tab-pane active" id="system-avatar">
+	            		<ul>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<li><img src="../../../assets/img/settings/user_icon.png" /></li>
+	            			<div style="clear: both;"></div>
+	            		</ul>
+	            		<div class="button-group">
+		            		<button class="btn-general" ng-click="close()">确定</button>
+		    				<button class="btn-general" ng-click="close()">取消</button>
+		            	</div>
+	            	</div>
+	            	<div role="tabpanel" class="tab-pane" id="self-avatar">
+	            		<div class="self-avatar-panel panel-one" ng-show="panelOneShow">
+	            			<ul>
+	            				<li class="btn-choose-avatar"><img src="../../../assets/img/settings/choose_avatar.png" ng-click="showPanel(2)"></li>
+	            				<li class="btn-photo-avatar"><img src="../../../assets/img/settings/photo_avatar.png" ng-click="showPanel(2)"></li>
+	            			</ul>
+	            		</div>
+	            		<div class="self-avatar-panel panel-two" ng-show="panelTwoShow">
+	            			<div class="panel-two-left">
+	            				<img src="../../../assets/img/settings/user_icon_slg.png" />
+	            			</div>
+	            			<div class="panel-two-right">
+	            				<img src="../../../assets/img/settings/img_size_line.png" />
+	            				<img src="../../../assets/img/settings/img_size_btn.png"  id="btn-change-size"/>
+	            				<div class="btn-box">
+	            					<button class="btn-general" ng-click="showPanel(1)">重选</button>
+		    						<button class="btn-general" ng-click="showPanel(3)">确定</button>
+	            				</div>
+	            			</div>
+	            		</div>
+	            		<div class="self-avatar-panel panel-three" ng-show="panelThreeShow">
+	            			<div class="img-box">
+	            				<img src="../../../assets/img/settings/user_icon_lg.png" />
+		            			<img src="../../../assets/img/settings/user_icon_md.png" />
+		            			<img src="../../../assets/img/settings/user_icon_sm.png" />
+	            			</div>
+	            			<span class="hint-three">以上是您头像的三种尺寸</span>
+	            			<div class="btn-box">
+	            				<span class="hint-four">上传成功！</span>
+	            				<button class="btn-general" ng-click="close()">完成</button>
+	            			</div>
+	            		</div>
+	            	</div>
+	            </div>
+	        </div>
+	        <div class="modal-footer"></div>
+	    </script>
+</div>
+
+<div class="container" id="settings-container">
+	<div class="settings-main">
+		<div class="tabs">
+	  		<ul class="nav nav-tabs" role="tablist">
+	    		<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><img class="info-icon" src="../../../assets/img/settings/info_icon.png">基本信息</a></li>
+	    		<li role="presentation"><a href="#passwd" aria-controls="passwd" role="tab" data-toggle="tab"><img class="info-icon" src="../../../assets/img/settings/passwd_icon.png">修改密码</a></li>
+	  		</ul>
+		</div>
+		<div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="info">
+		    	<div class="tab-content-body">
+		    		<div class="main-left">
+		    			<img class="user-avatar" src="../assets/img/settings/user_icon.png">
+	    				<button class="btn-general btn-change-avatar" ng-click="changeAvatar()">更换头像</button>
+	    				<span class="hint-one">仅支持JPG、GIF、PNG图片文件；且小于2M</span>
+		    		</div>
+		    		<div class="main-right">
+		    			<div class="user-info">
+		    				<span class="info-label">用户名：</span>
+		    				<span class="label-content">呼呼</span>
+		    			</div>
+		    			<div class="user-info">
+		    				<span class="info-label">学校名称：</span>
+		    				<span class="label-content">北京市海淀区北洼路中学</span>
+		    			</div>
+		    			<div class="user-info">
+		    				<form class="user-info-form">
+		    					<span class="info-label">真实姓名：</span>
+		    					<input type="text" value="圈圈" id="truename" class="user-info-input true-name-input"> 
+		    					<span class="hint-one">4-20个中文字符(中文占两个字符)，支持中英文</span>
+		    				</form>
+		    			</div>
+		    			<div class="user-info">
+		    				<form class="user-info-form">
+		    					<span class="info-label">修改性别：</span>
+		    					<input type="radio" value="male" id="male"> 
+		    					<label for="male">男</label>
+		    					<input type="radio" value="female" id="female"> 
+		    					<label for="female">女</label>
+		    				</form>
+		    			</div>
+		    			<div class="user-info">
+		    				<span class="info-label">修改学段：</span>
+		    				<ul class="user-term">
+		    					<li class="active">小学</li>
+		    					<li>初中</li>
+		    					<li>高中</li>
+		    				</ul>
+		    			</div>
+		    			<div class="user-info">
+		    				<span class="info-label">修改学科：</span>
+		    				<ul class="user-subject">
+		    					<li>语文</li>
+		    					<li>数学</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    					<li>英语</li>
+		    				</ul>
+		    			</div>
+		    		</div>
+		    		<div class="clear-float"></div>
+		    	</div>
+		    	<div class="tab-content-footer">
+		    		<button class="btn-general">储存</button>
+		    		<button class="btn-general">取消</button>
+		    	</div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="passwd">
+		    	<div class="tab-content-body">
+		    		<div class="main-body">
+		    			<div class="user-info">
+		    				<form class="user-info-form">
+		    					<span class="info-label">旧密码：</span>
+		    					<input type="text" value="" class="user-info-input passwd-input"> 
+		    				</form>
+		    			</div>
+		    			<div class="user-info">
+		    				<form class="user-info-form">
+		    					<span class="info-label">新密码：</span>
+		    					<input type="text" value="" class="user-info-input passwd-input">
+		    					<label class="hint-one hint-two">建议使用英文字母加数字或符号的混合密码。</label>
+		    				</form>
+		    					
+		    			</div>
+		    			<div class="user-info">
+		    				<form class="user-info-form">
+		    					<span class="info-label">再次确认：</span>
+		    					<input type="text" value="" class="user-info-input passwd-input">
+		    				</form>
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="tab-content-footer">
+		    		<button class="btn-general">确定</button>
+		    		<button class="btn-general">重置</button>
+		    	</div>
+		    </div>
+		</div>
+	</div>
 </div>
