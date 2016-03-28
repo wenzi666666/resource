@@ -39,6 +39,21 @@
 				</div>
 				<div class="cen-right-down">
 					<h2 class="cen-h2">资源引用列表</h2>
+					<div class="type-select-box">
+					  	<select>
+							<option>全部</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+							<option>多媒体</option>
+						</select>
+					</div>
 					<div class="resource-box">
 						<div class="box-title">
 							<div class="row">
@@ -68,6 +83,14 @@
 									</div>
 								</li>
 							</ul>
+						</div>
+						<div class="coms-pagination">
+						 	<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+							<div class="page-go">
+								<span class="page-text">转到</span>
+								<input class="page-input"/>
+								<span class="page-go-btn">Go</span>
+							</div>
 						</div>
 					</div>
 				</div>
