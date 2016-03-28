@@ -4,11 +4,19 @@
 			<div class="slide-arrow slide-pre"><i class="icon-chevron-left"></i></div>
 			<div class="slide-arrow slide-next"><i class="icon-chevron-right"></i></div>
 			<div class="slide-content-inner">
-				<img src="assets/img/online/tmp.png"/>
+				<div id="res-slide-content"><img src="assets/img/online/tmp.png"/></div>
 			</div>
 		</div>
 		<div class="slide-tools">
-			
+			<div class="slide-arrow2 slide-pre"><i class="icon-chevron-left"></i></div>
+			<div class="slide-arrow2 slide-next"><i class="icon-chevron-right"></i></div>
+			<ul class="slide-thumbnail">
+				<li ng-repeat="item in slides" ng-click="selectRes($index)">
+					<img src="assets/img/online/tmp.png"/>
+					
+					<span>{{item.title}}</span>
+				</li>
+			</ul>
 		</div>
 	</div>
 
