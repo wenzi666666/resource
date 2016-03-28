@@ -67,7 +67,7 @@
 					  $('#res-slide-content').html(tpl);
 					  break;
 					default:
-					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' ></iframe>"
+					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' style='border:0'></iframe>"
 					   $('#res-slide-content').html(tpl);
 					}
 				}
