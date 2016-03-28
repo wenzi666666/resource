@@ -53,9 +53,9 @@
 					type:'media',
 					src: "http://m.tfedu.net/book/ereader/"
 				},{
-					title: "荷塘月色-多媒体",
-					type:'img',
-					src: "http://7xpwjy.com1.z0.glb.clouddn.com/780700105_20160224113433.png"
+					title: "荷塘月色-案例",
+					type:'html',
+					src: "http://101.200.190.27:8099/down/dec/00ae9e79-a560-4e23-bf01-609c711666ec-274/index.htm"
 				}]
 				
 				$scope.selectRes = function(index) {
@@ -66,17 +66,9 @@
 					  tpl = "<img src='" +$scope.slides[index].src + "' />"
 					  $('#res-slide-content').html(tpl);
 					  break;
-					case "pdf":
-					  tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' ></iframe>"
-					  $('#res-slide-content').html(tpl);
-					  break;
-					case "media":
-					  tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' ></iframe>"
-					  $('#res-slide-content').html(tpl);
-					  break;
 					default:
-					   tpl = "<img src='" +$scope.slides[0].src + "' />"
-					  $('#res-slide-content').html(tpl);
+					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' ></iframe>"
+					   $('#res-slide-content').html(tpl);
 					}
 				}
 			}
