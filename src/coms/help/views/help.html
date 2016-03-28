@@ -1,3 +1,172 @@
-﻿<div class="container" id="help-container">
-	help页面
+﻿<div class="empty-nav"></div>
+<div class="container" id="help-container">
+
+	<ul class="help_nav">
+		<li ng-class="VM.help" ng-click="switchNav('help')" >
+				<i class="help_icon"></i>
+				<span>使用帮助</span>
+		</li>
+		<li ng-class="VM.service" ng-click="switchNav('service')">
+			<i class="service_icon"></i>
+			<span>客户服务</span>
+		</li>
+	</ul>
+	<div class="help_right" >
+		<ul class="help_list" ng-show="VM.nav">
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>1.如何迅速查找需要的资源</span>
+				</div>
+				<div class="help_content">
+					<p>方式1：在各个资源库中，通过教材目录、资源类型、资源格式筛选；</p>
+					<p>方式2：跨库检索，通过资源列表上方的搜索工具，输入关键字后，可以在我的资源、基础资源、共享资源、校本资源、区本资源中实现跨库检索。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>2.找到资源后，如何下载资源</span>
+				</div>
+				<div class="help_content">
+					<p>搜索到合适的资源时，您可以下载资源到本地使用：</p>
+					<p>方式1：选中需要下载的资源后，点击按钮，按提示逐步完成操作即可；</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					<p>方式2：在所需资源浏览页面，点击 按钮，按提示完成下载。</p>
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>3.如何收藏保存平台资源</span>
+				</div>
+				<div class="help_content">
+					<p>平台资源包括：基础资源、共享资源、校本资源、区本资源，搜索到有价值的资源后，您可以“收藏”此资源：</p>
+					<p>方式1：在资源列表中，选中想要收藏的资源，点击 按钮，按步骤设置资源收藏的类型、教学目录即可。</p>
+					
+					<p>方式2：勾选想要收藏的资源后（可多选），点击列表下方的 收藏按钮，实现批量收藏。</p>
+					<p>方式3：在所需资源浏览页面，点击收藏 按钮，按提示完成收藏。</p>
+					<p>收藏完成后，您可以在“我的资源——我的收藏”页面内找到所有收藏的资源。</p>
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>4.如何为资源打分、评价</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>5.如何上传本地资源</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>6.如何添加网络资源</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>7.如何管理“我的资源”</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>8.怎么让其他老师看到我的资源</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>9.怎么参与建设校本/区本资源库</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+
+			</li>
+			<li>
+				<div class="help_title">
+					<i class="circle"></i><span>10.如何更改资源邀请答复设置</span>
+				</div>
+				<div class="help_content">
+					<p>在资源浏览页面，点击星星，即可为当前资源打分，最高为5分。</p>
+					<p>在输入框中输入评论内容后，点击右下角的“发表”，即可完成对该资源的评论。</p>
+					<div class="img_box">
+						<img src="../../../assets/img/image001.png" />
+					</div>
+					
+				</div>
+
+			</li>
+		</ul>
+		<div class="service_list" ng-hide="VM.nav">
+		
+				<p>
+					<span class="p-lab text-dark">在线客服：</span>
+					<span><i class="glyphicon glyphicon-headphones"></i>客户服务01 QQ：924305138</span>
+				</p>
+				<p>
+					<span class="vsb-h p-lab">在线客服：</span>
+					<span class=""><i class="glyphicon glyphicon-headphones"></i>客户服务03 QQ：1335547592</span>
+				</p>
+				<p class="text-dark"><span class="p-lab vsb-h">在线客服：</span>（服务时间：周一至周五8：30-17：30） </p>
+				<p><span class="p-lab text-dark">咨询电话：</span><span>400-699-8396</span></p>
+				<p><span class="p-lab text-dark">电子邮箱：</span><span >kefu@tfedu.net</span></p>
+				<p><span class="p-lab text-dark">地址：</span><span>北京市海淀区王庄路1号清华同方科技广场A座17层</span></p>
+				<p><span class="p-lab text-dark">邮编：</span><span>100084</span></p>
+		
+		</div>
+	</div>
 </div>

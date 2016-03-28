@@ -4,19 +4,19 @@
 (function() {
 	'use strict';
 	// Module configuration
-	angular.module('webApp.coms.previewres')
+	angular.module('webApp.coms.schoolres')
 		.config(['$stateProvider',
 			function($stateProvider) {
 				$stateProvider
-					.state('previewres', {
-						url: '/previewres',
+					.state('schoolres', {
+						url: '/schoolres',
 						views: {
 							'content@': {
-								templateUrl: '/coms/preview-res/views/previewres.html',
-								controller: 'PreviewResController'
+								templateUrl: '/coms/res-school/views/schoolres.html',
+								controller: 'SchoolResController'
 							},
 							'header@': {
-								templateUrl: '/coms/layout/header/header2.html',
+								templateUrl: '/coms/layout/header/header.html',
 								controller: 'LayoutController'
 							},
 							'footer@': {
@@ -26,7 +26,7 @@
 					})
 			}
 		])
-		.factory('PreviewRes', ['$resource', 'Constants',
+		.factory('SchoolRes', ['$resource', 'Constants',
 			function($resource, Constants) {
 				return $resource('', {}, {
 					total: {
@@ -36,7 +36,7 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 
+		.controller("SchoolResController", ['$scope', '$stateParams', '$state', '$location', 
 			function($scope, $stateParams, $state, $location) {
 				// 筛选 主controller 
 				// 变量共享
@@ -59,22 +59,6 @@
 			    	$scope.isList = list;
 			    }
 				
-				// 轮播
-				  var slides = $scope.slides = [];
-				  var currIndex = 0;
-				
-				  $scope.addSlide = function() {
-				    var newWidth = 600 + slides.length + 1;
-				    slides.push({
-				      image: 'http://lorempixel.com/' + newWidth + '/300',
-				      text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
-				      id: currIndex++
-				    });
-				  };
-				  
-				   $scope.addSlide();
-				   $scope.addSlide();
-				   $scope.addSlide();
 			}
 		])
 }());

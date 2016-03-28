@@ -36,12 +36,41 @@
 				})
 			}
 		])
-		.controller("HelpController", ['$scope', '$stateParams', '$state', '$location', 
+		.controller("HelpController", ['$scope', '$stateParams', '$state', '$location',
 			function($scope, $stateParams, $state, $location) {
 				// 变量共享
 				$scope.VM = {};
-
+				// 切换导航栏
+				$scope.VM.nav=true;
+				$scope.VM.help="active";
+				$scope.VM.service="";
+				$scope.switchNav = function(obj) {
+					if(obj=="help")
+					{
+						$scope.VM.nav = true;
+						$scope.VM.help="active";
+						$scope.VM.service="";
+						
+					}else
+					{
+						$scope.VM.nav = false;
+						$scope.VM.service="active";
+						$scope.VM.help="";
+					}
+						
+				}
 				
+				$(".help_list .help_title").on("click",function(){
+					if($(this).next().css("display")=="none")
+					{
+						$(".help_list .help_content").hide();
+						$(this).next().slideDown(300);
+					}else{
+						$(this).next().slideUp(300);
+					}
+					
+				});
+
 			}
 		])
 }());

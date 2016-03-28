@@ -12,7 +12,7 @@
 						url: '/systemres',
 						views: {
 							'content@': {
-								templateUrl: '/coms/system-res/views/systemres.html',
+								templateUrl: '/coms/res-system/views/systemres.html',
 								controller: 'SystemResController'
 							},
 							'header@': {
@@ -26,22 +26,41 @@
 					})
 			}
 		])
-		.factory('SystemRes', ['$resource', 'Constants',
-			function($resource, Constants) {
+		.factory('SystemRes', ['$resource',
+			function($resource) {
 				return $resource('', {}, {
-					total: {
-						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
-					}
+					total: {method: "GET",url: window.BackendUrl + "/api/discuss/home/total"}
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 
-			function($scope, $stateParams, $state, $location) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http',
+			function($scope, $stateParams, $state, $location,SystemRes,$http) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
 				
+//				SystemRes.total({
+//					
+//				}, function(data, status){
+//					console.log(data)
+//				});
+//				$http.get("http://chat.tfedu.net:8080/discuss/login").then(function(data){
+//					console.log(data)
+//				})
+				
+				$.ajax({
+					method: "get",
+//					url:"http://chat.tfedu.net:8080/discuss/home/total",
+					url:"http://chat.tfedu.net:8080/discuss/userMessage/draftsNumber",
+					dataType: "json",
+					beforeSend: function(xhr){
+						console.log(xhr)
+						xhr.setRequestHeader("SM_USER", "dzhangliangang")
+					},
+					success: function(data){
+						console.log(data)
+					}
+				})
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
@@ -58,6 +77,10 @@
 			    $scope.switchList = function(list){
 			    	$scope.isList = list;
 			    }
+			    
+  			   $scope.maxSize = 3;
+				$scope.bigTotalItems = 175;
+				$scope.bigCurrentPage = 1;
 				
 			}
 		])

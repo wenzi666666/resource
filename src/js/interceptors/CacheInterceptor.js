@@ -23,6 +23,12 @@
                             if(localStorage.getItem('auth_token'))
                                 config.url = config.url + "?user=" + JSON.parse(localStorage.getItem('auth_token')).user.username;
                         }
+            
+//                       config.headers['SM_USER'] = "frank";
+//                       if (angular.isDefined(config.headers)) {
+//					        config.headers['Request-Header'] = "frank";
+//					      }
+//					                        config.headers['aaaaaaa'] = "frank";
 
                         return config;
                     }
