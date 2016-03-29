@@ -34,5 +34,5 @@
      // 在线授课
     ApplicationConfiguration.registerModule('webApp.coms.onlineres');
     //个人中心
-    ApplicationConfiguration.registerModule('webApp.coms.onlineres');
+    ApplicationConfiguration.registerModule('webApp.coms.personalcenter');
 }());
