@@ -1,44 +1,51 @@
 <div ng-controller="personalCenterController">
 	<div class="container" id="personal-center-container">
 		<div class="row">
-			<div class="col-md-4 cen-left">
+			<div class="col-md-4 col-sm-12 cen-left">
 				<div class="cen-info">
 					<div class="user-avatar">
-						<img src="../../../assets/img/settings/user_icon_lg.png">
+						<img src="../../../assets/img/settings/user_icon_md.png">
 						<span class="user-name">呼呼</span>
 					</div>
 					<div class="user-info">
-						<span><img src="../../../assets/img/loc.png" /><i>高中</i>|<i>s数学老师</i>|<img src="../../../assets/img/female.png" /></span>
-						<span><img src="../../../assets/img/tie.png" />知好乐学校</span>
+						<span><img src="../../../assets/img/loc.png" /><i>高中</i>|<i>数学老师</i>|<img class="user-info-icon" src="../../../assets/img/female.png" /></span>
+						<span class="user-school"><img class="user-info-icon" src="../../../assets/img/tie.png" />知好乐学校</span>
 						<button class="btn-general btn-pink">上传资源</button>
 					</div>
 				</div>
 				<div class="btn-group">
-					<button class="btn-general">我的备课</button>
-					<button class="btn-general btn-light">我的上传</button>
-					<button class="btn-general btn-white">我的下载</button>
-					<button class="btn-general btn-white">我的评论</button>
-					<button class="btn-general btn-white">最近浏览</button>
+					<ul>
+						<li><button class="btn-general btn-heavy">我的备课</button></li>
+						<li><button class="btn-general btn-light">我的上传</button></li>
+						<li><button class="btn-general btn-white">我的下载</button></li>
+						<li><button class="btn-general btn-white">我的评论</button></li>
+						<li><button class="btn-general btn-white">最近浏览</button></li>
+					</ul>
+					
 				</div>
 			</div>
 			<div class="col-md-8 cen-right">
 				<div class="cen-right-up">
-					<h2 class="cen-h2">备课统计</h1>
+					<h3 class="cen-h2">备课统计</h3>
 					<div class="left-arrow">
+						<span></span><img src="../../../assets/img/left_arrow.png" />
 					</div>
 					<div class="statistic-content">
 						<p>必修一已备完28节课，共32个备课夹，256条资源，还有22节课要备。</p>
 						<div class="statistic-box">
 							<span>已备课：52%</span>
-							<canvas></canvas>
+							<img src="../../../assets/img/statistic.png"/>
 							<span>未备课：48%</span>
 						</div>
 						<p>必修一</p>
 					</div>
-					<div class="right-arrow"></div>
+					<div class="right-arrow">
+						<span></span>
+						<img src="../../../assets/img/right_arrow.png"/>
+					</div>
 				</div>
 				<div class="cen-right-down">
-					<h2 class="cen-h2">资源引用列表</h2>
+					<h3 class="cen-h2">资源引用列表</h3>
 					<div class="type-select-box">
 					  	<select>
 							<option>全部</option>
@@ -57,41 +64,92 @@
 					<div class="resource-box">
 						<div class="box-title">
 							<div class="row">
-								<div class="col-md-8">
+								<div class="col-md-8 col-sm-8">
 									资源名称
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-2 col-sm-2">
 									资源类型
 								</div>
-								<div class="col-md-2">
+								<div class="col-md-2 col-sm-2">
 									资源日期
 								</div>
 							</div>
 						</div>
 						<div class="resource-list">
 							<ul class="row">
-								<li>
-									<div class="col-md-8">
+								<li class="active">
+									<div class="col-md-8 col-sm-8">
 										<img src="../../../assets/img/resource_img.png" />
 										<span class="resource-title">荷塘月色</span>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-2 col-sm-2">
 										<span class="resource-type">动画</span>
 									</div>
-									<div class="col-md-2">
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-date">2016-3-28</span>
+									</div>
+								</li>
+								<li>
+									<div class="col-md-8 col-sm-8">
+										<img src="../../../assets/img/resource_img.png" />
+										<span class="resource-title">荷塘月色</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-type">动画</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-date">2016-3-28</span>
+									</div>
+								</li>
+								<li>
+									<div class="col-md-8 col-sm-8">
+										<img src="../../../assets/img/resource_img.png" />
+										<span class="resource-title">荷塘月色</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-type">动画</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-date">2016-3-28</span>
+									</div>
+								</li>
+								<li>
+									<div class="col-md-8 col-sm-8">
+										<img src="../../../assets/img/resource_img.png" />
+										<span class="resource-title">荷塘月色</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-type">动画</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-date">2016-3-28</span>
+									</div>
+								</li>
+								<li>
+									<div class="col-md-8 col-sm-8">
+										<img src="../../../assets/img/resource_img.png" />
+										<span class="resource-title">荷塘月色</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
+										<span class="resource-type">动画</span>
+									</div>
+									<div class="col-md-2 col-sm-2">
 										<span class="resource-date">2016-3-28</span>
 									</div>
 								</li>
 							</ul>
 						</div>
-						<div class="coms-pagination">
-						 	<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
-							<div class="page-go">
-								<span class="page-text">转到</span>
-								<input class="page-input"/>
-								<span class="page-go-btn">Go</span>
+						<div class="pagination-box">
+							<div class="coms-pagination">
+							 	<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+								<div class="page-go">
+									<span class="page-text">转到</span>
+									<input class="page-input"/>
+									<span class="page-go-btn">Go</span>
+								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
