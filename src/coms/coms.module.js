@@ -35,4 +35,6 @@
     ApplicationConfiguration.registerModule('webApp.coms.onlineres');
     //个人中心
     ApplicationConfiguration.registerModule('webApp.coms.personalcenter');
+    //搜索页
+    ApplicationConfiguration.registerModule('webApp.coms.search');
 }());
