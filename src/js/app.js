@@ -14,10 +14,12 @@
 //	})
 	.config(['$httpProvider', '$urlRouterProvider', '$locationProvider',function($httpProvider, $urlRouterProvider, $locationProvider) {
 		//默认登陆页 认证成功后默认动态页
-//		if(window.localStorage.getItem("credentials")) 
-//			$urlRouterProvider.otherwise('/nav/info');
-//		else
+		if(window.localStorage.getItem("credentialsToken")) {
+			console.log(window.localStorage.getItem("credentialsToken"))
 			$urlRouterProvider.otherwise('/systemres');
+		}
+		else
+			window.location.href= "login.html";
 			
 		// url格式
 		 $locationProvider.html5Mode(true).hashPrefix('!');

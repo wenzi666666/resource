@@ -29,7 +29,7 @@
 		.factory('SystemRes', ['$resource',
 			function($resource) {
 				return $resource('', {}, {
-					total: {method: "GET",url: window.BackendUrl + "/api/discuss/home/total"}
+					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/390320126"}
 				})
 			}
 		])
@@ -39,6 +39,10 @@
 				// 变量共享
 				$scope.VM = {};
 				
+				SystemRes.getUser({}, function(data){
+					
+				  console.log(data)
+				})
 //				SystemRes.total({
 //					
 //				}, function(data, status){

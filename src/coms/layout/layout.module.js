@@ -17,7 +17,11 @@
 		])
 		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', 
 			function($scope, $stateParams, $state, $location) {
-				
+				$scope.logout = function() {
+					localStorage.removeItem("auth_user");
+					localStorage.removeItem("credentialsToken");
+					window.location.href= "login.html";
+				}
 			}
 		])
 }());

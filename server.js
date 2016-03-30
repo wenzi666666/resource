@@ -12,6 +12,7 @@ app.use(history());
 app.use(compression())
 //文件内容
 app.use(serveStatic('dist', {'index': ['index.html']}));
+app.use(serveStatic('dist/modules/login', {'index': ['login.html']}));
 //服务
 app.listen(port,function(){
 	console.log('Server on http://localhost:%s', port);

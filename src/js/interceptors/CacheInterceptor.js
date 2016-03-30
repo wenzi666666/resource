@@ -16,12 +16,12 @@
                     request: function requestCallback(config) {
                     	
 						// api打头的都加user做处理
-                        if(/\/api\//.test(config.url)){
-                            var separator = config.url.indexOf('?') === -1 ? '?' : '&';
+                        if(/\/resapi\//.test(config.url)){
+//                          var separator = config.url.indexOf('?') === -1 ? '?' : '&';
 //                          config.url = config.url+separator+'noCache=' + new Date().getTime();
                             //让所有api带上 user请求头
-                            if(localStorage.getItem('auth_token'))
-                                config.url = config.url + "?user=" + JSON.parse(localStorage.getItem('auth_token')).user.username;
+                            if(localStorage.getItem('credentialsToken'))
+                                config.url = config.url + "?token=" + localStorage.getItem('credentialsToken');
                         }
             
 //                       config.headers['SM_USER'] = "frank";
