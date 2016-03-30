@@ -28,21 +28,25 @@
 		])
 		.factory('SystemRes', ['$resource',
 			function($resource) {
-				return $resource('', {}, {
-					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/390320126"}
+				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
+                    userid: '@_id'
+                },{
+					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"}
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http',
-			function($scope, $stateParams, $state, $location,SystemRes,$http) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http','$localStorage',
+			function($scope, $stateParams, $state, $location,SystemRes,$http,$localStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
 				
-				SystemRes.getUser({}, function(data){
-					
-				  console.log(data)
-				})
+//				SystemRes.get({
+//					userid: JSON.parse(localStorage.getItem("auth_user")).userId
+//				}, function(data){
+//					$localStorage.authUser = data.data;
+//					localStorage.removeItem("auth_user");
+//				})
 //				SystemRes.total({
 //					
 //				}, function(data, status){
@@ -52,19 +56,19 @@
 //					console.log(data)
 //				})
 				
-				$.ajax({
-					method: "get",
-//					url:"http://chat.tfedu.net:8080/discuss/home/total",
-					url:"http://chat.tfedu.net:8080/discuss/userMessage/draftsNumber",
-					dataType: "json",
-					beforeSend: function(xhr){
-						console.log(xhr)
-						xhr.setRequestHeader("SM_USER", "dzhangliangang")
-					},
-					success: function(data){
-						console.log(data)
-					}
-				})
+//				$.ajax({
+//					method: "get",
+////					url:"http://chat.tfedu.net:8080/discuss/home/total",
+//					url:"http://chat.tfedu.net:8080/discuss/userMessage/draftsNumber",
+//					dataType: "json",
+//					beforeSend: function(xhr){
+//						console.log(xhr)
+//						xhr.setRequestHeader("SM_USER", "dzhangliangang")
+//					},
+//					success: function(data){
+//						console.log(data)
+//					}
+//				})
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
