@@ -55,8 +55,7 @@ $(function(){
 			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
 			data: { user_name: $('input[name=username]').val(), 
 				  	user_pwd: $('input[name=passwd]').val()
-				 },
-			dataType:"json",
+		}, 
 			success: function(data){
 				if(data.code == "OK") {
 					window.localStorage.setItem("credentialsToken", data.data.token);
@@ -65,9 +64,12 @@ $(function(){
 				}else{
 					alert("输入不正确")
 				}
-				
-				
+			},
+			error: function(data){
+				console.log(data.error)
 			}
+			
 		})
+		console.log("login")
 	})
  });
