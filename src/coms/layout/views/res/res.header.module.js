@@ -4,7 +4,7 @@
 (function() {
 	'use strict';
 	//资源筛选头
-    ApplicationConfiguration.registerModule('webApp.coms.ResHeader');
+	ApplicationConfiguration.registerModule('webApp.coms.ResHeader');
 	angular.module('webApp.coms.ResHeader')
 		.factory('Res', ['$resource',
 			function($resource) {
@@ -40,11 +40,12 @@
 				$scope.initData = function() {
 
 				}
-				
-				//第一次进入 链式调用
+
+				//第一次进入 链式调用 
+				//读取 学段 学科 版本 和教材
 				Res.getTerms({}, function(data) {
-					if(data.code=="OK"){
-						console.log("学段：",data)
+					if (data.code == "OK") {
+						console.log("学段：", data)
 						$scope.VM.grade = data.data;
 						$scope.VM.currentGrade = $scope.VM.grade[0].name;
 						$scope.VM.currentGradeId = $scope.VM.grade[0].id;
@@ -57,113 +58,81 @@
 						termId: $scope.VM.grade[0].id
 					}, function(data) {
 						$scope.VM.subject = data.data;
-						console.log("学科：",data.data)
+						$scope.VM.currentSubject = $scope.VM.subject[0];
+						console.log("学科：", data.data)
 					}).$promise;
 				}).then(function(data) {
 					return Res.getEditions({
 						termId: $scope.VM.grade[0].id,
 						subjectId: $scope.VM.subject[0].id
 					}, function(data) {
-						console.log("版本：",data.data);
+						console.log("版本：", data.data);
 						$scope.VM.version = data.data;
+						$scope.VM.currentVersion = $scope.VM.version[0];
 					}).$promise;
 				}).then(function(data) {
 					return Res.getBooks({
-						pnodeId : $scope.VM.version[0].id
+						pnodeId: $scope.VM.version[0].id
 					}, function(data) {
-						console.log("books：",data.data);
-						$scope.VM.version = data.data;
+						console.log("books：", data.data);
+						$scope.VM.material = data.data;
 					}).$promise;
 				})
-					//
-					//				Res.getSubjects({
-					//					termId: 1
-					//				}, function(data) {
-					//					if (data.code == "OK") {
-					//						//						$scope.VM.grade = data.data;
-					//						//						$scope.VM.currentGrade = $scope.VM.grade[1].name;
-					//						console.log(data.data)
-					//					}
-					//				})
-					//
-					//				Res.getEditions({
-					//					termId: 1,
-					//					subjectId: 1
-					//				}, function(data) {
-					//					if (data.code == "OK") {
-					//						//						$scope.VM.grade = data.data;
-					//						//						$scope.VM.currentGrade = $scope.VM.grade[1].name;
-					//						console.log(data.data)
-					//					}
-					//				})
 
 				// 学段导航筛选
-//				$scope.VM.selectGrade = function($index) {
-//					Res.getSubjects({
-//							termId:
-//						}, function(data) {
-//							console.log(data)
-//						})
-//						.$promise.then(function(data) {
-//							return Res.getEditions({
-//								termId: 1
-//							}, function(data) {
-//								console.log(data)
-//							}).$promise;
-//						})
-//				}
-
-				$scope.test = Res.getTerms({});
-				$q.all([
-						$scope.test.$promise
-					])
-					.then(function(result) {
-						console.log(result);
-					})
-
-				var promises = [];
-				var defferGrade = $q.defer();
-				var defferSubject = $q.defer();
-
-				$timeout(function() {
-					defferGrade.resolve("hahaha");
-				}, 2000);
-				$timeout(function() {
-					defferSubject.resolve("oooo");
-				}, 2000);
-				promises.push(defferGrade.promise);
-				promises.push(defferSubject.promise);
-				$q.all(promises).then(function(data) {
-					console.log(data);
-				});
-
-				// 变量
-				//				$scope.VM.grade = ["小学","初中","高中"];
-				$scope.VM.subject = ["语文", "数学", "英语", "物理", "化学", "生物", "地理", "政治", "信息技术"];
-				$scope.VM.version = ["课标版", "北师大版本", "人教版", "鲁教版", "苏科版", "粤教版", "华东师大版本"];
-				$scope.VM.material = ["必修1", "必修2", "必修3", "必修4", "必修5", "必修6"];
-
-				//学段控制
-
 				$scope.VM.currentGradeSeclet = [];
-				$scope.VM.currentGradeSeclet[1] = true;
-				//			    $scope.VM.selectGrade = function(index){
-				//			    	$scope.VM.currentGrade = $scope.VM.grade[index].name;
-				//			    	//选中
-				//			    	_.each($scope.VM.grade,function(v,i){
-				//			    		$scope.VM.currentGradeSeclet[i] = false;
-				//			    	})
-				//			    	$scope.VM.currentGradeSeclet[index] = true;
-				//			    	
-				//			    	$scope.VM.currentVersionShow = false;
-				//					$scope.VM.currentMaterialShow = false;
-				//					
-				//			    }
+				$scope.VM.currentGradeSeclet[0] = true;
+				$scope.VM.selectGrade = function(i) {
+					$scope.VM.currentGrade = $scope.VM.grade[i].name;
+					$scope.VM.currentGradeId = $scope.VM.grade[i].id;
+					
+					//选中
+					_.each($scope.VM.grade, function(v, i) {
+						$scope.VM.currentGradeSeclet[i] = false;
+					})
+					$scope.VM.currentGradeSeclet[i] = true;
+					
+					//回归第一个
+					_.each($scope.VM.subject, function(v, i) {
+						$scope.VM.currentSubjectSeclet[i] = false;
+					})
+					$scope.VM.currentSubject = $scope.VM.subject[0];
+					$scope.VM.currentSubjectSeclet[0] = true;
+					
+					$scope.VM.currentSubjectSeclet[0] = true;
+					$scope.VM.currentVersionSeclet[0] = true;
+					$scope.VM.currentMaterialSeclet[0] = true;
+					
+					$scope.VM.currentVersionShow = false;
+					$scope.VM.currentMaterialShow = false;
+					
+					Res.getSubjects({
+						termId: $scope.VM.grade[i].id
+					}, function(data) {
+						$scope.VM.subject = data.data;
+
+					}).$promise.then(function(data) {
+						return Res.getEditions({
+							termId: $scope.VM.grade[i].id,
+							subjectId: $scope.VM.subject[0].id
+						}, function(data) {
+							$scope.VM.version = data.data;
+						}).$promise;
+					}).then(function(data) {
+						return Res.getBooks({
+							pnodeId: $scope.VM.version[0].id
+						}, function(data) {
+							console.log("books：", data.data);
+							$scope.VM.material = data.data;
+						}).$promise;
+					})
+				}
+
+
 
 				//学科控制
-				$scope.VM.currentSubject = $scope.VM.subject[0];
 				$scope.VM.currentSubjectSeclet = [];
-				$scope.VM.currentSubjectSeclet[0] = true
+				$scope.VM.currentSubjectSeclet[0] = true;
 				$scope.VM.selectSubject = function(index) {
 					$scope.VM.currentSubject = $scope.VM.subject[index];
 					//选中
@@ -177,14 +146,30 @@
 
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
+					
+					Res.getEditions({
+						termId: $scope.VM.currentGradeId,
+						subjectId: $scope.VM.subject[index].id
+					}, function(data) {
+						$scope.VM.version = data.data;
+						console.log("版本：", data.data);
+					}).$promise.then(function(data) {
+						return Res.getBooks({
+							pnodeId: $scope.VM.version[0]?$scope.VM.version[0].id:''
+						}, function(data) {
+							console.log("books：", data.data);
+							$scope.VM.material = data.data;
+						}).$promise;
+					})
 				}
 
 				// 版本
 				setTimeout(function() {
 					$('.res-material-content').eq(0).addClass('selected')
 				}, 100)
-				$scope.VM.currentVersion = $scope.VM.version[0];
 				$scope.VM.currentVersionTmpShow = true;
+				$scope.VM.currentVersionSeclet = [];
+				$scope.VM.currentVersionSeclet[0] = true;
 				$scope.VM.selectVersion = function(index) {
 					$scope.VM.currentVersion = $scope.VM.version[index];
 					$scope.VM.currentVersionShow = true;
@@ -195,12 +180,27 @@
 
 					//备课夹 视图切换 临时
 					$scope.VM.isList = false;
+					
+					Res.getBooks({
+						pnodeId: $scope.VM.version[index].id
+					}, function(data) {
+						console.log("books：", data.data);
+						$scope.VM.material = data.data;
+					})
 				}
 
 				// 教材
+				$scope.VM.currentMaterialSeclet = [];
+				$scope.VM.currentMaterialSeclet[0] = true
 				$scope.VM.selectMaterial = function(index) {
 					$scope.VM.currentMaterial = $scope.VM.material[index];
 					$scope.VM.currentMaterialShow = true;
+
+					//选中
+					_.each($scope.VM.material, function(v, i) {
+						$scope.VM.currentMaterialSeclet[i] = false;
+					})
+					$scope.VM.currentMaterialSeclet[index] = true;
 				}
 			}
 		])
