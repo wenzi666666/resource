@@ -26,18 +26,26 @@
 					})
 			}
 		])
-		.factory('Settings', ['$resource', 'Constants',
-			function($resource, Constants) {
-				return $resource('', {}, {
-					total: {
-						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
-					}
+		.factory('User', ['$resource',
+			function($resource) {
+				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
+                    userid: '@_id'
+                },{
+					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"}
 				})
 			}
 		])
-		.controller("SettingsController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 
-			function($scope, $stateParams, $state, $location, $uibModal) {
+		.controller("SettingsController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'User','$localStorage',
+			function($scope, $stateParams, $state, $location, $uibModal,User,$localStorage) {
+				//测试
+				User.get({
+					userid: $localStorage.authUser.userId
+				}, function(data){
+					console.log(data.data)
+				})
+				
+				
+				
 				// 变量共享
 				$scope.VM = {};
 				var test="test";

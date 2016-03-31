@@ -1,0 +1,94 @@
+﻿<div class="empty-nav">
+</div>
+<div class="container" id="search-container">
+	<div class="search_tools">
+		<div class="search_tools_inner">
+			<div class="select-nav-item">
+				<div class="menu-drop">
+					<div class="trigger">
+						<span class="select-current">{{VM.currentType}}</span>
+						<i class="icon-angle-down"></i>
+						<i class="icon-angle-up"></i>
+					</div>
+
+					<div class="menu-drop-main">
+						<ul class="menu-drop-list">
+							<li ng-repeat="type in VM.searchType track by $index" ng-class="VM.currentTypeSeclet[$index]?'selected':''" ng-click="VM.selectType($index)"><span>{{ type.type }}</span></li>
+						</ul>
+					</div>
+				</div>
+		</div>
+		<div class="search_box">
+			<input type="text" placeholder="请输入搜索内容" class="search_text" /><span class="search_btn">搜索</span>
+		</div>
+		<ul class="search_list">
+				<li ng-repeat="typeNum in VM.typeNums track by $index" ng-class="VM.currentTypeNum[$index]?'selected':''">{{typeNum.type+"("+typeNum.num+")"}}</li>
+				<!--<li ng-class="">全部</li>
+				<li>视频(1)</li>
+				<li>图片(2)</li>
+				<li>文本(3)</li>-->
+			</ul>
+	</div>
+
+   </div>
+
+	<div class="list_box">
+		<div class="res-list-main">
+			<ul class="res-ul-list">
+				<li class="res-list-item">
+					<input class="res-checkbox" type="checkbox">
+					<img class="res-list-thumb" src="../../../assets/img/search/tu.png">
+					<span class="res-list-info">
+					<label class="res-title">《触摸春天》生字学习</label><br>
+					<label class="res-type">类型: 动画</label>
+					<label class="res-size">大小：10M</label>
+					
+					<span class="star_box">
+						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
+						<label class="res-number">281浏览/5下载</label>
+					</span>
+					</span>
+					<span class="res-list-tools">
+					<add-to-cart-button class="res-select">移出备课夹</add-to-cart-button><br>
+					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
+				</span>
+				</li>
+				<li class="res-list-item">
+					<input class="res-checkbox" type="checkbox">
+					<img class="res-list-thumb" src="../../../assets/img/search/tu.png">
+					<span class="res-list-info">
+					<label class="res-title">《触摸春天》生字学习</label><br>
+					<label class="res-type">类型: 动画</label>
+					<label class="res-size">大小：10M</label>
+					<span class="star_box">
+						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
+						<label class="res-number">281浏览/5下载</label>
+					</span>
+					</span>
+					<span class="res-list-tools">
+					<add-to-cart-button class="res-select">移出备课夹</add-to-cart-button><br>
+					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
+				</span>
+				</li>
+				<li class="res-list-item">
+					<input class="res-checkbox" type="checkbox">
+					<img class="res-list-thumb" src="../../../assets/img/search/tu.png">
+					<span class="res-list-info">
+					<label class="res-title">《触摸春天》生字学习</label><br>
+					<label class="res-type">类型: 动画</label>
+					<label class="res-size">大小：10M</label>
+					<span class="star_box">
+						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
+						<label class="res-number">281浏览/5下载</label>
+					</span>
+
+					</span>
+					<span class="res-list-tools">
+					<add-to-cart-button class="res-select">移出备课夹</add-to-cart-button><br>
+					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
+				</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

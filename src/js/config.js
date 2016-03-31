@@ -1,15 +1,11 @@
 // 全局配置文件
 
-// 七牛 文件服务域名
-window.FileServer = "http://7xpwjy.com1.z0.glb.clouddn.com/";
 // 后端jsonapi代理
-window.BackendUrl = "http://chat.tfedu.net:3030";
+window.BackendUrl = "http://192.168.111.225:3030/resapi";
 // 后端tomcat服务
 window.TomcatUrl = "http://chat.tfedu.net:8080";
 // 头像服务
 window.AvatarServer =  "http://yun.tfedu.net/";
-// 批注服务 
-window.AnnotationServer =  "http://chat.tfedu.net:5050";
 
 //图片压缩
 //图片缩略图 最小

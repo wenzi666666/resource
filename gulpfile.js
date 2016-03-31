@@ -54,7 +54,7 @@ var config = {
             src: ["src/less/*.less"]
         },
         assets: {
-            src: ["src/lib/bootstrap/fonts/**", "src/lib/font-awesome/font/**", "src/assets/**","src/favicon.ico","src/lib/tree//images/**"]
+            src: ["src/lib/bootstrap/fonts/**", "src/lib/font-awesome/font/**", "src/assets/**","src/favicon.ico","src/lib/tree//images/**", "modules/**"]
         }
     }
 }
@@ -110,6 +110,8 @@ gulp.task('movassets', function() {
         .pipe(gulp.dest('./dist'));
     gulp.src(config.paths.assets.src[4])
         .pipe(gulp.dest('./dist/images'));
+    gulp.src(config.paths.assets.src[5])
+        .pipe(gulp.dest('./dist/modules'));
 });
 
 // 打包
@@ -128,7 +130,7 @@ gulp.task('watch', ['html'], function () {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-        baseDir:['dist', 'src'],
+        baseDir:['dist', 'src', "modules/login"],
         index: "index.html",
         middleware: [ historyApiFallback()]
     }
