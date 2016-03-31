@@ -13,6 +13,8 @@
     ApplicationConfiguration.registerModule('webApp.coms.layout');
     // 登陆
     ApplicationConfiguration.registerModule('webApp.coms.login');
+    //资源筛选头
+    ApplicationConfiguration.registerModule('webApp.coms.ResHeader');
     // 系统资源
     ApplicationConfiguration.registerModule('webApp.coms.systemres');
     // 校本资源
