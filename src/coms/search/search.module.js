@@ -40,8 +40,55 @@
 			function($scope, $stateParams, $state, $location) {
 				// 变量共享
 				$scope.VM = {};
+				//搜索类型
+				$scope.VM.currentTypeSeclet = [];
+				$scope.VM.currentTypeSeclet[0] = true;
+				$scope.VM.searchType = [{
+						"type": "全部"
+					}, {
+						"type": "视频"
+					}, {
+						"type": "图片"
+					}, {
+						"type": "文本"
+					}
+
+				];
+				$scope.VM.currentType = $scope.VM.searchType[0].type;//文本当前内容
 				
 				
+				
+				//对应类型数目
+				$scope.VM.typeNums = [{
+						"type": "全部",
+						"num": 10
+					}, {
+						"type": "视频",
+						"num": 4
+					}, {
+						"type": "图片",
+						"num": 4
+					}, {
+						"type": "文本",
+						"num": 2
+					}
+
+				];
+				$scope.VM.currentTypeNum = [];
+				$scope.VM.currentTypeNum[0]=true;
+
+
+				$scope.VM.selectType = function(index) {
+					$scope.VM.currentType = $scope.VM.searchType[index].type;
+					//选中
+					_.each($scope.VM.searchType, function(v, i) {
+						$scope.VM.currentTypeSeclet[i] = false;
+						$scope.VM.currentTypeNum[i]=false;
+					});
+					$scope.VM.currentTypeSeclet[index] = true;
+					$scope.VM.currentTypeNum[index]=true;
+				}
+
 
 			}
 		])
