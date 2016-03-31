@@ -3,7 +3,8 @@
  */
 (function() {
 	'use strict';
-
+	//资源筛选头
+    ApplicationConfiguration.registerModule('webApp.coms.ResHeader');
 	angular.module('webApp.coms.ResHeader')
 		.factory('Res', ['$resource',
 			function($resource) {

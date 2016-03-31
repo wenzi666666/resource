@@ -23,8 +23,6 @@
     ApplicationConfiguration.registerModule('webApp.coms.previewres');
     // 备课夹
     ApplicationConfiguration.registerModule('webApp.coms.prepare');
-    //资源筛选头
-    ApplicationConfiguration.registerModule('webApp.coms.ResHeader');
     // 帮助中心
     ApplicationConfiguration.registerModule('webApp.coms.help');
     // 消息中心
