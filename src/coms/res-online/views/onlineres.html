@@ -1,12 +1,15 @@
-﻿<div class="container" id="onlineres-container">	
-	<div class="slide-container">
+﻿<div class="container" id="onlineres-container">
+	<div class="header-nav-tips"></div>
+	<div class="slide-container col-md-10">
 		<div class="slide-content">
-			<div class="slide-arrow slide-pre"><i class="icon-chevron-left"></i></div>
-			<div class="slide-arrow slide-next"><i class="icon-chevron-right"></i></div>
+			<div class="slide-arrow slide-pre" ng-click="slidePre()"><i class="icon-chevron-left"></i></div>
+			<div class="slide-arrow slide-next" ng-click="slideNext()"><i class="icon-chevron-right"></i></div>
 			<div class="slide-content-inner">
 				<div id="res-slide-content"><img src="assets/img/online/tmp.png"/></div>
 			</div>
+			<div class="slide-fullscreen"><i class="icon-fullscreen"></i></div>
 		</div>
+		
 		<div class="slide-tools">
 			<div class="slide-arrow2 slide-pre"><i class="icon-chevron-left"></i></div>
 			<div class="slide-arrow2 slide-next"><i class="icon-chevron-right"></i></div>
@@ -19,5 +22,12 @@
 			</ul>
 		</div>
 	</div>
-
+	<div class="col-md-2">
+		<div class="slide-list">
+			<div class="slide-list-item" ng-repeat="item in slides">
+				<img src="assets/img/title.jpg">
+				<span>{{item.title}}</span>
+			</div>
+		</div>
+	</div>
 </div>
