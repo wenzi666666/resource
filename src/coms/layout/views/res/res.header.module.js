@@ -34,8 +34,8 @@
 				})
 			}
 		])
-		.controller("ResHeaderController", ['$scope', '$stateParams', '$state', '$location', 'Res', '$q', '$timeout',
-			function($scope, $stateParams, $state, $location, Res, $q, $timeout) {
+		.controller("ResHeaderController", ['$scope', '$stateParams', '$state', '$location', 'Res', '$q', '$timeout','$localStorage',
+			function($scope, $stateParams, $state, $location, Res, $q, $timeout, $localStorage) {
 				// 初始化data
 				$scope.initData = function() {
 
@@ -76,6 +76,9 @@
 					}, function(data) {
 						console.log("books：", data.data);
 						$scope.VM.material = data.data;
+						
+						$scope.$emit("currentTreeId", $scope.VM.material[0].id)
+						
 					}).$promise;
 				})
 
@@ -103,6 +106,8 @@
 					$scope.VM.currentVersionSeclet[0] = true;
 					$scope.VM.currentMaterialSeclet[0] = true;
 					
+					
+					
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
 					
@@ -124,6 +129,7 @@
 						}, function(data) {
 							console.log("books：", data.data);
 							$scope.VM.material = data.data;
+							$scope.$emit("currentTreeId", $scope.VM.material[0].id)
 						}).$promise;
 					})
 				}
@@ -159,6 +165,7 @@
 						}, function(data) {
 							console.log("books：", data.data);
 							$scope.VM.material = data.data;
+							$scope.$emit("currentTreeId", $scope.VM.material[0].id)
 						}).$promise;
 					})
 				}
@@ -186,6 +193,7 @@
 					}, function(data) {
 						console.log("books：", data.data);
 						$scope.VM.material = data.data;
+						$scope.$emit("currentTreeId", $scope.VM.material[0].id)
 					})
 				}
 
@@ -201,6 +209,7 @@
 						$scope.VM.currentMaterialSeclet[i] = false;
 					})
 					$scope.VM.currentMaterialSeclet[index] = true;
+					$scope.$emit("currentTreeId", $scope.VM.material[index].id)
 				}
 			}
 		])
