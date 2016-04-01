@@ -71,6 +71,14 @@
 	    </script>
 </div>
 
+<div class="message-box">
+    <script type="text/ng-template" id="message.html">
+    	<div class="modal-body message-modal-body">
+    		<p ng-bind="messageContent"></p>
+    		<button class="btn-general btn-message" ng-bind="buttonContent" ng-click="close()"></button>
+    	</div>
+    </script>
+</div>
 <div class="container" id="settings-container">
 	<div class="settings-main">
 		<div class="tabs">
@@ -83,65 +91,52 @@
 		    <div role="tabpanel" class="tab-pane active" id="info">
 		    	<div class="tab-content-body">
 		    		<div class="main-left">
-		    			<img class="user-avatar" src="../assets/img/settings/user_icon.png">
+		    			<img class="user-avatar" ng-src="{{userImage}}">
 	    				<button class="btn-general btn-change-avatar" ng-click="changeAvatar()">更换头像</button>
 	    				<span class="hint-one">仅支持JPG、GIF、PNG图片文件；且小于2M</span>
 		    		</div>
 		    		<div class="main-right">
 		    			<div class="user-info">
 		    				<span class="info-label">用户名：</span>
-		    				<span class="label-content">呼呼</span>
+		    				<span class="label-content" ng-bind="userName"></span>
 		    			</div>
 		    			<div class="user-info">
 		    				<span class="info-label">学校名称：</span>
-		    				<span class="label-content">北京市海淀区北洼路中学</span>
+		    				<span class="label-content" ng-bind="schoolName"></span>
 		    			</div>
 		    			<div class="user-info">
 		    				<form class="user-info-form">
 		    					<span class="info-label">真实姓名：</span>
-		    					<input type="text" value="圈圈" id="truename" class="user-info-input true-name-input"> 
+		    					<input type="text" value="{{trueName}}" id="truename" class="user-info-input true-name-input" ng-model="trueName"> 
 		    					<span class="hint-one">4-20个中文字符(中文占两个字符)，支持中英文</span>
 		    				</form>
 		    			</div>
 		    			<div class="user-info">
 		    				<form class="user-info-form">
 		    					<span class="info-label">修改性别：</span>
-		    					<input type="radio" value="male" id="male"> 
+		    					<input type="radio" value="男" id="male" ng-model="sexSelected" ng-click="setMale(sexSelected)"> 
 		    					<label for="male">男</label>
-		    					<input type="radio" value="female" id="female"> 
+		    					<input type="radio" value="女" id="female" ng-model="sexSelected" ng-click="setMale(sexSelected)"> 
 		    					<label for="female">女</label>
 		    				</form>
 		    			</div>
 		    			<div class="user-info">
 		    				<span class="info-label">修改学段：</span>
 		    				<ul class="user-term">
-		    					<li class="active">小学</li>
-		    					<li>初中</li>
-		    					<li>高中</li>
+		    					<li ng-class="{active: term.active}" ng-click="selectTerm($index)" ng-bind="term.name" ng-repeat="term in terms track by $index"></li>
 		    				</ul>
 		    			</div>
 		    			<div class="user-info">
 		    				<span class="info-label">修改学科：</span>
 		    				<ul class="user-subject">
-		    					<li>语文</li>
-		    					<li>数学</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
-		    					<li>英语</li>
+		    					<li ng-class="{active: subject.active}" ng-repeat="subject in subjects track by $index" ng-bind="subject.name" ng-click="selectSubject($index)"></li>
 		    				</ul>
 		    			</div>
 		    		</div>
 		    		<div class="clear-float"></div>
 		    	</div>
 		    	<div class="tab-content-footer">
-		    		<button class="btn-general">储存</button>
+		    		<button class="btn-general" ng-click="saveUserInfo()">储存</button>
 		    		<button class="btn-general">取消</button>
 		    	</div>
 		    </div>
