@@ -89,7 +89,7 @@
 	<div class="clearfix"></div>
 
 	<!--<div class="res-body-content res-material-version" ng-hide="VM.currentMaterialShow || !VM.currentVersionShow">-->
-	<div class="res-body-content res-material-version" ng-hide="!VM.material || VM.material.length==0">
+	<div class="res-body-content res-material-version" ng-hide="!VM.material || VM.material.length==0 || VM.currentMaterialShow">
 		<div class="res-content-left">教材:</div>
 		<div  class="res-material-wrapper">
 			<span ng-repeat="v in VM.material track by $index" class="select-item res-material-content" ng-class="VM.currentMaterialSeclet[$index]?'selected':''" ng-click="VM.selectMaterial($index)">{{ v.name }}</span>
