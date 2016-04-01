@@ -49,6 +49,34 @@
 					type:'pdf',
 					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
 				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
 					title: "荷塘月色-pdf",
 					type:'media',
 					src: "http://m.tfedu.net/book/ereader/"
@@ -58,8 +86,28 @@
 					src: "http://101.200.190.27:8099/down/dec/00ae9e79-a560-4e23-bf01-609c711666ec-274/index.htm"
 				}]
 				
+				//上一个
+				var currentSlideIndex = 3;
+				$scope.slidePre = function() {
+					if(currentSlideIndex > 0) {
+						$scope.selectRes(currentSlideIndex-1);
+					}else{
+						currentSlideIndex = $scope.slides.length-1;
+					}
+				}
+				//下一个
+				$scope.slideNext = function() {
+					if(currentSlideIndex < $scope.slides.length-1) {
+						$scope.selectRes(currentSlideIndex+1);
+					}else{
+						currentSlideIndex = 0;
+					}
+				}
+				
+				//跳转到
 				$scope.selectRes = function(index) {
 					var tpl = '';
+					currentSlideIndex = index;
 					switch($scope.slides[index].type)
 					{
 					case "img":
@@ -71,6 +119,8 @@
 					   $('#res-slide-content').html(tpl);
 					}
 				}
+				
+				
 			}
 		])
 }());

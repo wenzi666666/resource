@@ -1,6 +1,7 @@
 // slide样式
+@slideBgColor: #5D5D5D;
 .slide-container{
-    
+
 }
 .slide-container .slide-content{
     position: relative;
@@ -8,7 +9,7 @@
 }
 .slide-container .slide-arrow{
     position: absolute;
-    top:46%;
+    top:40%;
     z-index: 9999999;
     color: #fff;
     background: rgba(255,255,225,0.6);
@@ -44,9 +45,19 @@
 .slide-container .slide-content-inner img{
     height: 100%;
 }
+.slide-fullscreen{
+    position: absolute;
+    bottom:6px;
+    right: 6px;
+    padding: 6px;
+    background: rgba(255,255,255,0.5);
+    font-size: 30px;
+    border-radius: 50px;
+}
 .slide-container .slide-tools{
     position: relative;
 }
+
 .slide-thumbnail{
     margin: 30px 50px;
 }
@@ -61,4 +72,27 @@
 .slide-thumbnail img:hover{
     width: 99%;
     border: 2px solid #009CD6;
+}
+
+#res-slide-content img{
+    width: 100%;
+}
+
+.slide-list {
+    background: @slideBgColor;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    max-height: 700px;
+    overflow-y: auto;
+}
+.slide-list .slide-list-item{
+   padding:10px 3px;
+   cursor: pointer;
+}
+.slide-list .slide-list-item img:hover{
+    border: 2px solid #12879a;
+}
+.slide-list img{
+    width: 100%;
 }
