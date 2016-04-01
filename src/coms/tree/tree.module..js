@@ -24,6 +24,7 @@
 						pnodeId: d
 					}, function(data) {
 						 $scope.treedata = data.data;
+						 console.log("tree ok")
 					})
 				})
 //				Tree.getTree({
