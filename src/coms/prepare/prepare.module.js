@@ -28,182 +28,214 @@
 		])
 		.factory('Prepare', ['$resource',
 			function($resource) {
-				return $resource( BackendUrl+"/resRestAPI/v1.0/prepare/:id",{
-                    id: '@_id'
-                },{
-					getPrepareByTfcode: {method: "GET",url: BackendUrl + "/resRestAPI/v1.0/prepare/"}
+				return $resource(BackendUrl + "/resRestAPI/v1.0/prepare/:id", {
+					id: '@_id'
+				}, {
+					getPrepareByTfcode: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/prepare/"
+					}
 				})
 			}
 		])
-		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', 'Prepare',
-			function($scope, $stateParams, $state, $location,Prepare) {
+		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare','ModalMsg',
+			function($scope, $stateParams, $state, $location, $uibModal, Prepare,ModalMsg) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
-				
+
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
-					$scope.VM.currentVersionShow = false;
-					$scope.VM.currentMaterialShow = false;
-					$scope.VM.isList = true;
-				}
-				// 关闭教材筛选
+						$scope.VM.currentVersionShow = false;
+						$scope.VM.currentMaterialShow = false;
+						$scope.VM.isList = true;
+					}
+					// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
-					$scope.VM.currentMaterialShow = false;
-				}
-				// list切换
+						$scope.VM.currentMaterialShow = false;
+					}
+					// list切换
 				$scope.isList = true;
-				
-				
-			    $scope.switchList = true;
-			    
-			     $scope.maxSize = 3;
+
+				$scope.switchList = true;
+
+				$scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
-			    
-			    // 备课夹 临时数据
-			    $scope.switch = function(index){
-			    	_.each($scope.listData, function(v,i){
-			    		$scope.listData[i].active = false
-			    	})
-			    	$scope.listData[index].active = true
-			    }
-			    $scope.listData = [{
-			    	title: "荷塘月色",
-			    	active: true,
-			    	date: "一周内",
-			    	children:[{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	}]
-			    },{
-			    	title: "荷塘月色",
-			    	date: "一周内",
-			    	children:[{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	}]
-			    },{
-			    	title: "荷塘月色",
-			    	date: "一周内",
-			    	children:[{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	}]
-			    },{
-			    	title: "荷塘月色",
-			    	date: "一周内",
-			    	children:[{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	}]
-			    },{
-			    	title: "荷塘月色",
-			    	date: "一周内",
-			    	children:[{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	}]
-			    },{
-			    	title: "荷塘月色",
-			    	date: "一周内",
-			    	children:[{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	},{
-			    		title: "荷塘月色-课件1",
-			    		type: "动画",
-			    		size: "15M"
-			    	}]
-			    }]
-			    
-			    var getPrepare = function(id) {
-			    	Prepare.getPrepareByTfcode({
-			    		tfcode: id
-			    	}, function(data) {
-			    		console.log(data.data)
-			    	})
-			    }
-			    
-				
+
+				// 备课夹 临时数据
+				$scope.switch = function(index) {
+					_.each($scope.listData, function(v, i) {
+						$scope.listData[i].active = false
+					})
+					$scope.listData[index].active = true
+				}
+				$scope.listData = [{
+					title: "荷塘月色",
+					active: true,
+					date: "一周内",
+					children: [{
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}]
+				}, {
+					title: "荷塘月色",
+					date: "一周内",
+					children: [{
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}]
+				}, {
+					title: "荷塘月色",
+					date: "一周内",
+					children: [{
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}]
+				}, {
+					title: "荷塘月色",
+					date: "一周内",
+					children: [{
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}]
+				}, {
+					title: "荷塘月色",
+					date: "一周内",
+					children: [{
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}]
+				}, {
+					title: "荷塘月色",
+					date: "一周内",
+					children: [{
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}, {
+						title: "荷塘月色-课件1",
+						type: "动画",
+						size: "15M"
+					}]
+				}]
+
+				var getPrepare = function(id) {
+					Prepare.getPrepareByTfcode({
+						tfcode: id
+					}, function(data) {
+						console.log(data.data)
+					})
+				}
+
 				// 监听 目录树 选择
 				$scope.$on("currentTreeTFCodeChange", function(e, d) {
 					getPrepare(d);
 				})
+				
+				// 新建备课夹
+				$scope.newPrepare = function() {
+					 
+					var modalNewPrepare = $uibModal.open({
+						templateUrl: "modal-prepare.html",
+						controller: 'PrepareModalController',
+					})
+					
+					modalNewPrepare.result.then(function (data) {
+				      	console.log(data)
+				    }, function () {
+				      	console.log('Modal dismissed at: ' + new Date());
+				    });
+				}
+				
+				
+				ModalMsg.alert("hahha,服务化");
+			}
+		])
+		
+		.controller("PrepareModalController", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare','ModalMsg',
+			function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare,ModalMsg) {
+				
+				$scope.prepareOK = function () {
+				    $uibModalInstance.close("oo");
+				};
+				
+				$scope.prepareCancel = function () {
+				    $uibModalInstance.dismiss('cancel');
+				};
 			}
 		])
 }());

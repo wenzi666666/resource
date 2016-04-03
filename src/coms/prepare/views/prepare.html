@@ -1,5 +1,5 @@
 ﻿<div class="container" style="position: relative;">
-		<button class="btn btn-success new-prepare">新建</button>
+		<button class="btn btn-success new-prepare" ng-click="newPrepare()">新建</button>
 </div>
 <div class="empty-nav empty-nav-custom"></div>
 <div class="container" id="prepare-container">
@@ -22,3 +22,24 @@
 	<!--不带目录显示-->
 	<div ng-show="VM.isList" data-ng-include="'/coms/prepare/views/prepare-content-list.html'"></div>
 </div>
+
+
+<script type="text/ng-template" id="modal-prepare.html">
+	<div class="modal-body modal-prepare-body">
+		<div class="modal-prepare-header">新建备课夹</div>
+		<div class="modal-prepare-content">
+			<div class="modal-inner-content">
+				<div class="modal-catogry">
+					<span>教材目录</span>
+					<span>教材目录</span>
+				</div>
+				<div class="modal-prepare-name">
+					<span>备课夹名称：</span>
+					<input />
+				</div>
+			</div>
+			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="prepareOK()">确定</button>
+			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="prepareCancel()">取消</button>
+		</div>	
+	</div>
+</script>
