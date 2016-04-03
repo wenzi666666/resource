@@ -39,6 +39,9 @@
 				// 变量共享
 				$scope.VM = {};
 				
+				//slide下方导航默认不显示
+				$scope.VM.slideTools = false;
+				
 				$scope.slides = [
 				{
 					title: "荷塘月色-课件1",
