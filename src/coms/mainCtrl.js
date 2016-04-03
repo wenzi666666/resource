@@ -8,6 +8,11 @@
 				$scope.$on("currentTreeId", function(e, d) {
 					$scope.$broadcast('currentTreeIdUpdate', d);
 				})
+				
+				// 监听 目录树 选择
+				$scope.$on("currentTreeTFCode", function(e, d) {
+					$scope.$broadcast('currentTreeTFCodeChange', d);
+				})
 			}
 		]);
 }());

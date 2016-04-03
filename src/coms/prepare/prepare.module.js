@@ -26,18 +26,17 @@
 					})
 			}
 		])
-		.factory('Prepare', ['$resource', 'Constants',
-			function($resource, Constants) {
-				return $resource('', {}, {
-					total: {
-						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
-					}
+		.factory('Prepare', ['$resource',
+			function($resource) {
+				return $resource( BackendUrl+"/resRestAPI/v1.0/prepare/:id",{
+                    id: '@_id'
+                },{
+					getPrepareByTfcode: {method: "GET",url: BackendUrl + "/resRestAPI/v1.0/prepare/"}
 				})
 			}
 		])
-		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', 
-			function($scope, $stateParams, $state, $location) {
+		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', 'Prepare',
+			function($scope, $stateParams, $state, $location,Prepare) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -192,7 +191,19 @@
 			    	}]
 			    }]
 			    
+			    var getPrepare = function(id) {
+			    	Prepare.getPrepareByTfcode({
+			    		tfcode: id
+			    	}, function(data) {
+			    		console.log(data.data)
+			    	})
+			    }
+			    
 				
+				// 监听 目录树 选择
+				$scope.$on("currentTreeTFCodeChange", function(e, d) {
+					getPrepare(d);
+				})
 			}
 		])
 }());
