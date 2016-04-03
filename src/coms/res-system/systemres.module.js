@@ -86,9 +86,41 @@
 			    	$scope.isList = list;
 			    }
 			    
-  			   $scope.maxSize = 3;
+  			    $scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
+				
+				// 加入备课夹 动画
+				setTimeout(function() {
+					$(".addPrepare").click(function(event){
+						
+						var addcar = $(this);
+						var offset = $(".shopping-cart").offset();
+//						console.log(offset.left,offset.top)
+						
+						var img = addcar.parent().parent().find('.res-list-thumb');
+						var flyer = $('<img class="u-flyer" src="'+img.attr('src')+'">');
+						flyer.fly({
+							start: {
+								left: img.offset().left,
+								top:  event.clientY-30
+							},
+							end: {
+								left: offset.left+200,
+								top: offset.top-200,
+								width: 0,
+								height: 0
+							},
+							onEnd: function(){
+//								$("#msg").show().animate({width: '250px'}, 200).fadeOut(1000);
+//								addcar.css("cursor","default").removeClass('orange').unbind('click');
+								$('.u-flyer').remove(); //移除dom
+							}
+						});
+					});
+				}, 3000)
+				
+
 				
 			}
 		])

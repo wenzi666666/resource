@@ -36,11 +36,9 @@
 
 	</div>
 	<div class="statistic-tab">
-		<span class="statistic-item"><i class="icon-bar-chart"></i>推荐指数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>评分星级</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>下载次数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>收藏次数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>浏览次数</span>
+		<span class="statistic-item"><i class="icon-bar-chart"></i>综合排序</span>
+		<span class="statistic-item"><i class="icon-bar-chart"></i>最多下载</span>
+		<span class="statistic-item"><i class="icon-bar-chart"></i>最新发布</span>
 		<span class="statistic-item"></span>
 		<span class="statistic-item" ng-click="switchList(true)"><i class="icon-th-list"></i></span>
 		<span class="statistic-item" ng-click="switchList(false)"><i class="icon-th-large"></i></span>
@@ -48,7 +46,7 @@
 
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
-			<li class="res-list-item" ng-repeat="list in [0,1,2,3,4,5,6,7,8]" ui-sref="previewres">
+			<li class="res-list-item" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
 				<input class="res-checkbox" type="checkbox">
 				<img class="res-list-thumb" src="assets/img/title.jpg">
 				<span class="res-list-info">
@@ -60,7 +58,7 @@
 					<label class="res-number">281浏览/5下载</label>
 				</span>
 				<span class="res-list-tools">
-					<add-to-cart-button class="res-select">加入备课夹</add-to-cart-button><br>
+					<div class="res-select addPrepare">加入备课夹</div><br>
 					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 			</li>
