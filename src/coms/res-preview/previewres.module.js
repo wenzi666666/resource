@@ -42,39 +42,91 @@
 				// 变量共享
 				$scope.VM = {};
 				
-				// 关闭版本筛选
-				$scope.closeCurrentVersion = function() {
-					$scope.VM.currentVersionShow = false;
-					$scope.VM.currentMaterialShow = false;
+				//slide下方导航默认不显示
+				$scope.VM.slideTools = false;
+				
+				$scope.slides = [
+				{
+					title: "荷塘月色-课件1",
+					type:'img',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-图片",
+					type:'pdf',
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
+				},{
+					title: "荷塘月色-pdf",
+					type:'media',
+					src: "http://m.tfedu.net/book/ereader/"
+				},{
+					title: "荷塘月色-案例",
+					type:'html',
+					src: "http://101.200.190.27:8099/down/dec/00ae9e79-a560-4e23-bf01-609c711666ec-274/index.htm"
+				}]
+				
+				//上一个
+				var currentSlideIndex = 3;
+				$scope.slidePre = function() {
+					if(currentSlideIndex > 0) {
+						$scope.selectRes(currentSlideIndex-1);
+					}else{
+						currentSlideIndex = $scope.slides.length-1;
+					}
 				}
-				// 关闭教材筛选
-				$scope.closeCurrentMaterial = function() {
-					$scope.VM.currentMaterialShow = false;
+				//下一个
+				$scope.slideNext = function() {
+					if(currentSlideIndex < $scope.slides.length-1) {
+						$scope.selectRes(currentSlideIndex+1);
+					}else{
+						currentSlideIndex = 0;
+					}
 				}
-				// list切换
-				$scope.isList = true;
 				
+				//跳转到
+				$scope.selectRes = function(index) {
+					var tpl = '';
+					currentSlideIndex = index;
+					switch($scope.slides[index].type)
+					{
+//					case "img1":
+//					  tpl = "<img src='" +$scope.slides[index].src + "' />"
+//					  $('#res-slide-content').html(tpl);
+//					  break;
+					default:
+					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' style='border:0'></iframe>"
+					   $('#res-slide-content').html(tpl);
+					}
+				}
 				
-			    $scope.switchList = function(list){
-			    	$scope.isList = list;
-			    }
-				
-				// 轮播
-				  var slides = $scope.slides = [];
-				  var currIndex = 0;
-				
-				  $scope.addSlide = function() {
-				    var newWidth = 600 + slides.length + 1;
-				    slides.push({
-				      image: 'http://lorempixel.com/' + newWidth + '/300',
-				      text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
-				      id: currIndex++
-				    });
-				  };
-				  
-				   $scope.addSlide();
-				   $scope.addSlide();
-				   $scope.addSlide();
+				$scope.selectRes(0);
 			}
 		])
 }());

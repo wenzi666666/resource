@@ -27,6 +27,28 @@
 					localStorage.removeItem("credentialsToken");
 					window.location.href= "login.html";
 				}
+				
+				// 根据state状态 切换 页面 logo
+				$scope.pageLogo = $state.current.name;
+				switch($state.current.name)
+					{
+					case "message":
+					  $scope.pageTitle = "消息中心";
+					  break;
+					case "help":
+					  $scope.pageTitle = "帮助中心";
+					  break;
+					case "settings":
+					  $scope.pageTitle = "个人设置";
+					  break;
+					case "prepare":
+					  $scope.pageTitle = "备课夹";
+					  break;
+					case "search":
+					  $scope.pageTitle = "搜索结果";
+					  break;
+						
+					}
 			}
 		])
 }());
