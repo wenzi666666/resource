@@ -46,7 +46,7 @@
 				{
 					title: "荷塘月色-课件1",
 					type:'img',
-					src: "http://7xpwjy.com1.z0.glb.clouddn.com/780700105_20160224113433.png"
+					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
 				},{
 					title: "荷塘月色-图片",
 					type:'pdf',
@@ -113,17 +113,54 @@
 					currentSlideIndex = index;
 					switch($scope.slides[index].type)
 					{
-					case "img":
-					  tpl = "<img src='" +$scope.slides[index].src + "' />"
-					  $('#res-slide-content').html(tpl);
-					  break;
+//					case "img1":
+//					  tpl = "<img src='" +$scope.slides[index].src + "' />"
+//					  $('#res-slide-content').html(tpl);
+//					  break;
 					default:
 					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' style='border:0'></iframe>"
 					   $('#res-slide-content').html(tpl);
 					}
 				}
 				
+				$scope.selectRes(0);
 				
+				// 下方工具栏
+				var slideIndex = 0;
+				var slidePerpage = 6;
+				$scope.slidesCustom = $scope.slides.slice(slideIndex, slidePerpage);
+				// 向前
+				$scope.slidePreCustom = function() {
+					if(slideIndex >= slidePerpage) {
+						slideIndex -= slidePerpage;
+						$scope.slidesCustom = $scope.slides.slice(slideIndex, slideIndex+slidePerpage);
+						
+					}
+						
+				}
+				// 向后
+				$scope.slideNextCustom = function() {
+					console.log("next:",slideIndex, slidePerpage,$scope.slides.length)
+					if(slideIndex + slidePerpage < $scope.slides.length) {
+						slideIndex += slidePerpage;
+						$scope.slidesCustom = $scope.slides.slice(slideIndex, slideIndex+slidePerpage);
+						
+					}
+						
+				}
+				
+				// 全屏切换
+				$scope.toggleFullscreen = function() {
+					if (screenfull.enabled) {
+					    screenfull.toggle($('.slide-container')[0]);
+					    
+					    if(screenfull.isFullscreen) {
+				        	$scope.VM.slideTools = true;
+				        }else{
+				        	$scope.VM.slideTools = false;
+				        }
+					}
+				}				
 			}
 		])
 }());
