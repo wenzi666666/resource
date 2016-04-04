@@ -1,4 +1,11 @@
 /*备课夹*/
+// 整体宽度
+#prepare-container .col-md-3,#prepare-container .col-md-9{
+    padding-left: 0;
+}
+#prepare-container .col-md-9{
+    padding-right: 0;
+}
 #prepare-container{
     margin-top: -70px;
 }
@@ -235,7 +242,6 @@
     border-radius: 5px;
     width: 310px;
 }
-
 // 目录树嵌入
 .tree-embed {
     position: absolute;
@@ -245,6 +251,7 @@
     left: 240px;
     background: #fff;
     width: 280px;
-    height: 300px;
+    max-height: 300px;
     overflow: auto;
 }
+

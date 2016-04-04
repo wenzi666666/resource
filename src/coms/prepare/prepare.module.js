@@ -45,37 +45,43 @@
 					    params:{ 
 					        id:'@id'
 					    }
+					},
+					addResToPrepareId: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareContent/:id", 
+					    params:{ 
+					        id:'@id'
+					    }
 					}
 
 				})
 			}
 		])
-		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree',
-			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree) {
+		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree','$localStorage',
+			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, $localStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
 
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
-						$scope.VM.currentVersionShow = false;
-						$scope.VM.currentMaterialShow = false;
-						$scope.VM.isList = true;
-					}
-					// 关闭教材筛选
+					$scope.VM.currentVersionShow = false;
+					$scope.VM.currentMaterialShow = false;
+					$scope.VM.isList = true;
+				}
+				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
-						$scope.VM.currentMaterialShow = false;
-					}
-					// list切换
-				$scope.isList = true;
-
-				$scope.switchList = true;
+					$scope.VM.currentMaterialShow = false;
+				}
+				
 
 				$scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
 
-				// 备课夹 临时数据
+				// list切换
+				$scope.isList = true;
+				$scope.switchList = true;
 				$scope.switch = function(index) {
 					_.each($scope.listData, function(v, i) {
 						$scope.listData[i].active = false
@@ -84,8 +90,8 @@
 				}
 
 				// 监听 目录树 选择
-				$scope.$on("currentTreeTFCodeChange", function(e, d) {
-					getPrepare('RJXX02010102');
+				$scope.$on("currentTreeNodeChange", function(e, d) {
+					getPrepare(d.tfcode);
 				})
 
 				// 读取备课夹 列表
@@ -95,6 +101,7 @@
 					}, function(data) {
 						console.log(data.data);
 						$scope.listData = data.data;
+						$scope.listData[0].active = true
 						//获取备课夹详细内容
 						_.each(data.data, function(v,i) {
 							getPrepareDetails(v.id, i);
@@ -124,7 +131,7 @@
 							_method: "DELETE"
 						}, function(data) {
 
-							getPrepare('RJXX02010102');
+							getPrepare();
 						})
 					})
 				}
@@ -139,25 +146,24 @@
 
 					//创建备课夹
 					modalNewPrepare.result.then(function(data) {
+						console.log(data)
 						Prepare.basePostApi({
-							tfcode: 'RJXX02010102',
+							tfcode: data.code,
 							title: data.name
-						}, function(data) {
-							//							ModalMsg.logger("创建备课夹成功");
-							getPrepare('RJXX02010102');
+						}, function(d) {
+							getPrepare(data.code);
 						})
 					});
 				}
 			}
 		])
 
-	.controller("PrepareModalController", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree',
-		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree) {
+	.controller("PrepareModalController", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage',
+		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage) {
 
 			$scope.prepareOK = function() {
-				$scope.currentTreeTFcode = "RJXX0101130101";
 				var tmpVal = {
-					'code': $scope.currentTreeTFcode,
+					'code': $scope.currentNode.tfcode,
 					'name': $scope.prepareName
 				}
 				$uibModalInstance.close(tmpVal);
@@ -169,10 +175,12 @@
 
 			// 监听目录树变化
 			Tree.getTree({
-				pnodeId: '42014',
+				pnodeId: $localStorage.currentMaterial.id,
 			}, function(data) {
 				$scope.treedata = data.data;
-				console.log("tree data:", data.data)
+				//展开第一个节点
+				$scope.expandedNodes = [$scope.treedata[0]];
+				console.log("tree data:", data.data);
 			})
 
 			// 目录树 控制
@@ -183,6 +191,12 @@
 			$scope.closeThis = function() {
 				$scope.showTree = false;
 			}
+			
+			// 目录树节点选择
+			$scope.currentNode = $localStorage.currentTreeNode
+			$scope.showSelected = function(sel) {
+				$scope.currentNode =  sel;
+			};
 		}
 	])
 }());

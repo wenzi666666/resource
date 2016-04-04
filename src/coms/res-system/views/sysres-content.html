@@ -48,7 +48,7 @@
 		<ul class="res-ul-list" ng-show="isList">
 			<li class="res-list-item" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" src="assets/img/title.jpg" ui-sref="previewres">
+				<img class="res-list-thumb" src="assets/img/title.png" ui-sref="previewres">
 				<span class="res-list-info" ui-sref="previewres">
 					<label class="res-title">《触摸春天》生字学习</label><br>
 					<label class="res-type">类型: 动画</label>
@@ -58,7 +58,13 @@
 					<label class="res-number">281浏览/5下载</label>
 				</span>
 				<span class="res-list-tools">
-					<div class="res-select addPrepare">加入备课夹</div><br>
+					<div class="res-select addPrepare">
+						加入备课夹
+						<div class="res-prepare-list" >
+							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($index)">{{item.title}}</div>
+						</div>
+					</div><br>
+					
 					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 			</li>
@@ -66,7 +72,7 @@
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<li class="res-thubmlist-item col-md-4" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-thubmlist-thumb" src="assets/img/title.jpg">
+				<img class="res-thubmlist-thumb" src="assets/img/title.png">
 				<span class="res-thubmlist-info">
 					<label class="res-title">《触摸春天》生字学习</label><br>
 					<label class="res-type">类型: 动画</label>

@@ -10,8 +10,8 @@
 				})
 				
 				// 监听 目录树 选择
-				$scope.$on("currentTreeTFCode", function(e, d) {
-					$scope.$broadcast('currentTreeTFCodeChange', d);
+				$scope.$on("currentTreeNode", function(e, d) {
+					$scope.$broadcast('currentTreeNodeChange', d);
 				})
 			}
 		]);

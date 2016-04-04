@@ -41,6 +41,7 @@
 					// 用户信息
 					$scope.user = $localStorage.authUser;
 				}
+				
 				// 筛选选择控制
 				$scope.VM.currentGradeSeclet = [];
 				$scope.VM.currentSubjectSeclet = [];

@@ -42,9 +42,9 @@
 						template: tplLeft + key + loggerRight,
 						size: 'sm',
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
-//							setTimeout(function(){
-//								$uibModalInstance.dismiss('cancel');
-//							}, 3000)
+							setTimeout(function(){
+								$uibModalInstance.dismiss('cancel');
+							}, 3000)
 						}]
 					});
 				}
