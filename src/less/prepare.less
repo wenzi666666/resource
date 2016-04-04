@@ -190,7 +190,7 @@
     margin: 10px;
     height: 320px;
 }
-.modal-inner-content{
+.modal-prepare-content .modal-inner-content{
     color: #666;
     line-height: 20px;
     min-height: 200px;
@@ -198,7 +198,53 @@
     padding-top: 100px;
     text-align: center;
     font-size: 20px;
+     font-size: 16px;
 }
 .modal-catogry{
     margin-bottom: 15px;
+}
+
+.catogry-trigger{
+    border: 1px solid #ddd;
+    padding: 2px 0 2px 90px;
+    cursor: pointer;
+}
+.catogry-trigger .select-current{
+
+}
+.catogry-trigger i{
+    background: #D1D1D1;
+    color: #848484;
+    padding: 4px 8px;
+    margin-left: 90px;
+}
+.catogry-trigger .icon-angle-up{
+    display: none;
+}
+.catogry-trigger:hover .icon-angle-down{
+    display: none;
+}
+.catogry-trigger:hover .icon-angle-up{
+    display: inherit;
+    background: #999;
+    color: #fff;
+}
+.prepare-name-input{
+    padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 310px;
+}
+
+// 目录树嵌入
+.tree-embed {
+    position: absolute;
+    margin-top: 3px;
+    padding: 6px;
+    border: 1px solid #ddd;
+    left: 240px;
+    background: #fff;
+    width: 280px;
+    height: 300px;
+    overflow: auto;
 }

@@ -2,31 +2,51 @@
 (function() {
 	'use strict';
 	angular.module('webApp.core.services')
-		.factory('ModalMsg', ['$uibModal', function service($uibModal) {
+		.factory('ModalMsg', ['$uibModal',function service($uibModal) {
 			var tplLeft = '<div class="modal-body confirm-modal-body"><div class="confirm-modal-content"><div class="modal-inner-content">';	
-			var tplRight = '</div><button class="btn btn-lg btn-success btn-custom-modal" onclick="cancel()">确定</button></div></div>';
+			var alertRight = '</div><button class="btn btn-lg btn-success btn-custom-modal" ng-click="cancelModal()">确定</button></div></div>';
+			var confirmRight = '</div><button class="btn btn-lg btn-custom-modal btn-warning" ng-click="OK()">确定</button><button class="btn btn-lg btn-success btn-custom-modal" ng-click="cancelModal()">取消</button></div></div>';
+			var loggerRight = '</div></div></div>';
 			return {
 				/** 消息提示 弹出框*/
 				'alert': function alert(key) {
 					return $uibModal.open({
-						template: tplLeft + key + tplRight,
+						template: tplLeft + key + alertRight,
 						size: 'sm',
-						controller: function() {
-							window.cancel = function(){
-								console.log("cancel")
-								 $('div[modal-render]').remove();
-//								 $('.modal-backdrop.in').css({'opacity':0, 'z-index':-1});
-								 z
+						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
+							$scope.cancelModal = function(){
+								$uibModalInstance.dismiss('cancel');
 							}
-						}
+						
+						}]
 					});
 				},
 				'confirm': function confirm(key) {
-					
+					return $uibModal.open({
+						template: tplLeft + key + confirmRight,
+						size: 'sm',
+						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
+							$scope.cancelModal = function(){
+								$uibModalInstance.dismiss('cancel');
+							}
+							$scope.OK = function(){
+								$uibModalInstance.close();
+							}
+						
+						}]
+					});
 				},
 				/** 消息提示 弹出框*/
 				'logger': function logger(key) {
-					
+					return $uibModal.open({
+						template: tplLeft + key + loggerRight,
+						size: 'sm',
+						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
+//							setTimeout(function(){
+//								$uibModalInstance.dismiss('cancel');
+//							}, 3000)
+						}]
+					});
 				}
 			};
 		}]);
