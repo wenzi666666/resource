@@ -41,34 +41,6 @@
 				// 变量共享
 				$scope.VM = {};
 				
-//				SystemRes.get({
-//					userid: JSON.parse(localStorage.getItem("auth_user")).userId
-//				}, function(data){
-//					$localStorage.authUser = data.data;
-//					localStorage.removeItem("auth_user");
-//				})
-//				SystemRes.total({
-//					
-//				}, function(data, status){
-//					console.log(data)
-//				});
-//				$http.get("http://chat.tfedu.net:8080/discuss/login").then(function(data){
-//					console.log(data)
-//				})
-				
-//				$.ajax({
-//					method: "get",
-////					url:"http://chat.tfedu.net:8080/discuss/home/total",
-//					url:"http://chat.tfedu.net:8080/discuss/userMessage/draftsNumber",
-//					dataType: "json",
-//					beforeSend: function(xhr){
-//						console.log(xhr)
-//						xhr.setRequestHeader("SM_USER", "dzhangliangang")
-//					},
-//					success: function(data){
-//						console.log(data)
-//					}
-//				})
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
@@ -119,6 +91,8 @@
 						});
 					});
 				}, 3000)
+				
+				
 				
 
 				

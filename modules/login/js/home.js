@@ -55,11 +55,11 @@ $(function(){
 			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
 			data: { user_name: $('input[name=username]').val(), 
 				  	user_pwd: $('input[name=passwd]').val()
-		}, 
+			}, 
 			success: function(data){
 				if(data.code == "OK") {
 					window.localStorage.setItem("credentialsToken", data.data.token);
-					window.localStorage.setItem("auth_user", JSON.stringify(data.data));
+					window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
 					window.location.href = '/';
 				}else{
 					alert("输入不正确")

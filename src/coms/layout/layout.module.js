@@ -18,9 +18,9 @@
 			function($scope, $stateParams, $state, $location,UserInfo,$localStorage) {
 				//初始化用户信息
 				UserInfo.get({
-					userid: JSON.parse(localStorage.getItem("auth_user")).userId
+					userid: $localStorage.authUser.userId
 				}, function(data){
-					$localStorage.authUser = data.data;
+//					$localStorage.authUser = data.data;
 				})
 				$scope.logout = function() {
 					localStorage.removeItem("auth_user");
