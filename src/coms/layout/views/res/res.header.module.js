@@ -61,7 +61,7 @@
 							
 						}else {
 							$scope.VM.currentGrade = $scope.user.termName;
-							$scope.VM.currentGradeId = _.indexOf(['小学', '初中', '高中'], $scope.user.termName)	+ 1;
+							$scope.VM.currentGradeId = _.indexOf(['小学', '初中', '高中'], $scope.user.termName) + 1;
 							//缓存用户当前 学段
 							$localStorage.currentGrade = {
 								name: $scope.user.termName,

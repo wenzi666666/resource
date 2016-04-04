@@ -20,7 +20,7 @@
 				UserInfo.get({
 					userid: $localStorage.authUser.userId
 				}, function(data){
-//					$localStorage.authUser = data.data;
+					$localStorage.authUser = data.data;
 				})
 				$scope.logout = function() {
 					localStorage.removeItem("auth_user");

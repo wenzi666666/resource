@@ -105,7 +105,9 @@
 						
 					})
 				}
-				getPrepare($localStorage.currentTreeNode.tfcode)
+				setTimeout(function(){
+					getPrepare($localStorage.currentTreeNode.tfcode)
+				}, 3000)
 				//将资源加入备课夹
 				$scope.addToPrepare = function(index) {
 					Prepare.addResToPrepareId({
