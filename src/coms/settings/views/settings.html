@@ -4,32 +4,26 @@
 	        <div class="modal-body avatar-modal-body">
 	            <div class="nav nav-tabs avatar-tabs" role="tablist">
 	            	<ul>
-	            		<!--<img class="tab-active" src="assets/img/settings/tab_active.png">-->
-	            		<li role="presentation" class="active"><a href="#system-avatar" aria-controls="system-avatar" role="tab" data-toggle="tab">系统头像</a></li>
-	            		<li role="presentation"><a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab">自定义头像</a></li>
+	            		<li role="presentation" class="active">
+	            			<img ng-src="{{sysAvatarPath}}" />
+	            			<a href="#system-avatar" aria-controls="system-avatar" role="tab" data-toggle="tab">系统头像</a>
+	            		</li>
+	            		<li role="presentation">
+	            			<img ng-src="{{selfAvatarPath}}" />
+	            			<a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab">自定义头像</a>
+	            		</li>
+	            	<div style="clear: both"></div>
 	            	</ul>
 	            </div>
 	            <div class="tab-content avatar-tab-content">
 	            	<div role="tabpanel" class="tab-pane active" id="system-avatar">
 	            		<ul>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
-	            			<li><img src="assets/img/settings/user_icon.png" /></li>
+	            			<!--<li  ng-repeat="sysavatar in systemAvatars"><img ng-src="{{sysavatar}}"/><span class="glyphicon glyphicon-ok avatar-ok"></span></li-->
+	            				<li ng-class="{'avatar-selected': sysavatar.clicked}" ng-repeat="sysavatar in systemAvatars track by $index" ng-click="selectSystemAvatar($index)"><img ng-src="{{sysavatar.path}}"/></li>
 	            			<div style="clear: both;"></div>
 	            		</ul>
 	            		<div class="button-group">
-		            		<button class="btn-general" ng-click="close()">确定</button>
+		            		<button class="btn-general" ng-click="setAvatar()">确定</button>
 		    				<button class="btn-general" ng-click="close()">取消</button>
 		            	</div>
 	            	</div>
@@ -68,14 +62,15 @@
 	            	</div>
 	            </div>
 	        </div>
-	        <div class="modal-footer"></div>
+	        <div style="clear: both"></div>
 	    </script>
 </div>
 
 <div class="message-box">
     <script type="text/ng-template" id="message.html">
     	<div class="modal-body message-modal-body">
-    		<p ng-bind="messageContent"></p>
+    		<p>zy.tfedu.net上的网页显示：</p>
+    		<p ng-bind="messageContent" class="msg"></p>
     		<button class="btn-general btn-message" ng-bind="buttonContent" ng-click="close()"></button>
     	</div>
     </script>
@@ -92,7 +87,7 @@
 		    <div role="tabpanel" class="tab-pane active" id="info">
 		    	<div class="tab-content-body">
 		    		<div class="main-left">
-		    			<img class="user-avatar" ng-src="{{userImage}}">
+		    			<img class="user-avatar" ng-src="{{currentAvatar}}">
 	    				<button class="btn-general btn-change-avatar" ng-click="changeAvatar()">更换头像</button>
 	    				<span class="hint-one">仅支持JPG、GIF、PNG图片文件；且小于2M</span>
 		    		</div>
@@ -147,13 +142,14 @@
 		    			<div class="user-info">
 		    				<form class="user-info-form">
 		    					<span class="info-label">旧密码：</span>
-		    					<input type="text" value="" class="user-info-input passwd-input"> 
+		    					<input type="password" value="oldPsw" class="user-info-input passwd-input" ng-model="oldPsw"> 
+	    						<label class="hint-one hint-five" ng-show="oldPswError">原密码错误，请重新输入！</label>
 		    				</form>
 		    			</div>
 		    			<div class="user-info">
 		    				<form class="user-info-form">
 		    					<span class="info-label">新密码：</span>
-		    					<input type="text" value="" class="user-info-input passwd-input">
+		    					<input type="password" value="newPsw" class="user-info-input passwd-input" ng-model="newPsw">
 		    					<label class="hint-one hint-two">建议使用英文字母加数字或符号的混合密码。</label>
 		    				</form>
 		    					
@@ -161,14 +157,16 @@
 		    			<div class="user-info">
 		    				<form class="user-info-form">
 		    					<span class="info-label">再次确认：</span>
-		    					<input type="text" value="" class="user-info-input passwd-input">
+		    					<input type="password" value="confirmNewPsw" class="user-info-input passwd-input" ng-model="confirmNewPsw">
+		    					<label class="hint-one hint-five" ng-show="confirmFail">两次密码不一致，请重新输入！</label>
 		    				</form>
 		    			</div>
+		    			<div class="hint-one hint-five" ng-show="setPswFail">修改密码失败，请重新输入！</div>
 		    		</div>
 		    	</div>
 		    	<div class="tab-content-footer">
-		    		<button class="btn-general">确定</button>
-		    		<button class="btn-general">重置</button>
+		    		<button class="btn-general" ng-click="setPasswd()">确定</button>
+		    		<button class="btn-general" ng-click="clearPasswd()">重置</button>
 		    	</div>
 		    </div>
 		</div>
