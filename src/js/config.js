@@ -1,7 +1,7 @@
 // 全局配置文件
 
 // 后端jsonapi代理
-window.BackendUrl = "http://192.168.111.225:3030/resapi";
+window.BackendUrl = "http://chat.tfedu.net:3030/resapi";
 // 后端tomcat服务
 window.TomcatUrl = "http://chat.tfedu.net:8080";
 // 头像服务
