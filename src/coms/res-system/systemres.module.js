@@ -28,10 +28,27 @@
 		])
 		.factory('SystemRes', ['$resource',
 			function($resource) {
-				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
-                    userid: '@_id'
-                },{
-					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"}
+				return $resource('', {}, {
+					// 查询资源库
+					pools: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/pools"
+					},
+					// 系统资源类型 
+					types: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/sysResource/types"
+					},
+					// 查询 系统资源格式 
+					formats: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/sysResource/formats"
+					},
+					//资源列表
+					resList: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/sysResource"
+					}
 				})
 			}
 		])
@@ -55,10 +72,6 @@
 			    	$scope.isList = list;
 			    }
 			    
-  			    $scope.maxSize = 3;
-				$scope.bigTotalItems = 175;
-				$scope.bigCurrentPage = 1;
-				
 				// 加入备课夹 动画
 				setTimeout(function() {
 					$(".addPrepare").click(function(event){
@@ -89,11 +102,6 @@
 					});
 				}, 3000)
 				
-				// 监听 目录树 选择
-				$scope.$on("currentTreeNodeChange", function(e, d) {
-					console.log(d)
-					
-				})
 				
 				// 读取备课夹 列表
 				var getPrepare = function(id) {
@@ -108,6 +116,7 @@
 				setTimeout(function(){
 					getPrepare($localStorage.currentTreeNode.tfcode)
 				}, 3000)
+				
 				//将资源加入备课夹
 				$scope.addToPrepare = function(index) {
 					Prepare.addResToPrepareId({
@@ -120,6 +129,100 @@
 						
 					})
 				}
+				
+				// 监听 目录树 选择
+				$scope.$on("currentTreeNodeChange", function(e, d) {
+					getResList();
+				})
+				
+				// 列出资源
+				var page =1;
+				var perPage =8;
+				$scope.maxSize = 3;
+				$scope.currentPage = 1;
+				var getResList = function() {
+					SystemRes.resList({
+						poolId: poolId,
+						mTypeId: mTypeId,
+						fileFormat: format,
+						tfcode: $localStorage.currentTreeNode.tfcode,
+						orderBy:$scope.orderBy,
+						page:page,
+						perPage: perPage
+					}, function(data) {
+						$scope.resList = data.data;
+						console.log("resList:", $scope.resList)
+						// 分页
+						$scope.bigTotalItems = $scope.resList.totalLines;
+						
+					})
+				}
+				
+				// 列出资源库
+				SystemRes.pools({}, function(data) {
+					$scope.pools =data.data;
+				})
+				// 列出资源类型 和格式
+				var poolId = 0;
+				var mTypeId = 0;
+				var format = "全部";
+				$scope.orderBy = 0;
+				$scope.typeAndFormat = function(poolId, typeId){
+					// 设值
+					poolId = poolId;
+					format = "全部";
+					// 设置当前选择
+					$scope.poolsSelected = poolId;
+					$scope.typeSelected =0;
+					$scope.formatSelected =0;
+					// 获取资源列表
+					getResList();
+					SystemRes.types({
+						poolId: poolId,
+						tfcode:$localStorage.currentTreeNode.tfcode
+					}, function(data) {
+						$scope.types =data.data;
+						console.log("types:",data.data);
+						SystemRes.formats({
+							poolId: poolId,
+							tfcode:$localStorage.currentTreeNode.tfcode,
+							typeId: typeId
+						}, function(data) {
+							$scope.formats =data.data;
+						})
+					})
+				}
+				// 当前资源库 选择
+				$scope.isPoolActive = function(item) {
+			        return $scope.poolsSelected === item;
+			 	};
+			 	$scope.isTypeActive = function(item) {
+			        return $scope.typeSelected === item;
+			 	};
+			 	$scope.isFormatActive = function(item) {
+			        return $scope.formatSelected === item;
+			 	};
+			 	
+				// 列出资源格式
+				$scope.listFormat = function(index) {
+					mTypeId = $scope.types[index].id;
+					$scope.typeSelected = mTypeId;
+					SystemRes.formats({
+						poolId: poolId,
+						tfcode: $localStorage.currentTreeNode.tfcode,
+						typeId: mTypeId
+					}, function(data) {
+						$scope.formats = data.data;
+					})
+				}
+				// 选择 格式
+				$scope.filterFormat = function(i) {
+					format = $scope.formats[i];
+					$scope.formatSelected = i;
+					getResList();
+				}
+				// 初始化为全部
+				$scope.typeAndFormat(0, 0);	
 			}
 		])
 }());
