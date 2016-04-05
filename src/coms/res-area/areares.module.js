@@ -12,7 +12,7 @@
 						url: '/areares',
 						views: {
 							'content@': {
-								templateUrl: '/coms/area-res/views/areares.html',
+								templateUrl: '/coms/res-area/views/areares.html',
 								controller: 'AreaResController'
 							},
 							'header@': {

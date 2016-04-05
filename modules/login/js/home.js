@@ -48,7 +48,7 @@ $("#slides").slides({
 
 $(function(){
 	//登陆
-	var BackendUrl = "http://192.168.111.225:3030/resapi/";
+	var BackendUrl = "http://chat.tfedu.net:3030/resapi/";
 	$('.loginBtn').on('click', function(){
 		
 		$.ajax({
@@ -68,7 +68,7 @@ $(function(){
 						}
 					})
 				}else{
-					alert("输入不正确")
+					alert("用户名或密码不正确")
 				}
 			},
 			error: function(data){
