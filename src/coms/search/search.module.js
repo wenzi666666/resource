@@ -26,20 +26,32 @@
 					})
 			}
 		])
-		.factory('Search', ['$resource', 'Constants',
-			function($resource, Constants) {
+		.factory('Search', ['$resource',
+			function($resource) {
 				return $resource('', {}, {
-					total: {
+					searchResults: {
 						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
+						url: BackendUrl + "/resRestAPI/v1.0/resSearchResults"
 					}
 				})
 			}
 		])
-		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location',
-			function($scope, $stateParams, $state, $location) {
+		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location','Search',
+			function($scope, $stateParams, $state, $location,Search) {
 				// 变量共享
 				$scope.VM = {};
+				
+				//测试接口
+				Search.searchResults({
+					fromFlag: 1,
+					searchKeyword: '乐',
+					format: '全部',
+					page: 1,
+					perPage: 10
+				}, function(data) {
+					console.log(data)
+				})
+				
 				//搜索类型
 				$scope.VM.currentTypeSeclet = [];
 				$scope.VM.currentTypeSeclet[0] = true;
