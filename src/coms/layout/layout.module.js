@@ -29,6 +29,10 @@
 				}
 				// 显示用户信息
 				$scope.userTrueName = $localStorage.authUser.trueName;
+				// 导航激活
+				$scope.isActive = function (viewLocation) {
+				     return (viewLocation === $state.current.name);
+				};
 				// 根据state状态 切换 页面 logo
 				$scope.pageLogo = $state.current.name;
 				switch($state.current.name)

@@ -222,12 +222,7 @@
 					getResList();
 				}
 				// 初始化为全部
-				$scope.typeAndFormat(0, 0);
-				
-				
-				
-				
-				
+				$scope.typeAndFormat(0, 0);	
 			}
 		])
 }());
