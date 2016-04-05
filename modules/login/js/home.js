@@ -68,7 +68,7 @@ $(function(){
 						}
 					})
 				}else{
-					alert("输入不正确")
+					alert("用户名或密码不正确")
 				}
 			},
 			error: function(data){

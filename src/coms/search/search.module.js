@@ -44,7 +44,7 @@
 				//测试接口
 				Search.searchResults({
 					fromFlag: 1,
-					searchKeyword: '乐',
+					searchKeyword: '直接',
 					format: '全部',
 					page: 1,
 					perPage: 10
