@@ -6,89 +6,69 @@
 			<div class="select-nav-item">
 				<div class="menu-drop">
 					<div class="trigger">
-						<span class="select-current">{{VM.currentType}}</span>
+						<span class="select-current">{{VM.currentArea}}</span>
 						<i class="icon-angle-down"></i>
 						<i class="icon-angle-up"></i>
 					</div>
 
 					<div class="menu-drop-main">
 						<ul class="menu-drop-list">
-							<li ng-repeat="type in VM.searchType track by $index" ng-class="VM.currentTypeSeclet[$index]?'selected':''" ng-click="VM.selectType($index)"><span>{{ type.type }}</span></li>
+							<li ng-repeat="area in VM.searchArea track by $index" ng-class="VM.currentAreaSelect[$index]?'selected':''" ng-click="VM.selectArea($index)"><span>{{ area.area }}</span></li>
 						</ul>
 					</div>
 				</div>
-		</div>
-		<div class="search_box">
-			<input type="text" placeholder="请输入搜索内容" class="search_text" /><span class="search_btn">搜索</span>
-		</div>
-		<ul class="search_list">
-				<li ng-repeat="typeNum in VM.typeNums track by $index" ng-class="VM.currentTypeNum[$index]?'selected':''">{{typeNum.type+"("+typeNum.num+")"}}</li>
-				<!--<li ng-class="">全部</li>
-				<li>视频(1)</li>
-				<li>图片(2)</li>
-				<li>文本(3)</li>-->
-			</ul>
-	</div>
+			</div>
+			<div class="search_box">
+				<input type="text" placeholder="请输入搜索内容" class="search_text" /><span class="search_btn">搜索</span>
+			</div>
+			<ul class="search_list">
+				<li ng-repeat="typeNum in VM.typeNums track by $index" ng-class="VM.currentTypeNum[$index]?'selected':''" ng-click="VM.typeClick($index)">{{typeNum.type}}</li>
 
-   </div>
+			</ul>
+		</div>
+
+	</div>
 
 	<div class="list_box">
 		<div class="res-list-main">
 			<ul class="res-ul-list">
-				<li class="res-list-item">
-					<input class="res-checkbox" type="checkbox">
-					<img class="res-list-thumb" src="../../../assets/img/search/tu.png">
+				<li class="res-list-item" ng-repeat="source in sourceList track by $index">
+					<input class="res-checkbox" type="checkbox" ng-model="isCheck" ng-checked="allCheck">
+					<img class="res-list-thumb" src="{{source.fpath}}">
 					<span class="res-list-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label>
+					<label class="res-title">{{source.fname}}</label><br>
+					<label class="res-type">类型: {{source.mtype}}</label>
+					<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}</label>
 					
 					<span class="star_box">
 						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-						<label class="res-number">281浏览/5下载</label>
+						<label class="res-number">{{source.clickTimes}}浏览/{{source.dloadTimes}}下载</label>
 					</span>
 					</span>
 					<span class="res-list-tools">
-					<add-to-cart-button class="res-select">移出备课夹</add-to-cart-button><br>
+					<button class="btn btn-success">移出备课夹</button><br>
 					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				</li>
-				<li class="res-list-item">
-					<input class="res-checkbox" type="checkbox">
-					<img class="res-list-thumb" src="../../../assets/img/search/tu.png">
-					<span class="res-list-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label>
-					<span class="star_box">
-						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-						<label class="res-number">281浏览/5下载</label>
-					</span>
-					</span>
-					<span class="res-list-tools">
-					<add-to-cart-button class="res-select">移出备课夹</add-to-cart-button><br>
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
-				</span>
-				</li>
-				<li class="res-list-item">
-					<input class="res-checkbox" type="checkbox">
-					<img class="res-list-thumb" src="../../../assets/img/search/tu.png">
-					<span class="res-list-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label>
-					<span class="star_box">
-						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-						<label class="res-number">281浏览/5下载</label>
-					</span>
 
-					</span>
-					<span class="res-list-tools">
-					<add-to-cart-button class="res-select">移出备课夹</add-to-cart-button><br>
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
-				</span>
-				</li>
 			</ul>
 		</div>
+		<div class="sumBox">
+			<input type="checkbox" ng-checked="allCheck" ng-model="allCheck" class="allCheck" ng-checked="allCheck">本页全选
+			<span>共{{listLength}}条，每页显示<input type="text" value=""/></span>条
+			<label class="res-download allDown"><i class="icon-download-alt"></i>点击下载</label>
+		</div>
+		<div class="pageBox">
+			<div class="coms-pagination">
+				<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+				<div class="page-go">
+					<span class="page-text">转到</span>
+					<input class="page-input" />
+					<span class="page-go-btn">Go</span>
+				</div>
+			</div>
+		</div>
+
 	</div>
+
 </div>
