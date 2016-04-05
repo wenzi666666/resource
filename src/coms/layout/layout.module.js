@@ -27,7 +27,8 @@
 //					localStorage.removeItem("ngStorage-currentVersion");
 					window.location.href= "login.html";
 				}
-				
+				// 显示用户信息
+				$scope.userTrueName = $localStorage.authUser.trueName;
 				// 根据state状态 切换 页面 logo
 				$scope.pageLogo = $state.current.name;
 				switch($state.current.name)
