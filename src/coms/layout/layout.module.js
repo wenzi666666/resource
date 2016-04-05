@@ -5,26 +5,26 @@
 	'use strict';
 	// Module configuration
 	angular.module('webApp.coms.layout')
-		.factory('UserInfo', ['$resource',
-			function($resource) {
-				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
-                    userid: '@_id'
-                },{
-					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"}
-				})
-			}
-		])
-		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', 'UserInfo','$localStorage',
-			function($scope, $stateParams, $state, $location,UserInfo,$localStorage) {
-				//初始化用户信息
-				UserInfo.get({
-					userid: $localStorage.authUser.userId
-				}, function(data){
-					$localStorage.authUser = data.data;
-				})
+//		.factory('UserInfo', ['$resource',
+//			function($resource) {
+//				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
+//                  userid: '@_id'
+//              },{
+//					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"}
+//				})
+//			}
+//		])
+		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage',
+			function($scope, $stateParams, $state, $location,$localStorage) {
+				
 				$scope.logout = function() {
-					localStorage.removeItem("auth_user");
+					localStorage.removeItem("ngStorage-authUser");
 					localStorage.removeItem("credentialsToken");
+//					localStorage.removeItem("ngStorage-currentGrade");
+//					localStorage.removeItem("ngStorage-currentMaterial");
+//					localStorage.removeItem("ngStorage-currentSubject");
+//					localStorage.removeItem("ngStorage-currentTreeNode");
+//					localStorage.removeItem("ngStorage-currentVersion");
 					window.location.href= "login.html";
 				}
 				

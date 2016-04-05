@@ -59,8 +59,14 @@ $(function(){
 			success: function(data){
 				if(data.code == "OK") {
 					window.localStorage.setItem("credentialsToken", data.data.token);
-					window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
-					window.location.href = '/';
+					//初始化用户信息
+					$.ajax({
+						url: BackendUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?token=' + data.data.token,
+						success: function(data){
+							window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
+							window.location.href = '/';
+						}
+					})
 				}else{
 					alert("输入不正确")
 				}
