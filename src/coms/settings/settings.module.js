@@ -186,33 +186,37 @@
 
 
 	    			$scope.VM.avatarModal.result.then(function(newpath){
-			  			User.setUserAvatar({
-			  				userid: $localStorage.authUser.userId,
-			  				userImage: newpath
-			  			}, function(data) {
-			  				console.log(data);
-			  				if(data.code == "OK") {
-			  					$scope.currentAvatar = newpath;
-			  					saveSuccess = "头像更换成功！";
-			  				}
-			  				else {
-			  					saveSuccess = "头像更换失败，请重新选取！"
-			  				}
-
-			  				$scope.VM.messageModal = $uibModal.open({
-								templateUrl: "message.html",
-								controller: "messageInstanceController",
-								size: 'sm',
-								resolve: {
-									messageContent: function() {
-										return saveSuccess;
-									},
-									buttonContent: function() {
-										return btnSave;
+	    				console.log(newpath);
+		  				if(newpath.length > 0) {
+				  			User.setUserAvatar({
+				  				userid: $localStorage.authUser.userId,
+				  				userImage: newpath
+				  			}, function(data) {
+				  				if(data.code == "OK") {
+				  					$scope.currentAvatar = newpath;
+				  					saveSuccess = "头像更换成功！";
+				  				}
+				  				else {
+				  					saveSuccess = "头像更换失败，请重新选取！"
+				  				}
+			  					$scope.VM.messageModal = $uibModal.open({
+									templateUrl: "message.html",
+									controller: "messageInstanceController",
+									size: 'sm',
+									resolve: {
+										messageContent: function() {
+											return saveSuccess;
+										},
+										buttonContent: function() {
+											return btnSave;
+										}
 									}
-								}
-							})
-			  			});
+								})
+				  			});
+			  			}
+			  			else {
+			  				return;
+			  			}
 				    })
 				}
 
@@ -396,7 +400,7 @@
 				}
 				
 				$scope.close = function() {
-					$uibModalInstance.close();
+					$uibModalInstance.close($scope.newAvatar);
 				}
 			}
 		])
