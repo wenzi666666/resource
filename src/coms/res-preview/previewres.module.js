@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres',
+						url: '/previewres/:resId/:curTfcode',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -26,25 +26,35 @@
 					})
 			}
 		])
-		.factory('PreviewRes', ['$resource', 'Constants',
-			function($resource, Constants) {
+		.factory('Preview', ['$resource',
+			function($resource) {
 				return $resource('', {}, {
-					total: {
+					// 获取资源的所有版本目录
+					lists: {
 						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
-					}
+						url: BackendUrl + "/resRestAPI/v1.0/preview/lists  "
+					},
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 
-			function($scope, $stateParams, $state, $location) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview','$localStorage',
+			function($scope, $stateParams, $state, $location, Preview,$localStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
 				
-				//slide下方导航默认不显示
-				$scope.VM.slideTools = false;
+				console.log($stateParams)
 				
+				// 资源nav数据
+				Preview.lists({
+					resId: $stateParams.resId,
+					curTfcode:  $stateParams.curTfcode,
+					fromFlag: $localStorage.fromFlag
+				}, function(data) {
+					console.log(data)
+				})
+				
+				// 假数据
 				$scope.slides = [
 				{
 					title: "荷塘月色-课件1",

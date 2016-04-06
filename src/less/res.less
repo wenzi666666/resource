@@ -13,6 +13,7 @@
   font-size: @resNavFontSize;
   color: #fff;
   margin-top: 15px;
+  z-index: 9999;
 }
 
 // 顶部筛选
@@ -61,7 +62,7 @@
     border-top: none;
     left:-1px;
     width: 200px;
-    z-index: 999;
+    z-index: 10000;
     display: none;
 }
 .menu-drop-main .selected{
@@ -204,6 +205,7 @@
 .res-navbody .res-subject-wrapper{
     width: 90%;
     float: left;
+     z-index: 999;
 }
 .res-navbody .res-more {
   cursor: pointer;
@@ -221,9 +223,11 @@
 }
 .res-navbody  .res-material-version{
     clear: both;
+     z-index: 999;
 }
 .res-navbody .res-content-footer{
     position: relative;
+    z-index: 0;
 }
 .res-navbody .res-content-footer img{
     position: absolute;
@@ -439,3 +443,45 @@
     color: #0094CE;
 }
 
+// 备课夹 悬浮
+.prepare-fixed{
+    position: fixed;
+    bottom: 350px;
+    right: 5px;
+    cursor: pointer;
+}
+.prepare-fixed:hover .prepare-ctrls{
+    visibility: visible;   
+}
+.prepare-fixed .prepare-text{
+    width: 20px;
+    color: #fff;
+    margin-left: 8px;
+}
+.prepare-fixed  .prepare-shop{
+    float: left;
+    background: #41C9A9;
+    padding: 5px;
+    position: relative;
+    border-radius: 3px;
+}
+.prepare-fixed  .prepare-ctrls{
+    float: left;
+    height: 100px;
+    width: 100px;
+    margin-left: 3px;
+    visibility: hidden;
+    background: #41C9A9;
+    padding: 5px;
+    border-radius: 3px;
+}
+.prepare-fixed .shop-count{
+    position: absolute;
+    background: #c81623;
+    color: #fff;
+    padding: 0 4px;
+    font-size: 14px;
+    border-radius: 7px 7px 7px 0;
+    top: -5px;
+    left: 36px;
+}

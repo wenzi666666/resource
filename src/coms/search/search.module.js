@@ -36,41 +36,30 @@
 				})
 			}
 		])
-		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location','Search',
-			function($scope, $stateParams, $state, $location,Search) {
+		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location', 'Search',
+			function($scope, $stateParams, $state, $location, Search) {
 				// 变量共享
 				$scope.VM = {};
-				
-				//测试接口
-				Search.searchResults({
-					fromFlag: 1,
-					searchKeyword: '数学',
-					format: '全部',
-					page: 1,
-					perPage: 10
-				}, function(data) {
-					console.log(data)
-				})
-				
-				//搜索类型
-				$scope.VM.currentTypeSeclet = [];
-				$scope.VM.currentTypeSeclet[0] = true;
-				$scope.VM.searchType = [{
-						"type": "全部"
+
+				//搜索资源范围
+
+				$scope.VM.searchArea = [{
+						"area": "全部",
+						"id": 0
 					}, {
-						"type": "视频"
+						"area": "系统资源",
+						"id": 1
 					}, {
-						"type": "图片"
+						"area": "区本资源",
+						"id": 4
 					}, {
-						"type": "文本"
+						"area": "校本资源",
+						"id": 3
 					}
 
 				];
-				$scope.VM.currentType = $scope.VM.searchType[0].type;//文本当前内容
-				
-				
-				
-				//对应类型数目
+
+				//资源类型
 				$scope.VM.typeNums = [{
 						"type": "全部",
 						"num": 10
@@ -86,21 +75,86 @@
 					}
 
 				];
-				$scope.VM.currentTypeNum = [];
-				$scope.VM.currentTypeNum[0]=true;
 
-
-				$scope.VM.selectType = function(index) {
-					$scope.VM.currentType = $scope.VM.searchType[index].type;
+				//资源范围
+				$scope.VM.currentAreaSelect = [];
+				$scope.VM.currentAreaSelect[0] = true;
+				$scope.VM.currentArea = $scope.VM.searchArea[0].area; //文本当前内容
+				$scope.VM.currentFromFlag = $scope.VM.searchArea[0].id;
+				$scope.VM.selectArea = function(index) {
 					//选中
-					_.each($scope.VM.searchType, function(v, i) {
-						$scope.VM.currentTypeSeclet[i] = false;
-						$scope.VM.currentTypeNum[i]=false;
+					_.each($scope.VM.searchArea, function(v, i) {
+						$scope.VM.currentAreaSelect[i] = false;
+
 					});
-					$scope.VM.currentTypeSeclet[index] = true;
-					$scope.VM.currentTypeNum[index]=true;
+					$scope.VM.currentAreaSelect[index] = true;
+					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
+					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
+					getSourceList();
 				}
 
+				//资源类型
+				$scope.VM.currentTypeNum = [];
+				$scope.VM.currentTypeNum[0] = true;
+				$scope.VM.currentFormat = $scope.VM.typeNums[0].type;
+				$scope.VM.typeClick = function(index) {
+					_.each($scope.VM.typeNums, function(v, i) {
+						$scope.VM.currentTypeNum[i] = false;
+
+					});
+					$scope.VM.currentTypeNum[index] = true;
+					$scope.VM.currentFormat = $scope.VM.typeNums[index].type;
+					getSourceList();
+				}
+
+				//获取资源列表
+				$scope.bigCurrentPage = 1;
+				$scope.perPage=10;
+				$scope.maxSize = 5;
+				$scope.searchKeyWord="";
+				$scope.inputPerPage=10;
+				
+				var getSourceList = function() {
+					Search.searchResults({
+						fromFlag: $scope.VM.currentFromFlag,
+						searchKeyword:$scope.searchKeyWord,
+						format: $scope.VM.currentFormat,
+						page: $scope.bigCurrentPage,
+						perPage: $scope.perPage
+					}, function(data) {
+						if (data.code == "OK") {
+							$scope.sourceList = data.data.list;
+							console.log(data);
+							$scope.listLength = data.data.totalLines;
+							$scope.bigTotalItems = $scope.listLength;
+							$scope.pageSize=data.data.total;
+							console.log("范围："+$scope.VM.currentFromFlag+"==关键字"+$scope.searchKeyWord+"===类型"+$scope.VM.currentFormat+"==当前页"+$scope.bigCurrentPage+"==每页显示"+$scope.perPage+"页数"+$scope.pageSize)
+						} else {
+
+							alert(data.code);
+						}
+
+					});
+				}
+				getSourceList();
+				
+				//搜索内容
+				$scope.changeKeyWord=function(){
+					
+					getSourceList();
+				}
+				//改变每页条数
+				$scope.changePerPage=function(){
+					$scope.perPage=$scope.inputPerPage;
+					getSourceList();
+				}
+				//改变页数
+				$scope.changePage=function(){
+					getSourceList();
+				}
+
+				$scope.isCheck = false;
+				$scope.allCheck = false;
 
 			}
 		])

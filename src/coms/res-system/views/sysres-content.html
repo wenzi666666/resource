@@ -1,39 +1,20 @@
 <div class="res-content-header"></div>
 <div id="res-content-right">
 	<div class="res-header-catogry">
-		<span class="catogry-item catogry-item-active">全部</span>
-		<span class="catogry-item">动画教具库</span>
-		<span class="catogry-item">名师微课库</span>
-		<span class="catogry-item">教学案例库</span>
-		<span class="catogry-item">教学素材库</span>
-		<span class="catogry-item">多媒体教辅库</span>
-		<span class="catogry-item">理化生实验室</span>
-		<span class="catogry-item">情景英语</span>
-		<span class="catogry-item">题库</span>
+		<!--<span class="catogry-item catogry-item-active">全部</span>-->
+		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
+		<!--<span class="catogry-item">情景英语</span>
+		<span class="catogry-item">题库</span>-->
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源类型:</span>
-		<span class="type-list type-active">全部</span>
-		<span class="type-list">课件</span>
-		<span class="type-list">动画教具</span>
-		<span class="type-list">微课</span>
-		<span class="type-list">案例</span>
-		<span class="type-list">教案</span>
-		<span class="type-list">试题试卷</span>
-		<span class="type-list">学案</span>
-		<span class="type-list">多媒体教辅</span>
-		<span class="type-list">教学素材</span>
-		<span class="type-list">电子图书</span>
+		<!--<span class="type-list type-active">全部</span>-->
+		<span class="type-list" ng-repeat="v in types track by $index" ng-class="{'type-active':isTypeActive(v.id)}" ng-click="listFormat($index)"> {{v.mtype}} </span>
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源格式:</span>
-		<span class="type-list type-active">全部</span>
-		<span class="type-list">文本</span>
-		<span class="type-list">图片</span>
-		<span class="type-list">音频</span>
-		<span class="type-list">网页</span>
-		<span class="type-list">动画</span>
-
+		<!--<span class="type-list type-active">全部</span>-->
+		<span class="type-list" ng-repeat="v in formats track by $index" ng-class="{'type-active':isFormatActive($index)}" ng-click="filterFormat($index)"> {{ v}}</span>
 	</div>
 	<div class="statistic-tab">
 		<span class="statistic-item"><i class="icon-bar-chart"></i>综合排序</span>
@@ -46,16 +27,16 @@
 
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
-			<li class="res-list-item" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
+			<li class="res-list-item" ng-repeat="list in resList.list">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" src="assets/img/title.png" ui-sref="previewres">
-				<span class="res-list-info" ui-sref="previewres">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label><br>
+				<img class="res-list-thumb" src="assets/img/title.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+					<label class="res-title">{{ list.title }}</label><br>
+					<label class="res-type">类型: {{ list.mtype }}</label>
+					<label class="res-size">大小：{{ list.fsize }}</label><br>
 					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 					
-					<label class="res-number">281浏览/5下载</label>
+					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 				</span>
 				<span class="res-list-tools">
 					<div class="res-select addPrepare">
@@ -70,16 +51,16 @@
 			</li>
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
-			<li class="res-thubmlist-item col-md-4" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
+			<li class="res-thubmlist-item col-md-4" ng-repeat="list in resList.list">
 				<input class="res-checkbox" type="checkbox">
 				<img class="res-thubmlist-thumb" src="assets/img/title.png">
 				<span class="res-thubmlist-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label><br>
+					<label class="res-title">{{ list.title }}</label><br>
+					<label class="res-type">类型: {{ list.mtype }}</label>
+					<label class="res-size">大小：{{ list.fsize }}</label><br>
 					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 					
-					<label class="res-number">281浏览/5下载</label>
+					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 				</span>
 				<span class="res-thubmlist-tools">
 					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
@@ -89,7 +70,7 @@
 		</ul>
 		<div style="clear:both"></div>
 		<div class="coms-pagination">
-		 	<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+		 	<uib-pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
 			<div class="page-go">
 				<span class="page-text">转到</span>
 				<input class="page-input"/>
