@@ -36,33 +36,30 @@
 				})
 			}
 		])
-		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location','Search',
-			function($scope, $stateParams, $state, $location,Search) {
+		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location', 'Search',
+			function($scope, $stateParams, $state, $location, Search) {
 				// 变量共享
 				$scope.VM = {};
-				
-				
-				//搜索类型
-				$scope.VM.currentAreaSelect = [];
-				$scope.VM.currentAreaSelect[0] = true;
+
+				//搜索资源范围
+
 				$scope.VM.searchArea = [{
 						"area": "全部",
-						"id":0
+						"id": 0
 					}, {
 						"area": "系统资源",
-						"id":1
+						"id": 1
 					}, {
 						"area": "区本资源",
-						"id":4
+						"id": 4
 					}, {
 						"area": "校本资源",
-						"id":3
+						"id": 3
 					}
 
 				];
-				$scope.VM.currentArea = $scope.VM.searchArea[0].area;//文本当前内容
-				$scope.VM.currentFromFlag=$scope.VM.searchArea[0].id;
-				//对应类型数目
+
+				//资源类型
 				$scope.VM.typeNums = [{
 						"type": "全部",
 						"num": 10
@@ -78,63 +75,86 @@
 					}
 
 				];
-				$scope.VM.currentTypeNum = [];
-				$scope.VM.currentTypeNum[0]=true;
-				$scope.VM.currentFormat=$scope.VM.typeNums[0].type;
-				
+
 				//资源范围
+				$scope.VM.currentAreaSelect = [];
+				$scope.VM.currentAreaSelect[0] = true;
+				$scope.VM.currentArea = $scope.VM.searchArea[0].area; //文本当前内容
+				$scope.VM.currentFromFlag = $scope.VM.searchArea[0].id;
 				$scope.VM.selectArea = function(index) {
-					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
-					$scope.VM.currentFromFlag=$scope.VM.searchArea[index].id;
-					
 					//选中
 					_.each($scope.VM.searchArea, function(v, i) {
 						$scope.VM.currentAreaSelect[i] = false;
-						
+
 					});
 					$scope.VM.currentAreaSelect[index] = true;
+					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
+					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
+					getSourceList();
 				}
-				
+
 				//资源类型
-				$scope.VM.typeClick=function(index){
+				$scope.VM.currentTypeNum = [];
+				$scope.VM.currentTypeNum[0] = true;
+				$scope.VM.currentFormat = $scope.VM.typeNums[0].type;
+				$scope.VM.typeClick = function(index) {
 					_.each($scope.VM.typeNums, function(v, i) {
 						$scope.VM.currentTypeNum[i] = false;
-						
+
 					});
-					$scope.VM.currentTypeNum[index]=true;
-					$scope.VM.currentFormat=$scope.VM.typeNums[index].type;
+					$scope.VM.currentTypeNum[index] = true;
+					$scope.VM.currentFormat = $scope.VM.typeNums[index].type;
+					getSourceList();
 				}
-				
-				
+
 				//获取资源列表
-				Search.searchResults({
-					fromFlag: $scope.VM.currentFromFlag,
-					searchKeyword: '数学',
-					format: $scope.VM.currentFormat,
-					page: 1,
-					perPage: 10
-				}, function(data) {
-					if(data.code=="OK")
-					{
-						$scope.sourceList=data.data.list;
-						console.log(data);
-						$scope.listLength=data.data.totalLines;
-						$scope.pageSize=data.data.total;
-						$scope.maxSize = 3;
-						$scope.bigTotalItems = $scope.listLength;
-						$scope.bigCurrentPage = 1;
-						
-					}else{
-						
-						console.log("系统异常");
-					}	
+				$scope.bigCurrentPage = 1;
+				$scope.perPage=10;
+				$scope.maxSize = 5;
+				$scope.searchKeyWord="";
+				$scope.inputPerPage=10;
+				
+				var getSourceList = function() {
+					Search.searchResults({
+						fromFlag: $scope.VM.currentFromFlag,
+						searchKeyword:$scope.searchKeyWord,
+						format: $scope.VM.currentFormat,
+						page: $scope.bigCurrentPage,
+						perPage: $scope.perPage
+					}, function(data) {
+						if (data.code == "OK") {
+							$scope.sourceList = data.data.list;
+							console.log(data);
+							$scope.listLength = data.data.totalLines;
+							$scope.bigTotalItems = $scope.listLength;
+							$scope.pageSize=data.data.total;
+							console.log("范围："+$scope.VM.currentFromFlag+"==关键字"+$scope.searchKeyWord+"===类型"+$scope.VM.currentFormat+"==当前页"+$scope.bigCurrentPage+"==每页显示"+$scope.perPage+"页数"+$scope.pageSize)
+						} else {
+
+							alert(data.code);
+						}
+
+					});
+				}
+				getSourceList();
+				
+				//搜索内容
+				$scope.changeKeyWord=function(){
 					
-				});
-				
-				$scope.isCheck=false;
-				$scope.allCheck=false;
-				
-				
+					getSourceList();
+				}
+				//改变每页条数
+				$scope.changePerPage=function(){
+					$scope.perPage=$scope.inputPerPage;
+					getSourceList();
+				}
+				//改变页数
+				$scope.changePage=function(){
+					getSourceList();
+				}
+
+				$scope.isCheck = false;
+				$scope.allCheck = false;
 
 			}
 		])
