@@ -439,3 +439,44 @@
     color: #0094CE;
 }
 
+// 备课夹 悬浮
+.prepare-fixed{
+    position: fixed;
+    bottom: 350px;
+    right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.prepare-fixed:hover .prepare-ctrls{
+    visibility: visible;   
+}
+.prepare-fixed .prepare-text{
+    width: 20px;
+    color: #fff;
+    margin-left: 8px;
+}
+.prepare-fixed  .prepare-shop{
+    float: left;
+    background: #41C9A9;
+    padding: 5px;
+    position: relative;
+}
+.prepare-fixed  .prepare-ctrls{
+    float: left;
+    height: 100px;
+    width: 100px;
+    margin-left: 3px;
+    visibility: hidden;
+    background: #41C9A9;
+    padding: 5px;
+}
+.prepare-fixed .shop-count{
+    position: absolute;
+    background: #c81623;
+    color: #fff;
+    padding: 0 4px;
+    font-size: 14px;
+    border-radius: 7px 7px 7px 0;
+    top: -5px;
+    left: 36px;
+}

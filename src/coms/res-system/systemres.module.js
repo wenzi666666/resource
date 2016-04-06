@@ -74,13 +74,12 @@
 			    // 设置 系统资源为0;
 			    $localStorage.fromFlag = 0;
 				// 加入备课夹 动画
+				$scope.shopCount = 0;
 				setTimeout(function() {
 					$(".addPrepare").click(function(event){
 						
 						var addcar = $(this);
-						var offset = $(".shopping-cart").offset();
-//						console.log(offset.left,offset.top)
-						
+						var offset = $(".prepare-fixed").offset();
 						var img = addcar.parent().parent().find('.res-list-thumb');
 						var flyer = $('<img class="u-flyer" style="max-width:150px" src="'+img.attr('src')+'">');
 						flyer.fly({
@@ -89,8 +88,8 @@
 								top:  event.clientY-30
 							},
 							end: {
-								left: offset.left+200,
-								top: offset.top-200,
+								left: offset.left+10,
+								top: document.documentElement.clientHeight - 380,
 								width: 0,
 								height: 0
 							},
@@ -98,6 +97,11 @@
 //								$("#msg").show().animate({width: '250px'}, 200).fadeOut(1000);
 //								addcar.css("cursor","default").removeClass('orange').unbind('click');
 								$('.u-flyer').remove(); //移除dom
+								
+								//加1
+								$scope.$apply(function() {
+									$scope.shopCount++;
+								})
 							}
 						});
 					});
