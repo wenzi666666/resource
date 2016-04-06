@@ -71,7 +71,8 @@
 			    $scope.switchList = function(list){
 			    	$scope.isList = list;
 			    }
-			    
+			    // 设置 系统资源为0;
+			    $localStorage.fromFlag = 0;
 				// 加入备课夹 动画
 				setTimeout(function() {
 					$(".addPrepare").click(function(event){
@@ -154,6 +155,9 @@
 						console.log("resList:", $scope.resList)
 						// 分页
 						$scope.bigTotalItems = $scope.resList.totalLines;
+						
+						//当前课程节点
+						$scope.curTfcode = $localStorage.currentMaterial.tfcode;
 						
 					})
 				}
