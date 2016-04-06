@@ -1,6 +1,66 @@
 #preview-container{
     margin-top: -30px;
 }
+#preview-container .header-nav-tips
+{
+    color: #fff;
+}
+#preview-container .header-nav-tips .icon-angle-right
+{
+    margin:0px 5px;
+}
+#preview-container .header-nav-tips .nav_left
+{
+    float: left;
+    width: 65%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 24px;
+    
+}
+#preview-container .mulu
+{
+    cursor: pointer;
+    position: relative;
+}
+
+#preview-container .mulu .popBox
+{
+    min-height: 250px;
+    width: 300px;
+    border: 2px solid @color5;
+    background: @color6;
+    position: absolute;
+    z-index: 20;
+    left: -200px;
+    color: @color12;
+    padding: 10px;
+    box-shadow: 0px 0px 5px @color5;
+    display: none;
+}
+#preview-container .mulu:hover{
+    text-decoration: underline;
+}
+#preview-container .mulu:hover .popBox
+{
+    display: block;
+}
+#preview-container .popBox ul{
+    padding-left: 0px;
+}
+#preview-container .popBox li{
+    margin-bottom: 20px;
+}
+#preview-container .popBox li.selected{
+    color: @color1;
+}
+#preview-container .header-nav-tips .nav_right
+{
+    float: right;
+    width: 30%;
+    margin-left: 5%;
+}
 .preview-content{
     background: #fff;
     padding: 15px;
@@ -29,7 +89,7 @@
 .comment-info span{
     margin-right: 15px;
 }
-.create-comment .comment-star, .comment-count {
+.create-comment .comment-star, .comment-count,.comment-score {
     float: right;
 }
 .create-comment textarea{
@@ -61,4 +121,21 @@
 }
 .coment-item .item-content{
     margin-top: 10px;
+}
+#preview-container .editBox
+{
+    text-align: right;
+    padding-right: 5px;
+}
+
+#preview-container .publish
+{
+    float: right;
+    margin-right: 10px;
+    width: 120px;
+    background: @color5;
+}
+#preview-container .shen
+{
+    color: #E23C6C;
 }
