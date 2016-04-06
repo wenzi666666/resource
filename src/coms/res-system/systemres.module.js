@@ -126,12 +126,11 @@
 				$scope.addToPrepare = function(index) {
 					Prepare.addResToPrepareId({
 						id: $scope.prepareList[index].id,
-						resIds: '4319500105',
+						resIds: $scope.prepareList[index].id,
 						fromFlags: 0
 					}, function(data) {
 						console.log(data);
-						ModalMsg.alert("加入备课夹成功！")
-						
+//						ModalMsg.alert("加入备课夹成功！")
 					})
 				}
 				
@@ -230,7 +229,7 @@
 					getResList();
 				}
 				// 初始化为全部
-				$scope.typeAndFormat(0, 0);	
+				$scope.typeAndFormat(0, 0);
 			}
 		])
 }());
