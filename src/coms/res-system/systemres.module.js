@@ -130,7 +130,7 @@
 						fromFlags: 0
 					}, function(data) {
 						console.log(data);
-						ModalMsg.logger("加入备课夹成功！")
+						ModalMsg.alert("加入备课夹成功！")
 						
 					})
 				}
