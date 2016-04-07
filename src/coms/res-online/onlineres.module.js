@@ -8,8 +8,8 @@
 		.config(['$stateProvider',
 			function($stateProvider) {
 				$stateProvider
-					.state('onlineres/:prepareId', {
-						url: '/onlineres',
+					.state('onlineres', {
+						url: '/onlineres/:prepareId',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-online/views/onlineres.html',
