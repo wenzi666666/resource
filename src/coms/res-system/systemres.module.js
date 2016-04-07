@@ -94,8 +94,6 @@
 								height: 0
 							},
 							onEnd: function(){
-//								$("#msg").show().animate({width: '250px'}, 200).fadeOut(1000);
-//								addcar.css("cursor","default").removeClass('orange').unbind('click');
 								$('.u-flyer').remove(); //移除dom
 								
 								//加1
@@ -141,7 +139,7 @@
 				
 				// 列出资源
 				var page =1;
-				var perPage =8;
+				$scope.perPage =8;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
 				var getResList = function() {
@@ -152,7 +150,7 @@
 						tfcode: $localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
-						perPage: perPage
+						perPage: $scope.perPage
 					}, function(data) {
 						$scope.resList = data.data;
 						console.log("resList:", $scope.resList)
@@ -214,6 +212,8 @@
 				$scope.listFormat = function(index) {
 					mTypeId = $scope.types[index].id;
 					$scope.typeSelected = mTypeId;
+					format = "全部";
+					getResList();
 					SystemRes.formats({
 						poolId: poolId,
 						tfcode: $localStorage.currentTreeNode.tfcode,
@@ -221,6 +221,7 @@
 					}, function(data) {
 						$scope.formats = data.data;
 					})
+					
 				}
 				// 选择 格式
 				$scope.filterFormat = function(i) {
@@ -230,6 +231,14 @@
 				}
 				// 初始化为全部
 				$scope.typeAndFormat(0, 0);
+				
+				// 分页触发
+				$scope.VM.currentPageCtrl = 3;
+				$scope.pageChanged = function() {
+				    console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
+				    page = $scope.VM.currentPageCtrl;
+				    getResList();
+				};
 			}
 		])
 }());
