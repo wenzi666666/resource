@@ -144,7 +144,7 @@
 				$scope.currentPage = 1;
 				var getResList = function() {
 					SystemRes.resList({
-						poolId: poolId,
+						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
 						tfcode: $localStorage.currentTreeNode.tfcode,
@@ -168,13 +168,14 @@
 					$scope.pools =data.data;
 				})
 				// 列出资源类型 和格式
-				var poolId = 0;
+				$scope.poolId = 0;
 				var mTypeId = 0;
 				var format = "全部";
 				$scope.orderBy = 0;
 				$scope.typeAndFormat = function(poolId, typeId){
 					// 设值
-					poolId = poolId;
+					$scope.poolId = poolId;
+					console.log("typeAndFormat:", poolId)
 					format = "全部";
 					// 设置当前选择
 					$scope.poolsSelected = poolId;
@@ -183,13 +184,13 @@
 					// 获取资源列表
 					getResList();
 					SystemRes.types({
-						poolId: poolId,
+						poolId: $scope.poolId,
 						tfcode:$localStorage.currentTreeNode.tfcode
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						SystemRes.formats({
-							poolId: poolId,
+							poolId: $scope.poolId,
 							tfcode:$localStorage.currentTreeNode.tfcode,
 							typeId: typeId
 						}, function(data) {
@@ -215,7 +216,7 @@
 					format = "全部";
 					getResList();
 					SystemRes.formats({
-						poolId: poolId,
+						poolId: $scope.poolId,
 						tfcode: $localStorage.currentTreeNode.tfcode,
 						typeId: mTypeId
 					}, function(data) {

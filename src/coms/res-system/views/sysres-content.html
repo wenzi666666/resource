@@ -29,7 +29,7 @@
 		<ul class="res-ul-list" ng-show="isList">
 			<li class="res-list-item" ng-repeat="list in resList.list">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" src="assets/img/title.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				<img class="res-list-thumb" ng-src="{{list.thumbnailpath}}" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title">{{ list.title }}</label><br>
 					<label class="res-type">类型: {{ list.mtype }}</label>
