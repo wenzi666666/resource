@@ -91,6 +91,7 @@
 					}
 					
 				},function(){
+					var len=$(".icon-star.starLight").length;
 					if(len==0)
 					{
 						var index=$(this).index();
@@ -275,6 +276,7 @@
 					}, function(data) {
 						if(data.code=="OK")
 						{
+							console.log(data.data)
 							$scope.info = data.data;
 							for (var i = 0; i < $scope.info.avgScore; i++) {
 								//几颗星
