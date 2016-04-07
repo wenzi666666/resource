@@ -253,7 +253,8 @@
 					}, function(data) {
 						console.log("books：", data.data);
 						$scope.VM.material = data.data;
-						$scope.$emit("currentTreeId", $scope.VM.material[0].id)
+						if($scope.VM.material && $scope.VM.material.length > 0)
+							$scope.$emit("currentTreeId", $scope.VM.material[0].id);
 					})
 				}
 
@@ -268,7 +269,8 @@
 						$scope.VM.currentMaterialSeclet[i] = false;
 					})
 					$scope.VM.currentMaterialSeclet[index] = true;
-					$scope.$emit("currentTreeId", $scope.VM.material[index].id)
+					$scope.$emit("currentTreeId", $scope.currentMaterial.id);
+					
 				}
 			}
 		])

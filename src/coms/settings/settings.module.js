@@ -35,7 +35,7 @@
 					getAllTerms: {method: "GET", url: window.BackendUrl + "/resRestAPI/v1.0/terms"},
 					getAllSubjects: {method: "GET", url: window.BackendUrl + "/resRestAPI/v1.0/subjects"},
 					setUserInfo: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/:userid", params: {userid: '@userid'}},
-					setNewPasswd: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/password"},
+					setNewPasswd: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/password/"},
 					setUserAvatar: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/userimage/:userid", params: {userid: '@userid'}}
                 })
 			}
@@ -107,10 +107,6 @@
 				// 变量共享
 				$scope.VM = {};
 				
-				//修改信息modifyInfoJson
-				var infojson = {
-					
-				}
 				
 				$scope.selectTerm = function(index) {
 					for(var i = 0; i < $scope.terms.length; i ++) $scope.terms[i].active = false;
@@ -138,7 +134,6 @@
 				$scope.setMale = function(male) {
 					if(male) $scope.sexSelected = "男";
 					else $scope.sexSelected = "女";
-					console.log(male);
 				}
 				
 				$scope.saveUserInfo = function() {
@@ -192,6 +187,7 @@
 				  				userid: $localStorage.authUser.userId,
 				  				userImage: newpath
 				  			}, function(data) {
+				  				console.log(data);
 				  				if(data.code == "OK") {
 				  					$scope.currentAvatar = newpath;
 				  					saveSuccess = "头像更换成功！";
@@ -237,22 +233,19 @@
 						$scope.newPsw = "";
 						$scope.confirmNewPsw = "";
 					}
+					else if($scope.newPsw == "") {
+						$scope.newPswError = true;
+						$scope.oldPsw = "";
+						$scope.newPsw = "";
+						$scope.confirmNewPsw = "";
+					}
 					else {
 						User.setNewPasswd({
 							oldPassword: $scope.oldPsw,
 							newPassword: $scope.newPsw,
-							_method: "PATCH "
+							_method: "PATCH"
 						}, function(data) {
-							console.log(data);
-							//初始密码错误
-							if(data.code == "InvalidPassword") {
-								$scope.oldPswError = true;
-								$scope.oldPsw = "";
-								$scope.newPsw = "";
-								$scope.confirmNewPsw = "";
-							}
 							//修改成功
-							else if(data.code == "ok") {
 								var saveSuccess = "密码修改成功，下次请用新密码登录！";
 								var btnSave = "确定";
 								$scope.VM.messageModal = $uibModal.open({
@@ -268,6 +261,15 @@
 										}
 									}
 								})
+
+						}, function(data) {
+							console.log(data);
+							//初始密码错误
+							if(data.code == "InvalidPassword") {
+								$scope.oldPswError = true;
+								$scope.oldPsw = "";
+								$scope.newPsw = "";
+								$scope.confirmNewPsw = "";
 							}
 							//其他错误
 							else {
@@ -280,6 +282,12 @@
 					}
 				}
 				
+				//清空提示信息
+				$scope.initForm = function() {
+					$scope.setPswFail = false;
+					$scope.newPswError = false;
+					$scope.oldPswError = false;
+				}
 				//重置 
 				$scope.clearPasswd = function() {
 					$scope.oldPsw = "";

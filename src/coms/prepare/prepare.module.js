@@ -57,8 +57,8 @@
 				})
 			}
 		])
-		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree','$localStorage',
-			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, $localStorage) {
+		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree', 'Res', '$localStorage',
+			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, Res, $localStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -94,6 +94,7 @@
 					getPrepare(d.tfcode);
 				})
 
+
 				// 读取备课夹 列表
 				var getPrepare = function(id) {
 					Prepare.baseGetApi({
@@ -101,7 +102,7 @@
 					}, function(data) {
 						console.log(data.data);
 						$scope.listData = data.data;
-						$scope.listData[0].active = true
+						if(data.data && data.data.length > 0) $scope.listData[0].active = true;
 						//获取备课夹详细内容
 						_.each(data.data, function(v,i) {
 							getPrepareDetails(v.id, i);
@@ -109,12 +110,19 @@
 					})
 				}
 
+
+				//监听课本选择
+				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {
+					console.log("test");
+					getPrepare(tfcode);
+				})
+
 				// 读取 单个备课夹详细内容
 				var getPrepareDetails = function(id,index) {
 					Prepare.prepareContent({
 						id: id
 					}, function(data) {
-						console.log(data.data);
+						console.log("test", data.data);
 						$scope.listData[index].children = data.data;
 					})
 				}
@@ -155,6 +163,8 @@
 						})
 					});
 				}
+
+
 			}
 		])
 
