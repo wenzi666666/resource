@@ -36,7 +36,7 @@
 						// 选择
 //						$scope.selected = $scope.treedata[currentTreeNode.i];
 						//展开第一个节点
-						$scope.expandedNodes = [$scope.treedata[0]];
+						$scope.expandedNodes = [$scope.treedata[0],$scope.treedata[1],$scope.treedata[2],$scope.treedata[3]];
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode)
 					})

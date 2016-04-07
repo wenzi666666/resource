@@ -12,7 +12,8 @@
 				'alert': function alert(key) {
 					return $uibModal.open({
 						template: tplLeft + key + alertRight,
-						size: 'sm',
+						windowClass: "alert6-modal",
+//						size: 'sm',
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
 							$scope.cancelModal = function(){
 								$uibModalInstance.dismiss('cancel');
@@ -24,7 +25,8 @@
 				'confirm': function confirm(key) {
 					return $uibModal.open({
 						template: tplLeft + key + confirmRight,
-						size: 'sm',
+						windowClass: "confirm-modal",
+//						size: 'lg',
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
 							$scope.cancelModal = function(){
 								$uibModalInstance.dismiss('cancel');
@@ -40,7 +42,7 @@
 				'logger': function logger(key) {
 					return $uibModal.open({
 						template: tplLeft + key + loggerRight,
-						size: 'sm',
+						windowClass: "logger-modal",
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
 							setTimeout(function(){
 								$uibModalInstance.dismiss('cancel');

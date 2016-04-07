@@ -265,18 +265,6 @@
 					}
 				}
 				
-				$scope.commentTime=function(atime){
-					//时间戳转日期函数
-					  var now=new Date(atime);
-					  var year=now.getFullYear();     
-		              var month=now.getMonth()+1;     
-		              var date=now.getDate();     
-		              var hour=now.getHours();     
-		              var minute=now.getMinutes();     
-		              var second=now.getSeconds();     
-		              return year+"."+month+"."+date+"   "+hour+":"+minute+":"+second;      
-				}
-				
 				//获取单个资源的详细信息/评论
 				function listInfoCom(id,fromFlag){
 					$scope.VM.resourceId=id;
@@ -294,7 +282,7 @@
 							}
 						}else
 						{
-							console.log(data.message)
+							alert(data.code);
 						}
 						
 					});
@@ -312,7 +300,7 @@
 							$('#res-slide-content').html(tpl);
 						}else
 						{
-							console.log("播放"+data.message)
+							alert(data.code);
 						}
 						
 					});

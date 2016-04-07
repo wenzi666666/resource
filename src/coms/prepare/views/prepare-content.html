@@ -4,7 +4,7 @@
 			<span class="list-header-title">{{$index+1}}、{{list.title}}</span>
 			<i class="icon-edit edit-prepare"></i> 
 			<i class="icon-trash" ng-click="deletePrepare($index,$event)"></i>
-			<span class="online-course" ui-sref="onlineres"><i class="icon-play-circle"></i>在线授课</span>
+			<span class="online-course" ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i>在线授课</span>
 			<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
 			
 		</div>
@@ -22,7 +22,7 @@
 					<span class="item-info-type">类型: {{item.type}}</span>
 					<span class="item-info-size">大小：{{item.size}}</span>
 				</div>
-				<span class="prepare-download"><i class="icon-download-alt"></i></span>
+				<span class="prepare-download"><img src="assets/img/prepare/download_icon.png"></i></span>
 				<span><i class="icon-plus-sign"></i></span>
 				<div class="right-tools">
 					<div>基础资源</div>
