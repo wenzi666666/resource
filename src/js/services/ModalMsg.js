@@ -12,7 +12,7 @@
 				'alert': function alert(key) {
 					return $uibModal.open({
 						template: tplLeft + key + alertRight,
-						windowClass: "alert6-modal",
+						windowClass: "alert-modal",
 //						size: 'sm',
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
 							$scope.cancelModal = function(){

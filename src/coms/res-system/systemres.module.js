@@ -212,6 +212,8 @@
 						}, function(data) {
 							$scope.formats =data.data;
 						})
+					}, function(error) {
+						console.log(error)
 					})
 				}
 				// 当前资源库 选择
