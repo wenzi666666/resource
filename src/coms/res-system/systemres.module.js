@@ -48,6 +48,11 @@
 					resList: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/sysResource"
+					},
+					// 点击下载
+					resDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/res_down"
 					}
 				})
 			}
@@ -75,7 +80,10 @@
 			    $localStorage.fromFlag = 0;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
-				setTimeout(function() {
+				
+				// 加入备课夹 动画
+				var addToPrepareAnimation = function(){
+					
 					$(".addPrepare").click(function(event){
 						
 						var addcar = $(this);
@@ -95,15 +103,11 @@
 							},
 							onEnd: function(){
 								$('.u-flyer').remove(); //移除dom
-								
-								//加1
-								$scope.$apply(function() {
-									$scope.shopCount++;
-								})
 							}
 						});
 					});
-				}, 3000)
+				}
+			
 				
 				
 				// 读取备课夹 列表
@@ -118,17 +122,19 @@
 				}
 				setTimeout(function(){
 					getPrepare($localStorage.currentTreeNode.tfcode)
-				}, 3000)
+				}, 1000)
 				
 				//将资源加入备课夹
-				$scope.addToPrepare = function(index) {
+				$scope.addToPrepare = function(listIndex, prepareIndex) {
+					console.log(listIndex, prepareIndex)
 					Prepare.addResToPrepareId({
-						id: $scope.prepareList[index].id,
-						resIds: $scope.prepareList[index].id,
-						fromFlags: 0
+						id: $scope.prepareList[prepareIndex].id,
+						resIds: $scope.resList.list[listIndex].id,
+						fromFlags: $localStorage.fromFlag
 					}, function(data) {
-						console.log(data);
-//						ModalMsg.alert("加入备课夹成功！")
+						//加1
+						$scope.shopCount++;
+
 					})
 				}
 				
@@ -160,6 +166,10 @@
 						//当前课程节点
 						$scope.curTfcode = $localStorage.currentMaterial.tfcode;
 						
+						// 动画
+						setTimeout(function(){
+							addToPrepareAnimation();
+						},1000)
 					})
 				}
 				
@@ -230,16 +240,35 @@
 					$scope.formatSelected = i;
 					getResList();
 				}
+				
+				// 综合 排序 0 最多下载 1 最新发布2
+				$scope.dataSortByType = function(type){
+					$scope.orderBy = type;
+					page = 1;
+					getResList();
+					
+				}
+				
 				// 初始化为全部
 				$scope.typeAndFormat(0, 0);
 				
 				// 分页触发
-				$scope.VM.currentPageCtrl = 3;
+				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function() {
 				    console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
 				    page = $scope.VM.currentPageCtrl;
 				    getResList();
 				};
+				
+				// 下载资源
+				$scope.resDownload = function(id){
+					SystemRes.resDownload({
+						resId:id,
+						fromFlag: $localStorage.fromFlag
+					}, function(data){
+						console.log(data)
+					})
+				}
 			}
 		])
 }());
