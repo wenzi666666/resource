@@ -1,5 +1,5 @@
 <div id="prepare-content">
-	<div class="prepare-list" ng-repeat="list in listData track by $index">
+	<div class="prepare-list" ng-repeat="list in listData track by $index" ng-init="parentIndex = $index">
 		<div class="list-header" ng-click="switch($index)">
 			<span class="list-header-title">{{$index+1}}、{{list.title}}</span>
 			<i class="icon-edit edit-prepare"></i> 
@@ -22,14 +22,15 @@
 					<span class="item-info-type">类型: {{item.type}}</span>
 					<span class="item-info-size">大小：{{item.size}}</span>
 				</div>
-				<span class="prepare-download"><img src="assets/img/prepare/download_icon.png"></i></span>
-				<span><i class="icon-plus-sign"></i></span>
+				<span class="prepare-download"><img src="assets/img/prepare/download_icon.png"></span>
+				<span><img src="assets/img/prepare/edit_icon.png"></span>
 				<div class="right-tools">
 					<div>基础资源</div>
-					<span><i class="icon-plus-sign"></i></span>
-					<span><i class="icon-plus-sign"></i></span>
-					<span><i class="icon-plus-sign"></i></span>
-					<span><i class="icon-plus-sign"></i></span>
+					<span ng-click="setItem(item.id, parentIndex, 1)"><img src="assets/img/prepare/set_bottom_icon.png"></span>
+					<span ng-click="setItem(item.id, parentIndex, 3)"><img src="assets/img/prepare/back_icon.png"></span>
+					<span ng-click="setItem(item.id, parentIndex, 2)"><img src="assets/img/prepare/move_icon.png"></span>
+					<span ng-click="setItem(item.id, parentIndex, 4)"><img src="assets/img/prepare/set_top_icon.png"></span>
+					<span ng-click="deleteItem(item.id, parentIndex)"><img src="assets/img/prepare/delete_icon.png"></span>
 				</div>
 			</div>
 		</div>

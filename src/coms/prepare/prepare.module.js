@@ -52,8 +52,11 @@
 					    params:{ 
 					        id:'@id'
 					    }
+					},
+					moveItemInPrepare: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareContent/"
 					}
-
 				})
 			}
 		])
@@ -162,6 +165,80 @@
 							getPrepare(data.code);
 						})
 					});
+				}
+
+				//备课夹中内容操作——1.置底 2.上移 3.下移 4.置顶
+				$scope.setItem = function(id, index, type) {
+					var prevId = 0;
+					var nextId = 0;
+					console.log($scope.listData);
+					console.log(index);
+					var list = $scope.listData[index].children;
+					var len = list.length;
+					var msg = "";
+					var successMsg = "";
+					//置底
+					if(type == 1) {
+						prevId = id;
+						nextId = list[len-1].id;
+						if(prevId == nextId) {
+							msg = "已是最后一条内容！";
+						}
+					}
+					//上移
+					else if(type == 2) {
+						nextId = id;
+						var prevIndex = 0;
+						_.each(list, function(item,i) {
+							if(item.id == id) {
+								prevIndex = i-1;
+							}
+						})
+						if(prevIndex < 0) {
+							msg = "当前已是第一条!";
+						}
+						else prevId = list[prevIndex].id;
+					}
+					//下移
+					else if(type == 3) {
+						prevId = id;
+						var nextIndex = 0;
+						_.each(list, function(item,i) {
+							if(item.id == id) {
+								nextIndex = i+1;
+							}
+						})
+						if(nextIndex == list.length) {
+							msg = "当前已是最后一条!";
+						}
+						else nextId = list[nextIndex].id;
+					}
+					//置顶
+					else if(type == 4) {
+						prevId = list[0].id;
+						if(prevId == id) {
+							msg = "当前已是第一条！";
+						}
+						else nextId = id;
+					}
+
+					if(msg.length == 0) {
+						Prepare.moveItemInPrepare({
+							prevId: prevId,
+							nextId: nextId,
+							_method: "BATCH"
+						}, function(data) {
+							console.log(data);
+						})
+					}
+					else {
+						ModalMsg.logger(msg);
+					}
+				}
+
+				//备课夹中内容操作——删除
+				$scope.deleteItem = function() {
+
 				}
 
 
