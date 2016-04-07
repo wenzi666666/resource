@@ -41,7 +41,7 @@
 <div class="col-md-2">
 	<div class="slide-list">
 		<div class="slide-list-item" ng-repeat="item in allSourceList" ng-click="slideChange(item.id,$index)">
-			<img src="{{item.thumbnailpath}}">
+			<img src="{{item.thumbnailpath}}" ng-class="curImg[$index]?'line':''">
 			<span>{{item.title}}_{{item.mtype}}</span>
 		</div>
 	</div>
@@ -72,12 +72,12 @@
 				<span class="comment-count">已有{{info.userNum}}人评价</span>
 
 				<span class="comment-star">
-						<i class="icon-star"></i>
-						<i class="icon-star"></i>
-						<i class="icon-star"></i>
-						<i class="icon-star"></i>
-						<i class="icon-star"></i>
-					</span>
+					<i class="icon-star"></i>
+					<i class="icon-star"></i>
+					<i class="icon-star"></i>
+					<i class="icon-star"></i>
+					<i class="icon-star"></i>
+				</span>
 
 			</div>
 			<textarea ng-change="changeComment()" ng-model="inputComment"></textarea>
