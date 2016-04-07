@@ -77,8 +77,8 @@
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
-			    // 设置 校本资源为1;
-			    $localStorage.fromFlag = 1;
+			    // 设置 匹本资源为4;
+			    $localStorage.fromFlag = 4;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
 				
@@ -145,10 +145,6 @@
 					getResList();
 				})
 				
-//				$scope.$on("currentTreeIdUpdate",function(e, d) {
-//					console.log("test")
-//				})
-				
 				// 列出资源
 				var page =1;
 				$scope.perPage =8;
@@ -156,7 +152,7 @@
 				$scope.currentPage = 1;
 				var getResList = function() {
 					SchoolRes.resList({
-						poolId: $scope.poolId,
+						fromFlag: $localStorage.fromFlag,
 						mTypeId: mTypeId,
 						fileFormat: format,
 						tfcode: $localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
@@ -179,45 +175,19 @@
 					})
 				}
 				
-				// 列出资源库
-				SchoolRes.pools({}, function(data) {
-					$scope.pools =data.data;
-				})
 				// 列出资源类型 和格式
-				$scope.poolId = 0;
 				var mTypeId = 0;
 				var format = "全部";
 				$scope.orderBy = 0;
-				$scope.typeAndFormat = function(poolId, typeId){
-					// 设值
-					$scope.poolId = poolId;
-					console.log("typeAndFormat:", poolId)
-					format = "全部";
-					// 设置当前选择
-					$scope.poolsSelected = poolId;
-					$scope.typeSelected =0;
-					$scope.formatSelected =0;
-					// 获取资源列表
-					getResList();
-					SchoolRes.types({
-						poolId: $scope.poolId,
-						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
-					}, function(data) {
-						$scope.types =data.data;
-						console.log("types:",data.data);
-						SchoolRes.formats({
-							poolId: $scope.poolId,
-							tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
-							typeId: typeId
-						}, function(data) {
-							$scope.formats =data.data;
-						})
-					})
-				}
+				
+				SchoolRes.types({
+					fromFlag: $localStorage.fromFlag,
+					tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
+				}, function(data) {
+					$scope.types =data.data;
+					getResList();	
+				})
 				// 当前资源库 选择
-				$scope.isPoolActive = function(item) {
-			        return $scope.poolsSelected === item;
-			 	};
 			 	$scope.isTypeActive = function(item) {
 			        return $scope.typeSelected === item;
 			 	};
@@ -226,19 +196,24 @@
 			 	};
 			 	
 				// 列出资源格式
+				SchoolRes.formats({
+					fromFlag: $localStorage.fromFlag,
+					tfcode: $localStorage.currentTreeNode.tfcode
+				}, function(data) {
+					$scope.formats = data.data;
+				})
+				
 				$scope.listFormat = function(index) {
 					mTypeId = $scope.types[index].id;
 					$scope.typeSelected = mTypeId;
 					format = "全部";
 					getResList();
 					SchoolRes.formats({
-						poolId: $scope.poolId,
-						tfcode: $localStorage.currentTreeNode.tfcode,
-						typeId: mTypeId
+						fromFlag: $localStorage.fromFlag,
+						tfcode: $localStorage.currentTreeNode.tfcode
 					}, function(data) {
 						$scope.formats = data.data;
-					})
-					
+					})	
 				}
 				// 选择 格式
 				$scope.filterFormat = function(i) {
@@ -254,10 +229,6 @@
 					getResList();
 					
 				}
-				
-				// 初始化为全部
-				$scope.typeAndFormat(0, 0);
-				
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function() {
