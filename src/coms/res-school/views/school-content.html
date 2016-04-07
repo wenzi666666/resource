@@ -1,35 +1,25 @@
 <div class="res-content-header"></div>
 <div id="res-content-right">
 	<div class="res-header-catogry">
-		<span class="catogry-item">全部</span>
-		<span class="catogry-item">动画教具库</span>
-		<span class="catogry-item">名师微课库</span>
-		<span class="catogry-item">教学案例库</span>
-		<span class="catogry-item">教学素材库</span>
-		<span class="catogry-item">多媒体教辅库</span>
-		<span class="catogry-item">理化生实验室</span>
-		<span class="catogry-item">情景英语</span>
-		<span class="catogry-item">题库</span>
+		<!--<span class="catogry-item catogry-item-active">全部</span>-->
+		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
+		<!--<span class="catogry-item">情景英语</span>
+		<span class="catogry-item">题库</span>-->
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源类型:</span>
-		<span class="type-list type-active">全部</span>
-		<span class="type-list">动画</span>
-		<span class="type-list">视频</span>
-		<span class="type-list">音频</span>
-		<span class="type-list">图片</span>
-		<span class="type-list">网页</span>
-		<span class="type-list">课件</span>
-		<span class="type-list">教案</span>
-		<span class="type-list">文本</span>
-		<span class="type-list">试题</span>
+		<!--<span class="type-list type-active">全部</span>-->
+		<span class="type-list" ng-repeat="v in types track by $index" ng-class="{'type-active':isTypeActive(v.id)}" ng-click="listFormat($index)"> {{v.mtype}} </span>
+	</div>
+	<div class="res-header-type">
+		<span class="type-title">资源格式:</span>
+		<!--<span class="type-list type-active">全部</span>-->
+		<span class="type-list" ng-repeat="v in formats track by $index" ng-class="{'type-active':isFormatActive($index)}" ng-click="filterFormat($index)"> {{ v}}</span>
 	</div>
 	<div class="statistic-tab">
-		<span class="statistic-item"><i class="icon-bar-chart"></i>推荐指数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>评分星级</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>下载次数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>收藏次数</span>
-		<span class="statistic-item"><i class="icon-bar-chart"></i>浏览次数</span>
+		<span class="statistic-item" ng-click="dataSortByType(0)"><i class="icon-bar-chart"></i>综合排序</span>
+		<span class="statistic-item" ng-click="dataSortByType(1)"><i class="icon-bar-chart"></i>最多下载</span>
+		<span class="statistic-item" ng-click="dataSortByType(2)"><i class="icon-bar-chart"></i>最新发布</span>
 		<span class="statistic-item"></span>
 		<span class="statistic-item" ng-click="switchList(true)"><i class="icon-th-list"></i></span>
 		<span class="statistic-item" ng-click="switchList(false)"><i class="icon-th-large"></i></span>
@@ -37,42 +27,60 @@
 
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
-			<li class="res-list-item" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
+			<li class="res-list-item" ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" src="assets/img/title.jpg">
-				<span class="res-list-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label><br>
+				<img class="res-list-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/statistic.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+					<label class="res-title">{{ list.title }}</label><br>
+					<label class="res-type">类型: {{ list.mtype }}</label>
+					<label class="res-size">大小：{{ list.fsize }}</label><br>
 					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 					
-					<label class="res-number">281浏览/5下载</label>
+					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 				</span>
 				<span class="res-list-tools">
-					<add-to-cart-button class="res-select">加入备课夹</add-to-cart-button><br>
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
+					<div class="res-select addPrepare">
+						加入备课夹
+						<div class="res-prepare-list" >
+							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"   ng-click="addToPrepare(parentIndex, $index)">{{item.title}}</div>
+						</div>
+					</div><br>
+					
+					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 			</li>
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
-			<li class="res-thubmlist-item col-md-4" ng-repeat="list in [0,1,2,3,4,5,6,7,8]">
+			<li class="res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-thubmlist-thumb" src="assets/img/title.jpg">
+				<img class="res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
 				<span class="res-thubmlist-info">
-					<label class="res-title">《触摸春天》生字学习</label><br>
-					<label class="res-type">类型: 动画</label>
-					<label class="res-size">大小：10M</label><br>
+					<label class="res-title">{{ list.title }}</label><br>
+					<label class="res-type">类型: {{ list.mtype }}</label>
+					<label class="res-size">大小：{{ list.fsize }}</label><br>
 					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 					
-					<label class="res-number">281浏览/5下载</label>
+					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 				</span>
-				<span class="res-thubmlist-tools">
+				<div class="res-thubmlist-tools thubmlist-tools-custom">
 					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
-					<add-to-cart-button class="res-select">加入备课夹</add-to-cart-button>
-				</span>
+					<div class="res-select addPrepare  addPrepare-custom">
+						加入备课夹
+						<div class="res-prepare-list" >
+							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare(parentIndex, $index)">{{item.title}}</div>
+						</div>
+					</div>
+				</div>
 			</li>
 		</ul>
 		<div style="clear:both"></div>
-		<div style="width:100%;margin: 25px;"><img style="width:90%;" src="assets/img/tmp.png"/></div>
+		<div class="coms-pagination">
+		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" num-pages="perPage" ng-change="pageChanged()"></uib-pagination>
+			<div class="page-go">
+				<span class="page-text">转到</span>
+				<input class="page-input"/>
+				<span class="page-go-btn">Go</span>
+			</div>
+		</div> 
 	</div>
 </div>
