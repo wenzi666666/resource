@@ -33,11 +33,14 @@
 				})
 			}
 		])
-		.controller("OnlineResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http','Prepare','Preview','$localStorage',
-			function($scope, $stateParams, $state, $location,SystemRes,$http, Prepare,Preview,$localStorage) {
+		.controller("OnlineResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http','Prepare','Preview','$localStorage','ModalMsg',
+			function($scope, $stateParams, $state, $location,SystemRes,$http, Prepare,Preview,$localStorage,ModalMsg) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
+				
+//				ModalMsg.alert("test")
+//				ModalMsg.logger("haha")
 				
 				//slide下方导航默认不显示
 				$scope.VM.slideTools = false;

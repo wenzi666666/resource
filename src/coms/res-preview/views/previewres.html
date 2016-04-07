@@ -94,7 +94,7 @@
 				<div class="coment-item " ng-repeat="comment in myCommentList">
 					<div class="item-user-date">
 						<span item-user>{{comment.userName}}</span>
-						<span item-date>{{commentTime(comment.atime)}}</span>
+						<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
 					</div>
 					<div class="item-content" contenteditable="false">{{comment.acontent}}</div>
 					<div class="editBox">
@@ -107,7 +107,7 @@
 				<div class="coment-item " ng-repeat="comment in otherCommentList">
 					<div class="item-user-date">
 						<span item-user>{{comment.userName}}</span>
-						<span item-date>{{commentTime(comment.atime)}}</span>
+						<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
 					</div>
 					<div class="item-content">{{comment.acontent}}</div>
 
