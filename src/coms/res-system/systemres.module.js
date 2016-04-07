@@ -140,8 +140,13 @@
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
+					
 					getResList();
 				})
+				
+//				$scope.$on("currentTreeIdUpdate",function(e, d) {
+//					console.log("test")
+//				})
 				
 				// 列出资源
 				var page =1;

@@ -26,13 +26,13 @@
 						 $scope.treedata = data.data;
 						 console.log("tree data:", data.data);
 						 // 目录树默认选择 当前选择 > 默认第一个节点选择 
-						 if($localStorage.currentTreeNode) {
-							var currentTreeNode = $localStorage.currentTreeNode;
-						}else {
+//						 if($localStorage.currentTreeNode) {
+//							var currentTreeNode = $localStorage.currentTreeNode;
+//						}else {
 							var currentTreeNode = data.data[0];
 							//缓存用户当前 版本
 							$localStorage.currentTreeNode =  currentTreeNode;
-						}
+//						}
 						// 选择
 //						$scope.selected = $scope.treedata[currentTreeNode.i];
 						//展开第一个节点
