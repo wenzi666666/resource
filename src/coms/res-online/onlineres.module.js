@@ -33,75 +33,67 @@
 				})
 			}
 		])
-		.controller("OnlineResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http',
-			function($scope, $stateParams, $state, $location,SystemRes,$http) {
+		.controller("OnlineResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http','Prepare','Preview','$localStorage','ModalMsg',
+			function($scope, $stateParams, $state, $location,SystemRes,$http, Prepare,Preview,$localStorage,ModalMsg) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
 				
+//				ModalMsg.alert("test")
+//				ModalMsg.logger("haha")
+				
 				//slide下方导航默认不显示
 				$scope.VM.slideTools = false;
+				$scope.currentTreeNode = $localStorage.currentTreeNode;
+				Prepare.baseGetApi({
+					tfcode: $localStorage.currentTreeNode.tfcode
+				}, function(data) {
+					$scope.prepare = data.data[0];
+					console.log("prepare:", $scope.prepare)
+				})
+				// 读取 单个备课夹详细内容
+				var getPrepareDetails = function(id,index) {
+					Prepare.prepareContent({
+						id: id
+					}, function(data) {
+						$scope.slides = data.data;
+						$scope.getResPlayUrl(0,$scope.slides[0].resId)
+						slideToolsInit();
+						console.log(data.data)
+					})
+				}
+				getPrepareDetails($stateParams.prepareId);
 				
-				$scope.slides = [
-				{
-					title: "荷塘月色-课件1",
-					type:'img',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-图片",
-					type:'pdf',
-					src: "http://chat.tfedu.net/res/fe-tiku.pdf"
-				},{
-					title: "荷塘月色-pdf",
-					type:'media',
-					src: "http://m.tfedu.net/book/ereader/"
-				},{
-					title: "荷塘月色-案例",
-					type:'html',
-					src: "http://101.200.190.27:8099/down/dec/00ae9e79-a560-4e23-bf01-609c711666ec-274/index.htm"
-				}]
-				
+				// 获取 播放链接
+				$scope.getResPlayUrl = function(index,id) {
+					console.log(index,id)
+					Preview.resViewUrl({
+						resIds: id,
+						fromFlags:$localStorage.fromFlag
+					}, function(data){
+						$scope.slides[index].src = data.data[0].path;
+						$scope.selectRes(index);
+						console.log(data.data)
+					})
+				}
+					
 				//上一个
 				var currentSlideIndex = 3;
 				$scope.slidePre = function() {
 					if(currentSlideIndex > 0) {
 						$scope.selectRes(currentSlideIndex-1);
+						$scope.getResPlayUrl(currentSlideIndex-1, $scope.slides[currentSlideIndex-1].resId);
 					}else{
 						currentSlideIndex = $scope.slides.length-1;
 					}
+					
 				}
+				
 				//下一个
 				$scope.slideNext = function() {
 					if(currentSlideIndex < $scope.slides.length-1) {
 						$scope.selectRes(currentSlideIndex+1);
+						$scope.getResPlayUrl(currentSlideIndex+1, $scope.slides[currentSlideIndex+1].resId);
 					}else{
 						currentSlideIndex = 0;
 					}
@@ -113,22 +105,24 @@
 					currentSlideIndex = index;
 					switch($scope.slides[index].type)
 					{
-//					case "img1":
-//					  tpl = "<img src='" +$scope.slides[index].src + "' />"
-//					  $('#res-slide-content').html(tpl);
-//					  break;
 					default:
 					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' style='border:0'></iframe>"
 					   $('#res-slide-content').html(tpl);
 					}
 				}
 				
-				$scope.selectRes(0);
-				
-				// 下方工具栏
+				// 下方工具栏 
 				var slideIndex = 0;
 				var slidePerpage = 6;
-				$scope.slidesCustom = $scope.slides.slice(slideIndex, slidePerpage);
+				// 初始化 
+				var slideToolsInit = function() {
+					if($scope.slides.length >6) {
+						$scope.slidesCustom = $scope.slides.slice(slideIndex, slidePerpage);
+					} else{
+						$scope.slidesCustom = $scope.slides
+					}
+				}
+
 				// 向前
 				$scope.slidePreCustom = function() {
 					if(slideIndex >= slidePerpage) {

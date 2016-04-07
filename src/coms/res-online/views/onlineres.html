@@ -1,5 +1,8 @@
 ﻿<div class="container" id="onlineres-container">
-	<div class="header-nav-tips"></div>
+	<div class="header-nav-tips">
+		<span ui-sref="prepare">{{currentTreeNode.label}} <i class="icon-angle-right"></i></span>
+		<span>{{prepare.title}}</span>
+	</div>
 	<div class="slide-container col-md-10">
 		<div class="slide-content">
 			<div class="slide-arrow slide-pre" ng-click="slidePre()"><i class="icon-chevron-left"></i></div>
@@ -9,12 +12,22 @@
 			</div>
 			<div class="slide-fullscreen" ng-click="toggleFullscreen()"><i class="icon-fullscreen"></i></div>
 		</div>
+		<div class="slide-tools" ng-show="VM.slideTools">
+			<div class="slide-arrow2 slide-pre" ng-click="slidePreCustom()"><i class="icon-chevron-left"></i></div>
+			<div class="slide-arrow2 slide-next" ng-click="slideNextCustom()"><i class="icon-chevron-right"></i></div>
+			<ul class="slide-thumbnail">
+				<li ng-repeat="item in slidesCustom" ng-click="selectRes($index)">
+					<img ng-src="{{ item.imgPath }}" ng-click="getResPlayUrl($index, item.resId)"/>
+					<span>{{item.title}}</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 	
 	<div class="col-md-2">
 		<div class="slide-list">
-			<div class="slide-list-item" ng-repeat="item in slides">
-				<img src="assets/img/title.jpg">
+			<div class="slide-list-item" ng-repeat="item in slides track by $index">
+				<img ng-src="{{ item.imgPath }}" ng-click="getResPlayUrl($index, item.resId)">
 				<span>{{item.title}}</span>
 			</div>
 		</div>
