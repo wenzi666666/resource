@@ -8,7 +8,7 @@
 		.config(['$stateProvider',
 			function($stateProvider) {
 				$stateProvider
-					.state('onlineres', {
+					.state('onlineres/:prepareId', {
 						url: '/onlineres',
 						views: {
 							'content@': {
