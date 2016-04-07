@@ -72,8 +72,9 @@
 					$scope.VM.currentMaterialShow = false;
 				}
 				// list切换
-				$scope.isList = true;
+				$scope.isList = $localStorage.resList?$localStorage.resList:true;
 			    $scope.switchList = function(list){
+			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
 			    // 设置 系统资源为0;
