@@ -121,7 +121,7 @@
 					})
 				}
 				setTimeout(function(){
-					getPrepare($localStorage.currentTreeNode.tfcode)
+					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 				}, 1000)
 				
 				//将资源加入备课夹
@@ -140,7 +140,7 @@
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
-					
+					console.log("test")
 					getResList();
 				})
 				
@@ -158,7 +158,7 @@
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
-						tfcode: $localStorage.currentTreeNode.tfcode,
+						tfcode: $localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
 						orderBy:$scope.orderBy,
 						page:page,
 						perPage: $scope.perPage
@@ -200,13 +200,13 @@
 					getResList();
 					SystemRes.types({
 						poolId: $scope.poolId,
-						tfcode:$localStorage.currentTreeNode.tfcode
+						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						SystemRes.formats({
 							poolId: $scope.poolId,
-							tfcode:$localStorage.currentTreeNode.tfcode,
+							tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
 							typeId: typeId
 						}, function(data) {
 							$scope.formats =data.data;
