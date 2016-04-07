@@ -1,105 +1,147 @@
 ﻿<div class="container" id="preview-container">
+
 	<div class="header-nav-tips">
-		<span>基础资源<i class="icon-angle-right"></i></span>
-		<span>高中语文<i class="icon-angle-right"></i></span>
-		<span>荷塘月色<i class="icon-angle-right"></i></span>
-	</div>
-	<div class="slide-container col-md-10">
-		<div class="slide-content">
-			<div class="slide-arrow slide-pre" ng-click="slidePre()"><i class="icon-chevron-left"></i></div>
-			<div class="slide-arrow slide-next" ng-click="slideNext()"><i class="icon-chevron-right"></i></div>
-			<div class="slide-content-inner">
-				<div id="res-slide-content"></div>
-			</div>
-			<div class="slide-fullscreen" ng-click="toggleFullscreen()"><i class="icon-fullscreen"></i></div>
+		<div class="nav_left">
+			<span ng-repeat="navCur in currentNav">{{navCur.name}}<i class="icon-angle-right"></i></span>
 		</div>
-		
-		<div class="slide-tools" ng-show="VM.slideTools">
-			<div class="slide-arrow2 slide-pre" ng-click="slidePreCustom()"><i class="icon-chevron-left"></i></div>
-			<div class="slide-arrow2 slide-next"  ng-click="slideNextCustom()"><i class="icon-chevron-right"></i></div>
-			<ul class="slide-thumbnail">
-				<li ng-repeat="item in slidesCustom" ng-click="selectRes($index)">
-					<img src="assets/img/online/tmp.png"/>
-					
-					<span>{{item.title}}</span>
-				</li>
-			</ul>
-		</div>
+		<div class="nav_right">
+		  <span class="mulu">其他版本目录
+			<div class="popBox">
+				<ul>
+					<li ng-repeat="navs in navList" ng-class="VM.curNav[$index]?'selected':''" ng-click="selectNav($index)">
+						<span ng-repeat="nav in navs">{{nav.name}}<i class="icon-angle-right"></i></span>
+					</li>
+				</ul>
+		 </div>
+		</span>
 	</div>
-	<div class="col-md-2">
-		<div class="slide-list">
-			<div class="slide-list-item" ng-repeat="item in slides">
-				<img src="assets/img/title.jpg">
+
+</div>
+<div class="slide-container col-md-10">
+	<div class="slide-content">
+		<div class="slide-arrow slide-pre" ng-click="slidePre()"><i class="icon-chevron-left"></i></div>
+		<div class="slide-arrow slide-next" ng-click="slideNext()"><i class="icon-chevron-right"></i></div>
+		<div class="slide-content-inner">
+			<div id="res-slide-content"></div>
+		</div>
+		<div class="slide-fullscreen" ng-click="toggleFullscreen()"><i class="icon-fullscreen"></i></div>
+	</div>
+
+	<!--<div class="slide-tools" ng-show="VM.slideTools">
+		<div class="slide-arrow2 slide-pre" ng-click="slidePreCustom()"><i class="icon-chevron-left"></i></div>
+		<div class="slide-arrow2 slide-next" ng-click="slideNextCustom()"><i class="icon-chevron-right"></i></div>
+		<ul class="slide-thumbnail">
+			<li ng-repeat="item in slidesCustom" ng-click="selectRes($index)">
+				<img src="assets/img/online/tmp.png" />
 				<span>{{item.title}}</span>
-			</div>
+			</li>
+		</ul>
+	</div>-->
+</div>
+<div class="col-md-2">
+	<div class="slide-list">
+		<div class="slide-list-item" ng-repeat="item in allSourceList" ng-click="slideChange(item.id,$index)">
+			<img src="{{item.thumbnailpath}}">
+			<span>{{item.title}}_{{item.mtype}}</span>
 		</div>
 	</div>
-	<div class="clearfix"></div>
-	<div class="banner-footer banner-footer-preview">
-		<div class="banner-footer-header"></div>
-		<div class="banner-footer-footer"></div>
-	</div>
-	
-	<!-- 资源简介 -->
-	<div class="preview-content">
-		<div class="res-intro">
-			<div class="intro-banner">资源简介</div>
-			<div class="intro-info">
-				<span class="intro-title">《荷塘月色》教案2</span>
-				<span class="intro-type">类型：课件</span>
-				<span class="intro-size">大小：620KB</span>
-			</div>
-			<div class="intro-details">资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介资源简介</div>
+</div>
+<div class="clearfix"></div>
+<div class="banner-footer banner-footer-preview">
+	<div class="banner-footer-header"></div>
+	<div class="banner-footer-footer"></div>
+</div>
+
+<!-- 资源简介 -->
+<div class="preview-content">
+	<div class="res-intro">
+		<div class="intro-banner">资源简介</div>
+		<div class="intro-info">
+			<span class="intro-title">《{{info.title}}》</span>
+			<span class="intro-type">类型：{{info.mtype}}</span>
+			<span class="intro-size">大小：{{info.fSize/1024 | number:0}}KB</span>
 		</div>
-		
-		<div class="res-conmment">
-			<div class="create-comment">
-				<div class="comment-info">
-					<span class="comment-user">用户名：张XXX</span>
-					<span class="comment-count">已有100人评价</span>
-					<span class="comment-star">0.0 <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-					
-				</div>
-				<textarea></textarea>
-				<div class="comment-text">200/200</div>
-				<button class="btn btn-success">发表</button>
+		<div class="intro-details">{{info.des}}</div>
+	</div>
+
+	<div class="res-conmment">
+		<div class="create-comment">
+			<div class="comment-info">
+				<span class="comment-user">用户名：{{userName}}</span>
+				<span class="comment-score">总分：{{info.totalScore}} </span>
+				<span class="comment-count">已有{{info.userNum}}人评价</span>
+
+				<span class="comment-star">
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+						<i class="icon-star"></i>
+					</span>
+
 			</div>
-			
-			<div class="conment-list">
-				<div class="comment-type">
-					<span class="other-comment">他人评论</span>
-					<span class="my-comment comment-active">我的评论</span>
-				</div>
-				<div class="coment-item">
+			<textarea ng-change="changeComment()" ng-model="inputComment"></textarea>
+			<span class="comment-text"><span class="shen">{{commentNum}}</span>/200</span>
+			<button class="btn btn-success publish" ng-click="publishComment()">发表</button>
+		</div>
+
+		<div class="conment-list">
+			<div class="comment-type">
+				<span class="other-comment" ng-click="changeBlock('other')" ng-class="otherShow?'comment-active':''">他人评论</span>
+				<span class="my-comment " ng-click="changeBlock('my')" ng-class="myShow?'comment-active':''">我的评论</span>
+			</div>
+			<div class="my" ng-show="myShow">
+				<div class="coment-item " ng-repeat="comment in myCommentList">
 					<div class="item-user-date">
-						<span item-user>李XXX</span>
-						<span item-date>2016-04-03 12:00</span>
+						<span item-user>{{comment.userName}}</span>
+						<span item-date>{{commentTime(comment.atime)}}</span>
 					</div>
-					<div class="item-content">好好好好好好好好好好好好好好!</div>
+					<div class="item-content" contenteditable="false">{{comment.acontent}}</div>
+					<div class="editBox">
+						<button class="btn btn-danger" ng-click="editCom(comment.id,comment.acontent)">编辑</button>
+						<button class="btn btn-danger" ng-click="deleteCom(comment.id)">删除</button>
+					</div>
 				</div>
-				<div class="coment-item">
+			</div>
+			<div class="other" ng-show="otherShow">
+				<div class="coment-item " ng-repeat="comment in otherCommentList">
 					<div class="item-user-date">
-						<span item-user>李XXX</span>
-						<span item-date>2016-04-03 12:00</span>
+						<span item-user>{{comment.userName}}</span>
+						<span item-date>{{commentTime(comment.atime)}}</span>
 					</div>
-					<div class="item-content">好好好好好好好好好好好好好好!</div>
+					<div class="item-content">{{comment.acontent}}</div>
+
 				</div>
-				<div class="coment-item">
-					<div class="item-user-date">
-						<span item-user>李XXX</span>
-						<span item-date>2016-04-03 12:00</span>
-					</div>
-					<div class="item-content">好好好好好好好好好好好好好好!</div>
-				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="editModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button>
+				<h4 class="modal-title" id="myModalLabel">
+              	修改评论
+            </h4>
+			</div>
+			<div class="modal-body">
+				<textarea id="editContent" ng-model="editInputComment"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="offModal()">取消
+            </button>
+				<button type="button" class="btn btn-primary" ng-click="editSure()">
+              	确定
+            </button>
 			</div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
+		<!-- /.modal-content -->
 	</div>
+	<!-- /.modal -->
 </div>

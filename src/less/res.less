@@ -345,6 +345,7 @@
 }
 .res-thubmlist-thumb{
     width: 90%;
+    height: 200px;
 }
 .res-list-thumb{
     margin-left: 55px;
@@ -396,14 +397,15 @@
     color:@color5;
     margin-left: 10px;
     margin-top: 5px;
+    cursor: pointer;
 }
 .res-list-tools .res-download i{
     margin-right: 5px;
     font-size: 18px;
 }
-.res-download:hover{
-    text-decoration: underline;
-}
+//.res-download:hover{
+//  text-decoration: underline;
+//}
 // 缩略图显示
 .res-list-main .res-ul-thubmlist {
   position: relative;
@@ -413,6 +415,7 @@
   border-bottom: 1px dashed #9b9b9b;
   padding: 6px;
   margin: 8px 0;
+  height: 320px;
 }
 .res-list-main .res-thubmlist-item:hover{
     background: #e6f4f4;
@@ -434,6 +437,8 @@
     padding: 10px 20px;
     display: none;
     color: #999;
+    min-width: 100px;
+    z-index: 99999;
 }
 .res-prepare-list-item{
     margin: 5px;
@@ -442,7 +447,21 @@
     text-decoration: underline;
     color: #0094CE;
 }
-
+.addPrepare-custom{
+    width: 100px;
+    float: left;
+    height: 40px;
+    padding: 0 6px !important;
+    margin-top: 5px;
+}
+.thubmlist-tools-custom .res-download{
+    float: left;
+}
+.thubmlist-tools-custom{
+    line-height: 40px;
+    height: 40px;
+    position: relative;
+}
 // 备课夹 悬浮
 .prepare-fixed{
     position: fixed;

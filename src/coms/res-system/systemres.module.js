@@ -48,6 +48,11 @@
 					resList: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/sysResource"
+					},
+					// 点击下载
+					resDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/res_down"
 					}
 				})
 			}
@@ -67,15 +72,19 @@
 					$scope.VM.currentMaterialShow = false;
 				}
 				// list切换
-				$scope.isList = true;
+				$scope.isList = $localStorage.resList?$localStorage.resList:true;
 			    $scope.switchList = function(list){
+			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
 			    // 设置 系统资源为0;
 			    $localStorage.fromFlag = 0;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
-				setTimeout(function() {
+				
+				// 加入备课夹 动画
+				var addToPrepareAnimation = function(){
+					
 					$(".addPrepare").click(function(event){
 						
 						var addcar = $(this);
@@ -94,18 +103,12 @@
 								height: 0
 							},
 							onEnd: function(){
-//								$("#msg").show().animate({width: '250px'}, 200).fadeOut(1000);
-//								addcar.css("cursor","default").removeClass('orange').unbind('click');
 								$('.u-flyer').remove(); //移除dom
-								
-								//加1
-								$scope.$apply(function() {
-									$scope.shopCount++;
-								})
 							}
 						});
 					});
-				}, 3000)
+				}
+			
 				
 				
 				// 读取备课夹 列表
@@ -119,41 +122,47 @@
 					})
 				}
 				setTimeout(function(){
-					getPrepare($localStorage.currentTreeNode.tfcode)
-				}, 3000)
+					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+				}, 1000)
 				
 				//将资源加入备课夹
-				$scope.addToPrepare = function(index) {
+				$scope.addToPrepare = function(listIndex, prepareIndex) {
+					console.log(listIndex, prepareIndex)
 					Prepare.addResToPrepareId({
-						id: $scope.prepareList[index].id,
-						resIds: '4319500105',
-						fromFlags: 0
+						id: $scope.prepareList[prepareIndex].id,
+						resIds: $scope.resList.list[listIndex].id,
+						fromFlags: $localStorage.fromFlag
 					}, function(data) {
-						console.log(data);
-						ModalMsg.alert("加入备课夹成功！")
-						
+						//加1
+						$scope.shopCount++;
+
 					})
 				}
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
+					console.log("test")
 					getResList();
 				})
 				
+//				$scope.$on("currentTreeIdUpdate",function(e, d) {
+//					console.log("test")
+//				})
+				
 				// 列出资源
 				var page =1;
-				var perPage =8;
+				$scope.perPage =8;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
 				var getResList = function() {
 					SystemRes.resList({
-						poolId: poolId,
+						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
-						tfcode: $localStorage.currentTreeNode.tfcode,
+						tfcode: $localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
 						orderBy:$scope.orderBy,
 						page:page,
-						perPage: perPage
+						perPage: $scope.perPage
 					}, function(data) {
 						$scope.resList = data.data;
 						console.log("resList:", $scope.resList)
@@ -163,6 +172,10 @@
 						//当前课程节点
 						$scope.curTfcode = $localStorage.currentMaterial.tfcode;
 						
+						// 动画
+						setTimeout(function(){
+							addToPrepareAnimation();
+						},1000)
 					})
 				}
 				
@@ -171,13 +184,14 @@
 					$scope.pools =data.data;
 				})
 				// 列出资源类型 和格式
-				var poolId = 0;
+				$scope.poolId = 0;
 				var mTypeId = 0;
 				var format = "全部";
 				$scope.orderBy = 0;
 				$scope.typeAndFormat = function(poolId, typeId){
 					// 设值
-					poolId = poolId;
+					$scope.poolId = poolId;
+					console.log("typeAndFormat:", poolId)
 					format = "全部";
 					// 设置当前选择
 					$scope.poolsSelected = poolId;
@@ -186,14 +200,14 @@
 					// 获取资源列表
 					getResList();
 					SystemRes.types({
-						poolId: poolId,
-						tfcode:$localStorage.currentTreeNode.tfcode
+						poolId: $scope.poolId,
+						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						SystemRes.formats({
-							poolId: poolId,
-							tfcode:$localStorage.currentTreeNode.tfcode,
+							poolId: $scope.poolId,
+							tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
 							typeId: typeId
 						}, function(data) {
 							$scope.formats =data.data;
@@ -215,13 +229,16 @@
 				$scope.listFormat = function(index) {
 					mTypeId = $scope.types[index].id;
 					$scope.typeSelected = mTypeId;
+					format = "全部";
+					getResList();
 					SystemRes.formats({
-						poolId: poolId,
+						poolId: $scope.poolId,
 						tfcode: $localStorage.currentTreeNode.tfcode,
 						typeId: mTypeId
 					}, function(data) {
 						$scope.formats = data.data;
 					})
+					
 				}
 				// 选择 格式
 				$scope.filterFormat = function(i) {
@@ -229,8 +246,35 @@
 					$scope.formatSelected = i;
 					getResList();
 				}
+				
+				// 综合 排序 0 最多下载 1 最新发布2
+				$scope.dataSortByType = function(type){
+					$scope.orderBy = type;
+					page = 1;
+					getResList();
+					
+				}
+				
 				// 初始化为全部
-				$scope.typeAndFormat(0, 0);	
+				$scope.typeAndFormat(0, 0);
+				
+				// 分页触发
+				$scope.VM.currentPageCtrl = 1;
+				$scope.pageChanged = function() {
+				    console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
+				    page = $scope.VM.currentPageCtrl;
+				    getResList();
+				};
+				
+				// 下载资源
+				$scope.resDownload = function(id){
+					SystemRes.resDownload({
+						resId:id,
+						fromFlag: $localStorage.fromFlag
+					}, function(data){
+						console.log(data)
+					})
+				}
 			}
 		])
 }());

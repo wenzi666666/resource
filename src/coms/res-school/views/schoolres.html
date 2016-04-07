@@ -12,4 +12,18 @@
 	</div>
 	<!--右侧资源列表-->
 	<div class="col-md-9" data-ng-include="'/coms/res-school/views/school-content.html'"></div>
+	
+	<!-- 备课夹悬浮  -->
+	<div class="prepare-fixed">
+		<div class="prepare-shop" ui-sref="prepare">
+			<img src="assets/img/shopcart.png"/>
+			<span class="shop-count">{{ shopCount }}</span>
+			<div class="prepare-text">备课夹</div>
+		</div>
+		<div class="prepare-ctrls">
+			<div class="ctrls-prepare-list" >
+				<div class="ctrls-prepare-list-item" ng-repeat="item in prepareList track by $index" >{{item.title}}</div>
+			</div>
+		</div>
+	</div>
 </div>
