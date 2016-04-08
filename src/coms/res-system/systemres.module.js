@@ -62,6 +62,8 @@
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
+				// 无数据 时显示
+				$scope.noDataCtrl = false;
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
@@ -166,6 +168,11 @@
 					}, function(data) {
 						$scope.resList = data.data;
 						console.log("resList:", $scope.resList)
+						
+						$scope.noDataCtrl = false;
+						if(!$scope.resList){
+							$scope.noDataCtrl = true;
+						}
 						// 分页
 						$scope.bigTotalItems = $scope.resList.totalLines;
 						

@@ -73,8 +73,9 @@
 				</div>
 			</li>
 		</ul>
+		<div class="noDataCtrl" ng-show="noDataCtrl">当前目录下还没有资源哦</div>
 		<div style="clear:both"></div>
-		<div class="coms-pagination">
+		<div class="coms-pagination" ng-hide="noDataCtrl">
 		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" num-pages="perPage" ng-change="pageChanged()"></uib-pagination>
 			<div class="page-go">
 				<span class="page-text">转到</span>
