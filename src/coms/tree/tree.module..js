@@ -34,7 +34,7 @@
 							$localStorage.currentTreeNode =  currentTreeNode;
 						}
 						// 选择
-						$scope.selected = $scope.treedata[currentTreeNode.i];
+						$scope.selected = $scope.treedata[0];
 						console.log("$scope.selected:", $scope.selected)
 						//展开第一个节点
 						$scope.expandedNodes = [$scope.treedata[0],$scope.treedata[1],$scope.treedata[2],$scope.treedata[3]];

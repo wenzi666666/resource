@@ -270,13 +270,13 @@
 					getResList();
 					SystemRes.types({
 						poolId: $scope.poolId,
-						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
+						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						SystemRes.formats({
 							poolId: $scope.poolId,
-							tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+							pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
 							typeId: typeId
 						}, function(data) {
 							$scope.formats =data.data;
@@ -304,7 +304,7 @@
 					getResList();
 					SystemRes.formats({
 						poolId: $scope.poolId,
-						tfcode: $localStorage.currentTreeNode.tfcode,
+						pTfcode: $localStorage.currentTreeNode.tfcode,
 						typeId: mTypeId
 					}, function(data) {
 						$scope.formats = data.data;

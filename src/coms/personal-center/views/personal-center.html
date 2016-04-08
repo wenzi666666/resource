@@ -1,4 +1,4 @@
-<div ng-controller="personalCenterController">
+<div>
 	<div class="container" id="personal-center-container">
 		<div class="row">
 			<div class="col-md-4 col-sm-12 cen-left">
@@ -10,7 +10,7 @@
 					<div class="user-info">
 						<span><img src="assets/img/loc.png" /><i>{{ user.termName }}</i>|<i>{{ user.subjectNames }}老师 </i>|<i ng-class="user.male == '男'? 'icon-male':'icon-female'"></i></span>
 						<span class="user-school"><img class="user-info-icon" src="assets/img/tie.png" />{{ user.schoolName }}</span>
-						<button class="btn-general btn-pink">上传资源</button>
+						<button class="btn-general btn-pink" ng-click="uploadRes()">上传资源</button>
 					</div>
 				</div>
 				<div class="btn-group">
@@ -154,4 +154,49 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="uploadModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body upload-modal-body">
+	            <div class="nav nav-tabs avatar-tabs" role="tablist">
+	            	<ul>
+	            		<li role="presentation" class="active">
+	            			<img ng-src="{{sysAvatarPath}}" />
+	            			<a href="#system-avatar" aria-controls="system-avatar" role="tab" data-toggle="tab">本地资源</a>
+	            		</li>
+	            		<li role="presentation">
+	            			<img ng-src="{{selfAvatarPath}}" />
+	            			<a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab">网络资源</a>
+	            		</li>
+	            	<div style="clear: both"></div>
+	            	</ul>
+	            </div>
+	            <div class="tab-content avatar-tab-content">
+	            	<div role="tabpanel" class="tab-pane active upload-file-content">
+	            		<div class="button-group">
+		            		<button class="btn-general" id="pickfiles" ng-click="uploadFile()">上传</button>
+		            	</div>
+	            	</div>
+	            </div>
+	        </div>
+</div>
+
+<div class="modal fade" id="eiditResModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-body upload-modal-body modal-prepare-body">
+		<div class="modal-prepare-header">上传资源</div>
+		<div class="modal-prepare-content">
+				资源名称：<input id="resName" ng-modal="resName"/>
+				<div class="">资源类型：</div>
+				<div class="">上传至：</div>
+				<div class="">共享范围：</div>
+				<div class="">关键词：</div>
+				<div class="">资源介绍：</div>
+				
+			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="prepareOK()">确定</button>
+			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="prepareCancel()">取消</button>
+		</div>	
+	</div>
+	
+ </div>
 </div>
