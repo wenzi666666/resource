@@ -46,9 +46,6 @@
 					</ul>
 				</div>
 			</div>
-			
-			
-			
 		</div>
 		<div class="slide-list">
 			
@@ -153,15 +150,12 @@
 	<div class="bottom-fixed">
 		<div class="fix-inner">
 			<span class="comment-star">
-				<i class="icon-star"></i>
-				<i class="icon-star"></i>
-				<i class="icon-star"></i>
-				<i class="icon-star"></i>
-				<i class="icon-star"></i>
+				<i class="icon-star" ng-repeat="star in showStar" ng-class="{'starLight':curStar[$index],'starHover':hoverStar[$index]}" ng-mouseover="mouseOverStar($index)" ng-mouseout="mouseOutStar($index)" ng-click="starClick($index)"></i>
+				
 			</span>
-			<span class="comment-count">已有{{info.userNum}}人评分,平均分：{{info.avgScore}}</span>
-			<span>下载次数:{{$scope.info.downLoadTimes}}</span>
-			<span>浏览次数:{{$scope.info.clickTimes}}</span>
+			<span class="comment-count">已有{{info.userNum}}人评分,平均分{{info.avgScore}}</span>
+			<span>下载次数:{{info.dloadTimes}}</span>
+			<span>浏览次数:{{info.clickTimes}}</span>
 			
 			<button class="btn btn-danger">加入备课夹</button>
 			<span class="down-orign">下载到本地</span>

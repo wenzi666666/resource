@@ -86,44 +86,61 @@
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
 				console.log($stateParams)
-				//星星
+				//星星 评分
+				$scope.showStar=[1,2,3,4,5];
+				$scope.curStar=[];
+				$scope.hoverStar=[];
+				$scope.mouseOverStar=function(index){
+					var len=0;
+					_.each($scope.curStar, function(v, i) {
+						if($scope.curStar[i]==true)
+						{
+							len++;
+						}
+					});
+					if(len==0)
+					{
+						//加上颜色 starHover;
+						for(var i=0;i<=index;i++)
+						{
+							$scope.hoverStar[i]=true;
+						}
+					}
+				}
+				$scope.mouseOutStar=function(index){
+					var len=0;
+					_.each($scope.curStar, function(v, i) {
+						if($scope.curStar[i]==true)
+						{
+							len++;
+						}
+					});
+					if(len==0)
+					{
+						for(var i=0;i<=index;i++)
+						{
+							$scope.hoverStar[i]=false;
+						}
+					}
+				}
 				
-				$(".comment-star .icon-star").hover(function(){
-					var len=$(".icon-star.starLight").length;
-					if(len==0)
-					{
-						var index=$(this).index();
-						for(var i=0;i<=index;i++)
+				$scope.starClick=function(index){
+					var len=0;
+					for(var i=0;i<$scope.curStar.length;i++)
+					_.each($scope.curStar, function(v, i) {
+						if($scope.curStar[i]==true)
 						{
-							$(".comment-star .icon-star").eq(i).addClass("starHover")
+							len++;
 						}
-					}
-					
-				},function(){
-					var len=$(".icon-star.starLight").length;
+					});
 					if(len==0)
 					{
-						var index=$(this).index();
-						for(var i=0;i<=index;i++)
-						{
-							$(".comment-star .icon-star").eq(i).removeClass("starHover")
-						}
-					}
-					
-				});
-				$(".comment-star .icon-star").on("click",function(){
-					var len=$(".icon-star.starLight").length;
-					if(len==0)
+						publishScore(index+1);
+					}else
 					{
-						var index=$(this).index()+1;
-						publishScore(index);
-						
-					}else{
 						alert("您已经评分过了，不能再次评分");
 					}
-					
-				});
-				
+				}
 				
 				// 资源nav数据
 				Preview.lists({
@@ -223,7 +240,6 @@
 							}
 						});
 					}
-					
 				}
 				
 				//获取所有资源
@@ -396,9 +412,8 @@
 							console.log(data.data)
 							$scope.info = data.data;
 							for (var i = 0; i < $scope.info.score; i++) {
-								//几颗星
-								$(".comment-star .icon-star").eq(i).addClass("starLight");
-								
+								//几颗星亮
+								$scope.curStar[i]=true;
 							}
 						}else
 						{
@@ -439,6 +454,8 @@
 						if(data.code=="OK")
 						{
 							$scope.myCommentList = data.data;
+							console.log("我的评论")
+							console.log(data)
 						}else{
 							alert(data.message);
 						}
@@ -452,6 +469,8 @@
 							if(data.code=="OK")
 							{
 								$scope.otherCommentList = data.data;
+								console.log("别人的评论")
+								console.log(data)
 							}else{
 								alert(data.message);
 							}
@@ -486,7 +505,13 @@
 
 				//发布评论
 					$scope.publishComment = function() {
-						var score=$(".icon-star.starLight").length;
+						var score=0;
+						_.each($scope.curStar, function(v, i) {
+							if($scope.curStar[i]==true)
+							{
+								score++;
+							}
+						});
 						if(score==0)
 						{
 							alert("评完分才能评论哦！");
@@ -503,6 +528,7 @@
 							{
 								getComment($scope.VM.resourceId); //获取我的评论
 								$scope.inputComment="";
+								
 							}else{
 								alert(data.message);
 							}
@@ -522,7 +548,7 @@
 							{
 								for(var i=0;i<index;i++)
 								{
-									$(".comment-star .icon-star").eq(i).addClass("starLight");
+									$scope.curStar[i]=true;
 								}
 							}else{
 								alert(data.message);
@@ -535,7 +561,7 @@
 				$scope.deleteCom=function(id){
 					Preview.editComment({
 						commentId:id,
-						_method:"PATCH"
+						_method:"DELETE"
 					}, function(data) {
 						console.log(data)
 						if(data.code=="OK")
