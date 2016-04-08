@@ -8,7 +8,6 @@
  */
 (function() {
     'use strict';
-	ApplicationConfiguration.registerModule('webApp.core.interceptors');
     angular.module('webApp.core.interceptors')
         .factory('CacheInterceptor',
         function() {
