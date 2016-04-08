@@ -114,12 +114,15 @@
 				
 				
 				// 读取备课夹 列表
+				var currentPrepareId = '';
 				var getPrepare = function(id) {
 					Prepare.baseGetApi({
 						tfcode: id
 					}, function(data) {
-						console.log(data.data);
+						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
+						
+						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
 						
 					})
 				}
@@ -128,7 +131,8 @@
 				}, 1000)
 				
 				//将资源加入备课夹
-				$scope.addToPrepare = function(listIndex, prepareIndex) {
+				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
+//					$event.stopPropagation();
 					console.log(listIndex, prepareIndex)
 					Prepare.addResToPrepareId({
 						id: $scope.prepareList[prepareIndex].id,
@@ -137,14 +141,42 @@
 					}, function(data) {
 						//加1
 						$scope.shopCount++;
+						
+						currentPrepareId = $scope.prepareList[prepareIndex].id;
 
 					})
+				}
+				
+				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
+				$scope.addToCurrentPrepare = function(listIndex) {
+					// 当前没有备课夹时，创建
+					if($scope.prepareList.length == 0) {
+						Prepare.basePostApi({
+							tfcode: $localStorage.currentTreeNode.tfcode,
+							title: $localStorage.currentTreeNode.label
+						}, function(d) {
+							console.log(d)
+							getPrepare($localStorage.currentTreeNode.tfcode);
+						})
+					}else{
+						Prepare.addResToPrepareId({
+							id: currentPrepareId,
+							resIds: $scope.resList.list[listIndex].id,
+							fromFlags: $localStorage.fromFlag
+						}, function(data) {
+							//加1
+							$scope.shopCount++;
+	
+						})
+					}
+					
 				}
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
 					console.log("test")
 					getResList();
+					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 				})
 				
 //				$scope.$on("currentTreeIdUpdate",function(e, d) {
@@ -153,7 +185,7 @@
 				
 				// 列出资源
 				var page =1;
-				$scope.perPage =8;
+				$scope.perPage =9;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
 				var getResList = function() {
@@ -170,19 +202,23 @@
 						console.log("resList:", $scope.resList)
 						
 						$scope.noDataCtrl = false;
-						if(!$scope.resList){
+						if(!$scope.resList || !$scope.resList.totalLines){
 							$scope.noDataCtrl = true;
 						}
-						// 分页
-						$scope.bigTotalItems = $scope.resList.totalLines;
 						
-						//当前课程节点
-						$scope.curTfcode = $localStorage.currentMaterial.tfcode;
-						
-						// 动画
-						setTimeout(function(){
-							addToPrepareAnimation();
-						},1000)
+						if(!!$scope.resList){
+							// 分页
+							$scope.bigTotalItems = $scope.resList.totalLines;
+							
+							//当前课程节点
+							$scope.curTfcode = $localStorage.currentMaterial.tfcode;
+							
+							// 动画
+							setTimeout(function(){
+								addToPrepareAnimation();
+							},1000)
+						}
+					
 					})
 				}
 				
