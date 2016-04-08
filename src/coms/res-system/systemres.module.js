@@ -109,6 +109,29 @@
 							}
 						});
 					});
+					
+					$(".addPrepareInner").click(function(event){
+						
+						var addcar = $(this);
+						var offset = $(".prepare-fixed").offset();
+						var img = addcar.parent().parent().parent().parent().find('.res-list-thumb');
+						var flyer = $('<img class="u-flyer" style="max-width:150px" src="'+img.attr('src')+'">');
+						flyer.fly({
+							start: {
+								left: img.offset().left,
+								top:  event.clientY-30
+							},
+							end: {
+								left: offset.left+10,
+								top: document.documentElement.clientHeight - 380,
+								width: 0,
+								height: 0
+							},
+							onEnd: function(){
+								$('.u-flyer').remove(); //移除dom
+							}
+						});
+					});
 				}
 			
 				
@@ -132,7 +155,7 @@
 				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
-//					$event.stopPropagation();
+					$event.stopPropagation();
 					console.log(listIndex, prepareIndex)
 					Prepare.addResToPrepareId({
 						id: $scope.prepareList[prepareIndex].id,
@@ -297,7 +320,6 @@
 					$scope.orderBy = type;
 					page = 1;
 					getResList();
-					
 				}
 				
 				// 初始化为全部
