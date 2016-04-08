@@ -5,14 +5,15 @@
  */ 	
 (function() {
 	//依赖的模块 注入
-	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'angular-click-outside','tmp', 'treeControl']
+	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'angular-loading-bar', 'angular-click-outside','tmp', 'treeControl']
 	
 	angular.module('webApp', module)
 //	//初始化
 //	 .run(function($http){
 //	     $http.defaults.headers.common['Access-Control-Allow-Headers'] = "SM_USER";
 //	})
-	.config(['$httpProvider', '$urlRouterProvider', '$locationProvider',function($httpProvider, $urlRouterProvider, $locationProvider) {
+	.config(['$httpProvider', '$urlRouterProvider', '$locationProvider','cfpLoadingBarProvider', 
+	function($httpProvider, $urlRouterProvider, $locationProvider, cfpLoadingBarProvider) {
 		//默认登陆页 认证成功后默认动态页
 		if(window.localStorage.getItem("credentialsToken")) {
 			console.log(window.localStorage.getItem("credentialsToken"))
@@ -26,6 +27,9 @@
 		 
 		//注入
 		$httpProvider.interceptors.push('CacheInterceptor');
+		
+		// 加载
+		cfpLoadingBarProvider.includeSpinner = false;
 
 		//设置请求头格式
 //		$httpProvider.defaults.useXDomain = true;
@@ -110,5 +114,6 @@
 	ApplicationConfiguration.registerModule('webApp.core.services');
 	ApplicationConfiguration.registerModule('webApp.core.directives');
 	ApplicationConfiguration.registerModule('webApp.core.filters');
+	ApplicationConfiguration.registerModule('webApp.core.interceptors');
 
 })();

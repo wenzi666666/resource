@@ -269,7 +269,7 @@
 						$scope.VM.currentMaterialSeclet[i] = false;
 					})
 					$scope.VM.currentMaterialSeclet[index] = true;
-					$scope.$emit("currentTreeId", $scope.currentMaterial.id);
+					$scope.$emit("currentTreeId", $scope.VM.currentMaterial.id);
 					
 				}
 			}

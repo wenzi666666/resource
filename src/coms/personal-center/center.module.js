@@ -26,13 +26,24 @@
 					})
 			}
 		])
-		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$http',
-			function($scope, $stateParams, $state, $location, $http) {
+		.factory('Personal', ['$resource',
+			function($resource) {
+				return $resource('', {}, {
+					prepareResource: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareResource"
+					}
+				})
+			}
+		])
+		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage',
+			function($scope, $stateParams, $state, $location, $localStorage) {
 				$scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
 				
-//				
+				// 用户信息
+				$scope.user = $localStorage.authUser;
 			}
 		])
 }());

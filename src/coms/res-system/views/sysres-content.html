@@ -39,10 +39,11 @@
 					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 				</span>
 				<span class="res-list-tools">
-					<div class="res-select addPrepare">
+					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
 						加入备课夹
 						<div class="res-prepare-list" >
-							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"   ng-click="addToPrepare(parentIndex, $index)">{{item.title}}</div>
+							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)">{{item.title}}</div>
+							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 						</div>
 					</div><br>
 					
@@ -73,8 +74,9 @@
 				</div>
 			</li>
 		</ul>
+		<div class="noDataCtrl" ng-show="noDataCtrl">当前选择下还没有资源哦</div>
 		<div style="clear:both"></div>
-		<div class="coms-pagination">
+		<div class="coms-pagination" ng-hide="noDataCtrl">
 		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" num-pages="perPage" ng-change="pageChanged()"></uib-pagination>
 			<div class="page-go">
 				<span class="page-text">转到</span>

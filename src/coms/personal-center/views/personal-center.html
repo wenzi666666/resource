@@ -5,11 +5,11 @@
 				<div class="cen-info">
 					<div class="user-avatar">
 						<img src="assets/img/settings/user_icon_md.png">
-						<span class="user-name">呼呼</span>
+						<span class="user-name">{{ user.trueName }}</span>
 					</div>
 					<div class="user-info">
-						<span><img src="assets/img/loc.png" /><i>高中</i>|<i>数学老师</i>|<img class="user-info-icon" src="assets/img/female.png" /></span>
-						<span class="user-school"><img class="user-info-icon" src="assets/img/tie.png" />知好乐学校</span>
+						<span><img src="assets/img/loc.png" /><i>{{ user.termName }}</i>|<i>{{ user.subjectNames }}老师 </i>|<i ng-class="user.male == '男'? 'icon-male':'icon-female'"></i></span>
+						<span class="user-school"><img class="user-info-icon" src="assets/img/tie.png" />{{ user.schoolName }}</span>
 						<button class="btn-general btn-pink">上传资源</button>
 					</div>
 				</div>
@@ -21,7 +21,6 @@
 						<li><button class="btn-general btn-white">我的评论</button></li>
 						<li><button class="btn-general btn-white">最近浏览</button></li>
 					</ul>
-					
 				</div>
 			</div>
 			<div class="col-md-8 cen-right">
