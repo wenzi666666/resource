@@ -244,7 +244,6 @@
 								addToPrepareAnimation();
 							},1000)
 						}
-					
 					})
 				}
 				
@@ -339,10 +338,10 @@
 				// 下载资源
 				$scope.resDownload = function(id){
 					SystemRes.resDownload({
-						resId:id,
-						fromFlag: $localStorage.fromFlag
+						resIds:id,
+						fromFlags: $localStorage.fromFlag
 					}, function(data){
-						console.log(data)
+						window.open(data.data[0].path, "_blank")
 					})
 				}
 			}
