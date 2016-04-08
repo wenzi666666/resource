@@ -280,9 +280,11 @@
 				template: '<span class="item-info-size">大小：{{resSize}}M</span>',
 				replace: true,
 				link: function($scope, ele, attrs) {
-					var flo = parseFloat($scope.item.size);
-					if(isNaN(flo)) $scope.resSize = 0;
-					else $scope.resSize = Math.round($scope.item.size/1024*10)/10;
+					attrs.$observe('value', function(param) {
+						var flo = parseFloat(param);
+						if(isNaN(flo)) $scope.resSize = 0;
+						else $scope.resSize = Math.round(param/1024*10)/10;
+					})
 				}
 			}
 		})

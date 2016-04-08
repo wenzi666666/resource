@@ -70,6 +70,7 @@
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentVersionTmpShow = false;
 					$scope.VM.isList = true;
 				}
 				// 关闭教材筛选

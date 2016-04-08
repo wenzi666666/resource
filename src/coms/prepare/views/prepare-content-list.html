@@ -23,7 +23,7 @@
 			<!--<span class="leftbtn icon-angle"><i class="icon-angle-left"></i></span>-->
 			<div class="list-all-item col-md-3"  ng-repeat="item in list.children">
 				<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
-				<img class="prepare-all-item-img" src="assets/img/title.jpg" />
+				<img class="prepare-all-item-img" ng-src="{{item.imgPath}}" fallback-src="assets/img/title.jpg" />
 				<br><br>
 				<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
 				<span class="online-course"><i class="icon-play-circle"></i></span>

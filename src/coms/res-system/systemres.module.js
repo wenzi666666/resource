@@ -57,8 +57,8 @@
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg',
-			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout',
+			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -68,6 +68,7 @@
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentVersionTmpShow = false;
 				}
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
@@ -197,9 +198,11 @@
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
-					console.log("test")
+					console.log(d)
 					getResList();
-					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+					$timeout(function(){
+						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+					},300)
 				})
 				
 //				$scope.$on("currentTreeIdUpdate",function(e, d) {

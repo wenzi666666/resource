@@ -54,7 +54,7 @@ var config = {
             src: ["src/less/*.less"]
         },
         assets: {
-            src: ["src/lib/bootstrap/fonts/**", "src/lib/font-awesome/font/**", "src/assets/**","src/favicon.ico","src/lib/tree//images/**", "modules/**"]
+            src: ["src/lib/bootstrap/fonts/**", "src/lib/font-awesome/font/**", "src/assets/**","src/favicon.ico","src/lib/tree/images/**", "modules/**","src/assets/img/person/**"]
         }
     }
 }
@@ -112,6 +112,8 @@ gulp.task('movassets', function() {
         .pipe(gulp.dest('./dist/images'));
     gulp.src(config.paths.assets.src[5])
         .pipe(gulp.dest('./dist/modules'));
+    gulp.src(config.paths.assets.src[6])
+        .pipe(gulp.dest('./dist/person'));
 });
 
 // 打包
@@ -222,7 +224,7 @@ gulp.task('disthtml', function() {
         .pipe(g.rename('index.html'))
         .pipe(gulp.dest('./dist'));
 });
-gulp.task('default', ['less', 'watch']);
+gulp.task('default', ['less', 'movassets', 'watch']);
 
 gulp.task('templates', function() {
      return templateFiles();
