@@ -16,8 +16,8 @@
                     	
 						// api打头的都加user做处理
                         if(/\/resapi\//.test(config.url)){
-//                          var separator = config.url.indexOf('?') === -1 ? '?' : '&';
-//                          config.url = config.url+separator+'noCache=' + new Date().getTime();
+                            // api负载均衡到不同api上
+                            config.url = config.url.replace('resapi', 'resapi' + Math.ceil(Math.random()*5))
                             //让所有api带上 user请求头
                             if(localStorage.getItem('credentialsToken'))
                                 config.url = config.url + "?token=" + localStorage.getItem('credentialsToken');

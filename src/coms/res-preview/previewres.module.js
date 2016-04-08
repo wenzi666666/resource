@@ -206,7 +206,7 @@
 					{//系统资源类型
 						Preview.systemTypes({
 							poolId:0,
-							tfcode:$scope.VM.tfCode,
+							pTfcode:$scope.VM.tfCode,
 						},function(data){
 							console.log("类型")
 							console.log(data);
