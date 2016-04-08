@@ -263,7 +263,29 @@
 					}
 				);
 			};
+		}]).directive('toolClass', ['toolCalss', function() {
+			return {
+				restrict: 'E',
+				link: function(scope, element, attr) {
+					element.on('click', function() {
+						element.addClass=(attr.value);
+					});
+				}
+			}
 		}])
+		.directive('resSize', function() {
+			return {
+				restrict: 'E',
+				transclude: true,
+				template: '<span class="item-info-size">大小：{{resSize}}M</span>',
+				replace: true,
+				link: function($scope, ele, attrs) {
+					var flo = parseFloat($scope.item.size);
+					if(isNaN(flo)) $scope.resSize = 0;
+					else $scope.resSize = Math.round($scope.item.size/1024*10)/10;
+				}
+			}
+		})
 
 	// .directive('ngLightbox', ['$compile', function($compile) {
 	//     //这是查看大图的指令
@@ -358,7 +380,7 @@
 	//         }
 	//     }
 	// })
-
+	
 	.directive('contenteditable', function() {
 			//设置div的数据绑定
 			return {

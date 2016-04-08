@@ -1,37 +1,44 @@
 <div id="prepare-content">
 	<div class="prepare-list" ng-repeat="list in listData track by $index" ng-init="parentIndex = $index">
 		<div class="list-header" ng-click="switch($index)">
-			<span class="list-header-title">{{$index+1}}、{{list.title}}</span>
-			<i class="icon-edit edit-prepare"></i> 
+			<span class="list-header-title" ng-hide="list.editPrepareTitle">{{$index+1}}、{{list.title}}</span>
+			<span class="new-prepare-title" ng-show="list.editPrepareTitle"><input type="text" ng-model="list.title" value="list.title"><button ng-click="setPrepareTitle($index)">确定</button></span>
+			<i class="icon-edit edit-prepare" ng-click="editPrepare($index)"></i> 
 			<i class="icon-trash" ng-click="deletePrepare($index,$event)"></i>
 			<span class="online-course" ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i>在线授课</span>
 			<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
-			
 		</div>
 		<div class="list-content" ng-show="list.active">
-			<span class="hold-on"><i class="icon-plus-sign"></i>继续逛逛</span>
-			<span class="local-res"><i class="icon-plus-sign"></i>本地资源</span>
-			<div class="clearfix">
-				
+			<div ng-show="list.children.length>0">
+				<span class="hold-on"><i class="icon-plus-sign"></i>继续逛逛</span>
+				<span class="local-res"><i class="icon-plus-sign"></i>本地资源</span>
+				<div class="clearfix">
+					
+				</div>
+				<div class="list-item" ng-repeat="item in list.children">
+					<input type="checkbox"/>
+					<img class="list-item-thumb" src="assets/img/title.jpg"/>
+					<div class="item-info">
+						<span class="item-info-title">{{item.title}}</span><br>
+						<span class="item-info-type">类型: {{item.unifyType}}</span>
+						<res-size size-content="item.size"></res-size>
+					</div>
+					<span class="prepare-download"><img src="assets/img/prepare/download_icon.png"></span>
+					<span><img src="assets/img/prepare/edit_icon.png"></span>
+					<div class="right-tools">
+						<div>基础资源</div>
+						<span ng-click="setItem(item.id, $index, parentIndex, 1)"><img src="assets/img/prepare/set_bottom_icon.png"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 3)"><img src="assets/img/prepare/back_icon.png"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 2)"><img src="assets/img/prepare/move_icon.png"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 4)"><img src="assets/img/prepare/set_top_icon.png"></span>
+						<span ng-click="deleteItem(item.id, parentIndex)"><img src="assets/img/prepare/delete_icon.png"></span>
+					</div>
+				</div>
 			</div>
-			<div class="list-item" ng-repeat="item in list.children">
-				<input type="checkbox"/>
-				<img class="list-item-thumb" src="assets/img/title.jpg"/>
-				<div class="item-info">
-					<span class="item-info-title">{{item.title}}</span><br>
-					<span class="item-info-type">类型: {{item.type}}</span>
-					<span class="item-info-size">大小：{{item.size}}</span>
-				</div>
-				<span class="prepare-download"><img src="assets/img/prepare/download_icon.png"></span>
-				<span><img src="assets/img/prepare/edit_icon.png"></span>
-				<div class="right-tools">
-					<div>基础资源</div>
-					<span ng-click="setItem(item.id, parentIndex, 1)"><img src="assets/img/prepare/set_bottom_icon.png"></span>
-					<span ng-click="setItem(item.id, parentIndex, 3)"><img src="assets/img/prepare/back_icon.png"></span>
-					<span ng-click="setItem(item.id, parentIndex, 2)"><img src="assets/img/prepare/move_icon.png"></span>
-					<span ng-click="setItem(item.id, parentIndex, 4)"><img src="assets/img/prepare/set_top_icon.png"></span>
-					<span ng-click="deleteItem(item.id, parentIndex)"><img src="assets/img/prepare/delete_icon.png"></span>
-				</div>
+			<div class="list-item list-no-res" ng-show="list.children.length == 0">
+				<img src="assets/img/prepare/add_res.png" />
+				<i>系统资源</i>
+				<i>校本资源</i>
 			</div>
 		</div>
 	</div>
