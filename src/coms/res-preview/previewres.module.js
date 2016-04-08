@@ -76,8 +76,8 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -138,7 +138,7 @@
 						publishScore(index+1);
 					}else
 					{
-						alert("您已经评分过了，不能再次评分");
+						ModalMsg.logger("您已经评分过了，不能再次评分")
 					}
 				}
 				
@@ -154,12 +154,21 @@
 					$scope.currentNav = $scope.navList[0];
 					$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
 					console.log($scope.VM.tfCode)
-					
 					getTypes();//获取资源类型
+					
 				});
 				$scope.VM.curNav = [];
 				$scope.VM.curNav[0] = true;
 				
+				$scope.links=[];
+				$scope.links[1]=true;
+				//返回上一页
+				$scope.back=function(index,tfcode){
+					if(index==1)
+					{
+						history.back();
+					}
+				}
 				
 				//切换目录
 				$scope.selectNav = function(index) {
@@ -254,7 +263,7 @@
 				 		current++;
 				 		
 				 	}else{
-				 		alert("没有更多啦")
+				 		ModalMsg.logger("没有更多啦")
 				 		return false;
 				 	}
 				 	console.log($scope.sourceTypeId);
@@ -514,7 +523,7 @@
 						});
 						if(score==0)
 						{
-							alert("评完分才能评论哦！");
+							ModalMsg.logger("评完分才能评论哦！");
 							return false;
 						}
 						Preview.editComment({
