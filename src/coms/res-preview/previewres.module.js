@@ -92,13 +92,12 @@
 				$scope.hoverStar=[];
 				$scope.mouseOverStar=function(index){
 					var len=0;
-					for(var i=0;i<$scope.curStar.length;i++)
-					{
+					_.each($scope.curStar, function(v, i) {
 						if($scope.curStar[i]==true)
 						{
 							len++;
 						}
-					}
+					});
 					if(len==0)
 					{
 						//加上颜色 starHover;
@@ -110,13 +109,12 @@
 				}
 				$scope.mouseOutStar=function(index){
 					var len=0;
-					for(var i=0;i<$scope.curStar.length;i++)
-					{
+					_.each($scope.curStar, function(v, i) {
 						if($scope.curStar[i]==true)
 						{
 							len++;
 						}
-					}
+					});
 					if(len==0)
 					{
 						for(var i=0;i<=index;i++)
@@ -129,12 +127,12 @@
 				$scope.starClick=function(index){
 					var len=0;
 					for(var i=0;i<$scope.curStar.length;i++)
-					{
+					_.each($scope.curStar, function(v, i) {
 						if($scope.curStar[i]==true)
 						{
 							len++;
 						}
-					}
+					});
 					if(len==0)
 					{
 						publishScore(index+1);
