@@ -56,7 +56,7 @@
 					moveItemInPrepare: {
 						method: "POST",
 						url: BackendUrl + "/resRestAPI/v1.0/prepareContent/"
-					}
+					},
 				})
 			}
 		])
@@ -109,6 +109,7 @@
 						//获取备课夹详细内容
 						_.each(data.data, function(v,i) {
 							getPrepareDetails(v.id, i);
+							v.editPrepareTitle = false;
 						})
 					})
 				}
@@ -128,6 +129,22 @@
 						console.log("test", data.data);
 						$scope.listData[index].children = data.data;
 					})
+				}
+
+				//编辑备课夹标题
+				// 
+				$scope.editPrepare = function(index) {
+					$scope.listData[index].editPrepareTitle = true;
+				}
+
+				//设定备课夹名称
+				$scope.setPrepareTitle = function(index) {
+					Prepare.basePostApi({
+						id: $scope.listData[index].id,
+						title: $scope.listData[index].title,
+						_method: "PATCH"
+					})
+					$scope.listData[index].editPrepareTitle = false;
 				}
 
 				// 删除备课夹
@@ -168,9 +185,11 @@
 				}
 
 				//备课夹中内容操作——1.置底 2.上移 3.下移 4.置顶
-				$scope.setItem = function(id, index, type) {
+				$scope.setItem = function(id, childindex, index, type) {
 					var prevId = 0;
 					var nextId = 0;
+					var prevIndex = 0;
+					var nextIndex = 0;
 					console.log($scope.listData);
 					console.log(index);
 					var list = $scope.listData[index].children;
@@ -181,6 +200,8 @@
 					if(type == 1) {
 						prevId = id;
 						nextId = list[len-1].id;
+						prevIndex = childindex;
+						nextIndex = len-1;
 						if(prevId == nextId) {
 							msg = "已是最后一条内容！";
 						}
@@ -188,35 +209,33 @@
 					//上移
 					else if(type == 2) {
 						nextId = id;
-						var prevIndex = 0;
-						_.each(list, function(item,i) {
-							if(item.id == id) {
-								prevIndex = i-1;
-							}
-						})
-						if(prevIndex < 0) {
+						nextIndex = childindex;
+						if(childindex == 0) {
 							msg = "当前已是第一条!";
 						}
-						else prevId = list[prevIndex].id;
+						else {
+							prevIndex = nextIndex - 1;
+							prevId = list[prevIndex].id;
+						}
 					}
 					//下移
 					else if(type == 3) {
 						prevId = id;
-						var nextIndex = 0;
-						_.each(list, function(item,i) {
-							if(item.id == id) {
-								nextIndex = i+1;
-							}
-						})
-						if(nextIndex == list.length) {
+						prevIndex = childindex;
+						if(prevIndex == len-1) {
 							msg = "当前已是最后一条!";
 						}
-						else nextId = list[nextIndex].id;
+						else {
+							nextIndex = prevIndex + 1;
+							nextId = list[nextIndex].id;
+						}
 					}
 					//置顶
 					else if(type == 4) {
 						prevId = list[0].id;
-						if(prevId == id) {
+						prevIndex = 0;
+						nextIndex = childindex;
+						if(childindex == 0) {
 							msg = "当前已是第一条！";
 						}
 						else nextId = id;
@@ -226,9 +245,11 @@
 						Prepare.moveItemInPrepare({
 							prevId: prevId,
 							nextId: nextId,
-							_method: "BATCH"
+							_method: "PATCH"
 						}, function(data) {
-							console.log(data);
+							var tmpitem = $scope.listData[index].children[prevIndex];
+							$scope.listData[index].children[prevIndex] = $scope.listData[index].children[nextIndex];
+							$scope.listData[index].children[nextIndex] = tmpitem;
 						})
 					}
 					else {
