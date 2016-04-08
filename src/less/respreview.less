@@ -52,6 +52,7 @@
     position: absolute;
     z-index: 20;
     left: -200px;
+    top:20px;
     color: @color12;
     padding: 10px;
     box-shadow: 0px 0px 5px @color5;
@@ -70,7 +71,7 @@
 #preview-container .popBox li{
     margin-bottom: 20px;
 }
-#preview-container .popBox li.selected{
+#preview-container .selected{
     color: @color1;
 }
 #preview-container .header-nav-tips .nav_right
@@ -107,9 +108,7 @@
 .comment-info span{
     margin-right: 15px;
 }
-.create-comment .comment-star, .comment-count,.comment-score {
-    float: right;
-}
+ 
 
 .starLight{
     color: #DFA515;
@@ -169,4 +168,121 @@
 }
 #preview-container .line{
     border: 2px solid @color1;
+}
+#preview-container .more
+{
+    background: @color1;
+    cursor: pointer;
+    line-height: 32px;
+    
+}
+
+/*切换资源类型*/
+#preview-container .slide_head
+{
+    height: 30px;
+    line-height: 28px;
+    cursor: pointer;
+    margin-top: 10px;
+    background:@color12;
+    color: @fff;
+    padding: 0px 5px;
+    border-bottom: 1px solid @color2;
+    border-left: 10px solid @color2;
+}
+#preview-container .slide-list
+{
+    margin-top: 0px;
+}
+#preview-container .slide_head .type_box{
+    height: 30px;
+    width: 60%;
+    float: right;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    position: relative;
+}
+#preview-container .slide_head i{
+    margin-left: 5px;
+}
+#preview-container .pop-type-box
+{
+    width: 60%;
+    position: absolute;
+    z-index: 20;
+    top:22px;
+    right: 15px;
+    display: none;
+    padding-top: 20px;
+}
+#preview-container .pop-type
+{
+   
+    border: 2px solid @color5;
+    background: @fff;
+    color: @color12;
+   
+   
+}
+#preview-container .slide_head:hover .pop-type-box
+{
+    display: block;
+}
+
+#preview-container .pop-type ul{
+    padding-left: 0px;
+    text-indent: 5px;
+}
+.pop-type li{
+    height: 32px;
+    line-height: 31px;
+    border-top: 1px solid #ccc;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/*固定到底部*/
+#preview-container .bottom-fixed
+{
+    height: 80px;
+    background: rgba(10,10,10,0.7);
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    
+}
+#preview-container .fix-inner
+{
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    font-size: @leftTabSize;
+    line-height: 75px;
+    font-size: 18px;
+}
+#preview-container .fix-inner span{
+    margin:0px 10px;
+}
+#preview-container .fix-inner .down-orign
+{
+    text-decoration: underline;
+    float: right;
+    cursor: pointer;
+}
+.comment-star, .comment-count,{
+    float: left;
+}
+#preview-container .btn-danger
+{
+    float: right;
+    margin: 20px;
+    font-size: 18px;
+    
 }
