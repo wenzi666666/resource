@@ -547,7 +547,7 @@
 							{
 								for(var i=0;i<index;i++)
 								{
-									$(".comment-star .icon-star").eq(i).addClass("starLight");
+									$scope.curStar[i]=true;
 								}
 							}else{
 								alert(data.message);
