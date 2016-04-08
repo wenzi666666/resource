@@ -144,7 +144,6 @@
 					}
 				}
 				
-				
 				// 资源nav数据
 				Preview.lists({
 					resId: $scope.VM.resourceId,
@@ -505,7 +504,14 @@
 
 				//发布评论
 					$scope.publishComment = function() {
-						var score=$(".icon-star.starLight").length;
+						var score=0;
+						_.each($scope.curStar, function(v, i) {
+							if($scope.curStar[i]==true)
+							{
+								score++;
+							}
+						});
+						
 						if(score==0)
 						{
 							alert("评完分才能评论哦！");
