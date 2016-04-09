@@ -14,7 +14,7 @@
 					
 					$scope.uploadData =  data.data
 					console.log("uploadData:",$scope.uploadData)
-					uploadFileInit($scope.uploadData.uploadUrl);
+					window.uploadFileInit($scope.uploadData.uploadUrl);
 				})
 				
 				// 编辑完资源信息上传
