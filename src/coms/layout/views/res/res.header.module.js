@@ -57,12 +57,12 @@
 						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
 					},
 					// 我的评论
-					getMyComment: {
+					getMyComment : {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReviewComment"
 					},
 					// 我的浏览
-					getMyReview: {
+					getMyRecent: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
 					}

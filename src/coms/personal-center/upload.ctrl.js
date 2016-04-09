@@ -23,23 +23,33 @@
 					resSize: 0
 				}
 				$scope.uploadResInfo = function() {
-					console.log("upload", $localStorage.currentFile);
-					
+					var currentFile = JSON.parse(window.localStorage.getItem('ngStorage-currentFile'));
 					
 					Res.resCtrl({
-						names: $scope.VM.resName != '未命名'? $scope.VM.resName:"未命名",
+						names: $scope.VM.resName != '未命名'? $scope.VM.resName:currentFile.name,
 						unifTypeIds: '1',
 						tfcodes: 'BJCZ02010401',
 						scopes: 0,
 						keywords: '哈哈',
 						descs: '测试',
-						paths: $scope.uploadData.uploadPath  + $localStorage.currentFile.path,
-						sizes: $localStorage.currentFile.size,
+						paths: $scope.uploadData.uploadPath  + currentFile.path,
+						sizes: currentFile.size,
 						iscoursewares: 0,
 						islocals: 0
 					}, function(data) {
 						$('#eiditResModel').modal("hide");
 						ModalMsg.logger("上传成功啦");
+						
+						// 上传资源 列表
+						Res.getUploadRes({
+							unifyTypeId: '1',
+							fileFormat: '全部',
+							page: 1,
+							perPage: 10
+						}, function(data) {
+							console.log("uploadList:", data.data)
+							$scope.VM.uploadFileList = data.data;
+						})
 					})
 				}	
 			}

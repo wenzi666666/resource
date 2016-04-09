@@ -54,7 +54,7 @@
 				}
 				
 				// 左侧导航 切换
-				$scope.switchItemCtrl = [false,true,false,false,false]
+				$scope.switchItemCtrl = [true,false,false,false,false]
 				$scope.switchItem = function(index) {
 					_.each($scope.switchItemCtrl, function(v, i) {
 						$scope.switchItemCtrl[i] = false;
