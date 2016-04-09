@@ -36,7 +36,7 @@
 				// 根据state状态 切换 页面 logo
 				$scope.pageLogo = $state.current.name;
 				switch($state.current.name)
-					{
+				{
 					case "message":
 					  $scope.pageTitle = "消息中心";
 					  break;
@@ -51,9 +51,14 @@
 					  break;
 					case "search":
 					  $scope.pageTitle = "搜索结果";
-					  break;
-						
-					}
+					  break;	
+				}
+				
+				// 返回顶部
+				$scope.goToTop = function() {
+					console.log("top")
+					$("html, body").animate({scrollTop:0},"slow");
+				}
 			}
 		])
 }());

@@ -476,6 +476,23 @@
     cursor: pointer;
     z-index: 99999;
 }
+@media screen and (max-width: 1050px) { /*当屏幕尺寸小于1050px时，应用下面的CSS样式*/
+     .prepare-fixed{
+        right: 8px;
+
+    }
+    .prepare-fixed  .prepare-ctrls{
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        right: 40px;
+        margin-left: 3px;
+        visibility: hidden;
+        background: #41C9A9;
+        padding: 5px;
+        border-radius: 3px;
+    }
+}
 .prepare-fixed:hover .prepare-ctrls{
     visibility: visible;   
 }
