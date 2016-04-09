@@ -46,6 +46,7 @@
 				Res.getUploadRes({
 					userId: $scope.user.userId,
 					unifyTypeId: '1',
+					fileFormat: '全部',
 					page: 1,
 					perPage: 10
 				}, function(data) {

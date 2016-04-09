@@ -76,6 +76,7 @@
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentMaterialTmpShow = false;
 				}
 				
 

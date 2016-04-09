@@ -1,0 +1,58 @@
+<div class="res-conmment">
+	<div class="create-comment">
+		<div class="comment-info">
+			<span class="comment-user">用户名：{{userName}}</span>
+
+		</div>
+		<textarea ng-change="changeComment()" ng-model="VM.inputComment"></textarea>
+		<span class="comment-text"><span class="shen">{{commentNum}}</span>/200</span>
+		<button class="btn btn-success publish" ng-click="publishComment()">发表</button>
+	</div>
+
+	<div class="conment-list">
+		<div class="comment-type">
+			<span class="other-comment" ng-click="changeBlock('other')" ng-class="otherShow?'comment-active':''">他人评论</span>
+			<span class="my-comment " ng-click="changeBlock('my')" ng-class="myShow?'comment-active':''">我的评论</span>
+		</div>
+		<div class="my" ng-show="myShow">
+			<div class="coment-item " ng-repeat="comment in myCommentList">
+				<div class="item-user-date">
+					<span item-user>{{comment.userName}}</span>
+					<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+				</div>
+				<div class="item-content" contenteditable="false">{{comment.acontent}}</div>
+				<div class="editBox">
+					<button class="btn btn-danger" ng-click="editCom(comment.id,comment.acontent)">编辑</button>
+					<button class="btn btn-danger" ng-click="deleteCom(comment.id)">删除</button>
+				</div>
+			</div>
+		</div>
+		<div class="other" ng-show="otherShow">
+			<div class="coment-item " ng-repeat="comment in otherCommentList">
+				<div class="item-user-date">
+					<span item-user>{{comment.userName}}</span>
+					<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+				</div>
+				<div class="item-content">{{comment.acontent}}</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="bottom-fixed">
+	<div class="fix-inner">
+		<span class="comment-star">
+				<i class="icon-star" ng-repeat="star in showStar" ng-class="{'starLight':curStar[$index],'starHover':hoverStar[$index]}" ng-mouseover="mouseOverStar($index)" ng-mouseout="mouseOutStar($index)" ng-click="starClick($index)"></i>
+				
+			</span>
+		<span class="comment-count">已有{{VM.info.userNum}}人评分,平均分{{VM.info.avgScore}}</span>
+		<span>下载次数:{{VM.info.dloadTimes}}</span>
+		<span>浏览次数:{{VM.info.clickTimes}}</span>
+
+		<button class="btn btn-danger">加入备课夹</button>
+		<span class="down-orign">下载到本地</span>
+
+	</div>
+</div>
