@@ -180,10 +180,15 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							console.log(d)
-							getPrepare($localStorage.currentTreeNode.tfcode);
-							//加1
-							$scope.shopCount++;
+							// 加入备课夹
+							Prepare.addResToPrepareId({
+								id: d.data.id,
+								resIds: $scope.resList.list[listIndex].id,
+								fromFlags: $localStorage.fromFlag
+							}, function(data) {
+								//加1
+								$scope.shopCount++;
+							})
 						})
 					}else{
 						Prepare.addResToPrepareId({
