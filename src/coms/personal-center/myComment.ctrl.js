@@ -10,18 +10,16 @@
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				
-				// 上传资源 列表
-				Res.getUploadRes({
-					userId: $scope.user.userId,
-					unifyTypeId: '1',
+				//我的备课 列表
+				Res.getMyComment({
+					unifyTypeId: '0',
 					fileFormat: '全部',
 					page: 1,
 					perPage: 10
 				}, function(data) {
-					console.log("uploadList:", data.data)
-					$scope.uploadFileList = data.data;
+					console.log("commentList:", data.data)
+					$scope.commentList = data.data;
 				})
-				
 			}
 		])
 }());

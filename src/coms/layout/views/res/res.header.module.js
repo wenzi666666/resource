@@ -45,6 +45,26 @@
 					getUploadUrl: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/upload"
+					},
+					// 我的备课资源
+					getPrepareResource: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareResource"
+					},
+					// 我的下载
+					getMyDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
+					},
+					// 我的评论
+					getMyComment: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+					},
+					// 我的浏览
+					getMyReview: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
 					}
 				})
 			}
