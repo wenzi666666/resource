@@ -29,15 +29,15 @@
 	<div class="modal-body upload-modal-body modal-prepare-body">
 		<div class="modal-prepare-header">上传资源</div>
 		<div class="modal-prepare-content">
-			资源名称：<input id="resName" ng-modal="resName" />
+			资源名称：<input id="resName" ng-model="VM.resName" />
 			<div class="">资源类型：</div>
 			<div class="">上传至：</div>
 			<div class="">共享范围：</div>
 			<div class="">关键词：</div>
 			<div class="">资源介绍：</div>
-
-			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="prepareOK()">确定</button>
-			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="prepareCancel()">取消</button>
+			<div class="">{{VM.resSize}}</div>
+			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="uploadResInfo()">确定</button>
+			<button class="btn btn-lg btn-success btn-custom-modal">取消</button>
 		</div>
 	</div>
 </div>

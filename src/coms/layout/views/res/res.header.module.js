@@ -30,6 +30,21 @@
 					getBooks: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/books/"
+					},
+					// 资源上传 删除 
+					resCtrl: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+					},
+					// 资源上传 删除 
+					getUploadRes: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+					},
+					// 上传资源 服务 url
+					getUploadUrl: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/upload"
 					}
 				})
 			}

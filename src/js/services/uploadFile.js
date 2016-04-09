@@ -43,7 +43,12 @@ var uploadFileInit = function(url) {
 				console.log(info,up,file)
 				$('#uploadModel').modal("hide");
 				$('#eiditResModel').modal("show");
+				
+				
 				$('#resName').val(file.name);
+//				$('#resSize').val(file.size);
+				
+				window.localStorage.setItem('ngStorage-currentFile', JSON.stringify(file))
 			},
 
 			Error: function(up, err) {

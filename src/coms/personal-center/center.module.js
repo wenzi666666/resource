@@ -32,18 +32,15 @@
 					prepareResource: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareResource"
-					},
-					// 上传资源 服务
-					getUploadUrl: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/upload"
-					},
-					
+					}
 				})
 			}
 		])
 		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal','Personal',
 			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,Personal) {
+				// 变量共享
+				$scope.VM = {};
+				
 				$scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
