@@ -180,6 +180,8 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
+							// 获取备课夹
+							getPrepare($localStorage.currentTreeNode.tfcode);
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
