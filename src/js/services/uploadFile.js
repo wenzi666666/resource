@@ -44,7 +44,7 @@ var uploadFileInit = function(url) {
 				$('#uploadModel').modal("hide");
 				$('#eiditResModel').modal("show");
 				
-				
+				file.path = info.response;
 				$('#resName').val(file.name);
 //				$('#resSize').val(file.size);
 				

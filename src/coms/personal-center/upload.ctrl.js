@@ -33,7 +33,7 @@
 						scopes: 0,
 						keywords: '哈哈',
 						descs: '测试',
-						paths: $scope.uploadData.uploadPath,
+						paths: $scope.uploadData.uploadPath  + $localStorage.currentFile.path,
 						sizes: $localStorage.currentFile.size,
 						iscoursewares: 0,
 						islocals: 0
@@ -41,18 +41,7 @@
 						$('#eiditResModel').modal("hide");
 						ModalMsg.logger("上传成功啦");
 					})
-				}
-				
-				Res.getUploadRes({
-					userId: $scope.user.userId,
-					unifyTypeId: '1',
-					fileFormat: '全部',
-					page: 1,
-					perPage: 10
-				}, function(data) {
-					console.log(data)
-				})
-				
+				}	
 			}
 		])
 }());

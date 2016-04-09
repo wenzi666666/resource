@@ -1,19 +1,14 @@
 <div class="res-content-header"></div>
 <div id="res-content-right">
 	<div class="res-header-catogry">
-		<!--<span class="catogry-item catogry-item-active">全部</span>-->
 		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
-		<!--<span class="catogry-item">情景英语</span>
-		<span class="catogry-item">题库</span>-->
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源类型:</span>
-		<!--<span class="type-list type-active">全部</span>-->
 		<span class="type-list" ng-repeat="v in types track by $index" ng-class="{'type-active':isTypeActive(v.id)}" ng-click="listFormat($index)"> {{v.mtype}} </span>
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源格式:</span>
-		<!--<span class="type-list type-active">全部</span>-->
 		<span class="type-list" ng-repeat="v in formats track by $index" ng-class="{'type-active':isFormatActive($index)}" ng-click="filterFormat($index)"> {{ v}}</span>
 	</div>
 	<div class="statistic-tab">
@@ -29,7 +24,7 @@
 		<ul class="res-ul-list" ng-show="isList">
 			<li class="res-list-item" ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/statistic.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				<img class="res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title">{{ list.title }}</label><br>
 					<label class="res-type">类型: {{ list.mtype }}</label>
