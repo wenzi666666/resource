@@ -1,4 +1,5 @@
-var uploadFileInit = function(url) {
+
+window.uploadFileInit = function(url) {
 	var uploader = new plupload.Uploader({
 		runtimes: 'html5,flash,silverlight,html4',
 		browse_button: 'pickfiles', // you can pass an id...
