@@ -26,7 +26,7 @@
 						 $scope.treedata = data.data;
 						 console.log("tree data:", data.data);
 						 // 目录树默认选择 当前选择 > 默认第一个节点选择 
-						 if(!!$localStorage.currentTreeNode) {
+						 if($localStorage.currentTreeNode == data.data[0]) {
 							var currentTreeNode = $localStorage.currentTreeNode;
 						}else {
 							var currentTreeNode = data.data[0];

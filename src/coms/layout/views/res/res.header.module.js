@@ -194,6 +194,8 @@
 						termId: $scope.VM.grade[i].id
 					}, function(data) {
 						$scope.VM.subject = data.data;
+						//缓存用户当前 学科
+						$localStorage.currentSubject = $scope.VM.subject[0];
 
 					}).$promise.then(function(data) {
 						return Res.getEditions({
@@ -201,6 +203,8 @@
 							subjectId: $scope.VM.subject[0].id
 						}, function(data) {
 							$scope.VM.version = data.data;
+							//缓存用户当前 版本
+							$localStorage.currentVersion = $scope.VM.version[0];
 						}).$promise;
 					}).then(function(data) {
 						return Res.getBooks({
@@ -208,6 +212,8 @@
 						}, function(data) {
 							console.log("books：", data.data);
 							$scope.VM.material = data.data;
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.material[0];
 							$scope.$emit("currentTreeId", $scope.VM.material[0].id)
 						}).$promise;
 					})
@@ -236,6 +242,8 @@
 						subjectId: $scope.VM.subject[index].id
 					}, function(data) {
 						$scope.VM.version = data.data;
+						//缓存用户当前 版本
+						$localStorage.currentVersion = $scope.VM.version[0];
 						console.log("版本：", data.data);
 					}).$promise.then(function(data) {
 						return Res.getBooks({
@@ -243,6 +251,8 @@
 						}, function(data) {
 							console.log("books：", data.data);
 							$scope.VM.material = data.data;
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.material[0];
 							// 当没有教材时，取版本id
 							$scope.$emit("currentTreeId", $scope.VM.material[0] ? $scope.VM.material[0].id : $scope.VM.version[0].id)
 						}).$promise;
@@ -269,14 +279,18 @@
 						console.log("books：", data.data);
 						$scope.VM.material = data.data;
 						if($scope.VM.material && $scope.VM.material.length > 0)
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.material[0];
 							$scope.$emit("currentTreeId", $scope.VM.material[0].id);
 					})
 				}
 
 				// 教材
+				$scope.VM.currentMaterialTmpShow = true;
 				$scope.VM.selectMaterial = function(index) {
 					$scope.VM.currentMaterial = $scope.VM.material[index];
 					$scope.VM.currentMaterialShow = true;
+					$scope.VM.currentMaterialTmpShow = false;
 					//缓存用户当前 教材
 					$localStorage.currentMaterial =  $scope.VM.currentMaterial;
 					//选中

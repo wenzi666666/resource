@@ -42,8 +42,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="seperate-right" ng-show="VM.currentMaterialShow"><i class="icon-angle-right"></i></div>
-	<div class="select-nav-item"  ng-show="VM.currentMaterialShow">
+	<div class="seperate-right" ng-show="VM.currentMaterialShow || VM.currentMaterialTmpShow"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item"  ng-show="VM.currentMaterialShow || VM.currentMaterialTmpShow">
 		<div class="menu-drop">
 			<div class="trigger" ng-click="closeCurrentMaterial()">
 				<span class="select-current" href="">{{VM.currentMaterial.name}}</span>
