@@ -41,7 +41,6 @@
 					//								document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
 				},
 				FileUploaded: function(up, file, info) {
-					console.log(info, up, file)
 					$('#uploadModel').modal("hide");
 					$('#eiditResModel').modal("show");
 

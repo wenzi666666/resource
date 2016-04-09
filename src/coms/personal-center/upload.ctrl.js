@@ -27,7 +27,7 @@
 					
 					
 					Res.resCtrl({
-						names: $scope.VM.resName != '未命名'? $scope.VM.resName:$localStorage.currentFile.name,
+						names: $scope.VM.resName != '未命名'? $scope.VM.resName:"未命名",
 						unifTypeIds: '1',
 						tfcodes: 'BJCZ02010401',
 						scopes: 0,
