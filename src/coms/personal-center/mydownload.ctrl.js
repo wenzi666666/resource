@@ -5,7 +5,7 @@
 	'use strict';
 	//Module configuration
 	angular.module('webApp.coms.personalcenter')
-		.controller("myUploadCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage','ModalMsg','Res',
+		.controller("myDownloadCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage','ModalMsg','Res',
 			function($scope, $stateParams, $state, $location, $localStorage,ModalMsg,Res) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;

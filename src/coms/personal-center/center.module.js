@@ -53,6 +53,15 @@
 					$('#uploadModel').modal("show");
 				}
 				
+				// 左侧导航 切换
+				$scope.switchItemCtrl = [false,true,false,false,false]
+				$scope.switchItem = function(index) {
+					_.each($scope.switchItemCtrl, function(v, i) {
+						$scope.switchItemCtrl[i] = false;
+					})
+					$scope.switchItemCtrl[index] = true;
+				}
+				
 			}
 		])
 }());
