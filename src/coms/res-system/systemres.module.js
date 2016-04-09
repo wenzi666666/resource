@@ -182,6 +182,8 @@
 						}, function(d) {
 							console.log(d)
 							getPrepare($localStorage.currentTreeNode.tfcode);
+							//加1
+							$scope.shopCount++;
 						})
 					}else{
 						Prepare.addResToPrepareId({

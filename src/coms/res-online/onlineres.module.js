@@ -147,6 +147,7 @@
 					    
 					    if(screenfull.isFullscreen) {
 				        	$scope.VM.slideTools = true;
+				        	
 				        }else{
 				        	$scope.VM.slideTools = false;
 				        }
