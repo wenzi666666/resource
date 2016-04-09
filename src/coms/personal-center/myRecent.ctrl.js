@@ -11,7 +11,7 @@
 				$scope.user = $localStorage.authUser;
 				
 				//我的备课 列表
-				Res.getPrepareResource({
+				Res.getMyComment({
 					unifyTypeId: '0',
 					fileFormat: '全部',
 					page: 1,
