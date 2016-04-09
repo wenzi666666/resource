@@ -5,17 +5,16 @@
 	'use strict';
 	//Module configuration
 	angular.module('webApp.coms.personalcenter')
-		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal',
-			function($scope, $stateParams, $state, $location, $localStorage,$uibModal) {
+		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal','Personal',
+			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,Personal) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				
-				$scope.sysAvatarPath = "assets/img/settings/tab_active.png";
-				$scope.selfAvatarPath = "assets/img/settings/tab2.png";
-				
-//				$scope.uploadFile = function() {
-				
-//				}
+				Personal.getUploadUrl({}, function(data) {
+					var url = data.data.uploadUrl;
+					console.log(url)
+					uploadFileInit(url);
+				})
 			}
 		])
 }());

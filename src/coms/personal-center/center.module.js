@@ -56,12 +56,6 @@
 					$('#uploadModel').modal("show");
 				}
 				
-				Personal.getUploadUrl({}, function(data) {
-					var url = data.data.uploadUrl;
-					
-					uploadFileInit(url);
-				})
-				
 			}
 		])
 }());
