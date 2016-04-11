@@ -77,8 +77,8 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -87,62 +87,7 @@
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
 				console.log($stateParams)
-				
-				//星星 评分
-				$scope.showStar=[1,2,3,4,5];
-				$scope.curStar=[];
-				$scope.hoverStar=[];
-				$scope.mouseOverStar=function(index){
-					var len=0;
-					_.each($scope.curStar, function(v, i) {
-						if($scope.curStar[i]==true)
-						{
-							len++;
-						}
-					});
-					if(len==0)
-					{
-						//加上颜色 starHover;
-						for(var i=0;i<=index;i++)
-						{
-							$scope.hoverStar[i]=true;
-						}
-					}
-				}
-				$scope.mouseOutStar=function(index){
-					var len=0;
-					_.each($scope.curStar, function(v, i) {
-						if($scope.curStar[i]==true)
-						{
-							len++;
-						}
-					});
-					if(len==0)
-					{
-						for(var i=0;i<=index;i++)
-						{
-							$scope.hoverStar[i]=false;
-						}
-					}
-				}
-				
-				$scope.starClick=function(index){
-					var len=0;
-					for(var i=0;i<$scope.curStar.length;i++)
-					_.each($scope.curStar, function(v, i) {
-						if($scope.curStar[i]==true)
-						{
-							len++;
-						}
-					});
-					if(len==0)
-					{
-						publishScore(index+1);
-					}else
-					{
-						ModalMsg.logger("您已经评分过了，不能再次评分")
-					}
-				}
+
 				
 				// 资源nav数据
 				Preview.lists({
@@ -415,6 +360,20 @@
 					    screenfull.toggle($('.slide-container')[0]);
 					}
 				}
+				
+				//下载资源
+				$scope.resDownload = function(id){
+					SystemRes.resDownload({
+						resIds:id,
+						fromFlags: $localStorage.fromFlag
+					}, function(data){
+						
+						window.open(data.data[0].path, "_blank");
+					});
+				}
+				
+				
+				
 			}
 		])
 }());
