@@ -224,6 +224,7 @@
 				// 列出资源
 				var page =1;
 				$scope.perPage =9;
+				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
 				var getResList = function() {
