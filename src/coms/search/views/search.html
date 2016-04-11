@@ -34,7 +34,7 @@
 			<ul class="res-ul-list">
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index">
 					<input class="res-checkbox" type="checkbox" ng-model="isCheck" ng-checked="allCheck">
-					<img class="res-list-thumb" src="{{source.fpath}}">
+					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png">
 					<span class="res-list-info">
 					<label class="res-title">{{source.fname}}</label><br>
 					<label class="res-type">类型: {{source.mtype}}</label>
@@ -47,7 +47,7 @@
 					</span>
 					<span class="res-list-tools">
 					<button class="btn btn-success">移出备课夹</button><br>
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(source.id,'0')"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				</li>
 
@@ -56,7 +56,7 @@
 		<div class="sumBox">
 			<input type="checkbox" ng-checked="allCheck" ng-model="allCheck" class="allCheck" ng-checked="allCheck">本页全选
 			<span>共{{listLength}}条，每页显示<input type="text" value="10"  ng-change="changePerPage()" ng-model="inputPerPage"/></span>条
-			<label class="res-download allDown"><i class="icon-download-alt"></i>点击下载</label>
+			<label class="res-download allDown" ng-click="resDownload(allSourceId,'1')"><i class="icon-download-alt"></i>点击下载</label>
 		</div>
 		<div class="pageBox">
 			<div class="coms-pagination">

@@ -37,8 +37,8 @@
 				})
 			}
 		])
-		.controller("SearchController", ['$scope', '$stateParams', '$state', '$location', 'Search',
-			function($scope, $stateParams, $state, $location, Search) {
+		.controller("SearchController", ['$scope', '$stateParams','$localStorage', '$state', '$location', 'Search','SystemRes',
+			function($scope, $stateParams, $localStorage,$state, $location, Search,SystemRes) {
 				// 变量共享
 				$scope.VM = {};
 
@@ -112,10 +112,11 @@
 				$scope.bigCurrentPage = 1;
 				$scope.perPage=10;
 				$scope.maxSize = 5;
-				$scope.searchKeyWord="";
+				$scope.searchKeyWord="数学";
 				$scope.inputPerPage=10;
 				
-				var getSourceList = function() {
+				 function getSourceList () {
+				 	$scope.allSourceId="";//当页所有id字符串
 					Search.searchResults({
 						fromFlag: $scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord,
@@ -126,6 +127,11 @@
 						if (data.code == "OK") {
 							$scope.sourceList = data.data.list;
 							console.log(data);
+							_.each($scope.sourceList, function(v, i) {
+								$scope.allSourceId+=$scope.sourceList[i].id+","
+							});
+							$scope.allSourceId=$scope.allSourceId.substring(0,$scope.allSourceId.length-1);
+							
 							$scope.listLength = data.data.totalLines;
 							$scope.bigTotalItems = $scope.listLength;
 							$scope.pageSize=data.data.total;
@@ -156,7 +162,31 @@
 
 				$scope.isCheck = false;
 				$scope.allCheck = false;
-
+				
+				//下载资源
+				$scope.resDownload = function(id,downType){
+					console.log(id)
+					if(downType=="1")
+					{
+						if($scope.allCheck==false)
+						{
+							alert("请勾选下载资源");
+							return false;
+							
+						}
+					}
+					SystemRes.resDownload({
+						resIds:id,
+						fromFlags: $localStorage.fromFlag
+					}, function(data){
+						console.log(data.data)
+						for(var i=0;i<data.data.length;i++)
+						{
+							window.open(data.data[i].path, "_blank");
+						}
+						
+					});
+				}
 			}
 		])
 }());
