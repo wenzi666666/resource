@@ -17,7 +17,7 @@
 					page: 1,
 					perPage: 10
 				}, function(data) {
-					console.log("commentList:", data.data)
+					// console.log("commentList:", data.data)
 					$scope.commentList = data.data;
 				})
 			}

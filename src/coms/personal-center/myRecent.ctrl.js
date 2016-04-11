@@ -17,7 +17,7 @@
 					page: 1,
 					perPage: 10
 				}, function(data) {
-					console.log("recentList:", data.data)
+					// console.log("recentList:", data.data)
 					$scope.recentList = data.data;
 				})
 				

@@ -47,7 +47,7 @@
 					</span>
 					<span class="res-list-tools">
 					<button class="btn btn-success">移出备课夹</button><br>
-					<label class="res-download" ng-click="resDownload(source.id,'0')"><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(source.id,'0',source.fromFlag)"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				</li>
 
@@ -56,7 +56,7 @@
 		<div class="sumBox">
 			<input type="checkbox" ng-checked="allCheck" ng-model="allCheck" class="allCheck" ng-checked="allCheck">本页全选
 			<span>共{{listLength}}条，每页显示<input type="text" value="10"  ng-change="changePerPage()" ng-model="inputPerPage"/></span>条
-			<label class="res-download allDown" ng-click="resDownload(allSourceId,'1')"><i class="icon-download-alt"></i>点击下载</label>
+			<label class="res-download allDown" ng-click="resDownload(allSourceId,'1',allFromFlag)"><i class="icon-download-alt"></i>点击下载</label>
 		</div>
 		<div class="pageBox">
 			<div class="coms-pagination">

@@ -125,13 +125,9 @@
 }
 
 .cen-right-down {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
-.cen-right-down h3 {
-    border-bottom: 1px solid #CCCCCC;
-    font-size: 1.8rem;
-}
 
 .type-select-box {
     position: absolute;
@@ -162,6 +158,12 @@
     padding-left: 30px;
 }
 
+
+.cen-right-down h3 {
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 1.8rem;
+}
+
 .resource-list {
     padding: 10px 10px;
 }
@@ -182,8 +184,32 @@
     color: #666666;
 }
 
+.resource-list li div {
+    height: 100%;
+}
+
+.resource-list img {
+    width: 30%;
+    height: 80%;
+    padding: 5px;
+    border: 1px solid #12879A;
+    background-color: #FFFFFF;
+}
+
+.my-upload-list img {
+    width: 40%;
+}
+
 .resource-list li.active {
     background-color: #E6F4F4;
+}
+
+.resource-list .btn-op {
+    background-color: #219B81;
+    height: 25px;
+    line-height: 22px;
+    border-radius: 4px;
+    font-size: 1.3rem;
 }
 
 .pagination-box{
@@ -191,7 +217,7 @@
     padding-bottom: 20px;
 }
 
-.resource-title, .resource-type{
+.resource-title, .resource-type, .resource-date{
     margin-left: 20px;
 }
 
@@ -207,3 +233,52 @@
     max-width: 80px;
     max-height: 80px;
 }
+
+//checkbox选择框
+input[type=checkbox] {
+    visibility: hidden;
+    margin-right: 3px;
+}
+
+.check-box {
+    width: 15px;
+    margin: 0;
+    margin-right: 4px;
+    position: relative;
+}
+
+.check-box label {
+    cursor: pointer;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    border:1px solid #ddd;
+}
+
+.check-box label:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 5px;
+    background: transparent;
+    top: 4px;
+    left: 2px;
+    border: 3px solid #7fc1f7;
+    border-top: none;
+    border-right: none;
+ 
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.check-box input[type=checkbox]:checked + label:after {
+    opacity: 1;
+}
+

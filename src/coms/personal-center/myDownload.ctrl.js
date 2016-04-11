@@ -17,7 +17,7 @@
 					page: 1,
 					perPage: 10
 				}, function(data) {
-					console.log("downloadList:", data.data)
+					// console.log("downloadList:", data.data)
 					$scope.downloadList = data.data;
 				})
 				
