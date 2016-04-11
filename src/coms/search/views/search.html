@@ -32,6 +32,7 @@
 	<div class="list_box">
 		<div class="res-list-main">
 			<ul class="res-ul-list">
+				<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index">
 					<input class="res-checkbox" type="checkbox" ng-model="isCheck" ng-checked="allCheck">
 					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png">
@@ -46,7 +47,7 @@
 					</span>
 					</span>
 					<span class="res-list-tools">
-					<button class="btn btn-success">移出备课夹</button><br>
+					<!--<button class="btn btn-success">移出备课夹</button><br>-->
 					<label class="res-download" ng-click="resDownload(source.id,'0',source.fromFlag)"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				</li>
