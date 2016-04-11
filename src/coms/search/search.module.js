@@ -41,7 +41,10 @@
 			function($scope, $stateParams, $localStorage,$state, $location, Search,SystemRes,ModalMsg) {
 				// 变量共享
 				$scope.VM = {};
-
+				
+				// 加载过程显示 转圈
+				$scope.isLoading = true;
+				
 				//搜索资源范围
 
 				$scope.VM.searchArea = [{
@@ -118,6 +121,8 @@
 				 function getSourceList () {
 				 	$scope.allSourceId="";//当页所有id字符串
 				 	$scope.allFromFlag="";
+				 	$scope.sourceList="";
+				 	$scope.isLoading = true;
 					Search.searchResults({
 						fromFlag: $scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord,
@@ -125,6 +130,7 @@
 						page: $scope.bigCurrentPage,
 						perPage: $scope.perPage
 					}, function(data) {
+						$scope.isLoading = false;
 						if (data.code == "OK") {
 							$scope.sourceList = data.data.list;
 							console.log(data);
