@@ -77,8 +77,8 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes','Prepare',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes,Prepare) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -370,6 +370,41 @@
 						
 						window.open(data.data[0].path, "_blank");
 					});
+				}
+				
+				//加入备课夹
+					//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
+				$scope.addToCurrentPrepare = function(listIndex) {
+					// 当前没有备课夹时，创建
+					if($scope.prepareList.length == 0) {
+						Prepare.basePostApi({
+							tfcode: $localStorage.currentTreeNode.tfcode,
+							title: $localStorage.currentTreeNode.label
+						}, function(d) {
+							// 获取备课夹
+							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 加入备课夹
+							Prepare.addResToPrepareId({
+								id: d.data.id,
+								resIds: $scope.resList.list[listIndex].id,
+								fromFlags: $localStorage.fromFlag
+							}, function(data) {
+								//加1
+								$scope.shopCount++;
+							})
+						})
+					}else{
+						Prepare.addResToPrepareId({
+							id: currentPrepareId,
+							resIds: $scope.resList.list[listIndex].id,
+							fromFlags: $localStorage.fromFlag
+						}, function(data) {
+							//加1
+							$scope.shopCount++;
+	
+						})
+					}
+					
 				}
 				
 				
