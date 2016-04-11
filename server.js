@@ -6,6 +6,8 @@ var compression = require('compression');
 //端口
 var port = 12306;
 var app = express();
+//设置跨域访问
+
 //浏览器刷新
 app.use(history());
 //gzip

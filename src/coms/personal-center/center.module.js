@@ -13,14 +13,15 @@
 						views: {
 							'content@': {
 								templateUrl: '/coms/personal-center/views/personal-center.html',
-								controller: 'PrepareController'
+								controller: 'personalCenterController'
 							},
 							'header@': {
 								templateUrl: '/coms/layout/header/header.html',
 								controller: 'LayoutController'
 							},
 							'footer@': {
-								templateUrl: '/coms/layout/footer/footer.html'
+								templateUrl: '/coms/layout/footer/footer.html',
+								controller: 'LayoutController'
 							}
 						}
 					})
@@ -40,8 +41,11 @@
 				})
 			}
 		])
-		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', 'Personal',
-			function($scope, $stateParams, $state, $location, $localStorage, Personal) {
+		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal','Personal',
+			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,Personal) {
+				// 变量共享
+				$scope.VM = {};
+				
 				$scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
@@ -112,49 +116,20 @@
 				// })
 
 			}
-		])
-		//引用资源列表控制器
-		.controller('prepareContentController', ['$scope', 'Personal', 
-			function($scope, Personal) {
-				$scope.$on('restype', function(e, types) {
-					$scope.resTypes = tyeps;
-				});
-			}
-		])
-
-		//我的上传控制器
-		.controller('uploadContentController', ['$scope', 'Personal', 
-			function($scope, Personal) {
-				$scope.$on('restype', function(e, types) {
-					$scope.resTypes = tyeps;
-				});
-			}
-		])
-
-		//我的下载控制器
-		.controller('downloadContentController', ['$scope', 'Personal', 
-			function($scope, Personal) {
-				$scope.$on('restype', function(e, types) {
-					$scope.resTypes = tyeps;
-				});
-			}
-		])
-
-		//我的评论控制器
-		.controller('commentContentController', ['$scope', 'Personal', 
-			function($scope, Personal) {
-				$scope.$on('restype', function(e, types) {
-					$scope.resTypes = tyeps;
-				});
-			}
-		])
 		
-		//最近浏览控制器
-		.controller('recentContentController', ['$scope', 'Personal', 
-			function($scope, Personal) {
-				$scope.$on('restype', function(e, types) {
-					$scope.resTypes = tyeps;
-				});
+				// 上传
+				$scope.uploadRes = function() {
+					$('#uploadModel').modal("show");
+				}
+				
+				// 左侧导航 切换
+				$scope.switchItemCtrl = [true,false,false,false,false]
+				$scope.switchItem = function(index) {
+					_.each($scope.switchItemCtrl, function(v, i) {
+						$scope.switchItemCtrl[i] = false;
+					})
+					$scope.switchItemCtrl[index] = true;
+				}
 			}
 		])
 }());

@@ -30,6 +30,41 @@
 					getBooks: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/books/"
+					},
+					// 资源上传 删除 
+					resCtrl: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+					},
+					// 资源上传 删除 
+					getUploadRes: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+					},
+					// 上传资源 服务 url
+					getUploadUrl: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/upload"
+					},
+					// 我的备课资源
+					getPrepareResource: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareResource"
+					},
+					// 我的下载
+					getMyDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
+					},
+					// 我的评论
+					getMyComment : {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReviewComment"
+					},
+					// 我的浏览
+					getMyRecent: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
 					}
 				})
 			}
@@ -94,7 +129,7 @@
 						}
 						// 选中当前
 						_.each($scope.VM.subject, function(v, i) {
-							if( v.name == $localStorage.currentSubject.name)
+							if( v.id == $localStorage.currentSubject.id)
 								$scope.VM.currentSubjectSeclet[i] = true;
 						})	
 						console.log("学科：", data.data)
@@ -116,7 +151,7 @@
 						}
 						// 选中当前
 						_.each($scope.VM.version, function(v, i) {
-							if( v.name == $localStorage.currentVersion.name)
+							if( v.id == $localStorage.currentVersion.id)
 								$scope.VM.currentVersionSeclet[i] = true;
 						})
 					}).$promise;
@@ -135,7 +170,7 @@
 						}
 						// 选中当前
 						_.each($scope.VM.material, function(v, i) {
-							if( v.name == $localStorage.currentMaterial.name)
+							if( v.id == $localStorage.currentMaterial.id)
 								$scope.VM.currentMaterialSeclet[i] = true;
 						})
 						// 触发 目录树更新
@@ -166,8 +201,8 @@
 					$scope.VM.currentSubject = $scope.VM.subject[0];
 					$scope.VM.currentSubjectSeclet[0] = true;
 					
-					$scope.VM.currentSubjectSeclet[0] = true;
 					$scope.VM.currentVersionSeclet[0] = true;
+					
 					$scope.VM.currentMaterialSeclet[0] = true;
 					
 					
@@ -179,6 +214,14 @@
 						termId: $scope.VM.grade[i].id
 					}, function(data) {
 						$scope.VM.subject = data.data;
+						//缓存用户当前 学科
+						$localStorage.currentSubject = $scope.VM.subject[0];
+						//回归第一个
+						_.each($scope.VM.subject, function(v, i) {
+							$scope.VM.currentSubjectSeclet[i] = false;
+						})
+						$scope.VM.currentSubject = $scope.VM.subject[0];
+						$scope.VM.currentSubjectSeclet[0] = true;
 
 					}).$promise.then(function(data) {
 						return Res.getEditions({
@@ -186,6 +229,15 @@
 							subjectId: $scope.VM.subject[0].id
 						}, function(data) {
 							$scope.VM.version = data.data;
+							//缓存用户当前 版本
+							$localStorage.currentVersion = $scope.VM.version[0];
+							
+							//回归第一个
+							_.each($scope.VM.version, function(v, i) {
+								$scope.VM.currentVersionSeclet[i] = false;
+							})
+							$scope.VM.currentVersion = $scope.VM.version[0];
+							$scope.VM.currentVersionSeclet[0] = true;
 						}).$promise;
 					}).then(function(data) {
 						return Res.getBooks({
@@ -193,6 +245,14 @@
 						}, function(data) {
 							console.log("books：", data.data);
 							$scope.VM.material = data.data;
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.material[0];
+							//回归第一个
+							_.each($scope.VM.material, function(v, i) {
+								$scope.VM.currentMaterialSeclet[i] = false;
+							})
+							$scope.VM.currentMaterial = $scope.VM.material[0];
+							$scope.VM.currentMaterialSeclet[0] = true;
 							$scope.$emit("currentTreeId", $scope.VM.material[0].id)
 						}).$promise;
 					})
@@ -221,6 +281,14 @@
 						subjectId: $scope.VM.subject[index].id
 					}, function(data) {
 						$scope.VM.version = data.data;
+						//缓存用户当前 版本
+						$localStorage.currentVersion = $scope.VM.version[0];
+						//回归第一个
+						_.each($scope.VM.version, function(v, i) {
+							$scope.VM.currentVersionSeclet[i] = false;
+						})
+						$scope.VM.currentVersion = $scope.VM.version[0];
+						$scope.VM.currentVersionSeclet[0] = true;
 						console.log("版本：", data.data);
 					}).$promise.then(function(data) {
 						return Res.getBooks({
@@ -228,6 +296,14 @@
 						}, function(data) {
 							console.log("books：", data.data);
 							$scope.VM.material = data.data;
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.material[0];
+							//回归第一个
+							_.each($scope.VM.material, function(v, i) {
+								$scope.VM.currentMaterialSeclet[i] = false;
+							})
+							$scope.VM.currentMaterial = $scope.VM.material[0];
+							$scope.VM.currentMaterialSeclet[0] = true;
 							// 当没有教材时，取版本id
 							$scope.$emit("currentTreeId", $scope.VM.material[0] ? $scope.VM.material[0].id : $scope.VM.version[0].id)
 						}).$promise;
@@ -254,14 +330,24 @@
 						console.log("books：", data.data);
 						$scope.VM.material = data.data;
 						if($scope.VM.material && $scope.VM.material.length > 0)
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.material[0];
 							$scope.$emit("currentTreeId", $scope.VM.material[0].id);
+							//回归第一个
+							_.each($scope.VM.material, function(v, i) {
+								$scope.VM.currentMaterialSeclet[i] = false;
+							})
+							$scope.VM.currentMaterial = $scope.VM.material[0];
+							$scope.VM.currentMaterialSeclet[0] = true;
 					})
 				}
 
 				// 教材
+				$scope.VM.currentMaterialTmpShow = true;
 				$scope.VM.selectMaterial = function(index) {
 					$scope.VM.currentMaterial = $scope.VM.material[index];
 					$scope.VM.currentMaterialShow = true;
+					$scope.VM.currentMaterialTmpShow = false;
 					//缓存用户当前 教材
 					$localStorage.currentMaterial =  $scope.VM.currentMaterial;
 					//选中

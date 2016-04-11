@@ -20,7 +20,8 @@
 								controller: 'LayoutController'
 							},
 							'footer@': {
-								templateUrl: '/coms/layout/footer/footer.html'
+								templateUrl: '/coms/layout/footer/footer.html',
+								controller: 'LayoutController'
 							}
 						}
 					})
@@ -57,8 +58,8 @@
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg',
-			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout',
+			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -68,10 +69,12 @@
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentVersionTmpShow = false;
 				}
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentMaterialTmpShow = false;
 				}
 				// list切换
 				$scope.isList = $localStorage.resList?$localStorage.resList:true;
@@ -92,6 +95,29 @@
 						var addcar = $(this);
 						var offset = $(".prepare-fixed").offset();
 						var img = addcar.parent().parent().find('.res-list-thumb');
+						var flyer = $('<img class="u-flyer" style="max-width:150px" src="'+img.attr('src')+'">');
+						flyer.fly({
+							start: {
+								left: img.offset().left,
+								top:  event.clientY-30
+							},
+							end: {
+								left: offset.left+10,
+								top: document.documentElement.clientHeight - 380,
+								width: 0,
+								height: 0
+							},
+							onEnd: function(){
+								$('.u-flyer').remove(); //移除dom
+							}
+						});
+					});
+					
+					$(".addPrepareInner").click(function(event){
+						
+						var addcar = $(this);
+						var offset = $(".prepare-fixed").offset();
+						var img = addcar.parent().parent().parent().parent().find('.res-list-thumb');
 						var flyer = $('<img class="u-flyer" style="max-width:150px" src="'+img.attr('src')+'">');
 						flyer.fly({
 							start: {
@@ -132,7 +158,7 @@
 				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
-//					$event.stopPropagation();
+					$event.stopPropagation();
 					console.log(listIndex, prepareIndex)
 					Prepare.addResToPrepareId({
 						id: $scope.prepareList[prepareIndex].id,
@@ -155,8 +181,17 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							console.log(d)
+							// 获取备课夹
 							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 加入备课夹
+							Prepare.addResToPrepareId({
+								id: d.data.id,
+								resIds: $scope.resList.list[listIndex].id,
+								fromFlags: $localStorage.fromFlag
+							}, function(data) {
+								//加1
+								$scope.shopCount++;
+							})
 						})
 					}else{
 						Prepare.addResToPrepareId({
@@ -174,9 +209,11 @@
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
-					console.log("test")
+					console.log(d)
 					getResList();
-					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+					$timeout(function(){
+						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+					},300)
 				})
 				
 //				$scope.$on("currentTreeIdUpdate",function(e, d) {
@@ -218,7 +255,6 @@
 								addToPrepareAnimation();
 							},1000)
 						}
-					
 					})
 				}
 				
@@ -244,13 +280,13 @@
 					getResList();
 					SystemRes.types({
 						poolId: $scope.poolId,
-						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
+						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						SystemRes.formats({
 							poolId: $scope.poolId,
-							tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+							pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
 							typeId: typeId
 						}, function(data) {
 							$scope.formats =data.data;
@@ -278,7 +314,7 @@
 					getResList();
 					SystemRes.formats({
 						poolId: $scope.poolId,
-						tfcode: $localStorage.currentTreeNode.tfcode,
+						pTfcode: $localStorage.currentTreeNode.tfcode,
 						typeId: mTypeId
 					}, function(data) {
 						$scope.formats = data.data;
@@ -297,7 +333,6 @@
 					$scope.orderBy = type;
 					page = 1;
 					getResList();
-					
 				}
 				
 				// 初始化为全部
@@ -314,10 +349,10 @@
 				// 下载资源
 				$scope.resDownload = function(id){
 					SystemRes.resDownload({
-						resId:id,
-						fromFlag: $localStorage.fromFlag
+						resIds:id,
+						fromFlags: $localStorage.fromFlag
 					}, function(data){
-						console.log(data)
+						window.open(data.data[0].path, "_blank")
 					})
 				}
 			}

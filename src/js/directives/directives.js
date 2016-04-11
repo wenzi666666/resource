@@ -4,6 +4,7 @@
 (function() {
 	'use strict';
 	angular.module('webApp.core.directives', [])
+		// 图片回滚
 		.directive('fallbackSrc', function() {
 			var fallbackSrc = {
 				link: function postLink(scope, iElement, iAttrs) {
@@ -16,18 +17,9 @@
 				}
 			}
 			return fallbackSrc;
-		}).directive('scrollToItem', function() {
-			return {
-				restrict: 'A',
-				link: function(scope, $elm, attr) {
-					$elm.on('click', function() {
-						$(attr.value).animate({
-							scrollTop: 0
-						}, "slow");
-					});
-				}
-			}
-		}).directive('showTime', ['$filter', function($filter) {
+		})
+		// 日期转换
+		.directive('showTime', ['$filter', function($filter) {
 			//这是打开锁定日历控件后用于显示锁定时间，包括日期的directive
 			return {
 				restrict: 'E',
@@ -172,78 +164,9 @@
 					})
 				}
 			}
-		}]).directive('openDate', ['$filter', function($filter) {
-			//这是打开锁定日历控件显示定时发表时间的directive
-			return {
-				restrict: 'E',
-				template: '<span>{{styleSelectOpenDate[0]}}{{styleSelectOpenDate[1]}}</span>',
-				replace: true,
-				link: function(scope, ele, attrs) {
-					attrs.$observe('value', function(param) {
-						function toDateTime(dateStr) {
-							return Date.parse(dateStr.replace(/-/gi, "/"));
-						}
-						if (!param) return; //参数为空直接返回
-						scope.styleSelectOpenDate = [];
-						var type = (param.split(",")[1] == 'createTopicTime'); //展示时间的类型，showTopicTime为主题列表时间显示，createTopicTime为发表主题时间显示
-						param = param.split(",")[0]; //需转换的时间
-						var updateDate = new Date(toDateTime(param)); //更新时间的日期
-						if (updateDate == 'Invalid Date') {
-							scope.styleSelectOpenDate[0] = param;
-							return;
-						} //若时间是一个无效日期，直接返回参数
-						var currentDate = new Date();
-						var days = ['日', '一', '二', '三', '四', '五', '六'];
-						var updateTimeTimestamp = updateDate.getTime(); //更新时间的时间戳
-						if (!type) { //主题列表时间显示
-							var nextDayDate = new Date(toDateTime(param)); //更新时间第二天的日期
-							nextDayDate.setDate(nextDayDate.getDate() + 1);
-							var remainingDays = !!updateDate.getDay() ? (7 - updateDate.getDay()) : 0; //一周剩余天数
-							var difftime1 = parseInt((new Date(toDateTime($filter('date')(nextDayDate, "yyyy-MM-dd "))) - updateDate) / 1000); //更新时间跟第二天零点的时间差，单位：秒
-							var difftime2 = parseInt((currentDate.getTime() - updateTimeTimestamp) / 1000); //获得两个时间的时间差（秒），当前时间-最新更新时间
-						} else { //发表主题时间显示
-							var nextDayDate = new Date(toDateTime($filter('date')(currentDate, "yyyy-MM-dd"))); //当前时间第二天的日期
-							nextDayDate.setDate(nextDayDate.getDate() + 1);
-							var remainingDays = !!currentDate.getDay() ? (7 - currentDate.getDay()) : 0; //一周剩余天数
-							var difftime1 = parseInt((new Date(toDateTime($filter('date')(nextDayDate, "yyyy-MM-dd"))) - currentDate) / 1000); //当前时间跟第二天零点的时间差，单位：秒
-							var difftime2 = parseInt((updateTimeTimestamp - currentDate.getTime()) / 1000); //获得两个时间的时间差（秒），最新更新时间-当前时间
-						}
-						//时间的判断
-						if (difftime2 <= 1 && !type) {
-							updateDate = "刚刚"
-						} else if (difftime2 < difftime1) {
-							updateDate = "今天" + (!type ? "" : " ");
-						} else if (difftime2 < (difftime1 + 3600 * 24)) {
-							updateDate = (!type ? "昨天" : "明天 ");
-						} else if (difftime2 < (difftime1 + 3600 * 24 * 2)) {
-							updateDate = (!type ? "前天" : "后天 ");
-						} else if (difftime2 < (difftime1 + 3600 * 24 * remainingDays)) {
-							updateDate = "本周" + days[updateDate.getDay()] + (!type ? "" : " ");
-						} else if (difftime2 < (difftime1 + 3600 * 24 * (7 + remainingDays))) {
-							updateDate = (!type ? "上周" : "下周") + days[updateDate.getDay()] + (!type ? "" : " ");
-						} else if (updateDate.getFullYear() == currentDate.getFullYear()) {
-							updateDate = $filter('date')(updateDate, "MM-dd");
-						} else {
-							updateDate = $filter('date')(updateDate, "yyyy-MM-dd");
-						}
-						scope.mydate = updateDate;
-						if (!type) {
-							scope.styleSelectOpenDate[0] = scope.mydate;
-							scope.styleSelectOpenDate[1] = "";
-						} else {
-							if (scope.mydate.split(" ")[0].length <= 3) {
-								scope.styleSelectOpenDate[0] = scope.mydate.split(" ")[0] + " ";
-								scope.styleSelectOpenDate[1] = scope.mydate.split(" ")[1];
-							} else {
-								scope.styleSelectOpenDate[0] = "";
-								scope.styleSelectOpenDate[1] = scope.mydate;
-								console.log(scope.styleSelectOpenDate[0], scope.styleSelectOpenDate[1])
-							}
-						}
-					})
-				}
-			}
-		}]).directive('compile', ['$compile', function($compile) {
+		}])
+		// anguar编译html
+		.directive('compile', ['$compile', function($compile) {
 			return function(scope, element, attrs) {
 				scope.$watch(
 					function(scope) {
@@ -280,107 +203,15 @@
 				template: '<span class="item-info-size">大小：{{resSize}}M</span>',
 				replace: true,
 				link: function($scope, ele, attrs) {
-					var flo = parseFloat($scope.item.size);
-					if(isNaN(flo)) $scope.resSize = 0;
-					else $scope.resSize = Math.round($scope.item.size/1024*10)/10;
+					attrs.$observe('value', function(param) {
+						var flo = parseFloat(param);
+						if(isNaN(flo)) $scope.resSize = 0;
+						else $scope.resSize = Math.round(param/1024/1024*10)/10;
+					})
 				}
 			}
 		})
 
-	// .directive('ngLightbox', ['$compile', function($compile) {
-	//     //这是查看大图的指令
-	//     return function(scope, element, attr) {
-	//         var lightbox, options, overlay;
-
-	//         var defaults = {
-	//             'class_name': false,
-	//             'trigger': 'manual',
-	//             'element': element[0],
-	//             'kind': 'normal'
-	//         }
-
-
-	//         var options = angular.extend(defaults, angular.fromJson(attr.ngLightbox));
-
-
-	//         // check if element is passed by the user
-	//         options.element = typeof options.element === 'string' ? document.getElementById(options.element) : options.element;
-
-	//         var add_overlay = function(){
-	//             if(document.getElementById('overlay')) return;
-	//             // compiling when we add it to have the close directive kick in
-	//             overlay = $compile('<div id="overlay" ng-lightbox-close/>')(scope);
-
-	//             // add a custom class if specified
-	//             options.class_name && overlay.addClass(options.class_name);
-
-	//             // append to dom
-	//             angular.element(document.body).append(overlay);
-
-	//             // load iframe options if defined
-	//             options.kind === 'iframe' && load_iframe();
-
-	//             // we need to flush the styles before applying a class for animations
-	//             window.getComputedStyle(overlay[0]).opacity;
-	//             overlay.addClass('overlay-active');
-	//             angular.element(options.element).addClass('lightbox-active');
-	//         }
-
-	//         var load_iframe = function(){
-	//             options.element = options.element || 'lightbox-iframe';
-	//             var iframe = "<div id='" + options.element + "' class='lightbox'><iframe frameBorder=0 width='100%' height='100%' src='" + attr.href + "'></iframe></div>";
-	//             angular.element(document.body).append(iframe)
-	//         }
-
-	//         if(options.trigger === 'auto'){
-	//             add_overlay();
-	//         }else{
-	//             element.bind('click', function(event) {
-	//                 add_overlay();
-	//                 event.preventDefault();
-	//                 return false;
-	//             });
-	//         }
-	//     }
-	// }]).directive('ngLightboxClose', function() {
-	//     return function(scope, element, attr) {
-	//         var transition_events = ['webkitTransitionEnd', 'mozTransitionEnd', 'msTransitionEnd', 'oTransitionEnd', 'transitionend'];
-
-	//         angular.forEach(transition_events, function(ev){
-	//             element.bind(ev, function(){
-	//                 // on transitions, when the overlay doesnt have a class active, remove it
-	//                 !angular.element(document.getElementById('overlay')).hasClass('overlay-active') && angular.element(document.getElementById('overlay')).remove();
-	//             });
-	//         });
-
-	//         // binding esc key to close
-	//         angular.element(document.body).bind('keydown', function(event){
-	//             event.keyCode === 27 && remove_overlay();
-	//         });
-
-	//         // binding click on overlay to close
-	//         element.bind('click', function(event) {
-	//             remove_overlay();
-	//         });
-	//         // binding click on maganifying images
-	//         angular.element(document.getElementsByClassName('lightbox')).bind('click', function(event) {
-	//             remove_overlay();
-	//         });
-
-	//         var remove_overlay = function(){
-	//             var overlay = document.getElementById('overlay');
-	//             angular.element(document.getElementsByClassName('lightbox-active')[0]).removeClass('lightbox-active');
-
-	//             // fallback for ie8 and lower to handle the overlay close without animations
-	//             if(angular.element(document.documentElement).hasClass('lt-ie9')){
-	//                 angular.element(overlay).remove();
-	//             }else{
-	//                 angular.element(overlay).removeClass('overlay-active');
-	//             }
-	//         }
-	//     }
-	// })
-	
 	.directive('contenteditable', function() {
 			//设置div的数据绑定
 			return {

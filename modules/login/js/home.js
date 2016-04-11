@@ -48,7 +48,7 @@ $("#slides").slides({
 
 $(function(){
 	//登陆
-	var BackendUrl = "http://chat.tfedu.net:3030/resapi/";
+	var BackendUrl = "http://chat.tfedu.net:3030/resapi";
 	$('.loginBtn').on('click', function(){
 		
 		$.ajax({
@@ -72,10 +72,8 @@ $(function(){
 				}
 			},
 			error: function(data){
-				console.log(data.error)
+				console.log(data.error);
 			}
-			
 		})
-		console.log("login")
 	})
  });

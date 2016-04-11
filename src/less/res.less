@@ -333,6 +333,7 @@
   margin: 8px 0;
   cursor: pointer;
   font-size: 13px;
+  min-height: 120px;
 }
 .res-list-main .res-list-item:hover{
     background: #e6f4f4;
@@ -350,8 +351,8 @@
 }
 .res-list-thumb{
     margin-left: 55px;
-    width:100px;
-    height:100px;
+    max-width:130px;
+    max-height:130px;
     margin-right: 6px;
 }
 .res-thubmlist-info{
@@ -475,6 +476,23 @@
     cursor: pointer;
     z-index: 99999;
 }
+@media screen and (max-width: 1050px) { /*当屏幕尺寸小于1050px时，应用下面的CSS样式*/
+     .prepare-fixed{
+        right: 8px;
+
+    }
+    .prepare-fixed  .prepare-ctrls{
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        right: 40px;
+        margin-left: 3px;
+        visibility: hidden;
+        background: #41C9A9;
+        padding: 5px;
+        border-radius: 3px;
+    }
+}
 .prepare-fixed:hover .prepare-ctrls{
     visibility: visible;   
 }
@@ -509,4 +527,35 @@
     border-radius: 7px 7px 7px 0;
     top: -5px;
     left: 36px;
+}
+.page-ctrl{
+    padding: 5px 15px;
+    line-height: 20px;
+    color: #2B2C2C;
+    margin-top: 15px;
+}
+.page-ctrl .res-checkbox-page{
+    width: 15px;
+    height: 15px;
+}
+.res-text-total{
+    margin-left: 30px;
+}
+.res-text-perpage{
+    margin-left: 20px;
+}
+.res-text-perpage input{
+    width: 30px;
+    border-radius: 2px;
+    height: 22px;
+    margin: 0 5px;
+}
+.res-download-all{
+    float: right;
+}
+.res-add-prepare-all{
+    float: right;
+    margin-top: -10px;
+    margin-left: 15px;
+    
 }

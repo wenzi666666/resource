@@ -20,7 +20,8 @@
 								controller: 'LayoutController'
 							},
 							'footer@': {
-								templateUrl: '/coms/layout/footer/footer.html'
+								templateUrl: '/coms/layout/footer/footer.html',
+								controller: 'LayoutController'
 							}
 						}
 					})
@@ -70,11 +71,13 @@
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentVersionTmpShow = false;
 					$scope.VM.isList = true;
 				}
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
 					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentMaterialTmpShow = false;
 				}
 				
 

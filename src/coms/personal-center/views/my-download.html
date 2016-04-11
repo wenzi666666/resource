@@ -1,0 +1,55 @@
+<div class="cen-right-down">
+	<h3 class="cen-h2">资源引用列表</h3>
+	<div class="type-select-box">
+		<select>
+			<option>全部</option>
+			<option>多媒体</option>
+			<option>多媒体</option>
+			<option>多媒体</option>
+			<option>多媒体</option>
+		</select>
+	</div>
+	<div class="resource-box">
+		<div class="box-title">
+			<div class="row">
+				<div class="col-md-8 col-sm-8">
+					资源名称
+				</div>
+				<div class="col-md-2 col-sm-2">
+					资源类型
+				</div>
+				<div class="col-md-2 col-sm-2">
+					资源日期
+				</div>
+			</div>
+		</div>
+		<div class="resource-list">
+			<ul class="row">
+				<li ng-repeat="list in downloadList.list">
+					<div class="col-md-6 col-sm-8">
+						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
+						<span class="resource-title">{{list.title}}</span>
+					</div>
+					<div class="col-md-3 col-sm-2">
+						<span class="resource-type">{{list.unifyType}}</span>
+					</div>
+					<div class="col-md-3 col-sm-2">
+						<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+					</div>
+					<div class="clearfix"></div>
+				</li>
+
+			</ul>
+		</div>
+		<div class="pagination-box">
+			<div class="coms-pagination">
+				<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+				<div class="page-go">
+					<span class="page-text">转到</span>
+					<input class="page-input" />
+					<span class="page-go-btn">Go</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

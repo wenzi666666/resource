@@ -20,7 +20,8 @@
 								controller: 'LayoutController'
 							},
 							'footer@': {
-								templateUrl: '/coms/layout/footer/footer.html'
+								templateUrl: '/coms/layout/footer/footer.html',
+								controller: 'LayoutController'
 							}
 						}
 					})
@@ -147,6 +148,7 @@
 					    
 					    if(screenfull.isFullscreen) {
 				        	$scope.VM.slideTools = true;
+				        	
 				        }else{
 				        	$scope.VM.slideTools = false;
 				        }

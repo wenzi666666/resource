@@ -20,7 +20,8 @@
 								controller: 'LayoutController'
 							},
 							'footer@': {
-								templateUrl: '/coms/layout/footer/footer.html'
+								templateUrl: '/coms/layout/footer/footer.html',
+								controller: 'LayoutController'
 							}
 						}
 					})
@@ -62,13 +63,22 @@
 					resViewUrl:{
 						method:"GET",
 						url:BackendUrl + "/resRestAPI/v1.0/resViewUrl"
+					},
+					systemTypes:{//获取系统资源类型
+						method:"GET",
+						url:BackendUrl + "/resRestAPI/v1.0/sysResource/types"
+					},
+					districtTypes:{//获取校本/区本系统资源类型
+						method:"GET",
+						url:BackendUrl + "/resRestAPI/v1.0/districtResource/types"
 					}
+					
 
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -77,44 +87,62 @@
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
 				console.log($stateParams)
-				//星星
 				
-				$(".comment-star .icon-star").hover(function(){
-					var len=$(".icon-star.starLight").length;
+				//星星 评分
+				$scope.showStar=[1,2,3,4,5];
+				$scope.curStar=[];
+				$scope.hoverStar=[];
+				$scope.mouseOverStar=function(index){
+					var len=0;
+					_.each($scope.curStar, function(v, i) {
+						if($scope.curStar[i]==true)
+						{
+							len++;
+						}
+					});
 					if(len==0)
 					{
-						var index=$(this).index();
+						//加上颜色 starHover;
 						for(var i=0;i<=index;i++)
 						{
-							$(".comment-star .icon-star").eq(i).addClass("starHover")
+							$scope.hoverStar[i]=true;
 						}
 					}
-					
-				},function(){
-					var len=$(".icon-star.starLight").length;
+				}
+				$scope.mouseOutStar=function(index){
+					var len=0;
+					_.each($scope.curStar, function(v, i) {
+						if($scope.curStar[i]==true)
+						{
+							len++;
+						}
+					});
 					if(len==0)
 					{
-						var index=$(this).index();
 						for(var i=0;i<=index;i++)
 						{
-							$(".comment-star .icon-star").eq(i).removeClass("starHover")
+							$scope.hoverStar[i]=false;
 						}
 					}
-					
-				});
-				$(".comment-star .icon-star").on("click",function(){
-					var len=$(".icon-star.starLight").length;
+				}
+				
+				$scope.starClick=function(index){
+					var len=0;
+					for(var i=0;i<$scope.curStar.length;i++)
+					_.each($scope.curStar, function(v, i) {
+						if($scope.curStar[i]==true)
+						{
+							len++;
+						}
+					});
 					if(len==0)
 					{
-						var index=$(this).index()+1;
-						publishScore(index);
-						
-					}else{
-						alert("您已经评分过了，不能再次评分");
+						publishScore(index+1);
+					}else
+					{
+						ModalMsg.logger("您已经评分过了，不能再次评分")
 					}
-					
-				});
-				
+				}
 				
 				// 资源nav数据
 				Preview.lists({
@@ -128,11 +156,21 @@
 					$scope.currentNav = $scope.navList[0];
 					$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
 					console.log($scope.VM.tfCode)
-					getAllSource();//获取所有资源
+					getTypes();//获取资源类型
+					
 				});
 				$scope.VM.curNav = [];
 				$scope.VM.curNav[0] = true;
 				
+				$scope.links=[];
+				$scope.links[1]=true;
+				//返回上一页
+				$scope.back=function(index,tfcode){
+					if(index==1)
+					{
+						history.back();
+					}
+				}
 				
 				//切换目录
 				$scope.selectNav = function(index) {
@@ -143,196 +181,122 @@
 					$scope.VM.curNav[index] = true;
 					$scope.currentNav = $scope.navList[index];
 					$scope.VM.tfCode=$scope.navList[index][$scope.navList[index].length-1].tfcode;
-					console.log($scope.VM.tfCode)
-					getAllSource();
+					console.log($scope.VM.tfCode);
+					getTypes();//获取资源类型
 				}
 				
-			     
-				
-				//评论限制操作
-				$scope.commentNum = 200;
-				$scope.inputComment = "";
-				$scope.changeComment = function() {
-					if ($scope.inputComment.length < 201) {
-						$scope.commentNum = 200 - $scope.inputComment.length;
-					} else {
-						$scope.inputComment = $scope.inputComment.substring(0,200);
-					}
+				$scope.selectType=function(id,index){
+					_.each($scope.sourceType, function(v, i) {
+						$scope.typeLight[i] = false;
+					});
+					$scope.typeLight[index]=true;
+					$scope.typeName=$scope.sourceType[index].mtype;
+					current=1;
+					$scope.allSourceList=[];
+					getAllSource(id);
+					$scope.sourceTypeId=id;
 				}
 				
-				$scope.myShow=true;
-				$scope.otherShow=false;
-				$scope.changeBlock=function(obj){
-					if(obj=="my")
-					{
-						$scope.myShow=true;
-						$scope.otherShow=false;
-						
-					}else{
-						$scope.myShow=false;
-						$scope.otherShow=true;
-					}
-				}
-
-				//发布评论
-					$scope.publishComment = function() {
-						var score=$(".icon-star.starLight").length;
-						if(score==0)
-						{
-							alert("评完分才能评论哦！");
-							return false;
-						}
-						Preview.editComment({
-							resId: $scope.VM.resourceId,
-							displayContent: $scope.inputComment,
-							fromFlag: $localStorage.fromFlag,
-							ascore: score,
-							isScore: 1
-						}, function(data) {
+				//获取资源类型
+				
+				function getTypes(){
+					$scope.sourceType=[];
+					$scope.sourceTypeId=0;
+					$scope.typeLight=[];
+					$scope.typeLight[0]=true;
+					if ($localStorage.fromFlag == "0") 
+					{//系统资源类型
+						Preview.systemTypes({
+							poolId:0,
+							pTfcode:$scope.VM.tfCode,
+						},function(data){
+							console.log("类型")
+							console.log(data);
 							if(data.code=="OK")
 							{
-								getComment($scope.VM.resourceId); //获取我的评论
-								$scope.inputComment="";
-							}else{
-								alert(data.message);
+								$scope.sourceType=data.data;
+								$scope.sourceTypeId=$scope.sourceType[0].id;
+								$scope.typeName=$scope.sourceType[0].mtype;
+								current=1;
+								$scope.allSourceList=[];
+								getAllSource($scope.sourceTypeId);//获取对应资源
 							}
-						});
-					}
-				//发布评分
-				 function publishScore(index) {
-				 	console.log(index)
-						Preview.editComment({
-							resId: $scope.VM.resourceId,
-							displayContent: "",
-							fromFlag: $localStorage.fromFlag,
-							ascore: index,
-							isScore: 0
-						}, function(data) {
-							if(data.code=="OK")
-							{
-								for(var i=0;i<index;i++)
-								{
-									$(".comment-star .icon-star").eq(i).addClass("starLight");
-								}
-							}else{
-								alert(data.message);
-							}
-						});
-				}
-				
-				
-				//删除评论
-				$scope.deleteCom=function(id){
-					Preview.editComment({
-						commentId:id,
-						_method:"PATCH"
-					}, function(data) {
-						console.log(data)
-						if(data.code=="OK")
-						{
-							getComment($scope.VM.resourceId); //获取我的评论
-						}else
-						{
-							alert(data.message);
-						}
-					});	
-					
-				}
-				//编辑评论
-				$scope.editCom=function(id,content){
-					$("#editModel").modal("show");
-					$("#editContent").val(content);
-					$scope.editSure=function(){
-						Preview.editComment({
-						displayContent: $("#editContent").val(),
-						commentId:id,
-						_method:"PATCH"
-						}, function(data) {
-							if(data.code=="OK")
-							{
-								getComment($scope.VM.resourceId); //获取我的评论
-								$("#editModel").modal("hide");
 								
-							}else
-							{
+							else{
 								alert(data.message);
 							}
 							
-						});		
+						})
 					}
-					//取消
-					$scope.offModal=function(){
-						$("#editModel").modal("hide");
-					}
-				}
-				
-				//获取单个资源的详细信息/评论
-				function listInfoCom(id,fromFlag){
-					$scope.VM.resourceId=id;
-					Preview.listInfo({
-					resId: id,
-					fromFlag:fromFlag
-
-					}, function(data) {
-						if(data.code=="OK")
-						{
-							console.log(data.data)
-							$scope.info = data.data;
-							for (var i = 0; i < $scope.info.avgScore; i++) {
-								//几颗星
-								$(".comment-star .icon-star").eq(i).addClass("starLight");
-							}
-						}else
-						{
-							alert(data.code);
-						}
-						
-					});
-					//获取播放链接
-					Preview.resViewUrl({
-						resIds: id,
-						fromFlags:fromFlag
-
-					}, function(data) {
-						if(data.code=="OK")
-						{
+					else
+					{//区本/校本资源类型
+						Preview.systemTypes({
+							poolId:0,
+							tfcode:$scope.VM.tfCode,
+						},function(data){
+							console.log("类型")
 							console.log(data);
-							var tpl="";
-							tpl = "<iframe width='100%' height='700px' src='" + data.data[0].path + "' style='border:0'></iframe>"
-							$('#res-slide-content').html(tpl);
-						}else
-						{
-							alert(data.code);
-						}
-						
-					});
-					
-					//获取对应评论
-					getComment(id); 
-					
+							if(data.code=="OK")
+							{
+								$scope.sourceType=data.data;
+								$scope.sourceTypeId=$scope.sourceType[0].id;
+								$scope.typeName=$scope.sourceType[0].mtype;
+								current=1;
+								$scope.allSourceList=[];
+								getAllSource($scope.sourceTypeId);//获取对应资源
+							}
+								
+							else{
+								alert(data.message);
+							}
+						});
+					}
 				}
 				
 				//获取所有资源
-				 function getAllSource() {
+				var pageSize=0;
+				var current=1;
+				$scope.allSourceList=[];
+				 //加载更多资源
+				 $scope.getAllSourceMore=function(){
+				 	
+				 	if(current<pageSize)
+				 	{
+				 		current++;
+				 		
+				 	}else{
+				 		ModalMsg.logger("没有更多啦")
+				 		return false;
+				 	}
+				 	console.log($scope.sourceTypeId);
+				 	getAllSource($scope.sourceTypeId);
+				 }
+				 
+				 function getAllSource(typeId) {
 			      	//获取所有资源相关变量
-					$scope.allSourceList="";
 					$scope.currentSlideIndex = 0;
 					$scope.curImg=[];
 					if ($localStorage.fromFlag == "0") {
 						//系统
 						Preview.systemSource({
 							poolId: 0,
-							mTypeId: 0,
-							fileFormat: "全部",
+							mTypeId: typeId,//资源类型id
+							fileFormat: "全部",//资源格式
 							orderBy: 0,
 							tfcode: $scope.VM.tfCode,
-							page: 1,
+							page: current,
 							perPage: 20
 						}, function(data) {
-							
+							console.log(data)
 							if(data.code=="OK")
-							{	$scope.localIndex=0;
-								$scope.allSourceList=data.data.list;
+							{	
+								pageSize=data.data.total;
+								$scope.localIndex=0;
+								
+								_.each(data.data.list, function(v, i) {
+									$scope.allSourceList.push(data.data.list[i]);
+								});
+								
 								for(var i=0;i<$scope.allSourceList.length;i++)
 								{	$scope.curImg[i]=false;
 									if($scope.VM.resourceId==$scope.allSourceList[i].id)
@@ -351,7 +315,7 @@
 										$scope.curImg[0]=true;
 										$scope.VM.resourceId=$scope.allSourceList[0].id
 								}
-								listInfoCom($scope.VM.resourceId,$localStorage.fromFlag);
+								$scope.VM.listInfoCom($scope.VM.resourceId,$localStorage.fromFlag);
 								console.log(data.data)
 							}else{
 								alert(data.message);
@@ -361,7 +325,7 @@
 					} else {
 						//区本或者校本
 						Preview.districtSource({
-							mTypeId: 0,
+							mTypeId: typeId,
 							fileFormat: "全部",
 							orderBy: 0,
 							tfcode: $scope.VM.tfCode,
@@ -371,26 +335,31 @@
 	
 						}, function(data) {
 							if(data.code=="OK")
-							{
-								$scope.allSourceList=data.data.list;
+							{	pageSize=data.data.total;
+								$scope.localIndex=0;
+								
+								_.each(data.data.list, function(v, i) {
+									$scope.allSourceList.push(data.data.list[i]);
+								});
 								for(var i=0;i<$scope.allSourceList.length;i++)
 								{	$scope.curImg[i]=false;
 									if($scope.VM.resourceId==$scope.allSourceList[i].id)
 									{
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
+										break;
 										
 									}else{
 										$scope.localIndex++;
 									}
 								}
 								if($scope.localIndex==$scope.allSourceList.length)
-								{
-									   $scope.currentSlideIndex=0; 
-									  $scope.curImg[0]=true;
-									  $scope.VM.resourceId=$scope.allSourceList[0].id
+								{		
+									    $scope.currentSlideIndex=0; 
+										$scope.curImg[0]=true;
+										$scope.VM.resourceId=$scope.allSourceList[0].id
 								}
-								listInfoCom($scope.VM.resourceId,$localStorage.fromFlag);
+								$scope.VM.listInfoCom($scope.VM.resourceId,$localStorage.fromFlag);
 								console.log(data.data)
 							}else{
 								alert(data.message);
@@ -398,42 +367,11 @@
 						});
 					}
 				}
-				//获取所有评论
-				$scope.userName = $localStorage.authUser.userName;
-				function getComment(id) {
-					Preview.myComment({
-						resId: id,
-						fromFlag: $localStorage.fromFlag,
-					}, function(data) {
-						
-						if(data.code=="OK")
-						{
-							$scope.myCommentList = data.data;
-						}else{
-							alert(data.message);
-						}
-						
-					});
-					//获取其他人的评论
-					Preview.otherComment({
-							resId: id,
-							fromFlag: $localStorage.fromFlag,
-						}, function(data) {
-							if(data.code=="OK")
-							{
-								$scope.otherCommentList = data.data;
-							}else{
-								alert(data.message);
-							}
-					});
-					
-				}
-				
-				
-				//点击资源切换
+				 
+				 //点击资源切换
 				$scope.slideChange=function(id,index){
 					$scope.currentSlideIndex = index;
-					listInfoCom(id,$localStorage.fromFlag);
+					$scope.VM.listInfoCom(id,$localStorage.fromFlag);
 					$scope.VM.resourceId=id;
 					for(var i=0;i<$scope.allSourceList.length;i++)
 					{
@@ -444,22 +382,22 @@
 
 				//上一个
 				$scope.slidePre = function() {
-						if ($scope.currentSlideIndex > 0) {
-							listInfoCom($scope.allSourceList[$scope.currentSlideIndex-1].id,$localStorage.fromFlag);
-							$scope.currentSlideIndex --;
-							for(var i=0;i<$scope.allSourceList.length;i++)
-							{
-								$scope.curImg[i]=false;
-							}
-							$scope.curImg[$scope.currentSlideIndex]=true;
-						} else {
-							$scope.currentSlideIndex = $scope.allSourceList.length - 1;
+					if ($scope.currentSlideIndex > 0) {
+						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex-1].id,$localStorage.fromFlag);
+						$scope.currentSlideIndex --;
+						for(var i=0;i<$scope.allSourceList.length;i++)
+						{
+							$scope.curImg[i]=false;
 						}
+						$scope.curImg[$scope.currentSlideIndex]=true;
+					} else {
+						$scope.currentSlideIndex = $scope.allSourceList.length - 1;
 					}
+				}
 					//下一个
 				$scope.slideNext = function() {
 					if ($scope.currentSlideIndex < $scope.allSourceList.length - 1) {
-						listInfoCom($scope.allSourceList[$scope.currentSlideIndex+1].id,$localStorage.fromFlag);
+						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex+1].id,$localStorage.fromFlag);
 						$scope.currentSlideIndex ++;
 						for(var i=0;i<$scope.allSourceList.length;i++)
 							{
@@ -470,8 +408,13 @@
 						$scope.currentSlideIndex = 0;
 					}
 				}
-
-
+				
+				// 全屏切换
+				$scope.toggleFullscreen = function() {
+					if (screenfull.enabled) {
+					    screenfull.toggle($('.slide-container')[0]);
+					}
+				}
 			}
 		])
 }());
