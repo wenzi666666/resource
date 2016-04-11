@@ -32,9 +32,8 @@
 								$uibModalInstance.dismiss('cancel');
 							}
 							$scope.OK = function(){
-								$uibModalInstance.close();
+								$uibModalInstance.close(true);
 							}
-						
 						}]
 					});
 				},

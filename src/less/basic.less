@@ -134,3 +134,57 @@ treecontrol{
 .logger-modal .modal-dialog {
     width: 670px;
 }
+
+//checkbox选择框
+
+.check-box-area {
+    padding-right: 0;
+}
+input[type=checkbox] {
+    visibility: hidden;
+    margin-right: 3px;
+}
+
+.check-box {
+    width: 20px;
+    margin: 0;
+    margin-right: 4px;
+    position: relative;
+}
+
+.check-box label {
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    background: #FFFFFF;
+    border:1px solid #ddd;
+}
+
+.check-box label:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 7px;
+    background: transparent;
+    top: 4px;
+    left: 2px;
+    border: 3px solid #3FBBCF;
+    border-top: none;
+    border-right: none;
+ 
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.check-box input[type=checkbox]:checked + label:after {
+    opacity: 1;
+}

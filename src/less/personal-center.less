@@ -197,7 +197,16 @@
 }
 
 .my-upload-list img {
+    float: left;
     width: 40%;
+}
+
+.my-upload-list .resource-title {
+    float: left;
+    width: 40%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .resource-list li.active {
@@ -207,9 +216,14 @@
 .resource-list .btn-op {
     background-color: #219B81;
     height: 25px;
-    line-height: 22px;
+    line-height: 24px;
     border-radius: 4px;
     font-size: 1.3rem;
+}
+
+#btn-delete-some {
+    width: 80px;
+    float: right;
 }
 
 .pagination-box{
@@ -220,6 +234,8 @@
 .resource-title, .resource-type, .resource-date{
     margin-left: 20px;
 }
+
+
 
 .upload-file-content{
   min-height: 300px; 
@@ -234,51 +250,5 @@
     max-height: 80px;
 }
 
-//checkbox选择框
-input[type=checkbox] {
-    visibility: hidden;
-    margin-right: 3px;
-}
 
-.check-box {
-    width: 15px;
-    margin: 0;
-    margin-right: 4px;
-    position: relative;
-}
-
-.check-box label {
-    cursor: pointer;
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    top: 0;
-    left: 0;
-    background: #FFFFFF;
-    border:1px solid #ddd;
-}
-
-.check-box label:after {
-    opacity: 0;
-    content: '';
-    position: absolute;
-    width: 9px;
-    height: 5px;
-    background: transparent;
-    top: 4px;
-    left: 2px;
-    border: 3px solid #7fc1f7;
-    border-top: none;
-    border-right: none;
- 
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-
-.check-box input[type=checkbox]:checked + label:after {
-    opacity: 1;
-}
 

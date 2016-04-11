@@ -28,8 +28,10 @@
 			<ul class="row">
 				<li ng-repeat="list in VM.uploadFileList.list track by $index">
 					<div class="col-md-1 col-sm-1 check-box-area">
-						<!-- <input class="" type="checkbox" ng-click="addResDeleting(list.id)"></input> -->
-						<res-checkbox></res-checkbox>
+						<div class="check-box">
+							<input id="{{$index}}" type="checkBox" class="check" ng-click="addResDeleting(list.resId)">
+							<label for="{{$index}}"></label>
+						</div>
 					</div>
 					<div class="col-md-4 col-sm-4">
 						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
@@ -43,12 +45,12 @@
 					</div>
 					<div class="col-md-2 col-sm-2">
 						<button class="btn-op">编辑</button>
-						<button class="btn-op">删除</button>
+						<button class="btn-op" ng-click="deleteSingleRes(list.resId)">删除</button>
 					</div>
 					<div class="clearfix"></div>
 				</li>
-
 			</ul>
+			<button class="btn-op" id="btn-delete-some" ng-click="deleteSomeRes()">批量删除</button>
 		</div>
 		<div class="pagination-box">
 			<div class="coms-pagination">

@@ -211,17 +211,17 @@
 				}
 			}
 		})
-		.directive('resCheckbox', function() {
-			return {
-				restrict: 'E',
-				transclude: true,
-				template: '<div class="check-box"><input id="{{$index}}" type="checkBox" class="check" ng-click="addResDeleting($index)"><label for="{{$index}}"></label></div>',
-				replace: true,
-				link: function($scope, ele, attrs) {
+		// .directive('resCheckbox', function() {
+		// 	return {
+		// 		restrict: 'E',
+		// 		transclude: true,
+		// 		template: '<div class="check-box"><input id="{{$index}}" type="checkBox" class="check" ng-click="addResDeleting($index)"><label for="{{$index}}"></label></div>',
+		// 		replace: true,
+		// 		link: function($scope, ele, attrs) {
 					
-				}
-			}
-		})
+		// 		}
+		// 	}
+		// })
 
 	.directive('contenteditable', function() {
 			//设置div的数据绑定
