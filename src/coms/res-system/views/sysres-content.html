@@ -22,9 +22,10 @@
 
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
-			<li class="res-list-item" ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
-				<input class="res-checkbox" type="checkbox">
-				<img class="res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
+			<li class="animated slideInUp res-list-item" ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
+				<input class="res-checkbox" type="checkbox" ng-click="addItemSelect(list.id)">
+				<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
 					<label class="res-type">类型: {{ list.mtype }}</label>
@@ -49,9 +50,10 @@
 			</li>
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
-			<li class="res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
+			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
+			<li class="animated slideInUp res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<input class="res-checkbox" type="checkbox">
-				<img class="res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
+				<img class="prepare-shop res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
 					<label class="res-type">类型: {{ list.mtype }}</label>
@@ -65,10 +67,11 @@
 				</div>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
 					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
-					<div class="res-select addPrepare  addPrepare-custom">
+					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
 						 加入备课夹
-						<div class="res-prepare-list" >
-							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare(parentIndex, $index)">{{item.title}}</div>
+						<div class="res-prepare-list res-prepare-thumb" >
+							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)">{{item.title}}</div>
+							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 						</div>
 					</div>
 				</div>
@@ -76,10 +79,10 @@
 		</ul>
 		<div class="noDataCtrl" ng-show="noDataCtrl">当前选择下还没有资源哦</div>
 		<div style="clear:both"></div>
-		<div class="page-ctrl" ng-hide="noDataCtrl">
-			<input class="res-checkbox-page" type="checkbox"> 本页全选
+		<div class="page-ctrl" ng-show="isLoadingFinish">
+			<input class="res-checkbox-page" type="checkbox" ng-click=""> 本页全选
 			<span class="res-text-total"> 共 {{bigTotalItems}}条，</span>
-			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" />条</span>
+			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
 			
 			<div class="res-select addPrepare res-add-prepare-all">
 				加入备课夹
@@ -90,7 +93,7 @@
 			</div>
 			<label class="res-download res-download-all"><i class="icon-download-alt"></i>点击下载</label>
 		</div>
-		<div class="coms-pagination" ng-hide="noDataCtrl">
+		<div class="coms-pagination" ng-show="isLoadingFinish">
 		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" num-pages="perPage" ng-change="pageChanged()"></uib-pagination>
 			<div class="page-go">
 				<span class="page-text">转到</span>
