@@ -442,7 +442,7 @@
     padding: 150px 50px;
 }
 // 列出备课夹
-.addPrepare:hover .res-prepare-list{
+.addPrepare:hover .res-prepare-list,.addPrepare:hover .res-prepare-thumb{
     display: block;   
 }
 .res-prepare-list{
@@ -464,9 +464,17 @@
     color: #0094CE;
 }
 .res-prepare-thumb{
-    top:45px;
-    left: 0;
+    bottom: 40px;
     width: 100%;
+    left:0;
+    line-height: 25px;
+    position: absolute;
+    background: #fff;
+    padding: 10px 20px;
+    display: none;
+    color: #999;
+    min-width: 200px;
+    z-index: 99999;
 }
 .addPrepare-custom{
     width: 100px;
@@ -474,13 +482,14 @@
     height: 40px;
     padding: 0 6px !important;
     margin-top: 5px;
+    position: relative;
 }
 .thubmlist-tools-custom .res-download{
     float: left;
 }
 .thubmlist-tools-custom{
     line-height: 40px;
-    height: 40px;
+    height: 50px;
     position: relative;
 }
 // 备课夹 悬浮
@@ -574,12 +583,10 @@
     margin-top: -10px;
     margin-left: 15px; 
 }
-.res-prepare-thumb{
-    
-}
 // 加载中
 .loading{
     text-align: center;
     color: #3fbbcf;
     padding-top: 10px;   
 }
+

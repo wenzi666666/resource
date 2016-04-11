@@ -5,13 +5,13 @@
  */ 	
 (function() {
 	//依赖的模块 注入
-	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'angular-loading-bar', 'angular-click-outside','tmp', 'treeControl', 'checklist-model']
+	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'angular-loading-bar', 'angular-click-outside','tmp', 'treeControl', 'checklist-model', 'xeditable']
 	
 	angular.module('webApp', module)
 //	//初始化
-//	 .run(function($http){
-//	     $http.defaults.headers.common['Access-Control-Allow-Headers'] = "SM_USER";
-//	})
+	 .run(['editableOptions', function(editableOptions){
+	    editableOptions.theme = 'bs3';
+	}])
 	.config(['$httpProvider', '$urlRouterProvider', '$locationProvider','cfpLoadingBarProvider', 
 	function($httpProvider, $urlRouterProvider, $locationProvider, cfpLoadingBarProvider) {
 		//默认登陆页 认证成功后默认动态页
