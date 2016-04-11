@@ -58,6 +58,7 @@
 				//获取单个资源的详细信息/评论
 				$scope.VM.listInfoCom = function(id, fromFlag) {
 					$scope.VM.resourceId = id;
+					console.log($scope.VM.resourceId+"id")
 					Preview.listInfo({
 						resId: id,
 						fromFlag: fromFlag
@@ -203,6 +204,7 @@
 						isScore: 0
 					}, function(data) {
 						if (data.code == "OK") {
+							
 							for (var i = 0; i < index; i++) {
 								$scope.curStar[i] = true;
 							}

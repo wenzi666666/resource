@@ -39,7 +39,7 @@
 		<div class="slide-list">
 			<div class="slide-list-item" ng-repeat="item in allSourceList" ng-click="slideChange(item.id,$index)">
 				<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}" ng-class="curImg[$index]?'line':''" fallback-src="assets/img/sample.png">
-				<span>{{item.title}}_{{item.mtype}}</span>
+				<span class="text-ellipsis">{{item.title}}_{{item.mtype}}</span>
 			</div>
 			<div class="more" ng-click="getAllSourceMore()">加载更多</div>
 		</div>
