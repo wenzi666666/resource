@@ -64,11 +64,17 @@
 
 					}, function(data) {
 						if (data.code == "OK") {
+							console.log("单个资源信息")
 							console.log(data.data)
 							$scope.VM.info = data.data;
+							_.each($scope.showStar, function(v, i) {
+								$scope.curStar[i] = false;
+							});
+							
 							for (var i = 0; i < $scope.VM.info.score; i++) {
 								//几颗星亮
 								$scope.curStar[i] = true;
+								console.log(i)
 							}
 						} else {
 							alert(data.code);
