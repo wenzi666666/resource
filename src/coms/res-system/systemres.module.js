@@ -238,8 +238,14 @@
 						page:page,
 						perPage: $scope.perPage
 					}, function(data) {
+						
+						//初始化全选
+//						_.each(data.data.list, function(v, i) {
+//							data.data.list[i].select = false;
+//						})
 						$scope.resList = data.data;
 						console.log("resList:", $scope.resList)
+						
 						$scope.noDataCtrl = false;
 						$scope.isLoading = false;
 						$scope.isLoadingFinish = true;
@@ -363,7 +369,8 @@
 						resIds:id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data){
-						openwin(data.data[0].path)
+						if(data.data)
+							openwin(data.data[0].path)
 					})
 				}
 				
@@ -386,6 +393,29 @@
 //					} esle {
 //						$scope.perpareArray.push(resId);
 //					}
+				}
+				
+				// 全选
+				$scope.resList = {
+					seletct: []
+				};
+				$scope.checkAll =  function() {
+					if(($scope.VM.checkAll)) {
+						$scope.resList.select = $scope.resList.list.map(function(item) { return item.id; });
+						console.log($scope.resList.select);
+					}else{
+						$scope.resList.select = [];
+					}
+				}
+				
+				// 打包下载
+				$scope.downLoadSelect = function() {
+					// 全部打包下载
+					if(!!$scope.resList.select)
+						$scope.resDownload($scope.resList.select.toString())
+					else {
+						ModalMsg.logger("还没有选中资源哦");
+					}
 				}
 			}
 		])
