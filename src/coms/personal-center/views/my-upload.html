@@ -1,40 +1,49 @@
 <div class="cen-right-down">
-	<h3 class="cen-h2">资源引用列表</h3>
+	<h3 class="cen-h2">我的上传</h3>
 	<div class="type-select-box">
-		<select>
-			<option>全部</option>
-			<option>多媒体</option>
-			<option>多媒体</option>
-			<option>多媒体</option>
-			<option>多媒体</option>
+	  	<select ng-change="selectResType(tpSelected)" ng-model="tpSelected" >
+			<option ng-repeat="tp in resTypes" ng-bind="tp.mtype" value="{{tp}}"></option>
 		</select>
 	</div>
 	<div class="resource-box">
 		<div class="box-title">
 			<div class="row">
-				<div class="col-md-8 col-sm-8">
+				<div class="col-md-1 col-sm-1">
+				</div>
+				<div class="col-md-4 col-sm-4">
 					资源名称
 				</div>
 				<div class="col-md-2 col-sm-2">
 					资源类型
 				</div>
-				<div class="col-md-2 col-sm-2">
+				<div class="col-md-3 col-sm-3">
 					资源日期
+				</div>
+				<div class="col-md-2 col-sm-2">
+					操作
 				</div>
 			</div>
 		</div>
-		<div class="resource-list">
+		<div class="resource-list my-upload-list">
 			<ul class="row">
-				<li ng-repeat="list in VM.uploadFileList.list">
-					<div class="col-md-6 col-sm-8">
+				<li ng-repeat="list in VM.uploadFileList.list track by $index">
+					<div class="col-md-1 col-sm-1 check-box-area">
+						<!-- <input class="" type="checkbox" ng-click="addResDeleting(list.id)"></input> -->
+						<res-checkbox></res-checkbox>
+					</div>
+					<div class="col-md-4 col-sm-4">
 						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
 						<span class="resource-title">{{list.title}}</span>
 					</div>
-					<div class="col-md-3 col-sm-2">
+					<div class="col-md-2 col-sm-2">
 						<span class="resource-type">{{list.unifyType}}</span>
 					</div>
-					<div class="col-md-3 col-sm-2">
+					<div class="col-md-3 col-sm-3">
 						<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+					</div>
+					<div class="col-md-2 col-sm-2">
+						<button class="btn-op">编辑</button>
+						<button class="btn-op">删除</button>
 					</div>
 					<div class="clearfix"></div>
 				</li>
