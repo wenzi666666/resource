@@ -37,8 +37,8 @@
 				})
 			}
 		])
-		.controller("SearchController", ['$scope', '$stateParams','$localStorage', '$state', '$location', 'Search','SystemRes',
-			function($scope, $stateParams, $localStorage,$state, $location, Search,SystemRes) {
+		.controller("SearchController", ['$scope', '$stateParams','$localStorage', '$state', '$location', 'Search','SystemRes','ModalMsg',
+			function($scope, $stateParams, $localStorage,$state, $location, Search,SystemRes,ModalMsg) {
 				// 变量共享
 				$scope.VM = {};
 
@@ -117,6 +117,7 @@
 				
 				 function getSourceList () {
 				 	$scope.allSourceId="";//当页所有id字符串
+				 	$scope.allFromFlag="";
 					Search.searchResults({
 						fromFlag: $scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord,
@@ -128,9 +129,11 @@
 							$scope.sourceList = data.data.list;
 							console.log(data);
 							_.each($scope.sourceList, function(v, i) {
-								$scope.allSourceId+=$scope.sourceList[i].id+","
+								$scope.allSourceId+=$scope.sourceList[i].id+",";
+								$scope.allFromFlag+=$scope.sourceList[i].fromFlag+",";
 							});
 							$scope.allSourceId=$scope.allSourceId.substring(0,$scope.allSourceId.length-1);
+							$scope.allFromFlag=$scope.allFromFlag.substring(0,$scope.allFromFlag.length-1);
 							
 							$scope.listLength = data.data.totalLines;
 							$scope.bigTotalItems = $scope.listLength;
@@ -164,20 +167,20 @@
 				$scope.allCheck = false;
 				
 				//下载资源
-				$scope.resDownload = function(id,downType){
-					console.log(id)
+				$scope.resDownload = function(id,downType,flag){
+					console.log(id,flag)
+					
 					if(downType=="1")
 					{
 						if($scope.allCheck==false)
 						{
-							alert("请勾选下载资源");
+							ModalMsg.logger("请勾选下载资源");
 							return false;
-							
 						}
 					}
 					SystemRes.resDownload({
 						resIds:id,
-						fromFlags: $localStorage.fromFlag
+						fromFlags:flag 
 					}, function(data){
 						console.log(data.data)
 						for(var i=0;i<data.data.length;i++)
@@ -187,6 +190,9 @@
 						
 					});
 				}
+				
+				
+				
 			}
 		])
 }());
