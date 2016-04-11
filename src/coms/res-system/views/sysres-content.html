@@ -53,7 +53,7 @@
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
-				<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id">
+				<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
 				<label for="{{$index}}"></label>
 				<img class="prepare-shop res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
 				<div class="res-thubmlist-info">
