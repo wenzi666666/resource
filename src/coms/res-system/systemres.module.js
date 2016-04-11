@@ -65,6 +65,10 @@
 				$scope.VM = {};
 				// 无数据 时显示
 				$scope.noDataCtrl = false;
+				// 加载过程显示 转圈
+				$scope.isLoading = true;
+				// 下方控制栏不显示
+				$scope.isLoadingFinish = false;
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
 					$scope.VM.currentVersionShow = false;
@@ -77,7 +81,8 @@
 					$scope.VM.currentMaterialTmpShow = false;
 				}
 				// list切换
-				$scope.isList = $localStorage.resList?$localStorage.resList:true;
+				$scope.isList = $localStorage.resList==true?$localStorage.resList:false;
+				console.log($scope.isList)
 			    $scope.switchList = function(list){
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
@@ -94,7 +99,7 @@
 						
 						var addcar = $(this);
 						var offset = $(".prepare-fixed").offset();
-						var img = addcar.parent().parent().find('.res-list-thumb');
+						var img = addcar.parent().parent().find('.prepare-shop');
 						var flyer = $('<img class="u-flyer" style="max-width:150px" src="'+img.attr('src')+'">');
 						flyer.fly({
 							start: {
@@ -117,7 +122,7 @@
 						
 						var addcar = $(this);
 						var offset = $(".prepare-fixed").offset();
-						var img = addcar.parent().parent().parent().parent().find('.res-list-thumb');
+						var img = addcar.parent().parent().parent().parent().find('.prepare-shop');
 						var flyer = $('<img class="u-flyer" style="max-width:150px" src="'+img.attr('src')+'">');
 						flyer.fly({
 							start: {
@@ -209,23 +214,21 @@
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
-					console.log(d)
+					console.log("received:",d)
 					getResList();
 					$timeout(function(){
 						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 					},300)
 				})
 				
-//				$scope.$on("currentTreeIdUpdate",function(e, d) {
-//					console.log("test")
-//				})
-				
 				// 列出资源
 				var page =1;
 				$scope.perPage =9;
+				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
 				var getResList = function() {
+					$scope.isLoading = true;
 					SystemRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
@@ -237,8 +240,9 @@
 					}, function(data) {
 						$scope.resList = data.data;
 						console.log("resList:", $scope.resList)
-						
 						$scope.noDataCtrl = false;
+						$scope.isLoading = false;
+						$scope.isLoadingFinish = true;
 						if(!$scope.resList || !$scope.resList.totalLines){
 							$scope.noDataCtrl = true;
 						}
@@ -267,6 +271,8 @@
 				var mTypeId = 0;
 				var format = "全部";
 				$scope.orderBy = 0;
+				// 页面刷新时 控制list 不加载
+				var tmpCtrl = true;
 				$scope.typeAndFormat = function(poolId, typeId){
 					// 设值
 					$scope.poolId = poolId;
@@ -277,7 +283,12 @@
 					$scope.typeSelected =0;
 					$scope.formatSelected =0;
 					// 获取资源列表
-					getResList();
+					if(tmpCtrl){
+						tmpCtrl = false;
+					}else{
+						getResList();	
+					}
+					
 					SystemRes.types({
 						poolId: $scope.poolId,
 						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
@@ -352,8 +363,29 @@
 						resIds:id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data){
-						window.open(data.data[0].path, "_blank")
+						openwin(data.data[0].path)
 					})
+				}
+				
+				// 每页显示条数
+				$scope.changPerPage = function() {
+					if($scope.VM.perPage>0 && $scope.VM.perPage<100) {
+						$scope.perPage = $scope.VM.perPage;
+						page = 1;
+						getResList();
+					}else{
+						ModalMsg.logger("请输入0-100之间的正整数");
+					}
+				}
+				// 选择 资源，用于加入备课夹
+				$scope.perpareArray = []
+				$scope.addItemSelect = function(resId) {
+					var index = _.indexOf($scope.perpareArray, resId);
+//					if(index > -1) {
+//						$scope.perpareArray.push(resId);
+//					} esle {
+//						$scope.perpareArray.push(resId);
+//					}
 				}
 			}
 		])

@@ -64,11 +64,17 @@
 
 					}, function(data) {
 						if (data.code == "OK") {
+							console.log("单个资源信息")
 							console.log(data.data)
 							$scope.VM.info = data.data;
+							_.each($scope.showStar, function(v, i) {
+								$scope.curStar[i] = false;
+							});
+							
 							for (var i = 0; i < $scope.VM.info.score; i++) {
 								//几颗星亮
 								$scope.curStar[i] = true;
+								console.log(i)
 							}
 						} else {
 							alert(data.code);
@@ -97,7 +103,7 @@
 
 				//获取所有评论
 				$scope.userName = $localStorage.authUser.userName;
-
+				$scope.contentShow=[];
 				function getComment(id) {
 					Preview.myComment({
 						resId: id,
@@ -106,6 +112,11 @@
 
 						if (data.code == "OK") {
 							$scope.myCommentList = data.data;
+							
+							_.each($scope.myCommentList, function(v, i) {
+								$scope.contentShow[i]=true;
+								
+							});
 							console.log("我的评论")
 							console.log(data)
 						} else {
@@ -202,14 +213,14 @@
 				}
 
 				//删除评论
-				$scope.deleteCom = function(id) {
+				$scope.deleteCom = function(id,index) {
 						Preview.editComment({
 							commentId: id,
 							_method: "DELETE"
 						}, function(data) {
 							console.log(data)
 							if (data.code == "OK") {
-								getComment($scope.VM.resourceId); //获取我的评论
+								$scope.myCommentList.pop($scope.myCommentList[index]);
 							} else {
 								alert(data.message);
 							}
@@ -217,19 +228,25 @@
 
 					}
 				//编辑评论
-				$scope.editCom = function(id, content) {
-					$("#editModel").modal("show");
-					$("#editContent").val(content);
-					$scope.editSure = function() {
+				
+				
+				$scope.editCom = function(id,index) {
+					_.each($scope.contentShow, function(v, i) {
+						$scope.contentShow[i]=true;
+					});
+					$scope.contentShow[index]=false;
+					$scope.editSure = function(index) {
 							Preview.editComment({
-								displayContent: $("#editContent").val(),
+								displayContent:$scope.myCommentList[index].acontent,
 								commentId: id,
 								_method: "PATCH"
 							}, function(data) {
 								if (data.code == "OK") {
-									getComment($scope.VM.resourceId); //获取我的评论
-									$("#editModel").modal("hide");
-
+									_.each($scope.contentShow, function(v, i) {
+										$scope.contentShow[i]=true;
+									});
+									
+									
 								} else {
 									alert(data.message);
 								}
@@ -237,8 +254,11 @@
 							});
 						}
 					//取消
-					$scope.offModal = function() {
-						$("#editModel").modal("hide");
+					$scope.offModal = function($index) {
+						_.each($scope.contentShow, function(v, i) {
+							$scope.contentShow[i]=true;
+						});
+						
 					}
 				}
 

@@ -311,7 +311,9 @@
 .statistic-item:hover{
     color:#1589BE;
 }
-
+.statistic-tab .active{
+    color:#1589BE;
+}
 // 资源列表
 .res-list-main{
   margin-top: 60px;
@@ -346,8 +348,8 @@
   top: 40px;
 }
 .res-thubmlist-thumb{
-    width: 90%;
-    height: 170px;
+    max-width: 90%;
+    height: 150px;
 }
 .res-list-thumb{
     margin-left: 55px;
@@ -358,6 +360,12 @@
 .res-thubmlist-info{
     font-size: 13px;
 }
+.res-thubmlist-info label{
+    margin: 5px 0;
+}
+.res-thubmlist-info .res-title{
+    width: 90%;
+}
 .res-list-info{
   position: absolute;
   line-height: 30px;
@@ -366,6 +374,7 @@
 .res-title{
     font-size: 17px;
     color:#040000;
+    width: 100%;
 }
 .res-type{
     margin-left: 5px;
@@ -415,9 +424,9 @@
 }
 .res-list-main .res-thubmlist-item {
   border-bottom: 1px dashed #9b9b9b;
-  padding: 6px;
+  padding: 8px;
   margin: 8px 0;
-  height: 320px;
+  height: 310px;
 }
 .res-list-main .res-thubmlist-item:hover{
     background: #e6f4f4;
@@ -426,6 +435,7 @@
     padding: 6px 10px;
     margin-right: 0;
     margin-left: 10px;
+    cursor: pointer;
 }
 .noDataCtrl{
     text-align: center;
@@ -437,8 +447,8 @@
 }
 .res-prepare-list{
     position: absolute;
-    right: 40px;
-    top:60px;
+    right: 36px;
+    top:55px;
     background: #fff;
     padding: 10px 20px;
     display: none;
@@ -452,6 +462,11 @@
 .res-prepare-list-item:hover{
     text-decoration: underline;
     color: #0094CE;
+}
+.res-prepare-thumb{
+    top:45px;
+    left: 0;
+    width: 100%;
 }
 .addPrepare-custom{
     width: 100px;
@@ -476,7 +491,7 @@
     cursor: pointer;
     z-index: 99999;
 }
-@media screen and (max-width: 1050px) { /*当屏幕尺寸小于1050px时，应用下面的CSS样式*/
+@media screen and (max-width: 1400px) { /*当屏幕尺寸小于1050px时，应用下面的CSS样式*/
      .prepare-fixed{
         right: 8px;
 
@@ -549,6 +564,7 @@
     border-radius: 2px;
     height: 22px;
     margin: 0 5px;
+    text-align: center;
 }
 .res-download-all{
     float: right;
@@ -556,6 +572,14 @@
 .res-add-prepare-all{
     float: right;
     margin-top: -10px;
-    margin-left: 15px;
+    margin-left: 15px; 
+}
+.res-prepare-thumb{
     
+}
+// 加载中
+.loading{
+    text-align: center;
+    color: #3fbbcf;
+    padding-top: 10px;   
 }
