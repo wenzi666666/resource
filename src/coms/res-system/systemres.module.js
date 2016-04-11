@@ -77,7 +77,8 @@
 					$scope.VM.currentMaterialTmpShow = false;
 				}
 				// list切换
-				$scope.isList = $localStorage.resList?$localStorage.resList:true;
+				$scope.isList = $localStorage.resList==true?$localStorage.resList:false;
+				console.log($scope.isList)
 			    $scope.switchList = function(list){
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
@@ -352,7 +353,7 @@
 						resIds:id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data){
-						window.open(data.data[0].path, "_blank")
+						openwin(data.data[0].path)
 					})
 				}
 			}

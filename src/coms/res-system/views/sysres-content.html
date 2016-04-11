@@ -12,12 +12,12 @@
 		<span class="type-list" ng-repeat="v in formats track by $index" ng-class="{'type-active':isFormatActive($index)}" ng-click="filterFormat($index)"> {{ v}}</span>
 	</div>
 	<div class="statistic-tab">
-		<span class="statistic-item" ng-click="dataSortByType(0)"><i class="icon-bar-chart"></i>综合排序</span>
-		<span class="statistic-item" ng-click="dataSortByType(1)"><i class="icon-bar-chart"></i>最多下载</span>
-		<span class="statistic-item" ng-click="dataSortByType(2)"><i class="icon-bar-chart"></i>最新发布</span>
+		<span class="statistic-item" ng-click="dataSortByType(0)" ng-class="orderBy==0?'active':''"><i class="icon-bar-chart"></i>综合排序</span>
+		<span class="statistic-item" ng-click="dataSortByType(1)" ng-class="orderBy==1?'active':''"><i class="icon-bar-chart"></i>最多下载</span>
+		<span class="statistic-item" ng-click="dataSortByType(2)" ng-class="orderBy==2?'active':''"><i class="icon-bar-chart"></i>最新发布</span>
 		<span class="statistic-item"></span>
-		<span class="statistic-item" ng-click="switchList(true)"><i class="icon-th-list"></i></span>
-		<span class="statistic-item" ng-click="switchList(false)"><i class="icon-th-large"></i></span>
+		<span class="statistic-item" ng-click="switchList(true)" ng-class="isList==true?'active':''"><i class="icon-th-list"></i></span>
+		<span class="statistic-item" ng-click="switchList(false)" ng-class="isList==false?'active':''"><i class="icon-th-large"></i></span>
 	</div>
 
 	<div class="res-list-main">
@@ -26,7 +26,7 @@
 				<input class="res-checkbox" type="checkbox">
 				<img class="res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
-					<label class="res-title">{{ list.title }}</label><br>
+					<label class="res-title text-ellipsis">{{ list.title }}</label>
 					<label class="res-type">类型: {{ list.mtype }}</label>
 					<label class="res-size">
 						<res-size data-value="{{list.fsize}}"></res-size>
@@ -52,8 +52,8 @@
 			<li class="res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<input class="res-checkbox" type="checkbox">
 				<img class="res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
-				<span class="res-thubmlist-info">
-					<label class="res-title">{{ list.title }}</label><br>
+				<div class="res-thubmlist-info">
+					<label class="res-title text-ellipsis">{{ list.title }}</label>
 					<label class="res-type">类型: {{ list.mtype }}</label>
 					
 					<label class="res-size">
@@ -62,11 +62,11 @@
 					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 					
 					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
-				</span>
+				</div>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
-					<label class="res-download"><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom">
-						加入备课夹
+						 加入备课夹
 						<div class="res-prepare-list" >
 							<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare(parentIndex, $index)">{{item.title}}</div>
 						</div>
