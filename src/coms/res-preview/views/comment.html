@@ -24,7 +24,7 @@
 					<div class="item-content">{{comment.acontent}}</div>
 					<div class="editBox">
 						<button class="btn btn-danger" ng-click="editCom(comment.id,$index)">编辑</button>
-						<button class="btn btn-danger" ng-click="deleteCom(comment.id)">删除</button>
+						<button class="btn btn-danger" ng-click="deleteCom(comment.id,$index)">删除</button>
 					</div>
 				</div>
 				<div class="editReplace" ng-hide="contentShow[$index]">

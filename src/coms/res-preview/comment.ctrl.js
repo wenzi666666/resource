@@ -207,14 +207,14 @@
 				}
 
 				//删除评论
-				$scope.deleteCom = function(id) {
+				$scope.deleteCom = function(id,index) {
 						Preview.editComment({
 							commentId: id,
 							_method: "DELETE"
 						}, function(data) {
 							console.log(data)
 							if (data.code == "OK") {
-								getComment($scope.VM.resourceId); //获取我的评论
+								$scope.myCommentList.pop($scope.myCommentList[index]);
 							} else {
 								alert(data.message);
 							}
@@ -236,10 +236,10 @@
 								_method: "PATCH"
 							}, function(data) {
 								if (data.code == "OK") {
-									getComment($scope.VM.resourceId); //获取我的评论
 									_.each($scope.contentShow, function(v, i) {
 										$scope.contentShow[i]=true;
 									});
+									
 									
 								} else {
 									alert(data.message);
