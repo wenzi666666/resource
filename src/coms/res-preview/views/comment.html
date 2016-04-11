@@ -20,10 +20,19 @@
 					<span item-user>{{comment.userName}}</span>
 					<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
 				</div>
-				<div class="item-content" contenteditable="false">{{comment.acontent}}</div>
-				<div class="editBox">
-					<button class="btn btn-danger" ng-click="editCom(comment.id,comment.acontent)">编辑</button>
-					<button class="btn btn-danger" ng-click="deleteCom(comment.id)">删除</button>
+				<div ng-show="contentShow[$index]">
+					<div class="item-content">{{comment.acontent}}</div>
+					<div class="editBox">
+						<button class="btn btn-danger" ng-click="editCom(comment.id,$index)">编辑</button>
+						<button class="btn btn-danger" ng-click="deleteCom(comment.id)">删除</button>
+					</div>
+				</div>
+				<div class="editReplace" ng-hide="contentShow[$index]">
+					<textarea  ng-model="comment.acontent"></textarea>
+					<div class="edit-btn-select">
+						<button class="btn btn-primary" ng-click="editSure($index)">确定</button>
+						<button class="btn btn-default" ng-click="offModal($index)">取消</button>
+					</div>
 				</div>
 			</div>
 		</div>

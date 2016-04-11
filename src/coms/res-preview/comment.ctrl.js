@@ -97,7 +97,7 @@
 
 				//获取所有评论
 				$scope.userName = $localStorage.authUser.userName;
-
+				$scope.contentShow=[];
 				function getComment(id) {
 					Preview.myComment({
 						resId: id,
@@ -106,6 +106,11 @@
 
 						if (data.code == "OK") {
 							$scope.myCommentList = data.data;
+							
+							_.each($scope.myCommentList, function(v, i) {
+								$scope.contentShow[i]=true;
+								
+							});
 							console.log("我的评论")
 							console.log(data)
 						} else {
@@ -217,19 +222,25 @@
 
 					}
 				//编辑评论
-				$scope.editCom = function(id, content) {
-					$("#editModel").modal("show");
-					$("#editContent").val(content);
-					$scope.editSure = function() {
+				
+				
+				$scope.editCom = function(id,index) {
+					_.each($scope.contentShow, function(v, i) {
+						$scope.contentShow[i]=true;
+					});
+					$scope.contentShow[index]=false;
+					$scope.editSure = function(index) {
 							Preview.editComment({
-								displayContent: $("#editContent").val(),
+								displayContent:$scope.myCommentList[index].acontent,
 								commentId: id,
 								_method: "PATCH"
 							}, function(data) {
 								if (data.code == "OK") {
 									getComment($scope.VM.resourceId); //获取我的评论
-									$("#editModel").modal("hide");
-
+									_.each($scope.contentShow, function(v, i) {
+										$scope.contentShow[i]=true;
+									});
+									
 								} else {
 									alert(data.message);
 								}
@@ -237,8 +248,11 @@
 							});
 						}
 					//取消
-					$scope.offModal = function() {
-						$("#editModel").modal("hide");
+					$scope.offModal = function($index) {
+						_.each($scope.contentShow, function(v, i) {
+							$scope.contentShow[i]=true;
+						});
+						
 					}
 				}
 
