@@ -23,9 +23,9 @@
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="animated slideInUp res-list-item" ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
-				<input class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)">
-				 <!--<label for="test3"></label>-->
+			<li class="animated slideInUp res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
+				<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
+				<label for="{{$index}}"></label>
 				<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
@@ -53,7 +53,8 @@
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
-				<input class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
+				<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id">
+				<label for="{{$index}}"></label>
 				<img class="prepare-shop res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
@@ -81,8 +82,8 @@
 		<div class="noDataCtrl" ng-show="noDataCtrl">当前选择下还没有资源哦</div>
 		<div style="clear:both"></div>
 		<div class="page-ctrl" ng-show="isLoadingFinish">
-			<input id="test" class="res-checkbox-page" type="checkbox" ng-model="VM.checkAll" ng-click="checkAll()"> 本页全选
-			<!--<label for="test"></label>-->
+			<input id="test" class="res-checkbox-page" type="checkbox" ng-model="VM.checkAll" ng-click="checkAll()" /> 本页全选
+			<label for="test"></label>
 			<span class="res-text-total"> 共 {{bigTotalItems}}条，</span>
 			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
 			

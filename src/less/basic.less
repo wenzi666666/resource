@@ -137,36 +137,24 @@ treecontrol{
 
 
 //checkbox选择框
-
-.check-box-area {
-    padding-right: 0;
-}
 input[type=checkbox] {
     visibility: hidden;
     margin-right: 3px;
 }
 
-.check-box {
-    width: 20px;
-    margin: 0;
-    margin-right: 4px;
-    position: relative;
-}
-
-.check-box label {
+input[type=checkbox] + label {
     cursor: pointer;
     position: absolute;
     width: 20px;
     height: 20px;
     top: 50%;
-    left: 50%;
-    margin-left: -10px;
+    left:10px;
     margin-top: -10px;
     background: #FFFFFF;
     border:1px solid #ddd;
 }
 
-.check-box label:after {
+input[type=checkbox] + label:after {
     opacity: 0;
     content: '';
     position: absolute;
@@ -186,7 +174,7 @@ input[type=checkbox] {
     transform: rotate(-45deg);
 }
 
-.check-box input[type=checkbox]:checked + label:after {
+input[type=checkbox]:checked + label:after {
     opacity: 1;
 }
 
