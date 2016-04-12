@@ -146,11 +146,7 @@
 				$scope.commentNum = 200;
 				$scope.VM.inputComment = "";
 				$scope.changeComment = function() {
-					if ($scope.VM.inputComment.length < 201) {
-						$scope.commentNum = 200 - $scope.VM.inputComment.length;
-					} else {
-						$scope.VM.inputComment = $scope.VM.inputComment.substring(0, 200);
-					}
+					$scope.commentNum = 200 - $scope.VM.inputComment.length;
 				}
 
 				$scope.myShow = true;
@@ -176,6 +172,11 @@
 						});
 						if (score == 0) {
 							ModalMsg.logger("评完分才能评论哦！");
+							return false;
+						}
+						if($scope.VM.inputComment.length>200)
+						{
+							ModalMsg.logger("评论内容不能超过个200个字符！");
 							return false;
 						}
 						Preview.editComment({
