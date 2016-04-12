@@ -49,10 +49,10 @@
 
 				$scope.VM.searchArea = [{
 						"area": "全部",
-						"id": 0
+						"id": -1
 					}, {
 						"area": "系统资源",
-						"id": 1
+						"id": 0
 					}, {
 						"area": "区本资源",
 						"id": 4
@@ -94,6 +94,7 @@
 					$scope.VM.currentAreaSelect[index] = true;
 					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
+					$scope.bigCurrentPage = 1;
 					getSourceList();
 				}
 
@@ -108,6 +109,7 @@
 					});
 					$scope.VM.currentTypeNum[index] = true;
 					$scope.VM.currentFormat = $scope.VM.typeNums[index].type;
+					$scope.bigCurrentPage = 1;
 					getSourceList();
 				}
 
@@ -168,6 +170,17 @@
 				$scope.changePage=function(){
 					getSourceList();
 				}
+				
+				//转到
+				$scope.pageChanged = function(pagenum) {
+					
+						$scope.bigCurrentPage = pagenum;
+						console.log('Page changed to: ' + $scope.bigCurrentPage );
+					    getSourceList();
+				};
+				
+				$scope.pageTo = $scope.bigCurrentPage;
+				
 
 				// 全选
 				$scope.resList = {

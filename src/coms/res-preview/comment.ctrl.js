@@ -58,6 +58,7 @@
 				//获取单个资源的详细信息/评论
 				$scope.VM.listInfoCom = function(id, fromFlag) {
 					$scope.VM.resourceId = id;
+					$scope.VM.fromFlag=fromFlag;
 					console.log($scope.VM.resourceId+"id")
 					Preview.listInfo({
 						resId: id,

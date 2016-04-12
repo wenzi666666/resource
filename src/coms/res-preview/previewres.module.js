@@ -83,9 +83,11 @@
 				// 变量共享
 				$scope.VM = {};
 				
-				//跳转过来的默认id 和 tfcode
+				//跳转过来的默认id 和 tfcode   
+				//对于tfcode和fromFlag不同页面跳转过来不同  这个地方还有待修改 新接口还在开发中
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
+				$scope.VM.fromFlag=$localStorage.fromFlag;
 				console.log($stateParams)
 
 				
@@ -100,7 +102,8 @@
 					$scope.navList = data.data;
 					$scope.currentNav = $scope.navList[0];
 					$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
-					console.log($scope.VM.tfCode)
+					$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
+					console.log($scope.VM.tfCode,$scope.VM.name)
 					getTypes();//获取资源类型
 					
 				});
@@ -126,8 +129,10 @@
 					$scope.VM.curNav[index] = true;
 					$scope.currentNav = $scope.navList[index];
 					$scope.VM.tfCode=$scope.navList[index][$scope.navList[index].length-1].tfcode;
+					$scope.VM.name=$scope.navList[index][$scope.navList[index].length-1].name;
 					console.log($scope.VM.tfCode);
 					getTypes();//获取资源类型
+					getPrepare();//获取备课夹
 				}
 				
 				$scope.selectType=function(id,index){
@@ -248,6 +253,8 @@
 									{
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
+										$scope.VM.fromFlag=$scope.allSourceList[i].fromFlag;
+										console.log($scope.VM.fromFlag)
 										break;
 										
 									}else{
@@ -258,7 +265,8 @@
 								{		
 									    $scope.currentSlideIndex=0; 
 										$scope.curImg[0]=true;
-										$scope.VM.resourceId=$scope.allSourceList[0].id
+										$scope.VM.resourceId=$scope.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$localStorage.fromFlag);
 								console.log(data.data)
@@ -292,6 +300,7 @@
 									{
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
+										$scope.VM.fromFlag=$scope.allSourceList[i].fromFlag;
 										break;
 										
 									}else{
@@ -302,7 +311,8 @@
 								{		
 									    $scope.currentSlideIndex=0; 
 										$scope.curImg[0]=true;
-										$scope.VM.resourceId=$scope.allSourceList[0].id
+										$scope.VM.resourceId=$scope.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$localStorage.fromFlag);
 								console.log(data.data)
@@ -314,10 +324,11 @@
 				}
 				 
 				 //点击资源切换
-				$scope.slideChange=function(id,index){
+				$scope.slideChange=function(id,index,fromFlag){
 					$scope.currentSlideIndex = index;
-					$scope.VM.listInfoCom(id,$localStorage.fromFlag);
 					$scope.VM.resourceId=id;
+					$scope.VM.fromeFlag=fromFlag;
+					$scope.VM.listInfoCom(id,$localStorage.fromFlag);
 					for(var i=0;i<$scope.allSourceList.length;i++)
 					{
 						$scope.curImg[i]=false;
@@ -372,22 +383,47 @@
 					});
 				}
 				
+				
+				//获取备课夹
+				// 读取备课夹 列表
+				$scope.shopCount=0;
+				var currentPrepareId = '';
+				 function getPrepare() {
+					Prepare.baseGetApi({
+						tfcode:$scope.VM.tfCode 
+					}, function(data) {
+						console.log("prepare:",data.data);
+						$scope.prepareList = data.data;
+						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
+						
+					});
+				}
+				setTimeout(function(){
+					getPrepare();
+				}, 1000);
+				
 				//加入备课夹
-					//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
-				$scope.addToCurrentPrepare = function(listIndex) {
+				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
+				$scope.addToCurrentPrepare = function(txt,preId) {
 					// 当前没有备课夹时，创建
+					if(txt=="list")
+					{
+						currentPrepareId=preId;
+					}
+					console.log(currentPrepareId)
 					if($scope.prepareList.length == 0) {
 						Prepare.basePostApi({
-							tfcode: $localStorage.currentTreeNode.tfcode,
-							title: $localStorage.currentTreeNode.label
+							tfcode: $scope.VM.tfCode,
+							title: $scope.VM.name
 						}, function(d) {
 							// 获取备课夹
-							getPrepare($localStorage.currentTreeNode.tfcode);
+							getPrepare();
+							
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
-								resIds: $scope.resList.list[listIndex].id,
-								fromFlags: $localStorage.fromFlag
+								resIds: $scope.VM.resourceId,
+								fromFlags: $scope.VM.fromFlag
 							}, function(data) {
 								//加1
 								$scope.shopCount++;
@@ -396,16 +432,45 @@
 					}else{
 						Prepare.addResToPrepareId({
 							id: currentPrepareId,
-							resIds: $scope.resList.list[listIndex].id,
-							fromFlags: $localStorage.fromFlag
+							resIds: $scope.VM.resourceId,
+							fromFlags: $scope.VM.fromFlag
 						}, function(data) {
 							//加1
 							$scope.shopCount++;
-	
+							console.log($scope.VM.resourceId+"_"+ $scope.VM.fromFlag)
 						})
 					}
 					
 				}
+				
+				// 新建备课夹
+				$scope.VM.newPrepare = "新建备课夹";
+				$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
+					console.log(newVal,oldVal)
+				    if (newVal !== oldVal && newVal != "新建备课夹") {
+				    	console.log(newVal,oldVal)
+						Prepare.basePostApi({
+							tfcode: $scope.VM.tfCode,
+							title: $scope.VM.name
+						}, function(d) {
+							$scope.VM.newPrepare = "新建备课夹"
+							getPrepare();
+						})
+				    }
+				 });
+				 
+				 //显示底部备课夹
+				 $scope.VM.showPre=false;
+				 $scope.showPre=function(){
+				 	if($scope.prepareList.length != 0)
+				 	{
+				 		$scope.VM.showPre=true;
+				 	}
+				 	
+				 }
+				 $scope.hidePre=function(){
+				 	$scope.VM.showPre=false;
+				 }
 				
 				
 				
