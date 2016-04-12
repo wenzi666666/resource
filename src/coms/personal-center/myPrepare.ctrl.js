@@ -27,7 +27,7 @@
 						})
 						$scope.prepareList[lastActive].active = true;
 					}
-					$scope.totalItems = data.data.totalLines;
+					$scope.totalItems = data.data.total;
 					$scope.currentPage = 1;
 				})
 				$scope.resTypes = [];	

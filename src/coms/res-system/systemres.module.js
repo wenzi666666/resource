@@ -195,7 +195,7 @@
 //							data.data.list[i].select = false;
 //						})
 						$scope.resList = data.data;
-						console.log("resList:", $scope.resList)
+						// console.log("resList:", $scope.resList)
 						
 						$scope.noDataCtrl = false;
 						$scope.isLoading = false;
@@ -308,11 +308,24 @@
 				
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
-				$scope.pageChanged = function() {
-				    console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
-				    page = $scope.VM.currentPageCtrl;
-				    getResList();
+				$scope.pageChanged = function(pagenum) {
+					console.log(pagenum);
+					if(pagenum == undefined) {
+						console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
+					    page = $scope.VM.currentPageCtrl;
+					    getResList();
+					}
+					else {
+						page = pagenum;
+						console.log('Page changed to: ' + page);
+						$scope.VM.currentPageCtrl = pagenum;
+					    getResList();
+					   
+					} 
 				};
+
+				//转到
+				$scope.pageTo = $scope.VM.currentPageCtrl;
 				
 				// 下载资源
 				$scope.resDownload = function(id){

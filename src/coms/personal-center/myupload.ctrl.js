@@ -9,17 +9,29 @@
 			function($scope, $stateParams, $state, $location, $localStorage,ModalMsg,Res,Personal) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
-				
+				$scope.VM.currentPage = 1;
+				$scope.perPage = 10;
+				$scope.maxSize = 3;
+				var page = 1;
 				// 上传资源 列表
-				Res.getUploadRes({
-					unifyTypeId: '1',
-					fileFormat: '全部',
-					page: 1,
-					perPage: 10
-				}, function(data) {
-					console.log("uploadList:", data.data)
-					$scope.VM.uploadFileList = data.data;
-				})
+				
+
+				//获取上传资源
+				$scope.getResList = function() {
+					Res.getUploadRes({
+						unifyTypeId: '1',
+						fileFormat: '全部',
+						page: $scope.VM.currentPage,
+						perPage: $scope.perPage
+					}, function(data) {
+						// console.log("uploadList:", data.data)
+						$scope.VM.uploadFileList = data.data;
+						$scope.totalItems = data.data.totalLines;
+						// console.log($scope.totalItems);
+					})
+				}
+
+				$scope.getResList();
 
 				//获取所有资源类型
 				Personal.getResType({}, function(data) {
@@ -62,6 +74,18 @@
 								})
 							}
 						}) 
+					}
+				}
+
+				//分页
+				$scope.pageTo = 1;
+				$scope.pageChanged = function(pagenum) {
+					if(pagenum == undefined) {
+						$scope.getResList();
+					}
+					else {
+						$scope.VM.currentPage = pagenum;
+						$scope.getResList();
 					}
 				}
 			}
