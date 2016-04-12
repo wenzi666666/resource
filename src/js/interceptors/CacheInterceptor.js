@@ -15,12 +15,12 @@
                     request: function requestCallback(config) {
                     	
 						// api打头的都加user做处理
-                        if(/\/resapi\//.test(config.url)){
+                        if(/\/api\//.test(config.url)){
                             // api负载均衡到不同api上
-                            config.url = config.url.replace('resapi', 'resapi' + Math.ceil(Math.random()*5))
+                            config.url = config.url.replace('api', 'api' + Math.ceil(Math.random()*20))
                             //让所有api带上 user请求头
                             if(localStorage.getItem('credentialsToken'))
-                                config.url = config.url + "?token=" + localStorage.getItem('credentialsToken');
+                                config.url = config.url + "?target="+ TomcatUrl + '&token=' + localStorage.getItem('credentialsToken') ;
                         }
             
 //                       config.headers['SM_USER'] = "frank";
