@@ -5,8 +5,8 @@ window.BackendUrl = "http://chat.tfedu.net:3366/api";
 //window.BackendUrl = "http://192.168.111.204:8880";
 // 后端tomcat服务
 window.TomcatUrl = "http://192.168.111.204:8880";
-// 头像服务
-window.AvatarServer =  "http://yun.tfedu.net/";
+// 文件服务
+window.FileServer =  "http://192.168.111.22/";
 
 //图片压缩
 //图片缩略图 最小
