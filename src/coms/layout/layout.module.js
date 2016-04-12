@@ -63,24 +63,25 @@
 				console.log("layout")
 				setTimeout(function() {
 					var header = document.querySelector("#banner");
-				    if(window.location.hash) {
-				      header.classList.add("slide--up");
-				    }
-				
-				    new Headroom(header, {
-				        tolerance: {
-				          down : 10,
-				          up : 20
-				        },
-				        offset : 205,
-				        classes: {
-				          initial: "slide",
-				          pinned: "slide--reset",
-				          unpinned: "slide--up"
-				        }
-				    }).init();
+					if(!!header) {
+						 if(window.location.hash) {
+					      header.classList.add("slide--up");
+					    }
+					
+					    new Headroom(header, {
+					        tolerance: {
+					          down : 10,
+					          up : 20
+					        },
+					        offset : 205,
+					        classes: {
+					          initial: "slide",
+					          pinned: "slide--reset",
+					          unpinned: "slide--up"
+					        }
+					    }).init();
+					}
 				},500)
-				
 			}
 		])
 }());
