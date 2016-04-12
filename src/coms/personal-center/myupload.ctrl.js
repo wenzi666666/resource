@@ -7,6 +7,9 @@
 	angular.module('webApp.coms.personalcenter')
 		.controller("myUploadCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage', "$uibModal", 'ModalMsg','Res', 'Personal',
 			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Personal) {
+				//共享变量
+				$scope.VM = {};
+
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				$scope.VM.currentPage = 1;
@@ -79,9 +82,21 @@
 				}
 
 				//编辑资源
-				$scope.editRes = function() {
-					$uibModal.open({
-						
+				$scope.editRes = function(res) {
+					console.log(res);
+					var editResModal = $uibModal.open({
+						templateUrl: 'edit.html', 
+						controller: 'editResInstanceCtrl',
+						size: '',
+						resolve: {
+							resitem: function() {
+								return res;
+							}
+						}
+					})
+
+					editResModal.result.then(function(data) {
+
 					})
 				}
 
@@ -98,6 +113,88 @@
 				}
 			}
 		])
+
+		.controller('editUploadResCtrl', ['$scope', function($socpe) {
+
+		}])
+
+		.controller('editResInstanceCtrl', ['$scope', '$uibModal', '$uibModalInstance', 'Res', 'resitem', function($scope, $uibModal, $uibModalInstance, Res, resitem) {
+			
+			//变量共享
+			$scope.VM = {};
+			$scope.res = {};
+
+			$scope.res.unifyType = resitem.unifyType;
+
+			//学段、学科、版本和课本级联
+
+			//选择学段
+			$scope.selectTerm = function(term) {
+				var id = JSON.parse(term);
+				console.log(JSON.parse(term));
+				Res.getSubjects({
+					termId: id
+				}, function(data) {
+					$scope.VM.subjects = data.data;
+					console.log("subjects:",$scope.VM.subjects);
+					Res.getEditions({
+						termId: $scope.VM.terms[0].id,
+						subjectId: $scope.VM.subjects[0].id
+					}, function(data) {
+						$scope.VM.versions = data.data;
+						console.log("verisons:",$scope.VM.versions);
+						Res.getBooks({
+							pnodeId: $scope.VM.versions[0].id
+						}, function(data) {
+							$scope.VM.books = data.data;
+							console.log("books:",$scope.VM.books);
+						})
+					})
+				})
+			}
+
+
+			Res.getTerms({
+
+			}, function(data) {
+				$scope.VM.terms = data.data;
+				$scope.curTerm = $scope.VM.terms[0];
+				console.log("terms:",$scope.VM.terms);
+				Res.getSubjects({
+					termId: $scope.VM.terms[0].id
+				}, function(data) {
+					$scope.VM.subjects = data.data;
+					console.log("subjects:",$scope.VM.subjects);
+					Res.getEditions({
+						termId: $scope.VM.terms[0].id,
+						subjectId: $scope.VM.subjects[0].id
+					}, function(data) {
+						$scope.VM.versions = data.data;
+						console.log("verisons:",$scope.VM.versions);
+						Res.getBooks({
+							pnodeId: $scope.VM.versions[0].id
+						}, function(data) {
+							$scope.VM.books = data.data;
+							console.log("books:",$scope.VM.books);
+						})
+					})
+				})
+			});
+
+			
+
+
+			$scope.close = function() {
+				$uibModalInstance.close();
+			}
+
+
+
+			$scope.editDone = function() {
+				console.log($scope.res);
+				$uibModalInstance.close($scope.res);
+			}
+		}])
 }());
 
 //问题：编辑我的上传资源UI，接口在上传资源位置
