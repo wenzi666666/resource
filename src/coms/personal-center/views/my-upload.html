@@ -1,3 +1,12 @@
+<!-- 编辑上传资源模态框 -->
+<div  ng-controller="editUploadResCtrl"></div>
+<script type="text/ng-template" id="avatar.html">
+	<div class="modal-header">
+		<h3 class="cen-h2">编辑资源</h3>
+	</div>
+    <div class="modal-body avatar-modal-body">
+    </div>
+</script>
 <div class="cen-right-down">
 	<h3 class="cen-h2">我的上传</h3>
 	<div class="type-select-box">
@@ -44,7 +53,7 @@
 						<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
 					</div>
 					<div class="col-md-2 col-sm-2">
-						<button class="btn-op">编辑</button>
+						<button class="btn-op" ng-click="editRes()">编辑</button>
 						<button class="btn-op" ng-click="deleteSingleRes(list.resId)">删除</button>
 					</div>
 					<div class="clearfix"></div>

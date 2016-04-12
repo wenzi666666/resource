@@ -5,8 +5,8 @@
 	'use strict';
 	//Module configuration
 	angular.module('webApp.coms.personalcenter')
-		.controller("myUploadCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage','ModalMsg','Res', 'Personal',
-			function($scope, $stateParams, $state, $location, $localStorage,ModalMsg,Res,Personal) {
+		.controller("myUploadCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage', "$uibModal", 'ModalMsg','Res', 'Personal',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Personal) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				$scope.VM.currentPage = 1;
@@ -58,6 +58,7 @@
 					}) 
 				}
 
+				//批量删除资源
 				$scope.deleteSomeRes = function() {
 					if($scope.resToBeDelete.length == 0) {
 						ModalMsg.logger("您没有选择任何资源");
@@ -75,6 +76,13 @@
 							}
 						}) 
 					}
+				}
+
+				//编辑资源
+				$scope.editRes = function() {
+					$uibModal.open({
+						
+					})
 				}
 
 				//分页
