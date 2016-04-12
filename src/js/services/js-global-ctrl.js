@@ -61,6 +61,30 @@
 				}
 			});
 		});
+		
+		// 全选或多选加入备课夹
+//		$(".addPrepareAll").click(function(event) {
+//			
+//			var addcar = $(this);
+//			var offset = $(".prepare-fixed").offset();
+//			var img = $('.res-list-main');
+//			var flyer = img.clone(true);
+//			flyer.fly({
+//				start: {
+//					left: img.offset().left,
+//					top: event.clientY - 30
+//				},
+//				end: {
+//					left: offset.left + 10,
+//					top: document.documentElement.clientHeight - 380,
+//					width: 0,
+//					height: 0
+//				},
+//				onEnd: function() {
+//					$('.u-flyer').remove(); //移除dom
+//				}
+//			});
+//		});
 	}
 
 }());

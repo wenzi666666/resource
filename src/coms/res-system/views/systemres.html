@@ -22,7 +22,8 @@
 		</div>
 		<div class="prepare-ctrls">
 			<div class="ctrls-prepare-list" >
-				<div class="ctrls-prepare-list-item" ng-repeat="item in prepareList track by $index" >{{item.title}}</div>
+				<div class="ctrls-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index" >{{$index+1}}、{{item.title}}</div>
+				<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>
 			</div>
 		</div>
 	</div>
