@@ -39,12 +39,15 @@
 						<label for="{{$index}}"></label>
 					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png">
 					<span class="res-list-info">
-					<label class="res-title">{{source.fname}}</label><br>
+					<label class="res-title text-ellipsis">{{source.title}}</label>
 					<label class="res-type">类型: {{source.mtype}}</label>
-					<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}</label>
+					<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}M</label>
 					
 					<span class="star_box">
-						<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
+						<label class="res-star">
+							<i class="icon-star" ng-repeat="star in source.starNum" ></i>
+							
+						</label>
 						<label class="res-number">{{source.clickTimes}}浏览/{{source.dloadTimes}}下载</label>
 					</span>
 					</span>
@@ -68,8 +71,8 @@
 				<uib-pagination num-pages="pageSize" total-items="bigTotalItems" ng-change="changePage()" ng-model="bigCurrentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
 				<div class="page-go">
 					<span class="page-text">转到</span>
-					<input class="page-input" />
-					<span class="page-go-btn">Go</span>
+					<input class="page-input" ng-model="pageTo" />
+					<span class="page-go-btn" ng-click="pageChanged(pageTo)">Go</span>
 				</div>
 			</div>
 		</div>
