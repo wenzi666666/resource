@@ -91,10 +91,7 @@
 			    $localStorage.fromFlag = 0;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
-				
-				
-				
-				
+
 				// 读取备课夹 列表
 				var currentPrepareId = '';
 				var getPrepare = function(id) {
@@ -160,8 +157,64 @@
 	
 						})
 					}
-					
 				}
+				
+				// 全选 或 多选 加入 
+				// 将选择资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
+				$scope.addAllToPrepare = function($event,prepareIndex) {
+					$event.stopPropagation();
+					console.log($scope.resList.select)
+					if(!$scope.resList.select){
+						ModalMsg.logger("您还没有选择资源哦");
+						return;
+					}
+					// 当前没有备课夹时，创建
+					if($scope.prepareList.length == 0) {
+						Prepare.basePostApi({
+							tfcode: $localStorage.currentTreeNode.tfcode,
+							title: $localStorage.currentTreeNode.label
+						}, function(d) {
+							// 获取备课夹
+							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 加入备课夹
+							Prepare.addResToPrepareId({
+								id: d.data.id,
+								resIds: $scope.resList.select.toString(),
+								fromFlags: $localStorage.fromFlag
+							}, function(data) {
+								//加$scope.shopCount.length
+								$scope.shopCount += $scope.resList.select.length;
+							})
+						})
+					}else{
+						Prepare.addResToPrepareId({
+							id: prepareIndex?prepareIndex:currentPrepareId,
+							resIds: $scope.resList.select.toString(),
+							fromFlags: $localStorage.fromFlag
+						}, function(data) {
+							//加$scope.shopCount.length
+							$scope.shopCount += $scope.resList.select.length;
+	
+						})
+					}
+				}
+				
+				// 新建备课夹
+				$scope.VM.newPrepare = "新建备课夹";
+				$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
+					console.log(newVal,oldVal)
+				    if (newVal !== oldVal && newVal != "新建备课夹") {
+				    	console.log(newVal,oldVal)
+						Prepare.basePostApi({
+							tfcode: $localStorage.currentTreeNode.tfcode,
+							title: $scope.VM.newPrepare
+						}, function(d) {
+							$scope.VM.newPrepare = "新建备课夹"
+							getPrepare($localStorage.currentTreeNode.tfcode);
+						})
+				    }
+				 });
+				
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
@@ -347,9 +400,6 @@
 				}
 				
 				// 全选
-				$scope.resList = {
-					seletct: []
-				};
 				$scope.checkAll =  function() {
 					if(($scope.VM.checkAll)) {
 						$scope.resList.select = $scope.resList.list.map(function(item) { return item.id; });
