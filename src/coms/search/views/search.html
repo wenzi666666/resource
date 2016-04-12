@@ -68,8 +68,8 @@
 				<uib-pagination num-pages="pageSize" total-items="bigTotalItems" ng-change="changePage()" ng-model="bigCurrentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
 				<div class="page-go">
 					<span class="page-text">转到</span>
-					<input class="page-input" />
-					<span class="page-go-btn">Go</span>
+					<input class="page-input" ng-model="pageTo" />
+					<span class="page-go-btn" ng-click="pageChanged(pageTo)">Go</span>
 				</div>
 			</div>
 		</div>
