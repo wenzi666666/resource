@@ -49,10 +49,10 @@
 
 				$scope.VM.searchArea = [{
 						"area": "全部",
-						"id": 0
+						"id": -1
 					}, {
 						"area": "系统资源",
-						"id": 1
+						"id": 0
 					}, {
 						"area": "区本资源",
 						"id": 4

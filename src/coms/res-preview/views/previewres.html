@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div class="slide-list">
-			<div class="slide-list-item" ng-repeat="item in allSourceList" ng-click="slideChange(item.id,$index)">
+			<div class="slide-list-item" ng-repeat="item in allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
 				<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}" ng-class="curImg[$index]?'line':''" fallback-src="assets/img/sample.png">
 				<span class="text-ellipsis">{{item.title}}_{{item.mtype}}</span>
 			</div>
@@ -75,7 +75,8 @@
 		</div>
 		<div class="prepare-ctrls">
 			<div class="ctrls-prepare-list" >
-				<div class="ctrls-prepare-list-item" ng-repeat="item in prepareList track by $index" >{{item.title}}</div>
+				<div class="ctrls-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index" >{{$index+1}}、{{item.title}}</div>
+				<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>
 			</div>
 		</div>
 	</div>
