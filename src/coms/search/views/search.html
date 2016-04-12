@@ -34,7 +34,9 @@
 			<ul class="res-ul-list">
 				<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index">
-					<input class="res-checkbox" type="checkbox" ng-model="isCheck" ng-checked="allCheck">
+					<!--<input class="res-checkbox" type="checkbox" ng-model="isCheck" ng-checked="allCheck">-->
+						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag)" />
+						<label for="{{$index}}"></label>
 					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png">
 					<span class="res-list-info">
 					<label class="res-title">{{source.fname}}</label><br>
@@ -48,16 +50,18 @@
 					</span>
 					<span class="res-list-tools">
 					<!--<button class="btn btn-success">移出备课夹</button><br>-->
-					<label class="res-download" ng-click="resDownload(source.id,'0',source.fromFlag)"><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(source.id,source.fromFlag)"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				</li>
 
 			</ul>
 		</div>
 		<div class="sumBox">
-			<input type="checkbox" ng-checked="allCheck" ng-model="allCheck" class="allCheck" ng-checked="allCheck">本页全选
+			<input id="test" class="allCheck" type="checkbox" ng-model="VM.checkAll" ng-click="checkAll()" /> 本页全选
+			<label for="test"></label>
+			<!--<input type="checkbox" ng-checked="allCheck" ng-model="allCheck" class="allCheck" ng-checked="allCheck">本页全选-->
 			<span>共{{listLength}}条，每页显示<input type="text" value="10"  ng-change="changePerPage()" ng-model="inputPerPage"/></span>条
-			<label class="res-download allDown" ng-click="resDownload(allSourceId,'1',allFromFlag)"><i class="icon-download-alt"></i>点击下载</label>
+			<label class="res-download allDown" ng-click="downLoadSelect()"><i class="icon-download-alt"></i>点击下载</label>
 		</div>
 		<div class="pageBox">
 			<div class="coms-pagination">

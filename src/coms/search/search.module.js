@@ -169,21 +169,25 @@
 					getSourceList();
 				}
 
-				$scope.isCheck = false;
-				$scope.allCheck = false;
-				
-				//下载资源
-				$scope.resDownload = function(id,downType,flag){
-					console.log(id,flag)
-					
-					if(downType=="1")
-					{
-						if($scope.allCheck==false)
-						{
-							ModalMsg.logger("请勾选下载资源");
-							return false;
-						}
+				// 全选
+				$scope.resList = {
+					seletct: [],
+					fromFlag:[],
+				};
+				$scope.checkAll =  function() {
+					if(($scope.VM.checkAll)) {
+						$scope.resList.select = $scope.sourceList.map(function(item) { return item.id; });
+						$scope.resList.fromFlag = $scope.sourceList.map(function(item) { return item.fromFlag; });
+						console.log($scope.resList.select);
+						console.log($scope.resList.fromFlag);
+					}else{
+						$scope.resList.select = [];
+						$scope.resList.fromFlag=[];
 					}
+				}
+				
+				//下载资源 
+				$scope.resDownload = function(id,flag){
 					SystemRes.resDownload({
 						resIds:id,
 						fromFlags:flag 
@@ -193,8 +197,25 @@
 						{
 							window.open(data.data[i].path, "_blank");
 						}
-						
+						$scope.resList.select=[];
+						$scope.resList.fromFlag=[];
+						$scope.VM.checkAll=false;
 					});
+				}
+				
+				//多个下载,在搜索页面，fromFlag不一样  
+				$scope.addItemSelect = function(flag) {
+					$scope.resList.fromFlag.push(flag);
+				}
+				
+				// 全选打包下载
+				$scope.downLoadSelect = function() {
+					// 全部打包下载
+					if(!!$scope.resList.select)
+						$scope.resDownload($scope.resList.select.toString(),$scope.resList.fromFlag.toString())
+					else {
+						ModalMsg.logger("还没有选中资源哦");
+					}
 				}
 				
 				
