@@ -33,6 +33,10 @@
 					searchResults: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resSearchResults"
+					},
+					resourceFormats:{
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resSearchResults/formats"
 					}
 				})
 			}
@@ -62,8 +66,29 @@
 					}
 
 				];
-
+				
+				
 				//资源类型
+				$scope.VM.typeNums=[];
+				function getFormat(){
+					Search.resourceFormats({
+						fromFlag:$scope.VM.currentFromFlag,
+						searchKeyword:$scope.searchKeyWord
+					},function(data){
+						console.log("格式");
+						console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
+					
+						if(data.code=="OK")
+						{
+							console.log(data)
+//							$scope.VM.typeNums=data.data;
+						}else{
+							alert(data.message);
+						}
+					});
+				}
+				getFormat();
+				
 				$scope.VM.typeNums = [{
 						"type": "全部",
 						"num": 10
@@ -119,10 +144,7 @@
 				$scope.maxSize = 5;
 				$scope.searchKeyWord="数学";
 				$scope.inputPerPage=10;
-				
 				 function getSourceList () {
-				 	$scope.allSourceId="";//当页所有id字符串
-				 	$scope.allFromFlag="";
 				 	$scope.sourceList="";
 				 	$scope.isLoading = true;
 					Search.searchResults({
@@ -134,15 +156,17 @@
 					}, function(data) {
 						$scope.isLoading = false;
 						if (data.code == "OK") {
-							$scope.sourceList = data.data.list;
-							console.log(data);
-							_.each($scope.sourceList, function(v, i) {
-								$scope.allSourceId+=$scope.sourceList[i].id+",";
-								$scope.allFromFlag+=$scope.sourceList[i].fromFlag+",";
-							});
-							$scope.allSourceId=$scope.allSourceId.substring(0,$scope.allSourceId.length-1);
-							$scope.allFromFlag=$scope.allFromFlag.substring(0,$scope.allFromFlag.length-1);
 							
+							_.each(data.data.list, function(v, i) {
+								data.data.list[i].starNum=new Array();
+								for(var j=0;j<v.avgScore;j++)
+								{
+									data.data.list[i].starNum.push(j);
+								}
+								
+							});
+							$scope.sourceList = data.data.list;
+							console.log($scope.sourceList);
 							$scope.listLength = data.data.totalLines;
 							$scope.bigTotalItems = $scope.listLength;
 							$scope.pageSize=data.data.total;
