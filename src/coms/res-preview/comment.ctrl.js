@@ -57,9 +57,9 @@
 
 				//获取单个资源的详细信息/评论
 				$scope.VM.listInfoCom = function(id, fromFlag) {
-					$scope.VM.resourceId = id;
+					$scope.VM.resourceId=id;
 					$scope.VM.fromFlag=fromFlag;
-					console.log($scope.VM.resourceId+"id")
+					console.log($scope.VM.resourceId+"id",fromFlag)
 					Preview.listInfo({
 						resId: id,
 						fromFlag: fromFlag
@@ -76,13 +76,13 @@
 							for (var i = 0; i < $scope.VM.info.score; i++) {
 								//几颗星亮
 								$scope.curStar[i] = true;
-								console.log(i)
 							}
 						} else {
 							alert(data.code);
 						}
 
 					});
+					
 					//获取播放链接
 					Preview.resViewUrl({
 						resIds: id,
@@ -90,6 +90,7 @@
 
 					}, function(data) {
 						if (data.code == "OK") {
+							console.log("链接"+data);
 							console.log(data);
 							var tpl = "";
 							tpl = "<iframe width='100%' height='700px' src='" + data.data[0].path + "' style='border:0'></iframe>"

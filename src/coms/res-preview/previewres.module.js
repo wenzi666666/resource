@@ -52,14 +52,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/otherComments"
 					},
-					systemSource: { //获取系统资源接口
+					source: { //获取系统/区本/校本资源接口
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/sysResource"
+						url: BackendUrl + "/resRestAPI/v1.0/resRecommendation"
 					},
-					districtSource: { //获取区本/校本接口
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/districtResource"
-					},
+					
 					resViewUrl:{
 						method:"GET",
 						url:BackendUrl + "/resRestAPI/v1.0/resViewUrl"
@@ -147,7 +144,7 @@
 					$scope.sourceTypeId=id;
 				}
 				
-				//获取资源类型
+				//获取资源格式
 				
 				function getTypes(){
 					$scope.sourceType=[];
@@ -223,20 +220,22 @@
 				 }
 				 
 				 function getAllSource(typeId) {
+				 	
 			      	//获取所有资源相关变量
 					$scope.currentSlideIndex = 0;
 					$scope.curImg=[];
 					if ($localStorage.fromFlag == "0") {
 						//系统
-						Preview.systemSource({
+						Preview.source({
+							resId:$scope.VM.resourceId,
 							poolId: 0,
-							mTypeId: typeId,//资源类型id
-							fileFormat: "全部",//资源格式
-							orderBy: 0,
+							typeId: typeId,//资源格式id
+							fromFlag:$localStorage.fromFlag,
 							tfcode: $scope.VM.tfCode,
 							page: current,
 							perPage: 20
 						}, function(data) {
+							console.log($scope.VM.resourceId,$scope.VM.tfCode,current,typeId)
 							console.log(data)
 							if(data.code=="OK")
 							{	
@@ -275,16 +274,15 @@
 							}
 							
 						});
-					} else {
+					} else  if($localStorage.fromFlag == "3" || $localStorage.fromFlag == "4" ){
 						//区本或者校本
-						Preview.districtSource({
-							mTypeId: typeId,
-							fileFormat: "全部",
-							orderBy: 0,
+						Preview.source({
+							resId:$scope.VM.resourceId,
+							fromFlag:$localStorage.fromFlag,
+							typeId: typeId,//资源格式id
 							tfcode: $scope.VM.tfCode,
-							page: 1,
-							perPage: 20,
-							fromFlag: $localStorage.fromFlag
+							page: current,
+							perPage: 20
 	
 						}, function(data) {
 							if(data.code=="OK")
@@ -325,6 +323,9 @@
 				 
 				 //点击资源切换
 				$scope.slideChange=function(id,index,fromFlag){
+					_.each($scope.showStar, function(v, i) {
+						$scope.curStar[i]=false;
+					});
 					$scope.currentSlideIndex = index;
 					$scope.VM.resourceId=id;
 					$scope.VM.fromeFlag=fromFlag;
@@ -338,8 +339,12 @@
 
 				//上一个
 				$scope.slidePre = function() {
+					
 					if ($scope.currentSlideIndex > 0) {
-						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex-1].id,$localStorage.fromFlag);
+						_.each($scope.showStar, function(v, i) {
+							$scope.curStar[i]=false;
+						});
+						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex-1].id,$scope.allSourceList[$scope.currentSlideIndex-1].fromFlag);
 						$scope.currentSlideIndex --;
 						for(var i=0;i<$scope.allSourceList.length;i++)
 						{
@@ -353,7 +358,10 @@
 					//下一个
 				$scope.slideNext = function() {
 					if ($scope.currentSlideIndex < $scope.allSourceList.length - 1) {
-						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex+1].id,$localStorage.fromFlag);
+						_.each($scope.showStar, function(v, i) {
+							$scope.curStar[i]=false;
+						});
+						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex+1].id,$scope.allSourceList[$scope.currentSlideIndex+1].fromFlag);
 						$scope.currentSlideIndex ++;
 						for(var i=0;i<$scope.allSourceList.length;i++)
 							{
@@ -374,9 +382,10 @@
 				
 				//下载资源
 				$scope.resDownload = function(id){
+					console.log(id)
 					SystemRes.resDownload({
 						resIds:id,
-						fromFlags: $localStorage.fromFlag
+						fromFlags: $scope.VM.fromFlag
 					}, function(data){
 						
 						window.open(data.data[0].path, "_blank");
