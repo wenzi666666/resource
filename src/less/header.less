@@ -48,9 +48,9 @@
 #header .main-nav{
     background-color: @navBgColor;
     color: #fff;
-}
-#header .main-nav{
     padding: 0;
+    width: 100%;
+    z-index: 99999999;
 }
 #header .main-nav li{
     float: left;
@@ -103,6 +103,9 @@
     color: #12879A;
     top: 50px;
     left: 190px;
+}
+#header .main-nav li.nav-custom {
+    float: right;
 }
 // 第三种页面
 .header-bg-custom3{
@@ -164,7 +167,14 @@
     -webkit-transform: translateY(-100%);
     -ms-transform: translateY(-100%);
     transform: translateY(-100%);
+
+}
+.main-nav--up {
+    position: fixed;
+    top:0
 }
 .slide--up .banner{
-    height: 190px;
+    height: 240px;
 }
+
+

@@ -1,6 +1,6 @@
 <!--一级页面header-->
 <div id="header">
-	<div class="header-top container">
+	<div class="header-top container headroom" id="header-top">
 		<img ui-sref="systemres" class="logo" src="assets/img/logo.png" />
 		<ul class="message">
 			<li><a ui-sref="settings"><i class="icon-user"></i> {{ userTrueName }},欢迎您</a></li>
@@ -17,17 +17,16 @@
 			<div class="banner-footer-footer"></div>
 		</div>
 	</div>
-	<div class="main-nav nav-pills">
+	<div class="main-nav nav-pills headroom" id="main-nav">
 		<div class="container">
-
 			<ul class="nav">
 				<li><a ui-sref="systemres" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('systemres')}">系统资源</a></li>
 				<li><a ui-sref="schoolres" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('schoolres')}">校本资源</a></li>
 				<li><a ui-sref="areares" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('areares')}">区本资源</a></li>
 				<li><a href="#" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('#')}">学生学习空间</a></li>
 				<li><a ui-sref="customres" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('customres')}">资源定制</a></li>
-				<li><a ui-sref="personalcenter" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('personalcenter')}"><img src="assets/img/profile.png"/>个人中心</a></li>
-				<li class="shopping-cart"><a ui-sref="prepare" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('prepare')}"><img src="assets/img/shopcart.png"/>备课夹</a></li>
+				<li class="shopping-cart nav-custom"><a ui-sref="prepare" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('prepare')}"><img src="assets/img/shopcart.png"/>备课夹</a></li>
+				<li class="nav-custom"><a ui-sref="personalcenter" class="hvr-sweep-to-right" ng-class="{'onactive':isActive('personalcenter')}"><img src="assets/img/profile.png"/>个人中心</a></li>
 			</ul>
 		</div>
 	</div>

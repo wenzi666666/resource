@@ -18,13 +18,13 @@ treecontrol ul {
     padding: 0;
     list-style: none;
     border: none;
-    overflow: auto;
+    /*overflow: auto;*/
 }
 
 treecontrol li {
     position: relative;
     line-height: 25px;
-    float: left;
+/*    float: left;*/
 }
 
 treecontrol li.tree-expanded i.tree-leaf-head, treecontrol li.tree-collapsed i.tree-leaf-head {display:none;}

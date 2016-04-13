@@ -63,6 +63,8 @@
 				console.log("layout")
 				setTimeout(function() {
 					var header = document.querySelector("#banner");
+					var headerTop = document.querySelector("#header-top");
+					var mainNav = document.querySelector("#main-nav");
 					if(!!header) {
 						 if(window.location.hash) {
 					      header.classList.add("slide--up");
@@ -78,6 +80,44 @@
 					          initial: "slide",
 					          pinned: "slide--reset",
 					          unpinned: "slide--up"
+					        }
+					    }).init();
+					}
+					
+					if(!!headerTop) {
+						 if(window.location.hash) {
+					      headerTop.classList.add("slide--up");
+					    }
+					
+					    new Headroom(headerTop, {
+					        tolerance: {
+					          down : 10,
+					          up : 20
+					        },
+					        offset : 205,
+					        classes: {
+					          initial: "slide",
+					          pinned: "slide--reset",
+					          unpinned: "slide--up"
+					        }
+					    }).init();
+					}
+					
+					if(!!mainNav) {
+						 if(window.location.hash) {
+					      mainNav.classList.add("slide--up");
+					    }
+					
+					    new Headroom(mainNav, {
+					        tolerance: {
+					          down : 10,
+					          up : 20
+					        },
+					        offset : 205,
+					        classes: {
+					          initial: "slide",
+					          pinned: "slide--reset",
+					          unpinned: "main-nav--up"
 					        }
 					    }).init();
 					}

@@ -18,6 +18,19 @@
 		])
 		.controller("TreeController", ['$scope', '$stateParams', '$state', '$location', 'Tree','$localStorage',
 			function($scope, $stateParams, $state, $location, Tree,$localStorage) {
+				 // 目录树样式
+				 $scope.opts = {
+			         injectClasses: {
+			             "ul": "c-ul",
+			             "li": "c-li",
+			             "liSelected": "c-liSelected",
+			             "iExpanded": "c-iExpanded",
+			             "iCollapsed": "c-iCollapsed",
+			             "iLeaf": "c-iLeaf",
+			             "label": "c-label",
+			             "labelSelected": "c-labelSelected"
+			         }
+			     };
 				// 监听目录树变化
 				$scope.$on("currentTreeIdUpdate",function(e, d) {
 					Tree.getTree({
