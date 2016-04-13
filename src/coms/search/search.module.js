@@ -87,8 +87,6 @@
 					
 				}
 				
-				
-				
 				//资源格式
 				
 				function getFormat(){
@@ -215,23 +213,41 @@
 				$scope.resList = {
 					seletct: [],
 					fromFlag:[],
+					loadIndex:[]
 				};
 				$scope.checkAll =  function() {
 					if(($scope.VM.checkAll)) {
 						$scope.resList.select = $scope.sourceList.map(function(item) { return item.id; });
 						$scope.resList.fromFlag = $scope.sourceList.map(function(item) { return item.fromFlag; });
+						for(var i=0;i<$scope.sourceList.length;i++)
+						{
+							$scope.resList.loadIndex.push(i);
+						}
 						console.log($scope.resList.select);
 						console.log($scope.resList.fromFlag);
 					}else{
 						$scope.resList.select = [];
 						$scope.resList.fromFlag=[];
+						$scope.resList.loadIndex=[];
 					}
 				}
 				
 				//下载资源 
-				$scope.resDownload = function(id,flag){
+				$scope.resDownload = function(id,flag,index){
 					console.log(id);
 					console.log(flag);
+					console.log(index)
+					if((typeof index)=="number")
+					{
+						$scope.sourceList[index].dloadTimes=parseInt($scope.sourceList[index].dloadTimes)+1;
+					}else if(typeof index=="object")
+					{
+						for(var i=0;i<index.length;i++)
+						{
+							$scope.sourceList[index[i]].dloadTimes=parseInt($scope.sourceList[index[i]].dloadTimes)+1;
+						}
+					}
+					
 					SystemRes.resDownload({
 						resIds:id,
 						fromFlags:flag 
@@ -251,14 +267,17 @@
 				
 				//多个下载,在搜索页面，fromFlag不一样  
 				$scope.addItemSelect = function(flag,index) {
-					console.log($scope.resList.fromFlag.length)
-					console.log($scope.resList.select.length)
+					
+						console.log($scope.resList.fromFlag.length);
+						console.log($scope.resList.select.length);
 						if(($scope.resList.fromFlag.length-1)==$scope.resList.select.length)
 						{
 							$scope.resList.fromFlag.pop(flag);
+							$scope.resList.loadIndex.pop(index);
 						}else
 						{
 							$scope.resList.fromFlag.push(flag);
+							$scope.resList.loadIndex.push(index);
 						}
 					
 					// 清除全选
@@ -269,7 +288,7 @@
 				$scope.downLoadSelect = function() {
 					// 全部打包下载
 					if(!!$scope.resList.select)
-						$scope.resDownload($scope.resList.select.toString(),$scope.resList.fromFlag.toString());
+						$scope.resDownload($scope.resList.select.toString(),$scope.resList.fromFlag.toString(),$scope.resList.loadIndex);
 						
 					else {
 						ModalMsg.logger("还没有选中资源哦");
