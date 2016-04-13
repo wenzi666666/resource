@@ -74,15 +74,28 @@ treecontrol.tree-classic li .tree-unselectable {
 
 treecontrol.tree-light li.tree-expanded i.tree-branch-head {
     padding: 1px 15px;
-    background: url("../images/node-opened-2.png") no-repeat;
+    background: url("../images/node-opened-1.png") no-repeat;
     margin-left: 12px;
 }
 
 treecontrol.tree-light li.tree-collapsed i.tree-branch-head {
     padding: 1px 15px;
-    background: url("../images/node-closed-2.png") no-repeat;
+    background: url("../images/node-closed-1.png") no-repeat;
     margin-left: 12px;
 }
+/*二 三四级*/
+treecontrol.tree-light li treeitem .tree-expanded i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../images/node-opened-2.png") no-repeat;
+    margin-left: 14px;
+}
+
+treecontrol.tree-light li treeitem .tree-collapsed i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../images/node-closed-2.png") no-repeat;
+    margin-left: 14px;
+}
+
 treecontrol>ul>li>.tree-branch-head{
 	margin-left: 0 !important;
 }
