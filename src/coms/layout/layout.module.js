@@ -5,18 +5,24 @@
 	'use strict';
 	// Module configuration
 	angular.module('webApp.coms.layout')
-//		.factory('UserInfo', ['$resource',
-//			function($resource) {
-//				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
-//                  userid: '@_id'
-//              },{
-//					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"}
-//				})
-//			}
-//		])
-		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage',
-			function($scope, $stateParams, $state, $location,$localStorage) {
-				
+		.factory('Layout', ['$resource',
+			function($resource) {
+				return $resource('', {}, {
+					// 学习空间
+					autoLearning: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/autoLearning"
+					}
+				})
+			}
+		])
+		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','Layout',
+			function($scope, $stateParams, $state, $location,$localStorage,Layout) {
+				//主导航学生学习空间地址
+				Layout.autoLearning({},function(data) {
+					console.log("learning:", data);
+				})
+				//退出
 				$scope.logout = function() {
 					localStorage.removeItem("ngStorage-authUser");
 					localStorage.removeItem("credentialsToken");
