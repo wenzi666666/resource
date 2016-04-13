@@ -33,6 +33,9 @@
 		<div class="res-list-main">
 			<ul class="res-ul-list">
 				<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
+				<div class="noInfo" ng-show="showNoInfo">
+					没有您搜索的资源哦~
+				</div>
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index" >
 						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag)" />
 						<label for="{{$index}}"></label>

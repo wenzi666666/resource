@@ -82,15 +82,17 @@
 					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
 					clearPage();
-					getFormat();
+					getFormat();//资源格式
 					getSourceList();
+					
 				}
 				
 				
 				
 				//资源格式
-				$scope.VM.typeNums=[];
+				
 				function getFormat(){
+					$scope.VM.typeNums=[];
 					console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
 					Search.resourceFormats({
 						fromFlag:$scope.VM.currentFromFlag,
@@ -109,8 +111,7 @@
 					});
 					
 				}
-				getFormat();//获取格式
-				
+				getFormat();//资源格式
 				//资源格式切换
 				$scope.VM.currentTypeNum = [];
 				$scope.VM.currentTypeNum[0] = true;
@@ -123,6 +124,7 @@
 					$scope.VM.currentTypeNum[index] = true;
 					$scope.VM.currentFormat = $scope.VM.typeNums[index];
 					clearPage();
+					
 					getSourceList();
 				}
 				
@@ -134,6 +136,7 @@
 				 function getSourceList () {
 				 	$scope.sourceList="";
 				 	$scope.isLoading = true;
+				 	$scope.showNoInfo=false;
 					Search.searchResults({
 						fromFlag: $scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord,
@@ -143,21 +146,26 @@
 					}, function(data) {
 						$scope.isLoading = false;
 						if (data.code == "OK") {
+							if(data.data.list!=0)
+							{	$scope.showNoInfo=false;
+								_.each(data.data.list, function(v, i) {
+									data.data.list[i].starNum=new Array();
+									for(var j=0;j<v.avgScore;j++)
+									{
+										data.data.list[i].starNum.push(j);
+									}
+								});
+								$scope.sourceList = data.data.list;
+								console.log($scope.sourceList);
+								$scope.listLength = data.data.totalLines;
+								$scope.bigTotalItems = $scope.listLength;
+								$scope.pageSize=data.data.total;
+								console.log("范围："+$scope.VM.currentFromFlag+"==关键字"+$scope.searchKeyWord+"===类型"+$scope.VM.currentFormat+"==当前页"+$scope.bigCurrentPage+"==每页显示"+$scope.perPage+"页数"+$scope.pageSize)
+							}else
+							{
+								$scope.showNoInfo=true;
+							}
 							
-							_.each(data.data.list, function(v, i) {
-								data.data.list[i].starNum=new Array();
-								for(var j=0;j<v.avgScore;j++)
-								{
-									data.data.list[i].starNum.push(j);
-								}
-								
-							});
-							$scope.sourceList = data.data.list;
-							console.log($scope.sourceList);
-							$scope.listLength = data.data.totalLines;
-							$scope.bigTotalItems = $scope.listLength;
-							$scope.pageSize=data.data.total;
-							console.log("范围："+$scope.VM.currentFromFlag+"==关键字"+$scope.searchKeyWord+"===类型"+$scope.VM.currentFormat+"==当前页"+$scope.bigCurrentPage+"==每页显示"+$scope.perPage+"页数"+$scope.pageSize)
 						} else {
 
 							alert(data.code);
@@ -180,6 +188,7 @@
 				$scope.changeKeyWord=function(){
 					
 					getSourceList();
+					getFormat();//资源格式
 				}
 				//改变每页条数
 				$scope.changePerPage=function(){
