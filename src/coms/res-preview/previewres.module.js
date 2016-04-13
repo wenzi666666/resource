@@ -177,7 +177,7 @@
 					}
 					else
 					{//区本/校本资源类型
-						Preview.systemTypes({
+						Preview.districtTypes({
 							poolId:0,
 							tfcode:$scope.VM.tfCode,
 						},function(data){
@@ -318,6 +318,9 @@
 								alert(data.message);
 							}
 						});
+					}else{//个人中心/资源定制也跳转过来 不现实其他目录/资源格式默认全部/没有不能加入备课夹
+						
+						
 					}
 				}
 				 
@@ -382,7 +385,7 @@
 				
 				//下载资源
 				$scope.resDownload = function(id){
-					console.log(id)
+					console.log(id,$scope.VM.fromFlag)
 					SystemRes.resDownload({
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag

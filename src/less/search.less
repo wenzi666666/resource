@@ -19,9 +19,10 @@
 #search-container .search_tools_inner
 {
     width: 500px;
-    min-height: 100px;
+    min-height: 130px;
     margin: 0 auto;
     margin-top: 10px;
+    overflow: hidden;
 }
 #search-container .trigger
 {
@@ -60,8 +61,9 @@
     background: @color1;
     color: @fff;
     font-size: 1.5rem;
-   padding: 5px;
+   padding: 7px 5px;
    cursor: pointer;
+   float: right;
     
 }
 #search-container .search_list
@@ -70,6 +72,8 @@
     clear: both;
     margin-left: 30px;
     color: @color12;
+    text-align: center;
+    
     
 }
 #search-container .search_list li{
@@ -106,10 +110,7 @@
     min-height: 500px;
   
 }
-#search-container .res-list-info
-{
-    cursor: default !important; 
-}
+
 #search-container .res-list-item{
     border-top: 1px solid #D3D3D3;
     margin: 0px;
@@ -121,6 +122,7 @@
     border: 2px solid #219B81;
     height: 130px;
     width: 165px;
+    cursor: pointer;
 }
 #search-container .res-checkbox
 {
@@ -141,6 +143,7 @@
 #search-container .res-title{
     margin-top: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 #search-container .star_box
 {

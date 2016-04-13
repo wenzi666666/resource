@@ -22,7 +22,7 @@
 				<input type="text" placeholder="请输入搜索内容" class="search_text"  ng-model="searchKeyWord"/><span class="search_btn" ng-click="changeKeyWord()">搜索</span>
 			</div>
 			<ul class="search_list">
-				<li ng-repeat="typeNum in VM.typeNums track by $index" ng-class="VM.currentTypeNum[$index]?'selected':''" ng-click="VM.typeClick($index)">{{typeNum.type}}</li>
+				<li ng-repeat="typeNum in VM.typeNums track by $index" ng-class="VM.currentTypeNum[$index]?'selected':''" ng-click="VM.typeClick($index)">{{typeNum}}</li>
 
 			</ul>
 		</div>
@@ -33,12 +33,11 @@
 		<div class="res-list-main">
 			<ul class="res-ul-list">
 				<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-				<li class="res-list-item" ng-repeat="source in sourceList track by $index">
-					<!--<input class="res-checkbox" type="checkbox" ng-model="isCheck" ng-checked="allCheck">-->
+				<li class="res-list-item" ng-repeat="source in sourceList track by $index" >
 						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag)" />
 						<label for="{{$index}}"></label>
-					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png">
-					<span class="res-list-info">
+					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:source.id,curTfcode:''})">
+					<span class="res-list-info" ui-sref="previewres({resId:source.id,curTfcode:''})">
 					<label class="res-title text-ellipsis">{{source.title}}</label>
 					<label class="res-type">类型: {{source.mtype}}</label>
 					<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}M</label>
@@ -52,7 +51,6 @@
 					</span>
 					</span>
 					<span class="res-list-tools">
-					<!--<button class="btn btn-success">移出备课夹</button><br>-->
 					<label class="res-download" ng-click="resDownload(source.id,source.fromFlag)"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				</li>

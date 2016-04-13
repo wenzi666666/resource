@@ -48,7 +48,7 @@
 				
 				// 加载过程显示 转圈
 				$scope.isLoading = true;
-				
+				$scope.searchKeyWord="";
 				//搜索资源范围
 
 				$scope.VM.searchArea = [{
@@ -63,44 +63,6 @@
 					}, {
 						"area": "校本资源",
 						"id": 3
-					}
-
-				];
-				
-				
-				//资源类型
-				$scope.VM.typeNums=[];
-				function getFormat(){
-					Search.resourceFormats({
-						fromFlag:$scope.VM.currentFromFlag,
-						searchKeyword:$scope.searchKeyWord
-					},function(data){
-						console.log("格式");
-						console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
-					
-						if(data.code=="OK")
-						{
-							console.log(data)
-//							$scope.VM.typeNums=data.data;
-						}else{
-							alert(data.message);
-						}
-					});
-				}
-				getFormat();
-				
-				$scope.VM.typeNums = [{
-						"type": "全部",
-						"num": 10
-					}, {
-						"type": "视频",
-						"num": 4
-					}, {
-						"type": "图片",
-						"num": 4
-					}, {
-						"type": "文本",
-						"num": 2
 					}
 
 				];
@@ -119,30 +81,55 @@
 					$scope.VM.currentAreaSelect[index] = true;
 					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
-					$scope.bigCurrentPage = 1;
+					clearPage();
+					getFormat();
 					getSourceList();
 				}
-
-				//资源类型
+				
+				
+				
+				//资源格式
+				$scope.VM.typeNums=[];
+				function getFormat(){
+					console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
+					Search.resourceFormats({
+						fromFlag:$scope.VM.currentFromFlag,
+						searchKeyword:$scope.searchKeyWord
+					},function(data){
+						console.log("格式");
+						console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
+					
+						if(data.code=="OK")
+						{
+							console.log(data);
+							$scope.VM.typeNums=data.data;
+						}else{
+							alert(data.message);
+						}
+					});
+					
+				}
+				getFormat();//获取格式
+				
+				//资源格式切换
 				$scope.VM.currentTypeNum = [];
 				$scope.VM.currentTypeNum[0] = true;
-				$scope.VM.currentFormat = $scope.VM.typeNums[0].type;
+				$scope.VM.currentFormat = $scope.VM.typeNums[0];
 				$scope.VM.typeClick = function(index) {
 					_.each($scope.VM.typeNums, function(v, i) {
 						$scope.VM.currentTypeNum[i] = false;
 
 					});
 					$scope.VM.currentTypeNum[index] = true;
-					$scope.VM.currentFormat = $scope.VM.typeNums[index].type;
-					$scope.bigCurrentPage = 1;
+					$scope.VM.currentFormat = $scope.VM.typeNums[index];
+					clearPage();
 					getSourceList();
 				}
-
+				
 				//获取资源列表
 				$scope.bigCurrentPage = 1;
 				$scope.perPage=10;
 				$scope.maxSize = 5;
-				$scope.searchKeyWord="数学";
 				$scope.inputPerPage=10;
 				 function getSourceList () {
 				 	$scope.sourceList="";
@@ -180,6 +167,15 @@
 				}
 				getSourceList();
 				
+				//切换清楚分页
+				function clearPage(){
+					$scope.bigCurrentPage = 1;
+					$scope.listLength = 0;
+					$scope.bigTotalItems = 0;
+					$scope.pageSize=0;
+				}
+				
+			
 				//搜索内容
 				$scope.changeKeyWord=function(){
 					
