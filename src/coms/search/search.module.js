@@ -48,7 +48,7 @@
 				
 				// 加载过程显示 转圈
 				$scope.isLoading = true;
-				$scope.searchKeyWord="00";
+				$scope.searchKeyWord="";
 				//搜索资源范围
 
 				$scope.VM.searchArea = [{

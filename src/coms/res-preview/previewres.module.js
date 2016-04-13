@@ -441,6 +441,7 @@
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag
 					}, function(data){
+						$scope.VM.info.dloadTimes=	$scope.VM.info.dloadTimes+1;
 						window.open(data.data[0].path, "_blank");
 					});
 				}
