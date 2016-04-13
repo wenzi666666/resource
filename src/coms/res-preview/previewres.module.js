@@ -119,39 +119,32 @@
 				$scope.VM.curNav[0] = true;
 				
 				$scope.links=[];
+				$scope.links[2]=true;
 				// 当前目录点击事件
+				
 				$scope.back=function(index,tfcode){
-					if(index!=0)
+					if(index==2)
 					{
+						
 						//返回前一页历史状态 //该接口存在问题
-						Preview.back({
-							tfcode:tfcode
-						},function(data){
-							console.log("返回前一页数据")
-							console.log(data);
-							if(data.code=="OK")
-							{
-								
-							}else
-							{
-								alert(data.message)
-							}
-						});
+//						Preview.back({
+//							tfcode:tfcode
+//						},function(data){
+//							console.log("返回前一页数据")
+//							console.log(data);
+//							if(data.code=="OK")
+//							{
+//								
+//							}else
+//							{
+//								alert(data.message)
+//							}
+//						});
+						history.back();
 						
 					}
 				}
-				$scope.linkMouseover=function(index){
-					if(index!=0)
-					{
-						$scope.links[index]=true;
-					}
-				}
-				$scope.linkMouseout=function(index){
-					if(index!=0)
-					{
-						$scope.links[index]=false;
-					}
-				}
+				
 				
 				
 				//切换目录
@@ -438,7 +431,6 @@
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag
 					}, function(data){
-						
 						window.open(data.data[0].path, "_blank");
 					});
 				}

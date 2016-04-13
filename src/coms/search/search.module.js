@@ -235,6 +235,8 @@
 						fromFlags:flag 
 					}, function(data){
 						console.log(data.data)
+						//下载次数增加
+						$scope.VM.info.clickTimes=$scope.VM.info.clickTimes+1;
 						for(var i=0;i<data.data.length;i++)
 						{
 							window.open(data.data[i].path, "_blank");
