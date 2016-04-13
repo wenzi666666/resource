@@ -37,7 +37,7 @@
 					没有您搜索的资源哦~
 				</div>
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index" >
-						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag)" />
+						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag,$index)" />
 						<label for="{{$index}}"></label>
 					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag,search:'search'})">
 					<span class="res-list-info" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag,search:'search})">
