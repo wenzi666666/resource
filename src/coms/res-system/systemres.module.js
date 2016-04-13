@@ -369,17 +369,15 @@
 				$scope.perpareArray = []
 				$scope.addItemSelect = function(resId) {
 					var index = _.indexOf($scope.perpareArray, resId);
-//					if(index > -1) {
-//						$scope.perpareArray.push(resId);
-//					} esle {
-//						$scope.perpareArray.push(resId);
-//					}
+					// 清除全选
+					$scope.VM.checkAll = [];
 				}
 				
 				// 全选
 				$scope.resList = {
 					seletct: []
 				};
+				
 				$scope.checkAll =  function() {
 					if(($scope.VM.checkAll)) {
 						$scope.resList.select = $scope.resList.list.map(function(item) { return item.id; });
