@@ -82,7 +82,10 @@
 				$scope.VM.currentSubjectSeclet = [];
 				$scope.VM.currentVersionSeclet = [];
 				$scope.VM.currentMaterialSeclet = [];
-
+				
+				// 第一次登录全显示
+				$scope.VM.isFirstLogin = $localStorage.isFirstLogin?false:true;
+				$localStorage.isFirstLogin = 1;
 				//第一次进入 链式调用 
 				//读取 学段 学科 版本 和教材
 				Res.getTerms({}, function(data) {

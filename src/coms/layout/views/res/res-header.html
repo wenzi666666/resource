@@ -65,12 +65,12 @@
 
 <!--筛选主内容 -->
 <div class="res-navbody">
-	<div class="res-body-content res-grade" ng-hide="VM.currentHeader">
+	<div class="res-body-content res-grade" ng-hide="VM.currentHeader || !VM.isFirstLogin">
 		<span class="res-content-left">学段:</span>
 		<span class="select-item res-grade-content" ng-repeat="grade in VM.grade track by $index" ng-class="VM.currentGradeSeclet[$index]?'selected':''" ng-click="VM.selectGrade($index)">{{ grade.name}}</span>
 	</div>
 	<div class="clearfix"></div>
-	<div class="res-body-content res-subject" ng-hide="VM.currentHeader">
+	<div class="res-body-content res-subject" ng-hide="VM.currentHeader || !VM.isFirstLogin">
 		<div class="res-content-left">学科:</div>
 		<div class="res-subject-wrapper"> 
 			<span class="select-item res-subject-content" ng-repeat="subject in VM.subject track by $index" ng-class="VM.currentSubjectSeclet[$index]?'selected':''" ng-click="VM.selectSubject($index)">{{ subject.name }}</span>
@@ -80,7 +80,7 @@
 		</span>-->
 	</div>
 	<div class="clearfix"></div>
-	<div class="res-body-content res-material-version" ng-hide="VM.currentVersionShow || VM.version.length==0 || !VM.version">
+	<div class="res-body-content res-material-version" ng-show="VM.isFirstLogin" ng-hide="VM.currentVersionShow || VM.version.length==0 || !VM.version || VM.currentVersionTmpShow">
 		<div class="res-content-left">版本:</div>
 		<div  class="res-version-wrapper">
 			<span ng-repeat="v in VM.version track by $index" class="select-item res-material-content" ng-class="VM.currentVersionSeclet[$index]?'selected':''"  ng-click="VM.selectVersion($index)">{{ v.name }}</span>
@@ -89,14 +89,14 @@
 	<div class="clearfix"></div>
 
 	<!--<div class="res-body-content res-material-version" ng-hide="VM.currentMaterialShow || !VM.currentVersionShow">-->
-	<div class="res-body-content res-material-version" ng-hide="!VM.material || VM.material.length==0 || VM.currentMaterialShow">
+	<div class="res-body-content res-material-version" ng-hide="!VM.material || VM.material.length==0 || VM.currentMaterialShow || VM.currentMaterialTmpShow">
 		<div class="res-content-left">教材:</div>
 		<div  class="res-material-wrapper">
 			<span ng-repeat="v in VM.material track by $index" class="select-item res-material-content" ng-class="VM.currentMaterialSeclet[$index]?'selected':''" ng-click="VM.selectMaterial($index)">{{ v.name }}</span>
 		</div>	
 	</div>
 	<div class="clearfix"></div>
-	<div class="res-content-footer" ng-hide="VM.currentMaterialShow">
+	<div class="res-content-footer" ng-hide="VM.currentMaterialShow || VM.currentMaterialTmpShow">
 		<img src="assets/img/res-nav-footer.png">
 		<div></div>
 	</div>
