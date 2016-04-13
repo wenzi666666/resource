@@ -56,7 +56,6 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resRecommendation"
 					},
-					
 					resViewUrl:{
 						method:"GET",
 						url:BackendUrl + "/resRestAPI/v1.0/resViewUrl"
@@ -68,6 +67,10 @@
 					districtTypes:{//获取校本/区本系统资源类型
 						method:"GET",
 						url:BackendUrl + "/resRestAPI/v1.0/districtResource/types"
+					},
+					back:{//从当前页返回前一页接口
+						method:"GET",
+						url:BackendUrl + "/resRestAPI/v1.0/backCourseContent"
 					}
 					
 
@@ -81,7 +84,8 @@
 				$scope.VM = {};
 				
 				//跳转过来的默认id 和 tfcode   
-				//对于tfcode和fromFlag不同页面跳转过来不同  这个地方还有待修改 新接口还在开发中
+				//对于tfcode和fromFlag不同页面跳转过来不同  
+				//所以后期fromFlag会根据单个资源的fromFlag进行切换 不会只读取localStorage里面的
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
 				$scope.VM.fromFlag=$localStorage.fromFlag;
@@ -108,14 +112,40 @@
 				$scope.VM.curNav[0] = true;
 				
 				$scope.links=[];
-				$scope.links[1]=true;
-				//返回上一页
+				// 当前目录点击事件
 				$scope.back=function(index,tfcode){
-					if(index==1)
+					if(index!=0)
 					{
-						history.back();
+						//返回前一页历史状态 //该接口存在问题
+						Preview.back({
+							tfcode:tfcode
+						},function(data){
+							console.log("返回前一页数据")
+							console.log(data);
+							if(data.code=="OK")
+							{
+								
+							}else
+							{
+								alert(data.message)
+							}
+						});
+						
 					}
 				}
+				$scope.linkMouseover=function(index){
+					if(index!=0)
+					{
+						$scope.links[index]=true;
+					}
+				}
+				$scope.linkMouseout=function(index){
+					if(index!=0)
+					{
+						$scope.links[index]=false;
+					}
+				}
+				
 				
 				//切换目录
 				$scope.selectNav = function(index) {
