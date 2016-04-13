@@ -393,6 +393,11 @@
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
 						$scope.currentSlideIndex = $scope.allSourceList.length - 1;
+						for(var i=0;i<$scope.allSourceList.length;i++)
+							{
+								$scope.curImg[i]=false;
+							}
+						$scope.curImg[$scope.currentSlideIndex]=true;
 					}
 				}
 					//下一个
@@ -409,7 +414,13 @@
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
+						
 						$scope.currentSlideIndex = 0;
+						for(var i=0;i<$scope.allSourceList.length;i++)
+							{
+								$scope.curImg[i]=false;
+							}
+						$scope.curImg[$scope.currentSlideIndex]=true;
 					}
 				}
 				
