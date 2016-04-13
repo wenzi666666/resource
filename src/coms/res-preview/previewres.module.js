@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -94,6 +94,16 @@
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					console.log("搜索页跳转");
 					console.log($scope.VM.fromFlag)
+				}
+				
+				//其他版本目录显示问题
+				$scope.otherShow=false;
+				if($stateParams.search)
+				{
+					$scope.otherShow=true;
+				}else
+				{
+					$scope.otherShow=false;	
 				}
 				
 				console.log($stateParams)

@@ -39,8 +39,8 @@
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index" >
 						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag)" />
 						<label for="{{$index}}"></label>
-					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag})">
-					<span class="res-list-info" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag})">
+					<img class="res-list-thumb" ng-src="{{source.fpath?source.fpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag,search:'search'})">
+					<span class="res-list-info" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag,search:'search})">
 					<label class="res-title text-ellipsis">{{source.title}}</label>
 					<label class="res-type">类型: {{source.mtype}}</label>
 					<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}M</label>
