@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -96,6 +96,16 @@
 					console.log($scope.VM.fromFlag)
 				}
 				
+				//其他版本目录显示问题
+				$scope.otherShow=false;
+				if($stateParams.search)
+				{
+					$scope.otherShow=true;
+				}else
+				{
+					$scope.otherShow=false;	
+				}
+				
 				console.log($stateParams)
 
 				
@@ -119,39 +129,32 @@
 				$scope.VM.curNav[0] = true;
 				
 				$scope.links=[];
+				$scope.links[2]=true;
 				// 当前目录点击事件
+				
 				$scope.back=function(index,tfcode){
-					if(index!=0)
+					if(index==2)
 					{
+						
 						//返回前一页历史状态 //该接口存在问题
-						Preview.back({
-							tfcode:tfcode
-						},function(data){
-							console.log("返回前一页数据")
-							console.log(data);
-							if(data.code=="OK")
-							{
-								
-							}else
-							{
-								alert(data.message)
-							}
-						});
+//						Preview.back({
+//							tfcode:tfcode
+//						},function(data){
+//							console.log("返回前一页数据")
+//							console.log(data);
+//							if(data.code=="OK")
+//							{
+//								
+//							}else
+//							{
+//								alert(data.message)
+//							}
+//						});
+						history.back();
 						
 					}
 				}
-				$scope.linkMouseover=function(index){
-					if(index!=0)
-					{
-						$scope.links[index]=true;
-					}
-				}
-				$scope.linkMouseout=function(index){
-					if(index!=0)
-					{
-						$scope.links[index]=false;
-					}
-				}
+				
 				
 				
 				//切换目录
@@ -393,6 +396,11 @@
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
 						$scope.currentSlideIndex = $scope.allSourceList.length - 1;
+						for(var i=0;i<$scope.allSourceList.length;i++)
+							{
+								$scope.curImg[i]=false;
+							}
+						$scope.curImg[$scope.currentSlideIndex]=true;
 					}
 				}
 					//下一个
@@ -409,7 +417,13 @@
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
+						
 						$scope.currentSlideIndex = 0;
+						for(var i=0;i<$scope.allSourceList.length;i++)
+							{
+								$scope.curImg[i]=false;
+							}
+						$scope.curImg[$scope.currentSlideIndex]=true;
 					}
 				}
 				
@@ -427,7 +441,6 @@
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag
 					}, function(data){
-						
 						window.open(data.data[0].path, "_blank");
 					});
 				}

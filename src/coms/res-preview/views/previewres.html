@@ -2,10 +2,10 @@
 
 	<div class="header-nav-tips">
 		<div class="nav_left">
-			<span ng-repeat="navCur in currentNav" ng-class="links[$index]?'links':''" ng-mouseover="linkMouseover($index)" ng-mouseout="linkMouseout($index)" ng-click="back($index,navCur.tfcode)">{{navCur.name}}<i class="icon-angle-right"></i></span>
+			<span ng-repeat="navCur in currentNav" ng-class="links[$index]?'links':''"  ng-click="back($index,navCur.tfcode)">{{navCur.name}}<i class="icon-angle-right"></i></span>
 		</div>
 		<div class="nav_right">
-		  <span class="mulu">其他版本目录
+		  <span class="mulu" ng-show="otherShow">其他版本目录
 			<div class="popBox">
 				<ul>
 					<li ng-repeat="navs in navList" ng-class="VM.curNav[$index]?'selected':''" ng-click="selectNav($index)">
