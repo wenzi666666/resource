@@ -4,7 +4,7 @@
 		<div class="nav_left">
 			<span ng-repeat="navCur in currentNav" ng-class="links[$index]?'links':''"  ng-click="back($index,navCur.tfcode)">{{navCur.name}}<i class="icon-angle-right"></i></span>
 		</div>
-		<div class="nav_right">
+		<!--<div class="nav_right">
 		  <span class="mulu" ng-show="otherShow">其他版本目录
 			<div class="popBox">
 				<ul>
@@ -14,7 +14,7 @@
 				</ul>
 		    </div>
 		  </span>
-	  </div>
+	  </div>-->
 	</div>
 	<div class="slide-container col-md-10">
 		<div class="slide-content">
@@ -27,8 +27,8 @@
 		</div>
 	</div>
 	<div class="col-md-2">
-		<div class="slide_head">类型：<span class="type_box"><span>{{typeName}}</span><i class="icon-angle-down"></i></span>
-			<div class="pop-type-box">
+		<div class="slide_head">类型：<span class="type_box"><span>{{typeName}}</span><i class="icon-angle-down" ng-hide="VM.preShow"></i></span>
+			<div class="pop-type-box" ng-hide="VM.preShow">
 				<div class="pop-type">
 					<ul>
 						<li ng-repeat="type in sourceType" ng-click="selectType(type.id,$index)" ng-class="typeLight[$index]?'selected':''" >{{type.mtype}}</li>
@@ -67,7 +67,7 @@
 	
 	</div>
 	<!-- 备课夹悬浮  -->
-	<div class="prepare-fixed">
+	<div class="prepare-fixed" ng-hide="VM.preShow">
 		<div class="prepare-shop" ui-sref="prepare">
 			<img src="assets/img/shopcart.png"/>
 			<span class="shop-count">{{ shopCount }}</span>
