@@ -27,7 +27,9 @@
 				<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
 				<label for="{{$index}}"></label>
 				<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
-				<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				<div class="img-thumb-list">
+					<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				</div>
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
 					<label class="res-type">类型: {{ list.mtype }}</label>
