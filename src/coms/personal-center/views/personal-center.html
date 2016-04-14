@@ -30,13 +30,12 @@
 						<span></span><img src="assets/img/left_arrow.png" />
 					</div>
 					<div class="statistic-content">
-						<p>必修一已备完28节课，共32个备课夹，256条资源，还有22节课要备。</p>
+						<p>{{item.title}}已备完{{item.prepareNums}}节课，共{{prepare.length}}个备课夹，{{item.resourceNums}}条资源，还有{{item.nodeOmitNums}}节课要备。</p>
 						<div class="statistic-box">
-							<span>已备课：52%</span>
-							<img src="assets/img/statistic.png"/>
-							<span>未备课：48%</span>
+							{{prepareConfig}}
+							<highchart config="chartConfig"></highchart>
 						</div>
-						<p>必修一</p>
+						<p>{{item.title}}</p>
 					</div>
 					<div class="right-arrow">
 						<span></span>
@@ -62,5 +61,5 @@
 
 <!-- 模态框（Modal） -->
 <!-- 上传模态框 -->
-<div  ng-controller="uploadResController" data-ng-include="'/coms/personal-center/views/upload-modal.html'"></div>
+<div data-ng-include="'/coms/personal-center/views/upload-modal.html'"></div>
 

@@ -5,8 +5,8 @@
 	'use strict';
 	//Module configuration
 	angular.module('webApp.coms.personalcenter')
-		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','ModalMsg','Res',
-			function($scope, $stateParams, $state, $location, $localStorage,ModalMsg,Res) {
+		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal', 'ModalMsg','Res','Upload','$timeout',
+			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,ModalMsg,Res,Upload,$timeout) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				
@@ -14,7 +14,7 @@
 					
 					$scope.uploadData =  data.data
 					console.log("uploadData:",$scope.uploadData)
-					window.uploadFileInit($scope.uploadData.uploadUrl);
+//					
 				})
 				
 				// 编辑完资源信息上传
@@ -22,11 +22,58 @@
 					resName: '未命名',
 					resSize: 0
 				}
+				
+				// 第一屏显示
+				$scope.firstUpload = true;
+				$scope.files = {};
+				$scope.uploadFiles = function(files, errFiles) {
+				  	$scope.firstUpload = false;
+				  	
+			        $scope.files = files;
+//			        $scope.errFiles = errFiles;
+			        angular.forEach(files, function(file) {
+			        	console.log(file)
+			            file.upload = Upload.upload({
+			                url: $scope.uploadData.uploadUrl,
+			                data: {file: file}
+			            });
+			
+			            file.upload.then(function (response) {
+			                $timeout(function () {
+			                    file.result = response.data;
+			                    console.log( response.data)
+			                });
+			            }, function (response) {
+			            	console.log( response.data)
+			                if (response.status > 0)
+			                    $scope.errorMsg = response.status + ': ' + response.data;
+			            }, function (evt) {
+			                file.progress = Math.min(100, parseInt(100.0 *  evt.loaded / evt.total));
+			              	$scope.progress =  file.progress;
+			            });
+			        });
+			    }
+				
 				$scope.uploadResInfo = function() {
-					var currentFile = JSON.parse(window.localStorage.getItem('ngStorage-currentFile'));
-					
+					if(!!$localStorage.files) {
+						var modalNewUpload = $uibModal.open({
+							templateUrl: "eiditResModal.html",
+							windowClass: "upload-modal",
+							controller: 'editResController',
+							scope:$scope //Refer to parent scope here
+						})
+					}
+				}	
+			}
+		])
+		// 编辑资源信息
+		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal', 'ModalMsg','Res','Upload','$timeout',
+			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,ModalMsg,Res,Upload,$timeout) {
+				
+				console.log($scope.uploadData)
+				$scope.uploadResInfo = function() {
 					Res.resCtrl({
-						names: $scope.VM.resName != '未命名'? $scope.VM.resName:currentFile.name,
+						names: $scope.files[0].name.split('.')[0],
 						unifTypeIds: '1',
 						tfcodes: 'BJCZ02010401',
 						scopes: 0,
@@ -51,7 +98,7 @@
 							$scope.VM.uploadFileList = data.data;
 						})
 					})
-				}	
+				}
 			}
 		])
 }());

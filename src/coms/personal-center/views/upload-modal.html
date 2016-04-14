@@ -1,6 +1,6 @@
 <!-- 模态框（Modal） -->
 <!-- 上传 -->
-<div class="modal fade" id="uploadModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<script type="text/ng-template" id="uploadModal.html">
 	<div class="modal-body upload-modal-body">
 		<div class="nav nav-tabs avatar-tabs" role="tablist">
 			<ul>
@@ -15,18 +15,28 @@
 				<div style="clear: both"></div>
 			</ul>
 		</div>
-		<div class="tab-content avatar-tab-content">
-			<div role="tabpanel" class="tab-pane active upload-file-content">
-				<div class="button-group">
-					<div id="fsUploadProgress" class="progress-bar-custom"></div>
-					<button class="btn-general" id="pickfiles" ng-click="uploadFile()">上传</button>
+		<div class="upload-file-content">
+			<div class="first-upload" ng-show="firstUpload">
+				<div class="">
+						图片：jpg、gif、jpeg、png、bmp，限制5M;
+						文本：doc/docx、ppt/pptx、xls/xlsx、pdf/txt，限制30M;
+						动画：swf，限制30M；
+						音频：mp3、wma、wav，限制30M；
+						视频：mp4、flv，限制150M；
+						压缩包：rar、zip，限制100M.
 				</div>
+				<button class="btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="150MB">上传</button>
+			</div>
+			<div class="continue-upload"  ng-hide="firstUpload">
+				<div class=""> {{ progress }}</div>
+				<!--<button class="btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="150MB">继续添加</button>-->
+				<button class="btn-general" ng-click="uploadResInfo()">完成</button>
 			</div>
 		</div>
 	</div>
-</div>
+</script>
 <!-- 上传资源信息编辑 -->
-<div class="modal fade" id="eiditResModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<script type="text/ng-template" id="eiditResModal.html">
 	<div class="modal-body upload-modal-body modal-prepare-body">
 		<div class="modal-prepare-header">上传资源</div>
 		<div class="modal-prepare-content">
@@ -42,4 +52,4 @@
 			<button class="btn btn-lg btn-success btn-custom-modal">取消</button>
 		</div>
 	</div>
-</div>
+</script>
