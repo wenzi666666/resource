@@ -33,7 +33,7 @@ var config = {
             src:  ["src/**/*.html"]
         },
         libjs: {
-            src:  ["src/lib/**/*.js"]
+            src:  ["src/lib/**/*.js","src/assets/ng-file-upload/ng-file-upload-shim.min.js", "src/assets/ng-file-upload/ng-file-upload.min.js"]
         },
         corejs: {
             src: ["dist/template.js", "src/js/**/*.js"]

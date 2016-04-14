@@ -5,7 +5,7 @@
  */ 	
 (function() {
 	//依赖的模块 注入
-	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'angular-loading-bar', 'angular-click-outside','tmp', 'treeControl', 'checklist-model', 'xeditable']
+	var module = ['ui.router','ngAnimate', 'ui.bootstrap', 'ngResource', 'ngStorage', 'angular-loading-bar', 'angular-click-outside','tmp', 'treeControl', 'checklist-model', 'xeditable','ngFileUpload', 'highcharts-ng']
 	
 	angular.module('webApp', module)
 //	//初始化
