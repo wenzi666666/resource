@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag/:search',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:resFlag/:search',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -89,88 +89,85 @@
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
 				$scope.VM.fromFlag=$localStorage.fromFlag;
-				if($stateParams.fromFlag)
+				$scope.VM.search="html";
+				$scope.searchKeyWord=localStorage.searchKeyWord;
+				console.log($scope.searchKeyWord);
+				if($stateParams.search)
 				{//如果是搜索页则使用该fromFlag
 					$scope.VM.fromFlag=$stateParams.fromFlag;
+					$scope.VM.search="search";
 					console.log("搜索页跳转");
-					console.log($scope.VM.fromFlag)
+					console.log($scope.VM.fromFlag);
 				}
 				
-				//其他版本目录显示问题
-				$scope.otherShow=false;
-				if($stateParams.search)
+				//备课夹显示问题
+				$scope.VM.preShow=true;
+				if($scope.VM.search=="search")
 				{
-					$scope.otherShow=true;
+					$scope.VM.preShow=true;
 				}else
 				{
-					$scope.otherShow=false;	
+					$scope.VM.preShow=false;	
 				}
 				
 				console.log($stateParams)
-
 				
-				// 资源nav数据
-				Preview.lists({
-					resId: $scope.VM.resourceId,
-					curTfcode: $scope.VM.tfCode,
-					fromFlag: $scope.VM.fromFlag
-
-				}, function(data) {
+				if($scope.VM.search=="search")
+				{//如果是搜索页则不加载目录//和格式
+					$scope.sourceType=[{"id":"0","mtype":"全部"}];
+					$scope.sourceTypeId=0;
+					$scope.typeLight=[];
+					$scope.typeLight[0]=true;
+					$scope.typeName="全部";
+					getAllSource("");//获取对应资源
+				}else
+				{
+					// 资源nav数据
+					Preview.lists({
+						resId: $scope.VM.resourceId,
+						curTfcode: $scope.VM.tfCode,
+						fromFlag: $scope.VM.fromFlag
+	
+					}, function(data) {
+						
+						$scope.navList = data.data;
+						$scope.currentNav = $scope.navList[0];
+						$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
+						$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
+						console.log($scope.VM.tfCode,$scope.VM.name)
+						getTypes();//获取资源类型
+						
+					});	
 					
-					$scope.navList = data.data;
-					$scope.currentNav = $scope.navList[0];
-					$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
-					$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
-					console.log($scope.VM.tfCode,$scope.VM.name)
-					getTypes();//获取资源类型
-					
-				});
-				$scope.VM.curNav = [];
-				$scope.VM.curNav[0] = true;
+				}
 				
-				$scope.links=[];
-				$scope.links[2]=true;
+				
+				
 				// 当前目录点击事件
-				
 				$scope.back=function(index,tfcode){
 					if(index==2)
 					{
 						
-						//返回前一页历史状态 //该接口存在问题
-//						Preview.back({
-//							tfcode:tfcode
-//						},function(data){
-//							console.log("返回前一页数据")
-//							console.log(data);
-//							if(data.code=="OK")
-//							{
-//								
-//							}else
-//							{
-//								alert(data.message)
-//							}
-//						});
 						history.back();
-						
 					}
 				}
 				
 				
 				
-				//切换目录
-				$scope.selectNav = function(index) {
-					//选中
-					_.each($scope.navList, function(v, i) {
-						$scope.VM.curNav[i] = false;
-					});
-					$scope.VM.curNav[index] = true;
-					$scope.currentNav = $scope.navList[index];
-					$scope.VM.tfCode=$scope.navList[index][$scope.navList[index].length-1].tfcode;
-					$scope.VM.name=$scope.navList[index][$scope.navList[index].length-1].name;
-					console.log($scope.VM.tfCode);
-					getTypes();//获取资源类型
-					getPrepare();//获取备课夹
-				}
+//				//切换目录
+//				$scope.selectNav = function(index) {
+//					//选中
+//					_.each($scope.navList, function(v, i) {
+//						$scope.VM.curNav[i] = false;
+//					});
+//					$scope.VM.curNav[index] = true;
+//					$scope.currentNav = $scope.navList[index];
+//					$scope.VM.tfCode=$scope.navList[index][$scope.navList[index].length-1].tfcode;
+//					$scope.VM.name=$scope.navList[index][$scope.navList[index].length-1].name;
+//					console.log($scope.VM.tfCode);
+//					getTypes();//获取资源类型
+//					getPrepare();//获取备课夹
+//				}
 				
 				$scope.selectType=function(id,index){
 					_.each($scope.sourceType, function(v, i) {
@@ -187,6 +184,7 @@
 				//获取资源格式
 				
 				function getTypes(){
+					
 					$scope.sourceType=[];
 					$scope.sourceTypeId=0;
 					$scope.typeLight=[];
@@ -208,7 +206,6 @@
 								$scope.allSourceList=[];
 								getAllSource($scope.sourceTypeId);//获取对应资源
 							}
-								
 							else{
 								alert(data.message);
 							}
@@ -260,11 +257,10 @@
 				 }
 				 
 				 function getAllSource(typeId) {
-				 	
 			      	//获取所有资源相关变量
 					$scope.currentSlideIndex = 0;
 					$scope.curImg=[];
-					if ($scope.VM.fromFlag == "0") {
+					if (($scope.VM.fromFlag == "0")&&($scope.VM.search=="html")) {
 						//系统
 						Preview.source({
 							resId:$scope.VM.resourceId,
@@ -314,7 +310,7 @@
 							}
 							
 						});
-					} else  if($scope.VM.fromFlag == "3" || $scope.VM.fromFlag == "4" ){
+					} else  if(($scope.VM.fromFlag == "3" || $scope.VM.fromFlag == "4")&&($scope.VM.search=="html") ){
 						//区本或者校本
 						Preview.source({
 							resId:$scope.VM.resourceId,
@@ -358,9 +354,54 @@
 								alert(data.message);
 							}
 						});
-					}else{//个人中心/资源定制也跳转过来 不现实其他目录/资源格式默认全部/没有不能加入备课夹
+					}else if((($scope.VM.fromFlag == "0") || ($scope.VM.fromFlag == "-1") || ($scope.VM.fromFlag == "3") || ($scope.VM.fromFlag == "4"))&&($scope.VM.search=="search")){
+						//搜索页面系统资源
 						
-						
+						Preview.source({
+							resId:$scope.VM.resourceId,
+							searchKeyword:$scope.searchKeyWord,
+							fromFlag:$scope.VM.fromFlag,
+							isSearch: 1,
+							page: current,
+							perPage: 20
+						}, function(data) {
+							console.log(data)
+							if(data.code=="OK")
+							{	
+								pageSize=data.data.total;
+								$scope.localIndex=0;
+								_.each(data.data.list, function(v, i) {
+									$scope.allSourceList.push(data.data.list[i]);
+								});
+								
+								for(var i=0;i<$scope.allSourceList.length;i++)
+								{	$scope.curImg[i]=false;
+									if($scope.VM.resourceId==$scope.allSourceList[i].id)
+									{
+										$scope.currentSlideIndex=i; 
+										$scope.curImg[i]=true;
+										$scope.VM.fromFlag=$scope.allSourceList[i].fromFlag;
+										console.log($scope.VM.fromFlag)
+										break;
+										
+									}else{
+										$scope.localIndex++;
+									}
+								}
+								if($scope.localIndex==$scope.allSourceList.length)
+								{		
+									    $scope.currentSlideIndex=0; 
+										$scope.curImg[0]=true;
+										$scope.VM.resourceId=$scope.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.allSourceList[0].fromFlag;
+								}
+								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
+								console.log(data.data)
+							}else{
+								alert(data.message);
+							}
+							
+						});
 					}
 				}
 				 

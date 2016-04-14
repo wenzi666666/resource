@@ -144,6 +144,7 @@
 					}, function(data) {
 						$scope.isLoading = false;
 						if (data.code == "OK") {
+							localStorage.searchKeyWord=$scope.searchKeyWord;
 							if(data.data.list!=0)
 							{	$scope.showNoInfo=false;
 								_.each(data.data.list, function(v, i) {
