@@ -211,17 +211,51 @@
 				}
 			}
 		})
-		// .directive('resCheckbox', function() {
-		// 	return {
-		// 		restrict: 'E',
-		// 		transclude: true,
-		// 		template: '<div class="check-box"><input id="{{$index}}" type="checkBox" class="check" ng-click="addResDeleting($index)"><label for="{{$index}}"></label></div>',
-		// 		replace: true,
-		// 		link: function($scope, ele, attrs) {
+		//资源操作icon样式悬停变化
+		.directive('activeSrc', function() {
+			var activeSrc = {
+				link: function postLink(scope, iElement, iAttrs) {
+					iElement.bind('mouseover', function() {
+						var src = iAttrs.activeSrc;
+						angular.element(this).attr("src", src);
+					});
+				}
+			}
+			return activeSrc;			
+		})
+
+		.directive('defaultSrc', function() {
+			var defaultSrc = {
+				link: function postLink(scope, iElement, iAttrs) {
+					iElement.bind('mouseout', function() {
+						var src = iAttrs.defaultSrc;
+						angular.element(this).attr("src", src);
+					});
+				}
+			}
+			return defaultSrc;			
+		})
+
+		.directive('popOver', function() {
+			return {
+				restrict: 'A',
+				transclude: true,
+				replace: true,
+				link: function($scope, ele, attrs) {
+					var domId = document.getElementById(attrs.popOver);
+					console.log(domId);
+					domId.style.left = attrs.offsetLeft;
+					domId.style.top = attrs.offsetTop;
+					ele.bind('mouseover', function() {
+						domId.style.display="block";
+						setTimeout(function() {
+							domId.style.display="none";
+						}, 3000);
+					})
 					
-		// 		}
-		// 	}
-		// })
+				}
+			}
+		})
 
 	.directive('contenteditable', function() {
 			//设置div的数据绑定

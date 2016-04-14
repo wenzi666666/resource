@@ -23,14 +23,25 @@
 						<span class="item-info-type">类型: {{item.unifyType}}</span>
 						<res-size data-value="{{item.size}}"></res-size>
 					</div>
-					<span class="prepare-download"><img src="assets/img/prepare/download_icon.png"></span>
-					<span><img src="assets/img/prepare/edit_icon.png"></span>
+					<div class="prepare-download">
+						<img  src="assets/img/prepare/download_icon.png" ng-click="zipPrepare(item.resId, item.fromFlag)">
+					</div>
+					<div class="sp-edit">
+						<img pop-over="editPopover" offset-left="30px" offset-top="25px" src="assets/img/prepare/edit_icon.png"/>
+						<div class="popover" id="editPopover">
+							<ul>
+								<li ng-click="editRes(item)">编辑</li>
+								<li ng-click="moveResTo(item, list.id)">移动到</li>
+								<li ng-click="copyResTo(item)">复制到</li>
+							</ul>
+						</div>
+					</div>
 					<div class="right-tools">
 						<div>基础资源</div>
-						<span ng-click="setItem(item.id, $index, parentIndex, 1)"><img src="assets/img/prepare/set_bottom_icon.png"></span>
-						<span ng-click="setItem(item.id, $index, parentIndex, 3)"><img src="assets/img/prepare/back_icon.png"></span>
-						<span ng-click="setItem(item.id, $index, parentIndex, 2)"><img src="assets/img/prepare/move_icon.png"></span>
-						<span ng-click="setItem(item.id, $index, parentIndex, 4)"><img src="assets/img/prepare/set_top_icon.png"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 1)"><img default-src="assets/img/prepare/set_bottom_icon.png" active-src="assets/img/prepare/set_bottom_icon_active.png" src="assets/img/prepare/set_bottom_icon.png"/></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 3)"><img src="assets/img/prepare/back_icon.png" default-src="assets/img/prepare/back_icon.png" active-src="assets/img/prepare/back_icon_active.png"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 2)"><img src="assets/img/prepare/move_icon.png" default-src="assets/img/prepare/move_icon.png" active-src="assets/img/prepare/move_icon_active.png"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 4)"><img src="assets/img/prepare/set_top_icon.png" default-src="assets/img/prepare/set_top_icon.png" active-src="assets/img/prepare/set_top_icon_active.png"></span>
 						<span ng-click="deleteItem(item.id, parentIndex)"><img src="assets/img/prepare/delete_icon.png"></span>
 					</div>
 				</div>
