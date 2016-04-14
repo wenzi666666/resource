@@ -109,6 +109,7 @@
 .list-content .list-item{
    padding: 15px 0;
    margin-top: 5px;
+   position: relative;
 }
 .list-content .list-item:hover{
   background: @color4;
@@ -142,6 +143,7 @@
 .list-content .prepare-download {
     margin-left: 50px;
     margin-right: 20px;
+    display: inline-block;
 }
 
 
@@ -157,10 +159,16 @@
 .list-content .right-tools span {
     cursor: pointer;
 }
+
+.list-content .right-tools span .sp-wrap-img {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+}
 .list-content .right-tools span img {
     margin: 0 5px;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 .list-content .right-tools span img.active {
@@ -292,6 +300,11 @@
     border-radius: 5px;
     width: 310px;
 }
+
+.modal-prepare-name select {
+    width: 300px;
+    border: 1px solid #CCCCCC;
+}
 // 目录树嵌入
 .tree-embed {
     position: absolute;
@@ -303,4 +316,32 @@
     width: 280px;
     max-height: 300px;
     overflow: auto;
+}
+
+.sp-edit {
+    display: inline-block;
+    position: relative;
+    background: url(assets/img/prepare/edit_icon.png);
+}
+
+//弹出提示
+.popover {
+    display: none;
+    position: absolute;
+    top: initial;
+    width: 70px;
+    text-align: center;
+    border: 2px solid #219b81;
+    border-bottom: none;
+    color: #219b81;
+}
+
+.popover ul {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.popover li {
+    border-bottom: 2px solid #219b81;
+    cursor: pointer;
 }
