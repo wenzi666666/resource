@@ -105,7 +105,7 @@
 						verticalAlign: 'bottom'
 					},
 					size: {
-						width: 550,
+						width: 520,
 						height: 250
 					}
 				}
@@ -122,7 +122,18 @@
 					$scope.chartConfig.series[0].data = [['未备课',$scope.prepare[0].nodeOmitNums/total],['已备课', $scope.prepare[0].nodeFinishedNums/total]]
 					$scope.chartConfig.title.text = ' ';
 				})
-
+				
+				$scope.VM.uploadResInfo = function() {
+//					if(!!$localStorage.files) {
+						var modalNewUpload = $uibModal.open({
+							templateUrl: "eiditResModal.html",
+							windowClass: "upload-modal",
+							controller: 'editResController',
+							scope:$scope //Refer to parent scope here
+						})
+//					}
+				}	
+				
 			}
 		])
 }());

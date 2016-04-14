@@ -54,15 +54,15 @@
 			        });
 			    }
 				
-				$scope.uploadResInfo = function() {
-					if(!!$localStorage.files) {
+				$scope.VM.uploadResInfo = function() {
+//					if(!!$localStorage.files) {
 						var modalNewUpload = $uibModal.open({
 							templateUrl: "eiditResModal.html",
 							windowClass: "upload-modal",
 							controller: 'editResController',
 							scope:$scope //Refer to parent scope here
 						})
-					}
+//					}
 				}	
 			}
 		])
@@ -71,9 +71,16 @@
 			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,ModalMsg,Res,Upload,$timeout) {
 				
 				console.log($scope.uploadData)
+				
+				// 获取资源类型
+				Res.unifyType({}, function(data) {
+					$scope.unifyType =  data.data;
+				})
+				
 				$scope.uploadResInfo = function() {
+					$scope.VM.name = $scope.files.name.split('.')[0];
 					Res.resCtrl({
-						names: $scope.files[0].name.split('.')[0],
+						names: $scope.files.name.split('.')[0],
 						unifTypeIds: '1',
 						tfcodes: 'BJCZ02010401',
 						scopes: 0,

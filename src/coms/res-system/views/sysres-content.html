@@ -26,6 +26,7 @@
 			<li class="animated slideInUp res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
 				<label for="{{$index}}"></label>
+				<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
 				<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath?list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
@@ -55,6 +56,7 @@
 			<li class="animated slideInUp res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
 				<label for="{{$index}}"></label>
+				<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
 				<img class="prepare-shop res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg">
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>

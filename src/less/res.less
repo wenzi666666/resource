@@ -333,7 +333,6 @@
   position: relative;
   padding: 6px;
   margin: 8px 0;
-  cursor: pointer;
   font-size: 13px;
   min-height: 120px;
 }
@@ -350,12 +349,14 @@
 .res-thubmlist-thumb{
     max-width: 90%;
     height: 150px;
+    cursor: pointer;
 }
 .res-list-thumb{
     margin-left: 55px;
     max-width:130px;
     max-height:130px;
     margin-right: 6px;
+    cursor: pointer;
 }
 .res-thubmlist-info{
     font-size: 13px;
@@ -375,6 +376,11 @@
     font-size: 17px;
     color:#040000;
     width: 100%;
+}
+.res-title:hover{
+    color: #666;
+    text-decoration: underline;
+    cursor: pointer;
 }
 .res-type{
     margin-left: 5px;
@@ -610,5 +616,17 @@
     text-align: center;
     color: #3fbbcf;
     padding-top: 10px;   
+}
+// 是否是新资源
+.is-new-list{
+    position: absolute;
+    width: 36px;
+    left: 50px;
+}
+.is-new-thumb{
+    position: absolute;
+    width: 46px;
+    left: 0px;
+    top:-8px;
 }
 

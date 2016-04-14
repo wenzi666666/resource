@@ -65,6 +65,11 @@
 					getMyRecent: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+					},
+					// 获取统一资源类型
+					unifyType: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
 					}
 				})
 			}
