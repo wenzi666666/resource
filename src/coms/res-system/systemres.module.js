@@ -54,6 +54,11 @@
 					resDownload: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/res_down"
+					},
+					//打包下载
+					resZIpDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
 					}
 				})
 			}
@@ -161,6 +166,56 @@
 						})
 					}
 					
+				}
+				
+				// 全选 或 多选 加入 
+				// 将选择资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
+				$scope.addAllToPrepare = function($event,prepareIndex) {
+					$event.stopPropagation();
+					console.log($scope.resList.select)
+					if(!$scope.resList.select){
+						ModalMsg.logger("您还没有选择资源哦");
+						return;
+					}
+					// 当前没有备课夹时，创建
+					if($scope.prepareList.length == 0) {
+						Prepare.basePostApi({
+							tfcode: $localStorage.currentTreeNode.tfcode,
+							title: $localStorage.currentTreeNode.label
+						}, function(d) {
+							// 获取备课夹
+							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 加入备课夹
+							//生成flags
+							var flags = new Array($scope.resList.select.length);
+							_.each(flags,function(v,i) {
+								flags[i] = $localStorage.fromFlag
+							})
+							Prepare.addResToPrepareId({
+								id: d.data.id,
+								resIds: $scope.resList.select.toString(),
+								fromFlags: flags.toString()
+							}, function(data) {
+								//加$scope.shopCount.length
+								$scope.shopCount += $scope.resList.select.length;
+							})
+						})
+					}else{
+						//生成flags
+						var flags = new Array($scope.resList.select.length);
+						_.each(flags,function(v,i) {
+							flags[i] = $localStorage.fromFlag
+						})
+						Prepare.addResToPrepareId({
+							id: prepareIndex?prepareIndex:currentPrepareId,
+							resIds: $scope.resList.select.toString(),
+							fromFlags: flags.toString()
+						}, function(data) {
+							//加$scope.shopCount.length
+							$scope.shopCount += $scope.resList.select.length;
+	
+						})
+					}
 				}
 				
 				// 新建备课夹
@@ -388,14 +443,34 @@
 				}
 				
 				// 打包下载
+				var resZipDownload = function(ids,flags){
+					SystemRes.resZIpDownload({
+						ids:ids,
+						fromflags: flags
+					}, function(data){
+						if(data.data)
+							console.log(data.data)
+//							openwin(data.data[0].path)
+					})
+				}
+				
 				$scope.downLoadSelect = function() {
-					// 全部打包下载
-					if(!!$scope.resList.select)
-						$scope.resDownload($scope.resList.select.toString())
-					else {
+					// 打包下载
+					if(!!$scope.resList.select) {
+						//生成flags
+						var flags = new Array($scope.resList.select.length);
+						_.each(flags,function(v,i) {
+							flags[i] = $localStorage.fromFlag
+						})
+						// 下载
+						resZipDownload($scope.resList.select.toString(),flags.toString());
+					} else {
 						ModalMsg.logger("还没有选中资源哦");
 					}
 				}
+				
+				// 批量加入备课夹
+				
 			}
 		])
 }());
