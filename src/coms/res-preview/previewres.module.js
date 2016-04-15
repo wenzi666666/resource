@@ -100,7 +100,6 @@
 					$scope.VM.search="search";
 					console.log("搜索页跳转");
 					console.log($scope.VM.fromFlag);
-					
 				}
 				
 				//备课夹显示问题

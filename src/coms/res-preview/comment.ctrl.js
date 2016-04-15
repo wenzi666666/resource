@@ -241,6 +241,11 @@
 					});
 					$scope.contentShow[index]=false;
 					$scope.editSure = function(index) {
+							if($scope.myCommentList[index].acontent.length>200)
+							{
+								ModalMsg.logger("评论不能字数不能超过200！");
+								return false;
+							}
 							Preview.editComment({
 								displayContent:$scope.myCommentList[index].acontent,
 								commentId: id,
