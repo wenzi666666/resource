@@ -1,3 +1,4 @@
+
 <div id="prepare-content">
 	<div class="prepare-list" ng-repeat="list in listData track by $index" ng-init="parentIndex = $index">
 		<div class="list-header" ng-click="switch($index)">
@@ -6,12 +7,12 @@
 			<i class="icon-edit edit-prepare" ng-click="editPrepare($index)"></i> 
 			<i class="icon-trash" ng-click="deletePrepare($index,$event)"></i>
 			<span class="online-course" ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i>在线授课</span>
-			<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
+			<span class="zip-download" ng-click="zipPrepare(list, -1)"><i class="icon-cloud-download"></i> 打包下载</span>
 		</div>
 		<div class="list-content" ng-show="list.active">
 			<div ng-show="list.children.length>0">
-				<span class="hold-on"><i class="icon-plus-sign"></i>继续逛逛</span>
-				<span class="local-res"><i class="icon-plus-sign"></i>本地资源</span>
+				<span class="hold-on" ui-sref="systemres"><i class="icon-plus-sign"></i>继续逛逛</span>
+				<span class="local-res" ng-click="uploadRes"><i class="icon-plus-sign"></i>本地资源</span>
 				<div class="clearfix">
 					
 				</div>
@@ -62,3 +63,8 @@
 			</div>
 		</div> -->
 </div>
+
+
+<!-- 模态框（Modal） -->
+<!-- 上传模态框 -->
+<div data-ng-include="'/coms/personal-center/views/upload-modal.html'"></div>

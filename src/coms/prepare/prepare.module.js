@@ -286,36 +286,45 @@
 					})
 				}
 
+				$scope.downLoadRes = function(id, flag) {
+					Prepare.zipPrepare({
+						ids: id,
+						fromflags: flag
+					}, function(data) {
+						console.log(data);
+						var zipTaskId = data.data;
+						var intervalId = setInterval(function() {
+							Prepare.zipStatus({
+								id: zipTaskId
+							}, function(data) {
+								console.log(data.data.status);
+								if(data.data.status) {
+									window.clear(intervalId);
+									$scope.zipPath = data.zippath;
+									window.open($scope.zipPath);
+									return;
+								}
+							})
+						}, 1000);
+					})
+				}
+
 				//下载资源
-				$scope.resToBeZip = [];
 				$scope.zipPrepare = function(id, flag) {
 					//批量下载
-					if(id == undefined) {
-
+					if(flag == -1) {
+						var resIds = [];
+						var flags = [];
+						_.each(id.children, function(v, i) {
+							resIds.push(v.resId);
+							flags.push(v.fromFlag);
+						})
+						downLoadRes(resIds, flags);
 					}
 					//单个资源下载
 					else {
 						console.log(id, flag);
-						Prepare.zipPrepare({
-							ids: id,
-							fromflags: flag
-						}, function(data) {
-							console.log(data);
-							var zipTaskId = data.data;
-							setInterval(function() {
-								Prepare.zipStatus({
-									id: zipTaskId
-								}, function(data) {
-									console.log(data);
-									if(data.data.status) {
-										$scope.zipPath = data.zippath;
-										//执行下载操作
-										return;
-									}
-									return
-								})
-							}, 10000);
-						})
+						downLoadRes(id, flag);
 					}
 				}
 
@@ -364,6 +373,21 @@
 								ModalMsg.logger("移动到备课夹失败，请重试！")
 							}
 						})
+					});
+				}
+
+				//上传本地资源
+				// 上传
+				$scope.uploadRes = function() {
+					var modalNewUpload = $uibModal.open({
+						templateUrl: "uploadModal.html",
+						windowClass: "upload-modal",
+						controller: 'uploadResController',
+					})
+
+					// 上传结束
+					modalNewUpload.result.then(function(data) {
+						console.log(data)
 					});
 				}
 

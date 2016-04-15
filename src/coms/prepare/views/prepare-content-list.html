@@ -20,14 +20,24 @@
 			</div> 
 		</div>
 		<div class="prepare-gallery row">
+			<div class="left-arrow">
+				<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
+			</div>
 			<!--<span class="leftbtn icon-angle"><i class="icon-angle-left"></i></span>-->
-			<div class="list-all-item col-md-3"  ng-repeat="item in list.children">
-				<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
-				<img class="prepare-all-item-img" ng-src="{{item.imgPath}}" fallback-src="assets/img/title.jpg" />
-				<br><br>
-				<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
-				<span class="online-course"><i class="icon-play-circle"></i></span>
-				<i class="icon-trash"></i>
+			<div class="list-box">
+				<div class="list-all-item col-md-3"  ng-repeat="item in list.children">
+					<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
+					<img class="prepare-all-item-img" ng-src="{{item.imgPath}}" fallback-src="assets/img/title.jpg" />
+					<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
+					<span class="online-course"><i class="icon-play-circle"></i></span>
+					<i class="icon-trash"></i>
+					<br></br>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="right-arrow">
+				<span></span>
+				<i ng-click="next()" class="icon-chevron-right"></i>
 			</div>
 			<!--<span class="rightbtn icon-angle"><i class="icon-angle-right"></i></span>-->
 		</div>
