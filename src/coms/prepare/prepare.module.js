@@ -278,6 +278,7 @@
 						console.log(data);
 						if(data.code == "OK") {
 							if(msg == undefined) ModalMsg.logger("从备课夹删除资源成功！");
+							getPrepare($localStorage.currentTreeNode.tfcode);
 						}
 						else {
 							ModalMsg.logger("从备课夹删除资源失败，请重试！");
@@ -305,25 +306,43 @@
 								Prepare.zipStatus({
 									id: zipTaskId
 								}, function(data) {
-									if(data.status) {
+									console.log(data);
+									if(data.data.status) {
 										$scope.zipPath = data.zippath;
 										//执行下载操作
 										return;
 									}
+									return
 								})
-							}, 100);
+							}, 10000);
 						})
 					}
 				}
 
 				//编辑资源
+				//0，系统资源，1自建资源，2共享资源,3校本资源,4区本资源 
 				$scope.editRes = function(res) {
-
+					var resToBeEdit = res;
+					if(resToBeEdit.fromFlag != 1) {
+						ModalMsg.alert("当前资源不允许编辑！");
+					}
+					else {
+						var editModal = $uibModal.open({
+							templateUrl: "prepare-edit-modal.html",
+							controller: "prepareEditController",
+							resolve: {
+								resItem: function() {
+									return resToBeEdit;
+								}
+							}
+						})
+					}
+					
 				}
 
 
-				//移动到
-				$scope.moveResTo = function(res) {
+				//移动到-1 复制到-2
+				$scope.opResTo = function(res, optype) {
 					var movePrepareModal = $uibModal.open({
 						templateUrl: "move-prepare.html",
 						controller: 'opModalController',
@@ -338,8 +357,8 @@
 							fromFlags: res.fromFlag
 						}, function(d) {
 							if(d.code == "OK") {
-								$scope.deleteItem(res.id, "");
-								getPrepare();
+								if(optype == 1) $scope.deleteItem(res.id, "");
+								getPrepare($localStorage.currentTreeNode.tfcode);
 							}
 							else {
 								ModalMsg.logger("移动到备课夹失败，请重试！")
@@ -348,10 +367,6 @@
 					});
 				}
 
-				//复制到
-				$scope.copyResTo = function(res) {
-
-				}
 			}
 		])
 
@@ -461,5 +476,13 @@
 			}
 		}
 	])
+
+	.controller('prepareEditController',  ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg','$localStorage', 'resItem', 
+		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, $localStorage, resItem) {
+			$scope.res = resItem;
+			console.log(resItem);
+			//获取学科列表
+
+		}])
 
 }());

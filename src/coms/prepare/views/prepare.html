@@ -85,31 +85,101 @@
 	</div>
 </script>
 
-<script type="text/ng-template" id="copy-prepare.html">
-	<div class="modal-body modal-prepare-body">
-		<div class="modal-prepare-header">复制到</div>
-		<div class="modal-prepare-content">
-			<div class="modal-inner-content">
-				<div class="modal-catogry">
-					<span>教材目录：</span>
-					<span class="catogry-trigger" id="catogry-trigger" ng-click="treeTrigger()" >
-						<span class="select-current" href="">{{ currentNode.label }}</span>
-						<i class="icon-angle-down"></i>
-						<i class="icon-angle-up"></i>
-					</span>
-					<div class="tree-embed" ng-show="showTree">
-						<treecontrol id="tree-embed" click-outside="closeThis()" outside-if-not="tree-embed,catogry-trigger" class="tree-light" tree-model="treedata" on-selection="showSelected(node)" expanded-nodes="expandedNodes" options="opts">
-					     {{node.label}}
-					 	</treecontrol>
-					</div>
-				</div>
-				<div class="modal-prepare-name">
-					<span>备课夹名称：</span>
-					
-				</div>
-			</div>
-			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="OK()">确定</button>
-			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="Cancel()">取消</button>
-		</div>	
+<script type="text/ng-template" id="prepare-edit-modal.html">
+<div class="edit-res-modal">
+	<div class="modal-header">
+		<h5>编辑资源</h5>
 	</div>
+    <div class="modal-body">
+    	<p>为方便资源的管理，请填写完整的资源信息</p>
+    	<div class="edit-detail-box">
+    		<div class="edit-list">
+    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png" />
+    			<span class="sp-label">资源名称</span>
+    			<input type="text" ng-model="res.title" />
+    			<button class="btn-op" ng-click="setResTitle(res.title)">确定</button>
+    		</div>
+    		<div class="edit-list">
+    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="sp-label">资源类型</span>
+    			<span class="tag active" ng-bind="res.unifyType"></span>
+    		</div>
+    		<div class="edit-list">
+    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="sp-label">上传至：</span>
+    			<div class="select-loc-box">
+	    			<div class="select-nav-item">
+						<div class="menu-drop">
+							<div class="trigger">
+								<span class="select-current" href="">{{VM.currentGrade}}</span>
+								<i class="icon-angle-down"></i>
+								<i class="icon-angle-up"></i>
+							</div>
+							
+							<div class="menu-drop-main">
+								<ul class="menu-drop-list">
+									<li ng-repeat="grade in VM.grade track by $index" ng-class="VM.currentGradeSeclet[$index]?'selected':''" ng-click="VM.selectGrade($index)"><span>{{ grade.name }}</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="select-nav-item">
+						<div class="menu-drop">
+							<div class="trigger">
+								<span class="select-current">{{VM.currentSubject.name}}</span>
+								<i class="icon-angle-down"></i>
+								<i class="icon-angle-up"></i>
+							</div>
+							
+							<div class="menu-drop-main">
+								<ul class="menu-drop-list">
+									<li ng-repeat="subject in VM.subject track by $index" ng-class="VM.currentSubjectSeclet[$index]?'selected':''" ng-click="VM.selectSubject($index)"><span>{{ subject.name }}</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="select-nav-item"  ng-show="VM.currentVersionShow || VM.currentVersionTmpShow">
+						<div class="menu-drop">
+							<div class="trigger" ng-click="closeCurrentVersion()">
+								<span class="select-current" href="">{{VM.currentVersion.name}}</span>
+								<i class="icon-remove"></i>
+							</div>
+						</div>
+					</div>
+					<div class="select-nav-item"  ng-show="VM.currentMaterialShow || VM.currentMaterialTmpShow">
+						<div class="menu-drop">
+							<div class="trigger" ng-click="closeCurrentMaterial()">
+								<span class="select-current" href="">{{VM.currentMaterial.name}}</span>
+								<i class="icon-remove"></i>
+							</div>
+						</div>
+					</div>
+    			</div>
+    		</div>
+    		<div class="edit-list">
+    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="sp-label">共享范围</span>
+    			<span class="tag active">仅自己可见</span>
+    			<span class="tag">本校可见</span>
+    			<span class="tag">本区可见</span>
+    		</div>
+    		<div class="edit-list">
+    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="sp-label">关键词</span>
+    			<input type="text" ng-model="res.keywords" class="keyword-input" placeholder="多个关键词用分号隔开" />
+    		</div>
+    		<div class="edit-list">
+    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="sp-label">资源介绍</span>
+    			<textarea ng-model="res.description" placeholder="选填，主要介绍资源的主要内容，方便资源的管理和分享，限200字">
+    			</textarea>
+    			<span class="sp-count-word"><span ng-model="res.description.length"></span>/200</span>
+    		</div>
+    	</div>
+    </div>
+    <div class="modal-footer">
+    	<button class="btn-general" ng-click="editDone()">确定</button>
+		<button class="btn-general" ng-click="close()">取消</button>
+    </div>
+</div>
 </script>

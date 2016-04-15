@@ -20,20 +20,75 @@
     			<span class="tag active" ng-bind="res.unifyType"></span>
     		</div>
     		<div class="edit-list">
-    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
-    			<span class="sp-label">上传至：</span>
-    			<select class="i-select" ng-change="selectTerm(curterm)" ng-model="curterm">
-    				<option ng-repeat="term in VM.terms" ng-bind="term.name" value="{{term}}"></option>
-    			</select>
-    			<select class="i-select">
-    				<option ng-repeat="subject in VM.subjects" ng-bind="subject.name"></option>
-    			</select>
-    			<select class="i-select">
-    				<option ng-repeat="version in VM.versions" ng-bind="version.name">/option>
-    			</select>
-    			<select class="i-select">
-    				<option ng-repeat="book in VM.books" ng-bind="book.name"></option>
-    			</select>
+    			<div class="edit-list-left">
+    				<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    				<span class="sp-label">上传至：</span>
+    			</div>
+    			<div class="edit-list-right">
+    				<div class="select-loc-box">
+		    			<div class="select-nav-item">
+							<div class="menu-drop">
+								<div class="trigger">
+									<span class="select-current" href="" ng-bind="VM.currentGrade"></span>
+									<i class="icon-angle-down"></i>
+									<i class="icon-angle-up"></i>
+								</div>
+								
+								<div class="menu-drop-main">
+									<ul class="menu-drop-list">
+										<li ng-repeat="grade in VM.grade track by $index" ng-class="VM.currentGradeSeclet[$index]?'selected':''" ng-click="VM.selectGrade($index)"><span ng-bind="grade.name"></span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="select-nav-item">
+							<div class="menu-drop">
+								<div class="trigger">
+									<span class="select-current">{{VM.currentSubject.name}}</span>
+									<i class="icon-angle-down"></i>
+									<i class="icon-angle-up"></i>
+								</div>
+								
+								<div class="menu-drop-main">
+									<ul class="menu-drop-list">
+										<li ng-repeat="subject in VM.subject track by $index" ng-class="VM.currentSubjectSeclet[$index]?'selected':''" ng-click="VM.selectSubject($index)"><span>{{ subject.name }}</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="select-nav-item">
+							<div class="menu-drop">
+								<div class="trigger" ng-click="closeCurrentVersion()">
+									<span class="select-current" href="">{{VM.currentVersion.name}}</span>
+									<i class="icon-angle-down"></i>
+									<i class="icon-angle-up"></i>
+								</div>
+								<div class="menu-drop-main">
+									<ul class="menu-drop-list">
+										<li ng-repeat="version in VM.version track by $index" ng-class="VM.currentVersionSeclet[$index]?'selected':''" ng-click="VM.selectVersion($index)"><span>{{ version.name }}</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="select-nav-item">
+							<div class="menu-drop">
+								<div class="trigger" ng-click="closeCurrentMaterial()">
+									<span class="select-current" href="">{{VM.currentMaterial.name}}</span>
+									<i class="icon-angle-down"></i>
+									<i class="icon-angle-up"></i>
+								</div>
+								<div class="menu-drop-main">
+									<ul class="menu-drop-list">
+										<li ng-repeat="material in VM.material track by $index" ng-class="VM.currentMaterialSeclet[$index]?'selected':''" ng-click="VM.selectMaterial($index)"><span>{{ material.name }}</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+    				</div>
+
+    			</div>
+    			<div class="clearfix"></div>
     		</div>
     		<div class="edit-list">
     			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>

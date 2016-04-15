@@ -9,27 +9,40 @@
 			function($scope, $stateParams, $state, $location, $localStorage,ModalMsg,Res,Personal) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
+				$scope.VM = {};
+				$scope.VM.currentPage = 1;
+				$scope.VM.totalPages = 1;
 				//上次被点中的li
 				var lastActive = 0;
 				//我的备课 列表
-				Res.getPrepareResource({
-					unifyTypeId: '0',
-					fileFormat: '全部',
-					page: 1,
-					perPage: 10
-				}, function(data) {
-					console.log(data.data);
-					$scope.prepareList = data.data.list;
-					lastActive = 0;
-					if($scope.prepareList && $scope.prepareList.length > 0) {
-						_.each($scope.prepareList, function(v, i) {
-							v.active = false;
-						})
-						$scope.prepareList[lastActive].active = true;
-					}
-					$scope.totalItems = data.data.total;
-					$scope.currentPage = 1;
-				})
+
+				$scope.getMyPrepare = function(pagenum) {
+					var page = 1;
+					if(pagenum == undefined) page = 1;
+					else page = pagenum;
+					Res.getPrepareResource({
+						unifyTypeId: '0',
+						fileFormat: '全部',
+						page: page,
+						perPage: 10
+					}, function(data) {
+						console.log(data.data);
+						$scope.prepareList = data.data.list;
+						lastActive = 0;
+						if($scope.prepareList && $scope.prepareList.length > 0) {
+							_.each($scope.prepareList, function(v, i) {
+								v.active = false;
+							})
+							$scope.prepareList[lastActive].active = true;
+						}
+						$scope.totalItems = data.data.totalLines;
+						$scope.VM.totalPages = data.data.total;
+						$scope.VM.currentPage = 1;
+					})
+				}
+
+				$scope.getMyPrepare();
+				
 				$scope.resTypes = [];	
 				Personal.getResType({}, function(data) {
 					$scope.resTypes = data.data;
@@ -68,8 +81,23 @@
 							$scope.prepareList[lastActive].active = true;
 						}
 						$scope.totalItems = data.data.totalLines;
-						$scope.currentPage = 1;
+						$scope.VM.currentPage = 1;
 					})
+				}
+
+				//分页
+				$scope.pageTo = 1;
+				$scope.pageChanged = function(pagenum) {
+					if(pagenum == undefined) {
+						$scope.getMyPrepare();
+					}
+					else if(pagenum > $scope.VM.totalPages) {
+						ModalMsg.confirm("您要跳转的页数超出范围！");
+					}
+					else {
+						$scope.VM.currentPage = pagenum;
+						$scope.getMyPrepare($scope.VM.currentPage);
+					}
 				}
 			}
 		])

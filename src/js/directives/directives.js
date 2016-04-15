@@ -250,24 +250,20 @@
 			}
 			return defaultSrc;			
 		})
-
-		.directive('popOver', function() {
+		.directive('opBtn', function() {
 			return {
 				restrict: 'A',
 				transclude: true,
 				replace: true,
 				link: function($scope, ele, attrs) {
-					var domId = document.getElementById(attrs.popOver);
-					console.log(domId);
-					domId.style.left = attrs.offsetLeft;
-					domId.style.top = attrs.offsetTop;
-					ele.bind('mouseover', function() {
-						domId.style.display="block";
-						setTimeout(function() {
-							domId.style.display="none";
-						}, 3000);
+					console.log(ele);
+					ele[0].innerHTML = attrs.opBtn;
+					console.log(attrs);
+					var opbtns = $(".op-btn-group button");
+					ele.on('click', function() {
+						opbtns.addClass("btn-white");
+						ele.removeClass('btn-white');
 					})
-					
 				}
 			}
 		})
