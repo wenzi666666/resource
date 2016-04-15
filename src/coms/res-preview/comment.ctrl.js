@@ -225,7 +225,7 @@
 						}, function(data) {
 							console.log(data)
 							if (data.code == "OK") {
-								$scope.myCommentList.pop($scope.myCommentList[index]);
+								$scope.myCommentList.splice(index,1);
 							} else {
 								alert(data.message);
 							}

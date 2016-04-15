@@ -1,40 +1,38 @@
 <div class="cen-right-down">
-	<h3 class="cen-h2">资源引用列表</h3>
-	<div class="type-select-box">
-		<select>
-			<option>全部</option>
-			<option>多媒体</option>
-			<option>多媒体</option>
-			<option>多媒体</option>
-			<option>多媒体</option>
-		</select>
+	<div class="comment-head">
+		<span class="my-comment">我的评论</span>
+		<div class="comType">
+			<span ng-repeat="state in commentState" ng-click="selectState()" ng-class="curState[$index]?'cur-state':''">{{state.name}}</span>
+		</div>
+		<div class="grade">
+			<span ng-repeat="grades in gradeList">
+				<input type="radio" name="grade"  ng-checked="isChecked[$index]" value="grades.type" ng-click="selectGrade(grades.type)"/>
+				<label>{{grades.name}}</label>
+			</span>
+			
+		</div>
+		
 	</div>
 	<div class="resource-box">
-		<div class="box-title">
-			<div class="row">
-				<div class="col-md-8 col-sm-8">
-					资源名称
-				</div>
-				<div class="col-md-2 col-sm-2">
-					资源类型
-				</div>
-				<div class="col-md-2 col-sm-2">
-					资源日期
-				</div>
-			</div>
-		</div>
-		<div class="resource-list">
+		<div class="resource-list com-list">
 			<ul class="row">
-				<li ng-repeat="list in commentList.list">
-					<div class="col-md-6 col-sm-8">
-						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
-						<span class="resource-title">{{list.title}}</span>
-					</div>
-					<div class="col-md-3 col-sm-2">
-						<span class="resource-type">{{list.unifyType}}</span>
-					</div>
-					<div class="col-md-3 col-sm-2">
-						<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+				<li ng-repeat="list in VM.commentList" class="comment-list">
+					<div class="col-md-12 col-sm-12">
+						<div class="col-md-3 col-sm-3">
+							<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
+							<span class="resource-title text-ellipsis" >{{list.title}}</span>
+						</div>
+						<div class="col-md-9 col-sm-9">
+							<span class="name">{{user.userName}}</span>
+							<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+							
+							<div class="com-content">
+								{{list.content}}
+							</div>
+						</div>
+						<div class="edit"><button class="btn btn-success" ng-click="deleteCom(list.id,$index)">删除</button></div>
+					
+					
 					</div>
 					<div class="clearfix"></div>
 				</li>
@@ -43,11 +41,11 @@
 		</div>
 		<div class="pagination-box">
 			<div class="coms-pagination">
-				<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+				<uib-pagination total-items="bigTotalItems" ng-model="VM.bigCurrentPage" ng-change="changePage(bigCurrentPage)" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
 				<div class="page-go">
 					<span class="page-text">转到</span>
-					<input class="page-input" />
-					<span class="page-go-btn">Go</span>
+					<input class="page-input" ng-model="pageTo"/>
+					<span class="page-go-btn" ng-click="pageChanged(pageTo)">Go</span>
 				</div>
 			</div>
 		</div>
