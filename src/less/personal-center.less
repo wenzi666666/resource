@@ -157,6 +157,22 @@
     color: #219B81;
 }
 
+.type-select-box  {
+    .menu-drop .trigger {
+         margin-top: 0;
+        border: 1px solid #219B81;
+    }
+
+    .menu-drop .menu-drop-main {
+        width: 100%;
+    }
+   
+}
+
+
+
+
+/*
 .type-select-box select {
     width: 160px;
     height: 30px;
@@ -169,7 +185,7 @@
     height: 25px;
     padding: 5px 10px;
 }
-
+*/
 .box-title {
     height: 50px;
     line-height: 50px;
@@ -192,41 +208,56 @@
     margin: 0;
 }
 
+
 .resource-list ul {
     padding-left: 0px;
     
 }
 
 .resource-list li {
-    height: 100px;
+    height: 150px;
     line-height: 100px;
     font-size: 1.4rem;
     color: #666666;
 }
-
+/*
 .resource-list li div {
     height: 100%;
-}
+}*/
 
+/*
 .resource-list img {
     width: 30%;
     height: 80%;
     padding: 5px;
     border: 1px solid #12879A;
     background-color: #FFFFFF;
+}*/
+
+.my-upload-list .img-thumb-list {
+    width: 120px;
+    height: 120px;
+    left: 39px;
+    line-height: 120px;
+}
+.my-upload-list .res-list-thumb {
+    width: 110px;
+    height: 110px;
+    line-height: 110px;
 }
 
-.my-upload-list img {
-    float: left;
-    width: 40%;
-}
 
 .my-upload-list .resource-title {
     float: left;
-    width: 40%;
+    width: 35%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    margin-left: 142px;
+}
+
+.my-upload-list .check-box-area {
+    float: left;
 }
 
 .resource-list li.active {
@@ -251,7 +282,11 @@
     padding-bottom: 20px;
 }
 
-.resource-title, .resource-type, .resource-date{
+.resource-title, {
+    margin-left: 170px;
+}
+
+.resource-type, .resource-date{
     margin-left: 20px;
 }
 
@@ -320,7 +355,7 @@
 }
 
 .edit-list-left {
-    width: 12%;
+    width: 15%;
     float: left;
 }
 
@@ -394,6 +429,106 @@
 }
 .statistic-box div[data-highcharts-chart] .highcharts-container{
     margin: 0 auto;
+}
+
+
+.set-per-page {
+    font-size: 1.3rem;
+    font-style: normal;
+    padding-left: 30px;
+    i {
+        font-style: normal;
+    }
+    span {
+        margin-left: 0;
+    }
+}
+
+
+//我的评论
+.cen-right-down .comment-head
+{
+    min-height: 45px;
+    color: @color5;
+    padding: 10px 0px;
+    margin:0px 10px;
+    border-bottom:1px solid @color14 ;
+}
+
+.cen-right-down .comment-head .grade
+{
+    float: right;
+    margin-right: 30px;
+}
+.comment-head .grade label
+{
+    color: @color12;
+    font-size: 16px;
+    font-weight: normal;
+    margin-right: 7px;
+}
+
+.cen-right-down .my-comment
+{
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    border-right: 1px solid @color5;
+    width: 100px;
+    text-align: center;
+    font-size: 18px;
+}
+.cen-right-down .comment-list
+{
+    border-bottom:1px dashed @color14 ;
+}
+.cen-right-down .comType
+{
+    float: left;
+    margin-left: 10px;
+}
+.cen-right-down .comType span{
+    margin:0 5px;
+    cursor: pointer;
+}
+.cen-right-down .cur-state
+{
+    color: #EC80AF;
+}
+.com-list .resource-title
+{
+    display: block;
+    margin-left: 0px;
+    height: 30px;
+    line-height: 30px;
+   
+}
+.com-list li{
+    min-height: 120px !important;
+    height: auto;
+    line-height: 25px !important;
+    padding:10px 0px;
+}
+.com-list .person-thumb
+{
+    width: 100%;
+}
+.com-list .com-content
+{
+    line-height: 22px;
+}
+.com-list .name{
+    color: @color5;
+}
+.com-list .btn{
+    background: @color5;
+    height: 28px;
+    line-height:12px;
+    float: right;
+}
+.com-list .edit
+{
+    clear: both;
 }
 
 

@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag/:search',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search/:type',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -94,26 +94,32 @@
 				console.log($scope.searchKeyWord);
 				$scope.VM.load=true;//加载
 				
-				if($stateParams.search)
+				if($stateParams.search=="search")
 				{//如果是搜索页则使用该fromFlag
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					$scope.VM.search="search";
 					console.log("搜索页跳转");
 					console.log($scope.VM.fromFlag);
-					
+				}else if($stateParams.search=="person")
+				{
+					$scope.VM.fromFlag=$stateParams.fromFlag;
+					$scope.VM.personType=$stateParams.type;
+					$scope.VM.search="person";
+					console.log("个人中心页面");
+					console.log($scope.VM.fromFlag,$scope.VM.personType);
 				}
 				
-				//备课夹显示问题
-				$scope.VM.preShow=true;
-//				if($scope.VM.search=="search")
-//				{
-//					$scope.VM.preShow=true;
-//				}else
-//				{
-//					$scope.VM.preShow=false;	
-//				}
 				
 				console.log($stateParams)
+				//备课夹显示问题
+				$scope.VM.preShow=false;
+				
+				//所有资源列表显示
+				$scope.VM.resShow=false;
+				//左右切换
+				$scope.VM.slide=false;
+				//评分和发布显示问题
+				$scope.VM.comShow=false;
 				
 				//当前目录  返回显示
 				$scope.links=[];
@@ -127,21 +133,45 @@
 					getAllSource("");//获取对应资源
 					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
 					$scope.links[0]=true;
-					
-					//
 					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
 					$scope.VM.name=$localStorage.currentTreeNode.label;
 					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
-				}else
-				{
+				}
+				else if($scope.VM.search=="person" && $scope.VM.personType=="0")
+				{//个人中心页面 非上传 没有推荐资源
+					$scope.sourceType=[{"id":"0","mtype":"全部"}];
+					$scope.sourceTypeId=0;
+					$scope.typeLight=[];
+					$scope.typeLight[0]=true;
+					$scope.typeName="全部";
+					$scope.VM.resShow=true;
+					$scope.VM.preShow=true;
+					$scope.VM.slide=true;
+					//获取单个资源信息
+					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
+					setTimeout(function(){					
+						$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
+					},300);
+				}
+				else if($scope.VM.search=="person" && $scope.VM.personType=="1")
+				{//个人中心页面 上传页面
+					$scope.sourceType=[{"id":"0","mtype":"全部"}];
+					$scope.sourceTypeId=0;
+					$scope.typeLight=[];
+					$scope.typeLight[0]=true;
+					$scope.typeName="全部";
+					getAllSource("");//获取对应资源
+					$scope.VM.preShow=true;
+					$scope.VM.comShow=true;
+				}
+				else
+				{//系统/区本/校本
 					// 资源nav数据
 					Preview.lists({
 						resId: $scope.VM.resourceId,
 						curTfcode: $scope.VM.tfCode,
 						fromFlag: $scope.VM.fromFlag
-	
 					}, function(data) {
-						
 						$scope.navList = data.data;
 						$scope.currentNav = $scope.navList[0];
 						$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
@@ -149,7 +179,6 @@
 						console.log($scope.VM.tfCode,$scope.VM.name)
 						$scope.links[2]=true;
 						getTypes();//获取资源类型
-						
 					});	
 					
 				}
@@ -158,12 +187,10 @@
 				$scope.back=function(index,tfcode){
 					if(index==2 && $scope.VM.search=="html")
 					{
-						
 						history.back();
 					}else if(index==0 && $scope.VM.search=="search")
 					{
 						history.back();
-						
 					}
 				}
 				
@@ -191,7 +218,7 @@
 					$scope.typeLight[index]=true;
 					$scope.typeName=$scope.sourceType[index].mtype;
 					current=1;
-					$scope.allSourceList=[];
+					$scope.VM.allSourceList=[];
 					getAllSource(id);
 					$scope.sourceTypeId=id;
 				}
@@ -218,7 +245,7 @@
 								$scope.sourceTypeId=$scope.sourceType[0].id;
 								$scope.typeName=$scope.sourceType[0].mtype;
 								current=1;
-								$scope.allSourceList=[];
+								$scope.VM.allSourceList=[];
 								getAllSource($scope.sourceTypeId);//获取对应资源
 							}
 							else{
@@ -241,7 +268,7 @@
 								$scope.sourceTypeId=$scope.sourceType[0].id;
 								$scope.typeName=$scope.sourceType[0].mtype;
 								current=1;
-								$scope.allSourceList=[];
+								$scope.VM.allSourceList=[];
 								getAllSource($scope.sourceTypeId);//获取对应资源
 							}
 								
@@ -255,7 +282,7 @@
 				//获取所有资源
 				var pageSize=0;
 				var current=1;
-				$scope.allSourceList=[];
+				$scope.VM.allSourceList=[];
 				 //加载更多资源
 				 $scope.getAllSourceMore=function(){
 				 	
@@ -296,16 +323,16 @@
 								$scope.localIndex=0;
 								
 								_.each(data.data.list, function(v, i) {
-									$scope.allSourceList.push(data.data.list[i]);
+									$scope.VM.allSourceList.push(data.data.list[i]);
 								});
 								
-								for(var i=0;i<$scope.allSourceList.length;i++)
+								for(var i=0;i<$scope.VM.allSourceList.length;i++)
 								{	$scope.curImg[i]=false;
-									if($scope.VM.resourceId==$scope.allSourceList[i].id)
+									if($scope.VM.resourceId==$scope.VM.allSourceList[i].id)
 									{
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
-										$scope.VM.fromFlag=$scope.allSourceList[i].fromFlag;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
 										console.log($scope.VM.fromFlag)
 										break;
 										
@@ -313,12 +340,12 @@
 										$scope.localIndex++;
 									}
 								}
-								if($scope.localIndex==$scope.allSourceList.length)
+								if($scope.localIndex==$scope.VM.allSourceList.length)
 								{		
 									    $scope.currentSlideIndex=0; 
 										$scope.curImg[0]=true;
-										$scope.VM.resourceId=$scope.allSourceList[0].id;
-										$scope.VM.fromFlag=$scope.allSourceList[0].fromFlag;
+										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 								console.log(data.data)
@@ -344,27 +371,27 @@
 								$scope.localIndex=0;
 								
 								_.each(data.data.list, function(v, i) {
-									$scope.allSourceList.push(data.data.list[i]);
+									$scope.VM.allSourceList.push(data.data.list[i]);
 								});
-								for(var i=0;i<$scope.allSourceList.length;i++)
+								for(var i=0;i<$scope.VM.allSourceList.length;i++)
 								{	$scope.curImg[i]=false;
-									if($scope.VM.resourceId==$scope.allSourceList[i].id)
+									if($scope.VM.resourceId==$scope.VM.allSourceList[i].id)
 									{
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
-										$scope.VM.fromFlag=$scope.allSourceList[i].fromFlag;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
 										break;
 										
 									}else{
 										$scope.localIndex++;
 									}
 								}
-								if($scope.localIndex==$scope.allSourceList.length)
+								if($scope.localIndex==$scope.VM.allSourceList.length)
 								{		
 									    $scope.currentSlideIndex=0; 
 										$scope.curImg[0]=true;
-										$scope.VM.resourceId=$scope.allSourceList[0].id;
-										$scope.VM.fromFlag=$scope.allSourceList[0].fromFlag;
+										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 								console.log(data.data)
@@ -374,7 +401,6 @@
 						});
 					}else if((($scope.VM.fromFlag == "0") || ($scope.VM.fromFlag == "-1") || ($scope.VM.fromFlag == "3") || ($scope.VM.fromFlag == "4"))&&($scope.VM.search=="search")){
 						//搜索页面系统资源 //头部显示加上数目
-						
 						Preview.source({
 							resId:$scope.VM.resourceId,
 							searchKeyword:$scope.searchKeyWord,
@@ -390,16 +416,16 @@
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								_.each(data.data.list, function(v, i) {
-									$scope.allSourceList.push(data.data.list[i]);
+									$scope.VM.allSourceList.push(data.data.list[i]);
 								});
 								
-								for(var i=0;i<$scope.allSourceList.length;i++)
+								for(var i=0;i<$scope.VM.allSourceList.length;i++)
 								{	$scope.curImg[i]=false;
-									if($scope.VM.resourceId==$scope.allSourceList[i].id)
+									if($scope.VM.resourceId==$scope.VM.allSourceList[i].id)
 									{
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
-										$scope.VM.fromFlag=$scope.allSourceList[i].fromFlag;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
 										console.log($scope.VM.fromFlag)
 										break;
 										
@@ -407,12 +433,12 @@
 										$scope.localIndex++;
 									}
 								}
-								if($scope.localIndex==$scope.allSourceList.length)
+								if($scope.localIndex==$scope.VM.allSourceList.length)
 								{		
 									    $scope.currentSlideIndex=0; 
 										$scope.curImg[0]=true;
-										$scope.VM.resourceId=$scope.allSourceList[0].id;
-										$scope.VM.fromFlag=$scope.allSourceList[0].fromFlag;
+										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 								console.log(data.data)
@@ -421,6 +447,54 @@
 							}
 							
 						});
+					}else if($scope.VM.search=="person" && $scope.VM.personType=="1")
+					{
+						//个人中心页面上传推荐资源
+						Preview.source({
+							resId:$scope.VM.resourceId,
+							fromFlag:$scope.VM.fromFlag,
+							page: current,
+							perPage: 20
+						}, function(data) {
+							$scope.VM.load=false;
+							console.log(data)
+							if(data.code=="OK")
+							{	console.log("个人中心上传跳转")
+								pageSize=data.data.total;
+								$scope.localIndex=0;
+								_.each(data.data.list, function(v, i) {
+									$scope.VM.allSourceList.push(data.data.list[i]);
+								});
+								
+								for(var i=0;i<$scope.VM.allSourceList.length;i++)
+								{	$scope.curImg[i]=false;
+									if($scope.VM.resourceId==$scope.VM.allSourceList[i].id)
+									{
+										$scope.currentSlideIndex=i; 
+										$scope.curImg[i]=true;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
+										console.log($scope.VM.fromFlag)
+										break;
+										
+									}else{
+										$scope.localIndex++;
+									}
+								}
+								if($scope.localIndex==$scope.VM.allSourceList.length)
+								{		
+									    $scope.currentSlideIndex=0; 
+										$scope.curImg[0]=true;
+										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
+										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
+								}
+								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
+								console.log(data.data)
+							}else{
+								alert(data.message);
+							}
+							
+						});
+						
 					}
 				}
 				 
@@ -433,7 +507,7 @@
 					$scope.VM.resourceId=id;
 					$scope.VM.fromeFlag=fromFlag;
 					$scope.VM.listInfoCom(id,$scope.VM.fromFlag);
-					for(var i=0;i<$scope.allSourceList.length;i++)
+					for(var i=0;i<$scope.VM.allSourceList.length;i++)
 					{
 						$scope.curImg[i]=false;
 					}
@@ -447,16 +521,16 @@
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
 						});
-						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex-1].id,$scope.allSourceList[$scope.currentSlideIndex-1].fromFlag);
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex-1].id,$scope.VM.allSourceList[$scope.currentSlideIndex-1].fromFlag);
 						$scope.currentSlideIndex --;
-						for(var i=0;i<$scope.allSourceList.length;i++)
+						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 						{
 							$scope.curImg[i]=false;
 						}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
-						$scope.currentSlideIndex = $scope.allSourceList.length - 1;
-						for(var i=0;i<$scope.allSourceList.length;i++)
+						$scope.currentSlideIndex = $scope.VM.allSourceList.length - 1;
+						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
 								$scope.curImg[i]=false;
 							}
@@ -465,13 +539,13 @@
 				}
 					//下一个
 				$scope.slideNext = function() {
-					if ($scope.currentSlideIndex < $scope.allSourceList.length - 1) {
+					if ($scope.currentSlideIndex < $scope.VM.allSourceList.length - 1) {
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
 						});
-						$scope.VM.listInfoCom($scope.allSourceList[$scope.currentSlideIndex+1].id,$scope.allSourceList[$scope.currentSlideIndex+1].fromFlag);
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex+1].id,$scope.VM.allSourceList[$scope.currentSlideIndex+1].fromFlag);
 						$scope.currentSlideIndex ++;
-						for(var i=0;i<$scope.allSourceList.length;i++)
+						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
 								$scope.curImg[i]=false;
 							}
@@ -479,7 +553,7 @@
 					} else {
 						
 						$scope.currentSlideIndex = 0;
-						for(var i=0;i<$scope.allSourceList.length;i++)
+						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
 								$scope.curImg[i]=false;
 							}

@@ -11,22 +11,25 @@
 				$scope.user = $localStorage.authUser;
 				$scope.VM = {};
 				$scope.VM.currentPage = 1;
+				$scope.VM.perPage = 10;
 				$scope.VM.totalPages = 1;
 				//上次被点中的li
 				var lastActive = 0;
 				//我的备课 列表
 
-				$scope.getMyPrepare = function(pagenum) {
+				$scope.getMyPrepare = function(pagenum, perpagenum) {
 					var page = 1;
+					var perpage = 10;
 					if(pagenum == undefined) page = 1;
 					else page = pagenum;
+					if(perpagenum != undefined) perpage = perpagenum;
 					Res.getPrepareResource({
 						unifyTypeId: '0',
 						fileFormat: '全部',
 						page: page,
-						perPage: 10
+						perPage: perpage
 					}, function(data) {
-						console.log(data.data);
+						//console.log(data.data);
 						$scope.prepareList = data.data.list;
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
@@ -43,10 +46,12 @@
 
 				$scope.getMyPrepare();
 				
-				$scope.resTypes = [];	
-				Personal.getResType({}, function(data) {
+				//获取资源类型
+				Personal.getResType({
+					tabCode: "myPrepareRes"
+				}, function(data) {
 					$scope.resTypes = data.data;
-					console.log(data.data);
+					$scope.VM.resType = $scope.resTypes[0].mtype; 				
 				})
 
 				$scope.setResActive = function(index) {
@@ -62,9 +67,9 @@
 				};
 							//按type筛选资源
 				$scope.selectResType = function(type) {
-					console.log(type);
+					//console.log(type);
 					var typeObj = JSON.parse(type);
-					console.log(typeObj.id);
+					//console.log(typeObj.id);
 					Res.getPrepareResource({
 						unifyTypeId: typeObj.id,
 						fileFormat: '全部',
@@ -72,7 +77,7 @@
 						perPage: 10
 					}, function(data) {
 						$scope.prepareList = data.data.list;
-						console.log(data);
+						//console.log(data);
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
 							_.each($scope.prepareList, function(v, i) {
@@ -98,6 +103,11 @@
 						$scope.VM.currentPage = pagenum;
 						$scope.getMyPrepare($scope.VM.currentPage);
 					}
+				}
+
+				$scope.changPerPage = function() {
+					$scope.VM.currentPage = 1;
+					$scope.getMyPrepare(1, $scope.VM.perPage);
 				}
 			}
 		])

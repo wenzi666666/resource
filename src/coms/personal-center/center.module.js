@@ -41,8 +41,25 @@
 					},
 					getResType: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
+						url: BackendUrl + "/resRestAPI/v1.0/personalTab/resType"
+					},
+					getComment:{//获取评论列表
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+					},
+					delCom:{//删除评论
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+					},
+					getDownloadRes: {//获取下载
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
+					},
+					getRecentView: {//获取最近浏览
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userview"
 					}
+					
 				})
 			}
 		])
@@ -74,7 +91,7 @@
 				}
 
 				// 左侧导航 切换
-				$scope.switchItemCtrl = [false, true, false, false, false]
+				$scope.switchItemCtrl = [true, false, false, false, false]
 				$scope.switchItem = function(index) {
 					_.each($scope.switchItemCtrl, function(v, i) {
 						$scope.switchItemCtrl[i] = false;

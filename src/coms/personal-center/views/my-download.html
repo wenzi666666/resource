@@ -1,51 +1,68 @@
 <div class="cen-right-down">
-	<h3 class="cen-h2">资源引用列表</h3>
+	<h3 class="cen-h2">我的下载</h3>
 	<div class="type-select-box">
-	  	<select ng-change="selectResType(tpSelected)" ng-model="tpSelected" >
-			<option ng-repeat="tp in resTypes" ng-bind="tp.mtype" value="{{tp}}"></option>
-		</select>
+	  	<div class="select-nav-item">
+			<div class="menu-drop">
+				<div class="trigger">
+					<span class="select-current" href="" ng-bind="VM.resType"></span>
+					<i class="icon-angle-down"></i>
+					<i class="icon-angle-up"></i>
+				</div>
+				
+				<div class="menu-drop-main">
+					<ul class="menu-drop-list">
+						<li ng-repeat="tp in resTypes" ng-click="selectResType(tp)"><span ng-bind="tp.mtype"></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="resource-box">
 		<div class="box-title">
 			<div class="row">
-				<div class="col-md-7 col-sm-7">
+				<div class="col-md-6 col-sm-6">
 					资源名称
 				</div>
-				<div class="col-md-2 col-sm-2">
+				<div class="col-md-3 col-sm-3">
 					资源类型
 				</div>
 				<div class="col-md-3 col-sm-3">
-					资源日期
+					下载日期
 				</div>
 			</div>
 		</div>
-		<div class="resource-list" class="col-md-9">
+		<div class="resource-list">
 			<ul class="row">
-				<li ng-repeat="res in prepareList track by $index" ng-class="{active: res.active}" ng-click="setResActive($index)">
-				<!-- <li class="active"> -->
-					<div class="col-md-7 col-sm-7">
-						<img ng-src="{{res.imgPath}}" />
-						<span class="resource-title" ng-bind="res.title"></span>
-					</div>
-					<div class="col-md-2 col-sm-2">
-						<span class="resource-type" ng-bind="res.unifyType"></span>
+				<li ng-repeat="list in VM.downloadFileList.list track by $index">
+					<div class="col-md-6 col-sm-6">
+						<div class="img-thumb-list">
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})"/>
+						</div>
+						<span class="resource-title">{{list.title}}</span>
 					</div>
 					<div class="col-md-3 col-sm-3">
-						<span class="resource-date"><show-time item-date data-value="{{res.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time></span>
+						<span class="resource-type">{{list.unifyType}}</span>
 					</div>
+					<div class="col-md-3 col-sm-3">
+						<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
+					</div>
+					<div class="clearfix"></div>
 				</li>
 			</ul>
 		</div>
+		<div class="set-per-page">
+			<span class="res-text-total"><i>共</i><i>{{totalItems}}</i><i>条，</i></span>
+				<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
+		</div>
 		<div class="pagination-box">
 			<div class="coms-pagination">
-			 	<uib-pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+				<uib-pagination total-items="totalItems" ng-model="VM.currentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页" num-pages="perPage" ng-change="pageChanged()"></uib-pagination>
 				<div class="page-go">
 					<span class="page-text">转到</span>
-					<input class="page-input"/>
-					<span class="page-go-btn">Go</span>
+					<input class="page-input" ng-model="pageTo"/>
+					<span class="page-go-btn" ng-click="pageChanged(pageTo)">Go</span>
 				</div>
 			</div>
 		</div>
-		
 	</div>
 </div>

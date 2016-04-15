@@ -66,6 +66,7 @@
 
 					}, function(data) {
 						if (data.code == "OK") {
+							$scope.VM.load=false;
 							console.log("单个资源信息")
 							console.log(data.data)
 							$scope.VM.info = data.data;
@@ -77,6 +78,21 @@
 								//几颗星亮
 								$scope.curStar[i] = true;
 							}
+							if($scope.VM.personType=="0")
+							{
+								
+								$scope.VM.allSourceList=[
+								{
+									"thumbnailpath":$scope.VM.info.fpath,
+									"fromFlag":$scope.VM.info.fromFlag,
+									"id":$scope.VM.info.id,
+									"title":$scope.VM.info.title
+								}
+								];
+								
+							}
+							
+							
 						} else {
 							alert(data.code);
 						}
@@ -110,7 +126,7 @@
 				function getComment(id) {
 					Preview.myComment({
 						resId: id,
-						fromFlag: $localStorage.fromFlag,
+						fromFlag: $scope.VM.fromFlag,
 					}, function(data) {
 
 						if (data.code == "OK") {
@@ -130,7 +146,7 @@
 					//获取其他人的评论
 					Preview.otherComment({
 						resId: id,
-						fromFlag: $localStorage.fromFlag,
+						fromFlag: $scope.VM.fromFlag,
 					}, function(data) {
 						if (data.code == "OK") {
 							$scope.otherCommentList = data.data;
@@ -183,7 +199,7 @@
 						Preview.editComment({
 							resId: $scope.VM.resourceId,
 							displayContent: $scope.VM.inputComment,
-							fromFlag: $localStorage.fromFlag,
+							fromFlag: $scope.VM.fromFlag,
 							ascore: score,
 							isScore: 1
 						}, function(data) {
@@ -198,11 +214,12 @@
 					}
 				//发布评分
 				function publishScore(index) {
-					console.log(index)
+					console.log("发布评分")
+					console.log(index,$scope.VM.resourceId,$scope.VM.fromFlag)
 					Preview.editComment({
 						resId: $scope.VM.resourceId,
 						displayContent: "",
-						fromFlag: $localStorage.fromFlag,
+						fromFlag: $scope.VM.fromFlag,
 						ascore: index,
 						isScore: 0
 					}, function(data) {
@@ -225,7 +242,7 @@
 						}, function(data) {
 							console.log(data)
 							if (data.code == "OK") {
-								$scope.myCommentList.pop($scope.myCommentList[index]);
+								$scope.myCommentList.splice(index,1);
 							} else {
 								alert(data.message);
 							}
@@ -241,6 +258,11 @@
 					});
 					$scope.contentShow[index]=false;
 					$scope.editSure = function(index) {
+							if($scope.myCommentList[index].acontent.length>200)
+							{
+								ModalMsg.logger("评论不能字数不能超过200！");
+								return false;
+							}
 							Preview.editComment({
 								displayContent:$scope.myCommentList[index].acontent,
 								commentId: id,
