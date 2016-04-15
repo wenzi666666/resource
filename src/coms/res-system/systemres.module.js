@@ -256,7 +256,7 @@
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
-						tfcode: d.tfcode,
+						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
 						perPage: $scope.perPage
@@ -448,9 +448,14 @@
 						ids:ids,
 						fromflags: flags
 					}, function(data){
-						if(data.data)
-							console.log(data.data)
-//							openwin(data.data[0].path)
+						if(data.data) {
+							console.log(data.data);
+							Res.getMyDownloadStatus({
+								id: data.data.id
+							}, function(data) {
+								console.log(data.data);
+							})
+						}
 					})
 				}
 				

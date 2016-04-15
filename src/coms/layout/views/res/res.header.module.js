@@ -56,6 +56,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
 					},
+					// 查询下载状态
+					getMyDownloadStatus: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareZip_staus"
+					},
 					// 我的评论
 					getMyComment : {
 						method: "GET",
