@@ -211,6 +211,21 @@
 				}
 			}
 		})
+		.directive('resSizet', function() {
+			return {
+				restrict: 'E',
+				transclude: true,
+				template: '<span class="item-info-size">{{resSize}}M</span>',
+				replace: true,
+				link: function($scope, ele, attrs) {
+					attrs.$observe('value', function(param) {
+						var flo = parseFloat(param);
+						if(isNaN(flo)) $scope.resSize = 0;
+						else $scope.resSize = Math.round(param/1024/1024*10)/10;
+					})
+				}
+			}
+		})
 		//资源操作icon样式悬停变化
 		.directive('activeSrc', function() {
 			var activeSrc = {
@@ -235,24 +250,20 @@
 			}
 			return defaultSrc;			
 		})
-
-		.directive('popOver', function() {
+		.directive('opBtn', function() {
 			return {
 				restrict: 'A',
 				transclude: true,
 				replace: true,
 				link: function($scope, ele, attrs) {
-					var domId = document.getElementById(attrs.popOver);
-					console.log(domId);
-					domId.style.left = attrs.offsetLeft;
-					domId.style.top = attrs.offsetTop;
-					ele.bind('mouseover', function() {
-						domId.style.display="block";
-						setTimeout(function() {
-							domId.style.display="none";
-						}, 3000);
+					console.log(ele);
+					ele[0].innerHTML = attrs.opBtn;
+					console.log(attrs);
+					var opbtns = $(".op-btn-group button");
+					ele.on('click', function() {
+						opbtns.addClass("btn-white");
+						ele.removeClass('btn-white');
 					})
-					
 				}
 			}
 		})

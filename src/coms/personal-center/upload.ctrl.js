@@ -5,8 +5,8 @@
 	'use strict';
 	//Module configuration
 	angular.module('webApp.coms.personalcenter')
-		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal', 'ModalMsg','Res','Upload','$timeout',
-			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,ModalMsg,Res,Upload,$timeout) {
+		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal', 'ModalMsg','Res','Upload','$timeout','$uibModalInstance',
+			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,ModalMsg,Res,Upload,$timeout,$uibModalInstance) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				
@@ -25,13 +25,17 @@
 				
 				// 第一屏显示
 				$scope.firstUpload = true;
-				$scope.files = {};
+				
+				// 显示本地资源
+				$scope.isLocal = true;
+				
+				// 上传返回的文件名
 				$scope.uploadFiles = function(files, errFiles) {
 				  	$scope.firstUpload = false;
-				  	
 			        $scope.files = files;
+//			        console.log(files)
 //			        $scope.errFiles = errFiles;
-			        angular.forEach(files, function(file) {
+			        angular.forEach($scope.files, function(file) {
 			        	console.log(file)
 			            file.upload = Upload.upload({
 			                url: $scope.uploadData.uploadUrl,
@@ -41,6 +45,7 @@
 			            file.upload.then(function (response) {
 			                $timeout(function () {
 			                    file.result = response.data;
+			                    $scope.files.responseName = response.data;
 			                    console.log( response.data)
 			                });
 			            }, function (response) {
@@ -54,15 +59,14 @@
 			        });
 			    }
 				
-				$scope.VM.uploadResInfo = function() {
-//					if(!!$localStorage.files) {
-						var modalNewUpload = $uibModal.open({
-							templateUrl: "eiditResModal.html",
-							windowClass: "upload-modal",
-							controller: 'editResController',
-							scope:$scope //Refer to parent scope here
-						})
-//					}
+				$scope.uploadResInfo = function() {
+					$uibModalInstance.dismiss('cancel');
+					var modalNewUpload = $uibModal.open({
+						templateUrl: "eiditResModal.html",
+						windowClass: "upload-modal",
+						controller: 'editResController',
+						scope:$scope //Refer to parent scope here
+					})
 				}	
 			}
 		])
@@ -70,7 +74,7 @@
 		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','$uibModal', 'ModalMsg','Res','Upload','$timeout',
 			function($scope, $stateParams, $state, $location, $localStorage,$uibModal,ModalMsg,Res,Upload,$timeout) {
 				
-				console.log($scope.uploadData)
+				console.log($scope.uploadData,$scope.files)
 				
 				// 获取资源类型
 				Res.unifyType({}, function(data) {
@@ -106,6 +110,8 @@
 						})
 					})
 				}
+
+				
 			}
 		])
 }());

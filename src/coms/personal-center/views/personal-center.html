@@ -15,13 +15,13 @@
 						<button class="btn-general btn-pink" ng-click="VM.uploadResInfo()">编辑资源</button>
 					</div>
 				</div>
-				<div class="btn-group">
+				<div class="op-btn-group">
 					<ul>
-						<li><button class="btn-general btn-heavy" ng-click="switchItem(0)">我的备课</button></li>
-						<li><button class="btn-general btn-light" ng-click="switchItem(1)">我的上传</button></li>
-						<li><button class="btn-general btn-white" ng-click="switchItem(2)">我的下载</button></li>
-						<li><button class="btn-general btn-white" ng-click="switchItem(3)">我的评论</button></li>
-						<li><button class="btn-general btn-white" ng-click="switchItem(4)">最近浏览</button></li>
+						<li><button class="btn-general" ng-click="switchItem(0)" op-btn="我的备课"></button></li>
+						<li><button class="btn-general btn-white" ng-click="switchItem(1)" op-btn="我的上传"></button></li>
+						<li><button class="btn-general btn-white" ng-click="switchItem(2)" op-btn="我的下载"></button></li>
+						<li><button class="btn-general btn-white" ng-click="switchItem(3)" op-btn="我的评论"></button></li>
+						<li><button class="btn-general btn-white" ng-click="switchItem(4)" op-btn="最近浏览"></button></li>
 					</ul>
 				</div>
 			</div>
@@ -29,19 +29,18 @@
 				<div class="cen-right-up">
 					<h3 class="cen-h2">备课统计</h3>
 					<div class="left-arrow">
-						<span></span><img src="assets/img/left_arrow.png" />
+						<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
 					</div>
 					<div class="statistic-content">
-						<p>{{item.title}}已备完{{item.prepareNums}}节课，共{{prepare.length}}个备课夹，{{item.resourceNums}}条资源，还有{{item.nodeOmitNums}}节课要备。</p>
+						<p>已备完{{currentPrepare.prepareNums}}节课，共{{prepare.length}}个备课夹，{{currentPrepare.resourceNums}}条资源，还有{{currentPrepare.nodeOmitNums}}节课要备。</p>
 						<div class="statistic-box">
-							{{prepareConfig}}
 							<highchart config="chartConfig"></highchart>
 						</div>
-						<p>{{item.title}}</p>
+						<p>{{currentPrepare.title}}</p>
 					</div>
 					<div class="right-arrow">
 						<span></span>
-						<img src="assets/img/right_arrow.png"/>
+						<i ng-click="next()" class="icon-chevron-right"></i>
 					</div>
 				</div>
 

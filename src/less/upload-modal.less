@@ -1,21 +1,22 @@
 // 上传 模态框
 // 单独出来，相对独立
-.upload-modal{
-    
+.upload-modal .modal-dialog{
+    width: 800px;
 }
 .upload-modal-body{
     width: 800px;
     min-height: 500px;
     text-align: left
 }
-.upload-file-content{
+.upload-file-content, .upload-network-content{
     background: #fff;
-    padding: 15px;
+    padding: 30px;
     border: 2px #41C9A9 solid;
     border-top: 8px #41C9A9 solid;
-    border-bottom: none;
     text-align: center;
+    min-height: 300px;
 }
+upload-network-content
 .upload-file-content>div{
     min-height: 300px;
 }
@@ -40,4 +41,32 @@
 .unifyType-title{
     width: 16%;
     float: left;
+}
+.continue-upload{
+    text-align: center;
+}
+.upload-tips{
+    color: #9e9e9e;
+    padding: 40px 130px;
+    text-align: left;
+}
+.upload-tips-custom{
+    padding: 0 130px;
+    color: #DF3D6D;
+}
+.upload-tips div{
+
+}
+.upload-tips-icon{
+    background: #fff;
+    color: #808080;
+    margin-left: -18px;
+    font-size: 18px;
+}
+.upload-tips-custom .upload-tips-icon{
+    color: #DF3D6D;
+    font-size: 16px;
+}
+.upload-modal-body li > img{
+    width: 175px;
 }

@@ -19,9 +19,13 @@
 		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','Layout',
 			function($scope, $stateParams, $state, $location,$localStorage,Layout) {
 				//主导航学生学习空间地址
+				var spaceNavUrl = '';
 				Layout.autoLearning({},function(data) {
-					console.log("learning:", data);
+					spaceNavUrl = data.data;
 				})
+				$scope.goToSpace = function(){
+					openwin(spaceNavUrl)
+				}
 				//退出
 				$scope.logout = function() {
 					localStorage.removeItem("ngStorage-authUser");
