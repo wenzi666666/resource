@@ -100,17 +100,18 @@
 					$scope.VM.search="search";
 					console.log("搜索页跳转");
 					console.log($scope.VM.fromFlag);
+					
 				}
 				
 				//备课夹显示问题
 				$scope.VM.preShow=true;
-				if($scope.VM.search=="search")
-				{
-					$scope.VM.preShow=true;
-				}else
-				{
-					$scope.VM.preShow=false;	
-				}
+//				if($scope.VM.search=="search")
+//				{
+//					$scope.VM.preShow=true;
+//				}else
+//				{
+//					$scope.VM.preShow=false;	
+//				}
 				
 				console.log($stateParams)
 				
@@ -124,8 +125,13 @@
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
 					getAllSource("");//获取对应资源
-					$scope.currentNav = [{"name":localStorage.searchKeyWord}];
+					$scope.currentNav = [{"name":$localStorage.searchKeyWord}];
 					$scope.links[0]=true;
+					
+					//
+					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+					$scope.VM.name=$localStorage.currentTreeNode.label;
+					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
 				}else
 				{
 					// 资源nav数据
@@ -157,7 +163,7 @@
 					}else if(index==0 && $scope.VM.search=="search")
 					{
 						history.back();
-						localStorage.fromFlag=$stateParams.fromFlag;
+						
 					}
 				}
 				

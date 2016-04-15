@@ -49,10 +49,12 @@
 				// 加载过程显示 转圈
 				$scope.isLoading = true;
 				$scope.searchKeyWord="";
-				if(localStorage.searchKeyWord)
+				if($localStorage.searchKeyWord)
 				{
-					$scope.searchKeyWord=localStorage.searchKeyWord;
+					$scope.searchKeyWord=$localStorage.searchKeyWord;
+					$localStorage.search_fromFlag=$localStorage.fromFlag;
 				}
+				
 				//搜索资源范围
 
 				$scope.VM.searchArea = [{
@@ -73,9 +75,16 @@
 
 				//资源范围
 				$scope.VM.currentAreaSelect = [];
-				$scope.VM.currentAreaSelect[0] = true;
-				$scope.VM.currentArea = $scope.VM.searchArea[0].area; //文本当前内容
-				$scope.VM.currentFromFlag = $scope.VM.searchArea[0].id;
+				
+				_.each($scope.VM.searchArea, function(v, i) {
+					if($localStorage.search_fromFlag==$scope.VM.searchArea[i].id)
+					{
+						$scope.VM.currentAreaSelect[i] = true;
+						$scope.VM.currentFromFlag = $scope.VM.searchArea[i].id;
+						$scope.VM.currentArea = $scope.VM.searchArea[i].area; //文本当前内容
+					}
+				});
+				
 				$scope.VM.selectArea = function(index) {
 					//选中
 					_.each($scope.VM.searchArea, function(v, i) {
@@ -85,10 +94,10 @@
 					$scope.VM.currentAreaSelect[index] = true;
 					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
+					$localStorage.search_fromFlag=$scope.VM.currentFromFlag;
 					clearPage();
 					getFormat();//资源格式
 					getSourceList();
-					
 				}
 				
 				//资源格式
@@ -148,7 +157,7 @@
 					}, function(data) {
 						$scope.isLoading = false;
 						if (data.code == "OK") {
-							localStorage.searchKeyWord=$scope.searchKeyWord;
+							$localStorage.searchKeyWord=$scope.searchKeyWord;
 							if(data.data.list!=0)
 							{	$scope.showNoInfo=false;
 								_.each(data.data.list, function(v, i) {
