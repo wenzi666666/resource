@@ -211,6 +211,21 @@
 				}
 			}
 		})
+		.directive('resSizet', function() {
+			return {
+				restrict: 'E',
+				transclude: true,
+				template: '<span class="item-info-size">{{resSize}}M</span>',
+				replace: true,
+				link: function($scope, ele, attrs) {
+					attrs.$observe('value', function(param) {
+						var flo = parseFloat(param);
+						if(isNaN(flo)) $scope.resSize = 0;
+						else $scope.resSize = Math.round(param/1024/1024*10)/10;
+					})
+				}
+			}
+		})
 		//资源操作icon样式悬停变化
 		.directive('activeSrc', function() {
 			var activeSrc = {

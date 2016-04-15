@@ -377,8 +377,14 @@
 					})
 					$scope.VM.currentMaterialSeclet[index] = true;
 					$scope.$emit("currentTreeId", $scope.VM.currentMaterial.id);
-					
 				}
+				
+				// 搜索
+				$scope.search = function(){
+					$localStorage.searchKeywords = $scope.searchKeywords;
+					$state.go("search");
+				}
+				
 			}
 		])
 }());

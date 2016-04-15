@@ -63,8 +63,8 @@
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout',
-			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval',
+			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -450,11 +450,19 @@
 					}, function(data){
 						if(data.data) {
 							console.log(data.data);
-							Res.getMyDownloadStatus({
-								id: data.data.id
-							}, function(data) {
-								console.log(data.data);
-							})
+							ModalMsg.alert("正在打包中，请稍候...");
+							var t = setInterval(function() {
+								console.log("tt")
+								Res.getMyDownloadStatus({
+									id: data.data
+								}, function(data) {
+									if(!!data.data.status) {
+										openwin(data.data.zippath);
+										clear(t);
+									}
+										
+								})
+							}, 2000)
 						}
 					})
 				}
