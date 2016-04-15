@@ -154,7 +154,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-4">
-						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
+						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'1'})"/>
 						<span class="resource-title">{{list.title}}</span>
 					</div>
 					<div class="col-md-2 col-sm-2">

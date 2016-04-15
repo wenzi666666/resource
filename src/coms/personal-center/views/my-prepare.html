@@ -24,7 +24,7 @@
 				<li ng-repeat="res in prepareList track by $index" ng-class="{active: res.active}" ng-click="setResActive($index)">
 				<!-- <li class="active"> -->
 					<div class="col-md-7 col-sm-7">
-						<img ng-src="{{res.imgPath}}" />
+						<img ng-src="{{res.imgPath}}" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0'})"/>
 						<span class="resource-title" ng-bind="res.title" title="{{res.title}}"></span>
 					</div>
 					<div class="col-md-2 col-sm-2">
