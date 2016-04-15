@@ -1,9 +1,21 @@
 <div class="cen-right-down">
 	<h3 class="cen-h2">资源引用列表</h3>
 	<div class="type-select-box">
-	  	<select ng-change="selectResType(tpSelected)" ng-model="tpSelected">
-			<option ng-repeat="tp in resTypes" ng-bind="tp.mtype" value="{{tp}}"></option>
-		</select>
+	  	<div class="select-nav-item">
+			<div class="menu-drop">
+				<div class="trigger">
+					<span class="select-current" href="" ng-bind="VM.resType"></span>
+					<i class="icon-angle-down"></i>
+					<i class="icon-angle-up"></i>
+				</div>
+				
+				<div class="menu-drop-main">
+					<ul class="menu-drop-list">
+						<li ng-repeat="tp in resTypes" ng-click="selectResType(tp)"><span ng-bind="tp.mtype"></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="resource-box">
 		<div class="box-title">
@@ -24,7 +36,9 @@
 				<li ng-repeat="res in prepareList track by $index" ng-class="{active: res.active}" ng-click="setResActive($index)">
 				<!-- <li class="active"> -->
 					<div class="col-md-7 col-sm-7">
-						<img ng-src="{{res.imgPath}}" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0'})"/>
+						<div class="img-thumb-list">
+							<img class="res-list-thumb" ng-src="{{res.imgPath}}" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0'})"/>
+						</div>
 						<span class="resource-title" ng-bind="res.title" title="{{res.title}}"></span>
 					</div>
 					<div class="col-md-2 col-sm-2">

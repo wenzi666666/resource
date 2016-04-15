@@ -40,7 +40,8 @@
 				Personal.getResType({
 					tabCode: "myUpload"
 				}, function(data) {
-					$scope.resTypes = data.data;				
+					$scope.resTypes = data.data;	
+					$scope.VM.resType = $scope.resTypes[0].mtype; 			
 				})
 
 				//添加批量删除资源

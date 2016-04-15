@@ -1,9 +1,21 @@
 <div class="cen-right-down">
 	<h3 class="cen-h2">我的下载</h3>
 	<div class="type-select-box">
-	  	<select ng-change="selectResType(tpSelected)" ng-model="tpSelected" >
-			<option ng-repeat="tp in resTypes" ng-bind="tp.mtype" value="{{tp}}"></option>
-		</select>
+	  	<div class="select-nav-item">
+			<div class="menu-drop">
+				<div class="trigger">
+					<span class="select-current" href="" ng-bind="VM.resType"></span>
+					<i class="icon-angle-down"></i>
+					<i class="icon-angle-up"></i>
+				</div>
+				
+				<div class="menu-drop-main">
+					<ul class="menu-drop-list">
+						<li ng-repeat="tp in resTypes" ng-click="selectResType(tp)"><span ng-bind="tp.mtype"></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="resource-box">
 		<div class="box-title">
@@ -19,11 +31,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="resource-list my-upload-list">
+		<div class="resource-list">
 			<ul class="row">
 				<li ng-repeat="list in VM.downloadFileList.list track by $index">
 					<div class="col-md-6 col-sm-6">
-						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})"/>
+						<div class="img-thumb-list">
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})"/>
+						</div>
 						<span class="resource-title">{{list.title}}</span>
 					</div>
 					<div class="col-md-3 col-sm-3">

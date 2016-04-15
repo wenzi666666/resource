@@ -50,7 +50,8 @@
 				Personal.getResType({
 					tabCode: "myPrepareRes"
 				}, function(data) {
-					$scope.resTypes = data.data;				
+					$scope.resTypes = data.data;
+					$scope.VM.resType = $scope.resTypes[0].mtype; 				
 				})
 
 				$scope.setResActive = function(index) {

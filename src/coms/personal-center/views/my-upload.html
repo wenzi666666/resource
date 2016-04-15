@@ -9,19 +9,19 @@
     	<p>为方便资源的管理，请填写完整的资源信息</p>
     	<div class="edit-detail-box">
     		<div class="edit-list">
-    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png" />
+    			<span class="red-tip">*</span>
     			<span class="sp-label">资源名称</span>
     			<input type="text" ng-model="res.title" />
     			<button class="btn-op" ng-click="setResTitle(res.title)">确定</button>
     		</div>
     		<div class="edit-list">
-    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="red-tip">*</span>
     			<span class="sp-label">资源类型</span>
     			<span class="tag active" ng-bind="res.unifyType"></span>
     		</div>
     		<div class="edit-list">
     			<div class="edit-list-left">
-    				<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    				<span class="red-tip">*</span>
     				<span class="sp-label">上传至：</span>
     			</div>
     			<div class="edit-list-right">
@@ -91,19 +91,19 @@
     			<div class="clearfix"></div>
     		</div>
     		<div class="edit-list">
-    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="red-tip">*</span>
     			<span class="sp-label">共享范围</span>
     			<span class="tag active">仅自己可见</span>
     			<span class="tag">本校可见</span>
     			<span class="tag">本区可见</span>
     		</div>
     		<div class="edit-list">
-    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="red-tip">*</span>
     			<span class="sp-label">关键词</span>
     			<input type="text" ng-model="res.keywords" class="keyword-input" placeholder="多个关键词用分号隔开" />
     		</div>
     		<div class="edit-list">
-    			<img class="red-star-icon" src="assets/img/personalcenter/red_star_icon.png"/>
+    			<span class="red-tip">*</span>
     			<span class="sp-label">资源介绍</span>
     			<textarea ng-model="res.description" placeholder="选填，主要介绍资源的主要内容，方便资源的管理和分享，限200字">
     			</textarea>
@@ -121,16 +121,29 @@
 <div class="cen-right-down">
 	<h3 class="cen-h2">我的上传</h3>
 	<div class="type-select-box">
-	  	<select ng-change="selectResType(tpSelected)" ng-model="tpSelected" >
+	  	<!-- <select ng-change="selectResType(tpSelected)" ng-model="tpSelected" >
 			<option ng-repeat="tp in resTypes" ng-bind="tp.mtype" value="{{tp}}"></option>
-		</select>
+		</select> -->
+		<div class="select-nav-item">
+			<div class="menu-drop">
+				<div class="trigger">
+					<span class="select-current" href="" ng-bind="VM.resType"></span>
+					<i class="icon-angle-down"></i>
+					<i class="icon-angle-up"></i>
+				</div>
+				
+				<div class="menu-drop-main">
+					<ul class="menu-drop-list">
+						<li ng-repeat="tp in resTypes" ng-click="selectResType(tp)"><span ng-bind="tp.mtype"></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="resource-box">
 		<div class="box-title">
 			<div class="row">
-				<div class="col-md-1 col-sm-1">
-				</div>
-				<div class="col-md-4 col-sm-4">
+				<div class="col-md-5 col-sm-5">
 					资源名称
 				</div>
 				<div class="col-md-2 col-sm-2">
@@ -147,14 +160,16 @@
 		<div class="resource-list my-upload-list">
 			<ul class="row">
 				<li ng-repeat="list in VM.uploadFileList.list track by $index">
-					<div class="col-md-1 col-sm-1 check-box-area">
-						<div class="check-box">
-							<input id="{{$index}}" type="checkBox" class="check" ng-click="addResDeleting(list.resId)">
-							<label for="{{$index}}"></label>
+					<div class="col-md-5 col-sm-5">
+						<div class="check-box-area">
+							<div class="check-box">
+								<input id="{{$index}}" type="checkBox" class="check" ng-click="addResDeleting(list.resId)">
+								<label for="{{$index}}"></label>
+							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1'})"/>
+						<div class="img-thumb-list">
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1'})"/>
+						</div>
 						<span class="resource-title">{{list.title}}</span>
 					</div>
 					<div class="col-md-2 col-sm-2">
