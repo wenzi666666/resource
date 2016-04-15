@@ -381,7 +381,7 @@
 				
 				// 搜索
 				$scope.search = function(){
-					$localStorage.searchKeywords = $scope.searchKeywords;
+					$localStorage.searchKeyWord = $scope.searchKeywords;
 					$state.go("search");
 				}
 				

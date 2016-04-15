@@ -460,7 +460,6 @@
 										openwin(data.data.zippath);
 										clear(t);
 									}
-										
 								})
 							}, 2000)
 						}
