@@ -19,7 +19,7 @@
 				<li ng-repeat="list in VM.commentList" class="comment-list">
 					<div class="col-md-12 col-sm-12">
 						<div class="col-md-3 col-sm-3">
-							<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" />
+							<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})"/>
 							<span class="resource-title text-ellipsis" >{{list.title}}</span>
 						</div>
 						<div class="col-md-9 col-sm-9">
