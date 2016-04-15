@@ -158,7 +158,7 @@
 							} else {
 								scope.styleSelectDate[0] = "";
 								scope.styleSelectDate[1] = scope.mydate;
-								console.log(scope.styleSelectDate[0], scope.styleSelectDate[1])
+								//console.log(scope.styleSelectDate[0], scope.styleSelectDate[1])
 							}
 						}
 					})
@@ -256,9 +256,9 @@
 				transclude: true,
 				replace: true,
 				link: function($scope, ele, attrs) {
-					console.log(ele);
+					//console.log(ele);
 					ele[0].innerHTML = attrs.opBtn;
-					console.log(attrs);
+					//console.log(attrs);
 					var opbtns = $(".op-btn-group button");
 					ele.on('click', function() {
 						opbtns.addClass("btn-white");
@@ -305,7 +305,7 @@
 			function link(scope, element, attributes) {
 				element.on('click', function(event) {
 					var cartElem = angular.element(document.getElementsByClassName("shopping-cart"));
-					console.log(cartElem);
+					//console.log(cartElem);
 					var offsetTopCart = cartElem.prop('offsetTop');
 					var offsetLeftCart = cartElem.prop('offsetLeft');
 					
@@ -314,8 +314,8 @@
 					
 					var offsetLeft = imgElem.prop("offsetLeft");
 					var offsetTop = imgElem.prop("offsetTop");
-					console.log(offsetLeftCart + ' ' + offsetTopCart);
-					console.log(offsetLeft + ' ' + offsetTop + ' ' + imgElem);
+					//console.log(offsetLeftCart + ' ' + offsetTopCart);
+					//console.log(offsetLeft + ' ' + offsetTop + ' ' + imgElem);
 					var imgClone = angular.element('<label style="font-size:28px;color:red;width:40px;height:40px"><i class="icon-plus"></i>1</label>');
 					imgClone.css({
 						'height': '150px',

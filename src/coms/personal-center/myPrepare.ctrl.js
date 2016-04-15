@@ -29,7 +29,7 @@
 						page: page,
 						perPage: perpage
 					}, function(data) {
-						console.log(data.data);
+						//console.log(data.data);
 						$scope.prepareList = data.data.list;
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
@@ -46,10 +46,11 @@
 
 				$scope.getMyPrepare();
 				
-				$scope.resTypes = [];	
-				Personal.getResType({}, function(data) {
-					$scope.resTypes = data.data;
-					console.log(data.data);
+				//获取资源类型
+				Personal.getResType({
+					tabCode: "myPrepareRes"
+				}, function(data) {
+					$scope.resTypes = data.data;				
 				})
 
 				$scope.setResActive = function(index) {
@@ -65,9 +66,9 @@
 				};
 							//按type筛选资源
 				$scope.selectResType = function(type) {
-					console.log(type);
+					//console.log(type);
 					var typeObj = JSON.parse(type);
-					console.log(typeObj.id);
+					//console.log(typeObj.id);
 					Res.getPrepareResource({
 						unifyTypeId: typeObj.id,
 						fileFormat: '全部',
@@ -75,7 +76,7 @@
 						perPage: 10
 					}, function(data) {
 						$scope.prepareList = data.data.list;
-						console.log(data);
+						//console.log(data);
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
 							_.each($scope.prepareList, function(v, i) {

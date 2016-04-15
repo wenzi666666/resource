@@ -13,7 +13,7 @@
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				$scope.VM.currentPage = 1;
-				$scope.perPage = 10;
+				$scope.VM.perPage = 10;
 				$scope.maxSize = 3;
 				var page = 1;
 				// 上传资源 列表
@@ -25,9 +25,9 @@
 						unifyTypeId: '1',
 						fileFormat: '全部',
 						page: $scope.VM.currentPage,
-						perPage: $scope.perPage
+						perPage: $scope.VM.perPage
 					}, function(data) {
-						// console.log("uploadList:", data.data)
+						console.log("uploadList:", data.data)
 						$scope.VM.uploadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
 						// console.log($scope.totalItems);
@@ -36,8 +36,10 @@
 
 				$scope.getResList();
 
-				//获取所有资源类型
-				Personal.getResType({}, function(data) {
+				//获取资源类型
+				Personal.getResType({
+					tabCode: "myUpload"
+				}, function(data) {
 					$scope.resTypes = data.data;				
 				})
 
@@ -111,6 +113,11 @@
 						$scope.VM.currentPage = pagenum;
 						$scope.getResList();
 					}
+				}
+
+				$scope.changPerPage = function() {
+					$scope.VM.currentPage = 1;
+					$scope.getResList();
 				}
 			}
 		])

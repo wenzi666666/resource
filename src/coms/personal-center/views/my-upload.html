@@ -154,7 +154,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-4">
-						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'1'})"/>
+						<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1'})"/>
 						<span class="resource-title">{{list.title}}</span>
 					</div>
 					<div class="col-md-2 col-sm-2">
@@ -171,6 +171,10 @@
 				</li>
 			</ul>
 			<button class="btn-op" id="btn-delete-some" ng-click="deleteSomeRes()">批量删除</button>
+		</div>
+		<div class="set-per-page">
+			<span class="res-text-total"><i>共</i><i>{{totalItems}}</i><i>条，</i></span>
+				<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
 		</div>
 		<div class="pagination-box">
 			<div class="coms-pagination">
