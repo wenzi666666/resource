@@ -46,8 +46,8 @@
 				})
 			}
 		])
-		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModal', 'Personal',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, Personal) {
+		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModal', 'Personal','ModalMsg',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, Personal,ModalMsg) {
 				// 变量共享
 				$scope.VM = {};
 
@@ -105,7 +105,7 @@
 						verticalAlign: 'bottom'
 					},
 					size: {
-						width: 520,
+						width: 450,
 						height: 250
 					}
 				}
@@ -116,12 +116,42 @@
 				// 获取备课数据
 				Personal.prepareStatis({}, function(data) {
 					$scope.prepare = data.data;
+					// init data
+					initCharData(0);
 					
-					$scope.chartConfig = chartConfig;
-					var total = $scope.prepare[0].nodeFinishedNums+ $scope.prepare[0].nodeOmitNums;
-					$scope.chartConfig.series[0].data = [['未备课',$scope.prepare[0].nodeOmitNums/total],['已备课', $scope.prepare[0].nodeFinishedNums/total]]
-					$scope.chartConfig.title.text = ' ';
 				})
+				
+				// 备课统计数据
+				var index = 0;
+				var initCharData = function(i) {
+					index = i;
+					$scope.currentPrepare = $scope.prepare[i];
+					$scope.chartConfig = chartConfig;
+					var total = $scope.prepare[i].nodeFinishedNums+ $scope.prepare[i].nodeOmitNums;
+					$scope.chartConfig.series[0].data = [['未备课',$scope.prepare[i].nodeOmitNums/total],['已备课', $scope.prepare[i].nodeFinishedNums/total]]
+					$scope.chartConfig.title.text = ' ';
+				}
+				
+				// 向前
+				$scope.pre = function(){
+					if(index>0) {
+						index--;
+						initCharData(index)
+					}else{
+						ModalMsg.logger("已经是第一个啦")
+					}
+				}
+				
+				// 向前
+				$scope.next = function(){
+					if(index < $scope.prepare.length-1) {
+						index++;
+						initCharData(index)
+					}else{
+						ModalMsg.logger("已经是最后一个啦")
+					}
+				}
+				
 				
 				$scope.VM.uploadResInfo = function() {
 //					if(!!$localStorage.files) {

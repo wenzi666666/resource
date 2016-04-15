@@ -29,19 +29,18 @@
 				<div class="cen-right-up">
 					<h3 class="cen-h2">备课统计</h3>
 					<div class="left-arrow">
-						<span></span><img src="assets/img/left_arrow.png" />
+						<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
 					</div>
 					<div class="statistic-content">
-						<p>{{item.title}}已备完{{item.prepareNums}}节课，共{{prepare.length}}个备课夹，{{item.resourceNums}}条资源，还有{{item.nodeOmitNums}}节课要备。</p>
+						<p>已备完{{currentPrepare.prepareNums}}节课，共{{prepare.length}}个备课夹，{{currentPrepare.resourceNums}}条资源，还有{{currentPrepare.nodeOmitNums}}节课要备。</p>
 						<div class="statistic-box">
-							{{prepareConfig}}
 							<highchart config="chartConfig"></highchart>
 						</div>
-						<p>{{item.title}}</p>
+						<p>{{currentPrepare.title}}</p>
 					</div>
 					<div class="right-arrow">
 						<span></span>
-						<img src="assets/img/right_arrow.png"/>
+						<i ng-click="next()" class="icon-chevron-right"></i>
 					</div>
 				</div>
 
