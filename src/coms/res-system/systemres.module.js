@@ -238,7 +238,7 @@
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
 					console.log("received:",d)
-					getResList();
+					getResList(d);
 					$timeout(function(){
 						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 					},300)
@@ -250,13 +250,13 @@
 				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
-				var getResList = function() {
+				var getResList = function(d) {
 					$scope.isLoading = true;
 					SystemRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
-						tfcode: $localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						tfcode: d.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
 						perPage: $scope.perPage

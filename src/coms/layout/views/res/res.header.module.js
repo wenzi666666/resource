@@ -196,6 +196,8 @@
 						name: $scope.VM.currentGrade,
 						id: $scope.VM.currentGradeId
 					}
+					// 目录树改变
+					$localStorage.selectChange = false;
 					//选中
 					_.each($scope.VM.grade, function(v, i) {
 						$scope.VM.currentGradeSeclet[i] = false;
@@ -271,6 +273,8 @@
 					$scope.VM.currentSubject = $scope.VM.subject[index];
 					//缓存用户当前 学科
 					$localStorage.currentSubject = $scope.VM.subject[index];
+					// 目录树改变
+					$localStorage.selectChange = false;
 					//选中
 					_.each($scope.VM.subject, function(v, i) {
 						$scope.VM.currentSubjectSeclet[i] = false;
@@ -328,6 +332,8 @@
 					//隐藏学科学段
 					$scope.VM.currentHeader = true;
 					$scope.VM.currentVersionTmpShow = false;
+					// 目录树改变
+					$localStorage.selectChange = false;
 
 					//备课夹 视图切换 临时
 					$scope.VM.isList = false;
@@ -356,6 +362,8 @@
 					$scope.VM.currentMaterial = $scope.VM.material[index];
 					$scope.VM.currentMaterialShow = true;
 					$scope.VM.currentMaterialTmpShow = false;
+					// 目录树改变
+					$localStorage.selectChange = false;
 					//缓存用户当前 教材
 					$localStorage.currentMaterial =  $scope.VM.currentMaterial;
 					//选中
