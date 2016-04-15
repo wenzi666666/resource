@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag/:search',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search/:type',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',

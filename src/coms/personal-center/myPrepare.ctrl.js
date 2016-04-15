@@ -11,20 +11,23 @@
 				$scope.user = $localStorage.authUser;
 				$scope.VM = {};
 				$scope.VM.currentPage = 1;
+				$scope.VM.perPage = 10;
 				$scope.VM.totalPages = 1;
 				//上次被点中的li
 				var lastActive = 0;
 				//我的备课 列表
 
-				$scope.getMyPrepare = function(pagenum) {
+				$scope.getMyPrepare = function(pagenum, perpagenum) {
 					var page = 1;
+					var perpage = 10;
 					if(pagenum == undefined) page = 1;
 					else page = pagenum;
+					if(perpagenum != undefined) perpage = perpagenum;
 					Res.getPrepareResource({
 						unifyTypeId: '0',
 						fileFormat: '全部',
 						page: page,
-						perPage: 10
+						perPage: perpage
 					}, function(data) {
 						console.log(data.data);
 						$scope.prepareList = data.data.list;
@@ -98,6 +101,11 @@
 						$scope.VM.currentPage = pagenum;
 						$scope.getMyPrepare($scope.VM.currentPage);
 					}
+				}
+
+				$scope.changPerPage = function() {
+					$scope.VM.currentPage = 1;
+					$scope.getMyPrepare(1, $scope.VM.perPage);
 				}
 			}
 		])

@@ -103,6 +103,7 @@
 				//分页
 				$scope.pageTo = 1;
 				$scope.pageChanged = function(pagenum) {
+					console.log($scope.VM.currentPage);
 					if(pagenum == undefined) {
 						$scope.getResList();
 					}
