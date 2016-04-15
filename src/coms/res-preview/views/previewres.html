@@ -20,15 +20,15 @@
 		<div class="loading" ng-show="VM.load"><i class="icon-spinner icon-spin icon-3x"></i></div>
 
 		<div class="slide-content">
-			<div class="slide-arrow slide-pre" ng-click="slidePre()"><i class="icon-chevron-left"></i></div>
-			<div class="slide-arrow slide-next" ng-click="slideNext()"><i class="icon-chevron-right"></i></div>
+			<div class="slide-arrow slide-pre" ng-click="slidePre()" ng-hide="VM.slide"><i class="icon-chevron-left"></i></div>
+			<div class="slide-arrow slide-next" ng-click="slideNext()" ng-hide="VM.slide"><i class="icon-chevron-right"></i></div>
 			<div class="slide-content-inner">
 				<div id="res-slide-content"></div>
 			</div>
 			<div class="slide-fullscreen" ng-click="toggleFullscreen()"><i class="icon-fullscreen"></i></div>
 		</div>
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-2" >
 		<div class="slide_head">类型：<span class="type_box"><span>{{typeName}}</span><i class="icon-angle-down" ng-hide="VM.preShow"></i></span>
 			<div class="pop-type-box" ng-hide="VM.preShow">
 				<div class="pop-type">
@@ -39,11 +39,11 @@
 			</div>
 		</div>
 		<div class="slide-list">
-			<div class="slide-list-item" ng-repeat="item in allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
+			<div class="slide-list-item" ng-repeat="item in VM.allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
 				<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}" ng-class="curImg[$index]?'line':''" fallback-src="assets/img/sample.png">
 				<span class="text-ellipsis">{{item.title}}</span>
 			</div>
-			<div class="more" ng-click="getAllSourceMore()">加载更多</div>
+			<div class="more" ng-click="getAllSourceMore()" ng-hide="VM.resShow">加载更多</div>
 		</div>
 		
 	</div>
@@ -69,7 +69,7 @@
 	
 	</div>
 	<!-- 备课夹悬浮  -->
-	<div class="prepare-fixed">
+	<div class="prepare-fixed" ng-hide="VM.preShow">
 		<div class="prepare-shop" ui-sref="prepare">
 			<img src="assets/img/shopcart.png"/>
 			<span class="shop-count">{{ shopCount }}</span>
