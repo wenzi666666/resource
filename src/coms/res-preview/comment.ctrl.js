@@ -225,7 +225,7 @@
 						}, function(data) {
 							console.log(data)
 							if (data.code == "OK") {
-								$scope.myCommentList.pop($scope.myCommentList[index]);
+								$scope.myCommentList.splice(index,1);
 							} else {
 								alert(data.message);
 							}
@@ -241,6 +241,11 @@
 					});
 					$scope.contentShow[index]=false;
 					$scope.editSure = function(index) {
+							if($scope.myCommentList[index].acontent.length>200)
+							{
+								ModalMsg.logger("评论不能字数不能超过200！");
+								return false;
+							}
 							Preview.editComment({
 								displayContent:$scope.myCommentList[index].acontent,
 								commentId: id,

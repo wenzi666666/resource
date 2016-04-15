@@ -42,7 +42,16 @@
 					getResType: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
+					},
+					getComment:{//获取评论列表
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+					},
+					delCom:{//删除评论
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
 					}
+					
 				})
 			}
 		])
