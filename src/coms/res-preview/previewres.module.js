@@ -125,7 +125,7 @@
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
 					getAllSource("");//获取对应资源
-					$scope.currentNav = [{"name":$localStorage.searchKeyWord}];
+					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
 					$scope.links[0]=true;
 					
 					//
@@ -388,8 +388,6 @@
 							if(data.code=="OK")
 							{	
 								pageSize=data.data.total;
-								//目录导航显示
-								$scope.currentNav[0].name=localStorage.searchKeyWord+"(共"+data.data.totalLines+"条)";
 								$scope.localIndex=0;
 								_.each(data.data.list, function(v, i) {
 									$scope.allSourceList.push(data.data.list[i]);

@@ -52,8 +52,8 @@
 				if($localStorage.searchKeyWord)
 				{
 					$scope.searchKeyWord=$localStorage.searchKeyWord;
-					$localStorage.search_fromFlag=$localStorage.fromFlag;
 				}
+				$localStorage.search_fromFlag=$localStorage.fromFlag;
 				
 				//搜索资源范围
 
