@@ -39,7 +39,7 @@
 						 $scope.treedata = data.data;
 						 console.log("tree data:", data.data);
 						 // 目录树默认选择 当前选择 > 默认第一个节点选择 
-						 if($localStorage.currentTreeNode == data.data[0]) {
+						 if(!!$localStorage.currentTreeNode && !!$localStorage.selectChange) {
 							var currentTreeNode = $localStorage.currentTreeNode;
 						}else {
 							var currentTreeNode = data.data[0];
@@ -47,10 +47,29 @@
 							$localStorage.currentTreeNode =  currentTreeNode;
 						}
 						// 选择
-						$scope.selected = $scope.treedata[0];
+						$scope.expandedNodes = []
+						if(!!$localStorage.selectChange) {
+							var nodes = currentTreeNode.i.split('.');
+							console.log(nodes)
+							if(nodes.length == 1)
+								$scope.selected = $scope.treedata[nodes[0]-1];
+							else if(nodes.length == 2){
+								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1];
+								$scope.expandedNodes[0] = $scope.selected;
+							} else if(nodes.length == 3) {
+								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1];
+								$scope.expandedNodes[0] = $scope.selected;
+							} else
+								$scope.selected = $scope.treedata[0];
+						}else{
+							$scope.selected = $scope.treedata[0];
+						}
+							
+							
 						console.log("$scope.selected:", $scope.selected)
 						//展开第一个节点
-						$scope.expandedNodes = [$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]];
+						$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
+						console.log($scope.expandedNodes)
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode);
 					})
@@ -58,10 +77,14 @@
 				
 				//根据选择节点广播
 				$scope.showSelected = function(sel) {
+				   // 设定  目录树 改变了
+				   $localStorage.selectChange = true;
+				   console.log("tree:", sel)
 			       // 广播当前节点选择
 					$scope.$emit("currentTreeNode", sel);
 					//缓存用户当前 版本
 					$localStorage.currentTreeNode =  sel;
+	
 			    };
 							
 			}

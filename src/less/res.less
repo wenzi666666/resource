@@ -631,10 +631,10 @@
     left: 0px;
     top:-8px;
 }
+
 // 缩略图样式调整
 .img-thumb-list{
     position: absolute;
-    margin-left: 40px;
     line-height: 138px;
     width: 138px;
     height: 138px;
@@ -642,10 +642,14 @@
     text-align: center;
     overflow: hidden;
 }
-.res-list-thumb:hover{
+.img-thumb-list>img:hover{
     transform: scale(1.1);
-    transition: transition 0.5s;
-    -moz-transition: transition 0.5s; /* Firefox 4 */
-    -webkit-transition: transition 0.5s; /* Safari 和 Chrome */
-    -o-transition: transition 0.5s; /* Opera */
+    transition:  0.5s transform;
+    -moz-transition: 0.5s transform; /* Firefox 4 */
+    -webkit-transition: 0.5s transform; /* Safari 和 Chrome */
+    -o-transition: 0.5s transform; /* Opera */
+}
+
+.img-thumb-list-res{
+    margin-left: 40px;
 }

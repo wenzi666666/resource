@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag/:resFlag/:search',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -92,26 +92,31 @@
 				$scope.VM.search="html";
 				$scope.searchKeyWord=localStorage.searchKeyWord;
 				console.log($scope.searchKeyWord);
+				$scope.VM.load=true;//加载
+				
 				if($stateParams.search)
 				{//如果是搜索页则使用该fromFlag
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					$scope.VM.search="search";
 					console.log("搜索页跳转");
 					console.log($scope.VM.fromFlag);
+					
 				}
 				
 				//备课夹显示问题
 				$scope.VM.preShow=true;
-				if($scope.VM.search=="search")
-				{
-					$scope.VM.preShow=true;
-				}else
-				{
-					$scope.VM.preShow=false;	
-				}
+//				if($scope.VM.search=="search")
+//				{
+//					$scope.VM.preShow=true;
+//				}else
+//				{
+//					$scope.VM.preShow=false;	
+//				}
 				
 				console.log($stateParams)
 				
+				//当前目录  返回显示
+				$scope.links=[];
 				if($scope.VM.search=="search")
 				{//如果是搜索页则不加载目录//和格式
 					$scope.sourceType=[{"id":"0","mtype":"全部"}];
@@ -120,6 +125,13 @@
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
 					getAllSource("");//获取对应资源
+					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
+					$scope.links[0]=true;
+					
+					//
+					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+					$scope.VM.name=$localStorage.currentTreeNode.label;
+					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
 				}else
 				{
 					// 资源nav数据
@@ -135,20 +147,23 @@
 						$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
 						$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
 						console.log($scope.VM.tfCode,$scope.VM.name)
+						$scope.links[2]=true;
 						getTypes();//获取资源类型
 						
 					});	
 					
 				}
 				
-				
-				
 				// 当前目录点击事件
 				$scope.back=function(index,tfcode){
-					if(index==2)
+					if(index==2 && $scope.VM.search=="html")
 					{
 						
 						history.back();
+					}else if(index==0 && $scope.VM.search=="search")
+					{
+						history.back();
+						
 					}
 				}
 				
@@ -258,6 +273,7 @@
 				 
 				 function getAllSource(typeId) {
 			      	//获取所有资源相关变量
+			      	
 					$scope.currentSlideIndex = 0;
 					$scope.curImg=[];
 					if (($scope.VM.fromFlag == "0")&&($scope.VM.search=="html")) {
@@ -271,6 +287,7 @@
 							page: current,
 							perPage: 20
 						}, function(data) {
+							$scope.VM.load=false;
 							console.log($scope.VM.resourceId,$scope.VM.tfCode,current,typeId)
 							console.log(data)
 							if(data.code=="OK")
@@ -321,6 +338,7 @@
 							perPage: 20
 	
 						}, function(data) {
+							$scope.VM.load=false;
 							if(data.code=="OK")
 							{	pageSize=data.data.total;
 								$scope.localIndex=0;
@@ -355,7 +373,7 @@
 							}
 						});
 					}else if((($scope.VM.fromFlag == "0") || ($scope.VM.fromFlag == "-1") || ($scope.VM.fromFlag == "3") || ($scope.VM.fromFlag == "4"))&&($scope.VM.search=="search")){
-						//搜索页面系统资源
+						//搜索页面系统资源 //头部显示加上数目
 						
 						Preview.source({
 							resId:$scope.VM.resourceId,
@@ -365,6 +383,7 @@
 							page: current,
 							perPage: 20
 						}, function(data) {
+							$scope.VM.load=false;
 							console.log(data)
 							if(data.code=="OK")
 							{	

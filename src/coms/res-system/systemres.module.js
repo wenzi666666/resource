@@ -63,8 +63,8 @@
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout',
-			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval',
+			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -238,7 +238,7 @@
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
 					console.log("received:",d)
-					getResList();
+					getResList(d);
 					$timeout(function(){
 						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 					},300)
@@ -250,13 +250,13 @@
 				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
-				var getResList = function() {
+				var getResList = function(d) {
 					$scope.isLoading = true;
 					SystemRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
-						tfcode: $localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
 						perPage: $scope.perPage
@@ -448,9 +448,22 @@
 						ids:ids,
 						fromflags: flags
 					}, function(data){
-						if(data.data)
-							console.log(data.data)
-//							openwin(data.data[0].path)
+						if(data.data) {
+							console.log(data.data);
+							ModalMsg.alert("正在打包中，请稍候...");
+							var t = setInterval(function() {
+								console.log("tt")
+								Res.getMyDownloadStatus({
+									id: data.data
+								}, function(data) {
+									if(!!data.data.status) {
+										openwin(data.data.zippath);
+										clear(t);
+									}
+										
+								})
+							}, 2000)
+						}
 					})
 				}
 				
