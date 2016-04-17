@@ -7,15 +7,15 @@
 						<img ng-src="{{user.userImage}}">
 						<span class="user-name">{{user.trueName }}</span>
 					</div>
-					<div class="user-info">
+					<div class="user-info user-info-custom">
 						<span><img src="assets/img/loc.png" /><i>{{ user.termName }}</i>|<i>{{ user.subjectNames }}老师 </i>|<i ng-class="user.male == '男'? 'icon-male':'icon-female'"></i></span>
 						<span class="user-school"><img class="user-info-icon" src="assets/img/tie.png" />{{ user.schoolName }}</span>
 						<button class="btn-general btn-pink" ng-click="uploadRes()">上传资源</button>
 						
-						<button class="btn-general btn-pink" ng-click="VM.uploadResInfo()">编辑资源</button>
+						<!--<button class="btn-general btn-pink" ng-click="VM.uploadResInfo()">编辑资源</button>-->
 					</div>
 				</div>
-				<div class="op-btn-group">
+				<div class="op-btn-group nav-item-select">
 					<ul>
 						<li><button class="btn-general" ng-click="switchItem(0)" op-btn="我的备课"></button></li>
 						<li><button class="btn-general btn-white" ng-click="switchItem(1)" op-btn="我的上传"></button></li>

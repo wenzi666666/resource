@@ -67,8 +67,8 @@
 				})
 			}
 		])
-		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModal', 'Personal','ModalMsg',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, Personal,ModalMsg) {
+		.controller("personalCenterController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModal', 'Personal','ModalMsg','Res',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, Personal,ModalMsg,Res) {
 				// 变量共享
 				$scope.VM = {};
 

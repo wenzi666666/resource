@@ -22,7 +22,7 @@
 				//获取上传资源
 				$scope.getResList = function() {
 					Res.getUploadRes({
-						unifyTypeId: '1',
+						unifyTypeId: '0',
 						fileFormat: '全部',
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
@@ -30,7 +30,6 @@
 						console.log("uploadList:", data.data)
 						$scope.VM.uploadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
-						// console.log($scope.totalItems);
 					})
 				}
 
