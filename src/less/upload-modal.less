@@ -6,7 +6,11 @@
 .upload-modal-body{
     width: 800px;
     min-height: 500px;
-    text-align: left
+    text-align: left;
+    color: #666;
+    font-size: 15px;
+    max-height: 800px;
+//  overflow-y: auto;
 }
 .upload-file-content, .upload-network-content{
     background: #fff;
@@ -16,12 +20,16 @@
     text-align: center;
     min-height: 300px;
 }
-upload-network-content
+.upload-modal .modal-prepare-header{
+    text-align: center;
+}
 .upload-file-content>div{
     min-height: 300px;
 }
 .upload-modal .edit-upload-res{
     padding: 15px 40px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 .upload-modal .edit-upload-res table{
     width: 70%;
@@ -87,10 +95,33 @@ upload-network-content
 .upload-modal .edit-detail-box{
     background: #E4F3F7;
     padding-top: 20px;
+    border-bottom: 1px dashed #666;
 }
 .upload-modal .edit-list-left{
     width: 13%;
 }
 .des-editor{
     width: 500px;
+}
+// 资源类型
+.upload-modal .item-left,.upload-modal .item-right {
+    float: left;
+}
+.upload-modal .item-right{
+    width: 85%;
+}
+.upload-modal .type-item{
+    color: #666;
+    font-size: 15px;
+    margin: 0 1px;
+    padding: 1px 2px;
+    cursor: pointer;
+}
+.upload-modal .type-item:hover{
+    color: #fff;
+    background: #3FBBCF;
+}
+.upload-modal .selected{
+    color: #fff;
+    background: #3FBBCF;
 }
