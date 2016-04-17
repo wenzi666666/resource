@@ -2,9 +2,9 @@
 	<div class="comment-head">
 		<span class="my-comment">我的评论</span>
 		<div class="comType">
-			<span ng-repeat="state in commentState" ng-click="selectState()" ng-class="curState[$index]?'cur-state':''">{{state.name}}</span>
+			<span ng-repeat="state in commentState" ng-click="selectState(state.state,$index)" ng-class="curState[$index]?'cur-state':''">{{state.name}}{{VM.stateNum[$index]}}</span>
 		</div>
-		<div class="grade">
+		<div class="grade" ng-show="btnShow">
 			<span ng-repeat="grades in gradeList">
 				<input type="radio" name="grade"  ng-checked="isChecked[$index]" value="grades.type" ng-click="selectGrade(grades.type)"/>
 				<label>{{grades.name}}</label>
@@ -32,8 +32,11 @@
 								{{list.content}}
 							</div>
 						</div>
-						<div class="edit"><button class="btn btn-success" ng-click="deleteCom(list.id,$index)">删除</button></div>
-					
+						<div class="edit">
+							<button class="btn btn-success" ng-click="deleteCom(list.id,$index)" ng-show="btnShow">删除</button>
+							<button class="btn btn-success" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})" ng-hide="btnShow">评价</button>
+						</div>
+						
 					
 					</div>
 					<div class="clearfix"></div>
@@ -43,7 +46,7 @@
 		</div>
 		<div class="pagination-box">
 			<div class="coms-pagination">
-				<uib-pagination total-items="bigTotalItems" ng-model="VM.bigCurrentPage" ng-change="changePage(bigCurrentPage)" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
+				<uib-pagination total-items="bigTotalItems" ng-model="VM.bigCurrentPage" ng-change="changePage()" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
 				<div class="page-go">
 					<span class="page-text">转到</span>
 					<input class="page-input" ng-model="pageTo"/>
