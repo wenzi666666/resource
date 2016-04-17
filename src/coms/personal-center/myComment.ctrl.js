@@ -41,7 +41,6 @@
 						getUnreview();	
 					}
 				}
-
 				//评分等级切换
 				$scope.gradeList = [{
 						"name": "全部",
