@@ -10,6 +10,7 @@
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				$scope.btnShow=true;
+				$scope.isLoading=true;
 				$scope.commentState = [{
 						"name": "已评价",
 						"state": "1"
@@ -23,6 +24,7 @@
 				
 				//切换评论状态
 				$scope.selectState=function(state,index){
+					$scope.isLoading=true;
 					_.each($scope.commentState, function(v, i) {
 						$scope.curState[i] = false;
 					});
@@ -39,7 +41,6 @@
 						getUnreview();	
 					}
 				}
-
 				//评分等级切换
 				$scope.gradeList = [{
 						"name": "全部",
@@ -60,9 +61,11 @@
 				$scope.VM.curChecked = $scope.gradeList[0].type;
 				//切换等级
 				$scope.selectGrade = function(type) {
+					$scope.isLoading=true;
 					console.log( type)
 					$scope.VM.curChecked = type;
 					$scope.VM.bigCurrentPage = 1;
+					
 					if($scope.VM.stateId=="1")
 					{
 						getComList();
@@ -82,11 +85,12 @@
 						page: $scope.VM.bigCurrentPage,
 						perPage: 10
 					}, function(data) {
+						$scope.isLoading=false;
 						console.log("我的评论")
 						console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;
 						$scope.VM.commentList = data.data.list;
-						 $scope.VM.stateNum[0] = "(" + $scope.bigTotalItems + ")";
+						$scope.VM.stateNum[0] = "(" + $scope.bigTotalItems + ")";
 					});
 				}
 				getComList();
@@ -98,6 +102,7 @@
 						page: $scope.VM.bigCurrentPage,
 						perPage: 10
 					}, function(data) {
+						$scope.isLoading=false;
 						console.log("未评价的")
 						console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;

@@ -53,7 +53,6 @@
 				{
 					$scope.searchKeyWord=$localStorage.searchKeyWord;
 				}
-				$localStorage.search_fromFlag=$localStorage.fromFlag;
 				
 				//搜索资源范围
 
@@ -76,14 +75,15 @@
 				//资源范围
 				$scope.VM.currentAreaSelect = [];
 				
-				_.each($scope.VM.searchArea, function(v, i) {
-					if($localStorage.search_fromFlag==$scope.VM.searchArea[i].id)
-					{
-						$scope.VM.currentAreaSelect[i] = true;
-						$scope.VM.currentFromFlag = $scope.VM.searchArea[i].id;
-						$scope.VM.currentArea = $scope.VM.searchArea[i].area; //文本当前内容
-					}
-				});
+//				_.each($scope.VM.searchArea, function(v, i) {
+//					if($localStorage.search_fromFlag==$scope.VM.searchArea[i].id)
+//					{
+						$scope.VM.currentAreaSelect[0] = true;
+						$scope.VM.currentFromFlag = $scope.VM.searchArea[0].id;
+						$scope.VM.currentArea = $scope.VM.searchArea[0].area; //文本当前内容
+						$localStorage.search_fromFlag=$scope.VM.currentFromFlag;
+//					}
+//				});
 				
 				$scope.VM.selectArea = function(index) {
 					//选中
