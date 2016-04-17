@@ -89,15 +89,31 @@
     margin: 0px 4%;
     padding: 10px;
     border: 1px solid #ccc;
+    min-height: 170px;
     
 }
-#customres-container .subject_box .item_inner img{
-    margin:0 auto;
-    display: block;
-    max-width:90%;
-    max-height: 150px;
-    height: auto;
-    width: auto;
+#customres-container .img-thumb
+{
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    line-height: 140px;
+     background: #f2f2f2;
+}
+
+#customres-container .res-list-thumb{
+   max-width: 140px;
+   max-height: 140px;
+   vertical-align: middle;
+  
+}
+#customres-container .item_inner:hover .res-list-thumb
+{
+    transform: scale(1.1);
+    transition: 0.5s ease;
+    -webkit-transition:0.5s ease;
+    -moz-transition:0.5s ease;
+    -o-transition:0.5s ease;
 }
 #customres-container .subject_box .item_inner:hover
 {
