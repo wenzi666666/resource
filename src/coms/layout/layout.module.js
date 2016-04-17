@@ -16,12 +16,17 @@
 				})
 			}
 		])
-		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','Layout',
-			function($scope, $stateParams, $state, $location,$localStorage,Layout) {
+		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','Layout','ModalMsg',
+			function($scope, $stateParams, $state, $location,$localStorage,Layout,ModalMsg) {
 				//主导航学生学习空间地址
 				var spaceNavUrl = '';
 				Layout.autoLearning({},function(data) {
-					spaceNavUrl = data.data;
+					if (data.code == "OK") {
+						spaceNavUrl = data.data;
+					} else {
+						ModalMsg.logger("token失效啦，请重新登录");
+						window.location.href = "login.html";
+					}
 				})
 				$scope.goToSpace = function(){
 					openwin(spaceNavUrl)
