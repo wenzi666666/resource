@@ -239,6 +239,8 @@
 				$scope.$on("currentTreeNodeChange", function(e, d) {
 					console.log("received:",d)
 					getResList(d);
+					// 更改目录标题
+					$scope.currentVersion = $localStorage.currentVersion;
 					$timeout(function(){
 						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 					},300)

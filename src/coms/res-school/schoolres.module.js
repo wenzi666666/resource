@@ -79,7 +79,7 @@
 			    	$scope.isList = list;
 			    }
 			    // 设置 匹本资源为4;
-			    $localStorage.fromFlag = 4;
+			    $localStorage.fromFlag = 3;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
 				
