@@ -65,7 +65,12 @@
 					zipStatus: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/prepareZip_staus"
-					}
+					},
+					//获取最近三个备课夹，用于插入备课夹使用
+					latestPrepare: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/latestPrepare"
+					},
 				})
 			}
 		])
