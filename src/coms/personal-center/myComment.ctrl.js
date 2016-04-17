@@ -72,9 +72,6 @@
 					}
 				}
 				
-				
-				
-				
 				//获取评论
 				$scope.VM.bigCurrentPage = 1;
 
