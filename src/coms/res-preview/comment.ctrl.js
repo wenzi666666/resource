@@ -191,6 +191,11 @@
 							ModalMsg.logger("评完分才能评论哦！");
 							return false;
 						}
+						if($scope.VM.inputComment.length==0)
+						{
+							ModalMsg.logger("评论内容不能为空！");
+							return false;
+						}
 						if($scope.VM.inputComment.length>200)
 						{
 							ModalMsg.logger("评论内容不能超过个200个字符！");
@@ -250,9 +255,8 @@
 
 					}
 				//编辑评论
-				
-				
 				$scope.editCom = function(id,index) {
+					$scope.VM.preEdit=$scope.myCommentList[index].acontent;
 					_.each($scope.contentShow, function(v, i) {
 						$scope.contentShow[i]=true;
 					});
@@ -261,6 +265,11 @@
 							if($scope.myCommentList[index].acontent.length>200)
 							{
 								ModalMsg.logger("评论不能字数不能超过200！");
+								return false;
+							}
+							if($scope.myCommentList[index].acontent.length==0)
+							{
+								ModalMsg.logger("评论不能为空！");
 								return false;
 							}
 							Preview.editComment({
@@ -285,6 +294,7 @@
 						_.each($scope.contentShow, function(v, i) {
 							$scope.contentShow[i]=true;
 						});
+						$scope.myCommentList[index].acontent=$scope.VM.preEdit;
 						
 					}
 				}
