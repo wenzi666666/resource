@@ -53,7 +53,6 @@
 						if (data.code == "OK") {
 							window.open(data.data[0].path, "_blank");
 						}
-
 					});
 				}
 
@@ -118,33 +117,29 @@
 				}];
 
 				console.log($scope.VM.resource);
+				
+				
 				//分页
-				$scope.VM.perPage = 4;
-				$scope.maxSize = 3;
-				$scope.VM.bigTotalItems = []; //数据总共多少条
-				$scope.VM.bigCurrentPage = []; //当前页
-				$scope.VM.pageTo = []; //跳转页
+//				$scope.VM.perPage = 4;
+//				$scope.maxSize = 3;
+//				$scope.VM.bigTotalItems = []; //数据总共多少条
+//				$scope.VM.bigCurrentPage = []; //当前页
+//				$scope.VM.pageTo = []; //跳转页
+//				_.each($scope.VM.resource, function(v, i) {
+//					$scope.VM.bigTotalItems[i] = v.totalLines;
+//				});
+//				$scope.pageChanged = function(index, pagenum) {
+//					console.log(pagenum);
+//					if (pagenum == undefined) {
+//						//加载列表 点击页数
+//					} else {
+//						$scope.VM.bigCurrentPage[index] = pagenum;
+//						//加载列表 跳转
+//					}
+//				};
+//				//转到
+//				$scope.pageTo = $scope.VM.currentPageCtrl;
 				
-				_.each($scope.VM.resource, function(v, i) {
-					$scope.VM.bigTotalItems[i] = v.totalLines;
-					
-				});
-				
-				
-				
-				$scope.pageChanged = function(index, pagenum) {
-					console.log(pagenum);
-					if (pagenum == undefined) {
-						//加载列表 点击页数
-					} else {
-						$scope.VM.bigCurrentPage[index] = pagenum;
-						//加载列表 跳转
-					}
-				};
-
-				//转到
-				$scope.pageTo = $scope.VM.currentPageCtrl;
-
 			}
-		])
+		]);
 }());
