@@ -47,6 +47,10 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
 					},
+					getUnreview:{
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/unReview"
+					},
 					delCom:{//删除评论
 						method: "POST",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"

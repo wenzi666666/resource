@@ -9,16 +9,36 @@
 			function($scope, $stateParams, $state, $location, $localStorage, ModalMsg, Res, Personal) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
-
+				$scope.btnShow=true;
 				$scope.commentState = [{
 						"name": "已评价",
 						"state": "1"
-					}
-					//				{"name":"待评价","state":"0"}
+				},
+					{"name":"待评价","state":"0"}
 				];
-				$scope.VM.state = $scope.commentState[0].name;
+				$scope.VM.stateNum = [];
 				$scope.curState = [];
 				$scope.curState[0] = true;
+				$scope.VM.stateId=1;
+				
+				//切换评论状态
+				$scope.selectState=function(state,index){
+					_.each($scope.commentState, function(v, i) {
+						$scope.curState[i] = false;
+					});
+					$scope.curState[index] = true;
+					$scope.VM.stateId=state;
+					$scope.VM.bigCurrentPage = 1;
+					if(state=="1")
+					{
+						$scope.btnShow=true;
+						getComList();
+					}else if(state=="0")
+					{
+						$scope.btnShow=false;
+						getUnreview();	
+					}
+				}
 
 				//评分等级切换
 				$scope.gradeList = [{
@@ -43,9 +63,18 @@
 					console.log( type)
 					$scope.VM.curChecked = type;
 					$scope.VM.bigCurrentPage = 1;
-					getComList();
+					if($scope.VM.stateId=="1")
+					{
+						getComList();
+					}else if($scope.VM.stateId=="0")
+					{
+						getUnreview();
+					}
 				}
-
+				
+				
+				
+				
 				//获取评论
 				$scope.VM.bigCurrentPage = 1;
 
@@ -60,21 +89,49 @@
 						console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;
 						$scope.VM.commentList = data.data.list;
-						$scope.commentState[0].name = $scope.VM.state + "(" + $scope.bigTotalItems + ")";
+						 $scope.VM.stateNum[0] = "(" + $scope.bigTotalItems + ")";
 					});
 				}
 				getComList();
+				
+				//未评价
+				function getUnreview(){
+					Personal.getUnreview({
+						reviewType: $scope.VM.curChecked,
+						page: $scope.VM.bigCurrentPage,
+						perPage: 10
+					}, function(data) {
+						console.log("未评价的")
+						console.log(data.data)
+						$scope.bigTotalItems = data.data.totalLines;
+						$scope.VM.commentList = data.data.list;
+						 $scope.VM.stateNum[1] = "(" + $scope.bigTotalItems + ")";
+					});
+				}
+				
 				//改变页数
-				$scope.changePage = function(page) {
-					console.log($scope.VM.bigCurrentPage);
+				$scope.changePage = function() {
+					if($scope.VM.stateId=="1")
+					{
 						getComList();
+					}else
+					{
+						getUnreview();
 					}
+				}
 					//转到
 				$scope.pageTo = $scope.bigCurrentPage;
 				$scope.pageChanged = function(pagenum) {
 					$scope.VM.bigCurrentPage = pagenum;
 					console.log('Page changed to: ' + $scope.bigCurrentPage);
-					getComList();
+					if($scope.VM.stateId=="1")
+					{
+						getComList();
+					}else
+					{
+						getUnreview();
+					}
+					
 				};
 
 				//删除评论
