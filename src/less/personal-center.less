@@ -223,8 +223,7 @@
 }
 
 .resource-list li {
-    height: 150px;
-    line-height: 100px;
+    min-height: 150px;
     font-size: 1.4rem;
     color: #666666;
 }
@@ -261,7 +260,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    margin-left: 142px;
+//  margin-left: 142px;
 }
 
 .my-upload-list .check-box-area {
@@ -290,18 +289,16 @@
     padding-bottom: 20px;
 }
 
-.resource-title, {
-    margin-left: 170px;
+.resource-title {
+    position: absolute;
+    left: 170px;
+    top: 5px;
 }
 
 .resource-type, .resource-date{
     margin-left: 20px;
 }
 
-.person-thumb{
-    max-width: 80px;
-    max-height: 80px;
-}
 
 //编辑资源模态框
 
@@ -513,10 +510,7 @@
    
 }
 .com-list li{
-    min-height: 120px !important;
-    height: auto;
-    line-height: 25px !important;
-    padding:10px 0px;
+
 }
 .com-list .person-thumb
 {
