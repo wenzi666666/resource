@@ -136,6 +136,8 @@
 				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {
 					console.log("test");
 					getPrepare(tfcode);
+					// 更改目录标题
+					$scope.currentVersion = $localStorage.currentVersion;
 				})
 
 				// 读取 单个备课夹详细内容

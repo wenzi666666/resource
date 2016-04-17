@@ -11,7 +11,10 @@
 	<div class="col-md-3 catalog" ng-show="!VM.isList">
 		<div class="catalog-header"></div>
 		<div class="catalog-content">
-			<div class="catalog-tip"><img src="assets/img/catalog/catalog-tip.png"></div>
+			<div class="catalog-tip">
+				<img src="assets/img/catalog/catalog-tip.png">
+				<div class="catalog-text">{{currentVersion.name == '课标版'?'课标导航':'章节目录'}}</div>
+			</div>
 			<div class="catalog-tree" data-ng-include="'/coms/tree/views/tree.html'"></div>
 		</div>
 

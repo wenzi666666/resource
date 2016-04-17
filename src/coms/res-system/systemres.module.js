@@ -103,7 +103,9 @@
 				// 读取备课夹 列表
 				var currentPrepareId = '';
 				var getPrepare = function(id) {
-					Prepare.latestPrepare({
+//					Prepare.latestPrepare({}}
+					Prepare.baseGetApi({
+						tfcode: id
 					}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
