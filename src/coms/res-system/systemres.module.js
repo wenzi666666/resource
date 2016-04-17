@@ -460,8 +460,9 @@
 									id: data.data
 								}, function(data) {
 									if(!!data.data.status) {
+										clearInterval(t);
 										openwin(data.data.zippath);
-										clear(t);
+										
 									}
 								})
 							}, 2000)

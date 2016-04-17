@@ -18,7 +18,7 @@
 				</div>
 				<div class="list-item" ng-repeat="item in list.children">
 					<input type="checkbox"/>
-					<img class="list-item-thumb" ng-src="{{item.imgPath}}" fallback-src="assets/img/title.jpg"/>
+					<img class="list-item-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="assets/img/title.jpg"/>
 					<div class="item-info">
 						<span class="item-info-title">{{item.title}}</span><br>
 						<span class="item-info-type">类型: {{item.unifyType}}</span>

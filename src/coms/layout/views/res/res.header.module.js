@@ -119,7 +119,7 @@
 						// 选中当前
 						$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $localStorage.currentGrade.name)] = true;
 					} else {
-						ModalMsg.logger("token失效啦，请重新登录");
+						ModalMsg.logger("登录失效啦，请重新登录");
 						window.location.href = "login.html";
 					}
 				}).$promise.then(function(data) {

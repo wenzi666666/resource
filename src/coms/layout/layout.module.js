@@ -24,7 +24,7 @@
 					if (data.code == "OK") {
 						spaceNavUrl = data.data;
 					} else {
-						ModalMsg.logger("token失效啦，请重新登录");
+						ModalMsg.logger("登录失效啦，请重新登录");
 						window.location.href = "login.html";
 					}
 				})

@@ -66,6 +66,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/prepareZip_staus"
 					},
+					//获取当前学科 所有备课夹
+					prepare4book: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/prepare4book"
+					},
 					//获取最近三个备课夹，用于插入备课夹使用
 					latestPrepare: {
 						method: "GET",
@@ -130,12 +135,27 @@
 						})
 					})
 				}
+				
+				// 读取 当前学科下的备课夹 列表
+				var getAllPrepare = function() {
+					Prepare.prepare4book({
+//						title: '',
+						termId: $localStorage.currentGrade.id,
+						subjectId: $localStorage.currentSubject.id,
+					}, function(data) {
+						console.log(data.data);
+						$scope.listAllData = data.data;
+						console.log($scope.listData);
+					})
+				}
 
 
 				//监听课本选择
 				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {
 					console.log("test");
 					getPrepare(tfcode);
+					// 获取所有备课夹
+					getAllPrepare();
 					// 更改目录标题
 					$scope.currentVersion = $localStorage.currentVersion;
 				})
@@ -169,7 +189,7 @@
 				// 删除备课夹
 				$scope.deletePrepare = function(index, e) {
 					e.stopPropagation();
-					console.log($scope.listData[index])
+					console.log($scope.listData[index]);
 					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listData[index].title);
 
 					deleteModal.result.then(function(data) {
@@ -179,6 +199,22 @@
 						}, function(data) {
 
 							getPrepare();
+						})
+					})
+				}
+				
+				// 删除备课夹
+				$scope.deletePrepare2 = function(index, e) {
+					e.stopPropagation();
+					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData[index].title);
+
+					deleteModal.result.then(function(data) {
+						Prepare.basePostApi({
+							id: $scope.listAllData[index].id,
+							_method: "DELETE"
+						}, function(data) {
+
+							getAllPrepare();
 						})
 					})
 				}
@@ -298,21 +334,21 @@
 						ids: id,
 						fromflags: flag
 					}, function(data) {
-						console.log(data);
-						var zipTaskId = data.data;
-						var intervalId = setInterval(function() {
-							Prepare.zipStatus({
-								id: zipTaskId
-							}, function(data) {
-								console.log(data.data.status);
-								if(data.data.status) {
-									window.clear(intervalId);
-									$scope.zipPath = data.zippath;
-									window.open($scope.zipPath);
-									return;
-								}
-							})
-						}, 1000);
+						if(data.data) {
+							console.log(data.data);
+							ModalMsg.alert("正在打包中，请稍候...");
+							var t = setInterval(function() {
+								console.log("tt")
+								Res.getMyDownloadStatus({
+									id: data.data
+								}, function(data) {
+									if(!!data.data.status) {
+										clearInterval(t);
+										openwin(data.data.zippath);
+									}
+								})
+							}, 2000)
+						}
 					})
 				}
 
@@ -326,12 +362,12 @@
 							resIds.push(v.resId);
 							flags.push(v.fromFlag);
 						})
-						downLoadRes(resIds, flags);
+						$scope.downLoadRes(resIds, flags);
 					}
 					//单个资源下载
 					else {
 						console.log(id, flag);
-						downLoadRes(id, flag);
+						$scope.downLoadRes(id, flag);
 					}
 				}
 
