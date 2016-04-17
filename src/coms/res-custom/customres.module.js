@@ -33,12 +33,16 @@
 					total: {
 						method: "GET",
 						url: window.BackendUrl + "/api/discuss/home/total"
+					},
+					resource:{
+						method: "GET",
+						url: window.BackendUrl + "/api/discuss/home/total"
 					}
 				})
 			}
 		])
-		.controller("CustomResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes', '$http',
-			function($scope, $stateParams, $state, $location, SystemRes, $http) {
+		.controller("CustomResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes', '$http','CustomtemRes',
+			function($scope, $stateParams, $state, $location, SystemRes, $http,CustomtemRes) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -55,7 +59,24 @@
 						}
 					});
 				}
-
+				
+				//获取资源列表
+				$scope.VM.resource = [];
+				CustomtemRes.resource({
+					
+				},function(data){
+					console.log("定制资源列表")
+					if(data.code=="OK")
+					{
+						console.log(data.data);
+						$scope.VM.resource = data.data;
+					}else
+					{
+						alert(data.message);
+					}
+				});
+				
+				
 				$scope.VM.resource = [{
 					"subject": "数学",
 					"page": 1,
