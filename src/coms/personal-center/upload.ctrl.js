@@ -449,7 +449,7 @@
 				// 资源类型选择
 				$scope.currentTypeSeclet = [];
 				$scope.currentTypeSeclet[0] = true;
-				$scope.currentTypeIndexSeclet =0;
+				$scope.currentTypeIndexSeclet = 4;
 				$scope.selectType = function(index) {
 					//选中
 					_.each($scope.unifyType, function(v, i) {
