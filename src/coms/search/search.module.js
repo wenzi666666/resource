@@ -168,7 +168,7 @@
 									}
 								});
 								$scope.sourceList = data.data.list;
-								console.log($scope.sourceList);
+								console.log(data);
 								$scope.listLength = data.data.totalLines;
 								$scope.bigTotalItems = $scope.listLength;
 								$scope.pageSize=data.data.total;
