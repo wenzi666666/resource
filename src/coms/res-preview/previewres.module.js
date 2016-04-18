@@ -598,11 +598,18 @@
 				$scope.shopCount=0;
 				var currentPrepareId = '';
 				 function getPrepare() {
-					Prepare.baseGetApi({
-						tfcode:$scope.VM.tfCode 
-					}, function(data) {
+//					Prepare.baseGetApi({
+//						tfcode:$scope.VM.tfCode 
+//					}, function(data) {
+//						console.log("prepare:",data.data);
+//						$scope.prepareList = data.data;
+//						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
+//						
+//					});
+					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
+						
 						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
 						
 					});
