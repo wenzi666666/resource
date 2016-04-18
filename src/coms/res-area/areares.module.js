@@ -12,7 +12,8 @@
 						url: '/areares',
 						views: {
 							'content@': {
-								templateUrl: '/coms/res-area/views/areares.html',
+//								templateUrl: '/coms/res-area/views/areares.html',
+								templateUrl: '/coms/res-system/views/systemres.html',
 								controller: 'AreaResController'
 							},
 							'header@': {
@@ -92,8 +93,8 @@
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
-			    // 设置 匹本资源为4;
-			    $localStorage.fromFlag = 0;
+			    // 设置 区本资源为4;
+			    $localStorage.fromFlag = 4;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
 				
@@ -259,6 +260,7 @@
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
+						fromFlag: $localStorage.fromFlag,
 						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,

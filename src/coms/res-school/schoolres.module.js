@@ -12,7 +12,8 @@
 						url: '/schoolres',
 						views: {
 							'content@': {
-								templateUrl: '/coms/res-school/views/schoolres.html',
+//								templateUrl: '/coms/res-school/views/schoolres.html',
+								templateUrl: '/coms/res-system/views/systemres.html',
 								controller: 'SchoolResController'
 							},
 							'header@': {
@@ -261,6 +262,7 @@
 						fileFormat: format,
 						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
+						fromFlag: $localStorage.fromFlag,
 						page:page,
 						perPage: $scope.perPage
 					}, function(data) {

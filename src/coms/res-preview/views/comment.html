@@ -59,7 +59,7 @@
 		<span>下载次数:{{VM.info.dloadTimes}}</span>
 		<span>浏览次数:{{VM.info.clickTimes}}</span>
 
-		<button class="btn btn-danger" ng-click="addToCurrentPrepare('btn')" ng-mouseover="showPre()" ng-mouseout="hidePre()" ng-disabled="VM.preShow">加入备课夹</button>
+		<button class="btn btn-danger" ng-click="addToCurrentPrepare('btn')" ng-mouseover="showPre()" ng-mouseout="hidePre()" >加入备课夹</button>
 		<span class="down-orign" ng-click="resDownload(VM.resourceId)">下载到本地</span>
 		<ul class="prepareList" ng-show="VM.showPre" ng-mouseover="showPre()" ng-mouseout="hidePre()">
 			<li ng-repeat="item in prepareList track by $index"  class="text-ellipsis" ng-class="curPre?'curPre':''" ng-click="addToCurrentPrepare('list',item.id)">{{$index+1}}、{{item.title}}</li>

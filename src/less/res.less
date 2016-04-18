@@ -371,9 +371,11 @@
 }
 .res-thubmlist-info{
     font-size: 13px;
+    margin-top: 210px;
 }
 .res-thubmlist-info label{
     margin: 5px 0;
+    margin-left: 2px;
 }
 .res-thubmlist-info .res-title{
     width: 90%;
@@ -408,7 +410,7 @@
 .res-star i{
     color: #dea618;
     font-size: 16px;
-    margin-left: 5px;
+    margin-right: 5px;
 }
 .res-list-tools{
     float: right;
@@ -426,7 +428,7 @@
 .res-download{
     font-size: 15px;
     color:@color5;
-    margin-left: 10px;
+    margin-left: 2px;
     margin-top: 5px;
     cursor: pointer;
 }
@@ -446,15 +448,14 @@
   border-bottom: 1px dashed #9b9b9b;
   padding: 8px;
   margin: 8px 0;
-  height: 310px;
+  height: 355px;
 }
 .res-list-main .res-thubmlist-item:hover{
     background: #e6f4f4;
 }
 .res-thubmlist-tools .res-select{
-    padding: 6px 10px;
-    margin-right: 0;
-    margin-left: 10px;
+    padding: 2px 10px;
+    margin-left: 20px;
     cursor: pointer;
 }
 .noDataCtrl{
@@ -479,9 +480,15 @@
 .res-prepare-list-item{
     margin: 5px;
 }
+.res-prepare-thumb .res-prepare-list-item{
+    margin: 0;
+}
 .res-prepare-list-item:hover{
     text-decoration: underline;
     color: #0094CE;
+}
+.res-prepare-list-more{
+    color: #3fbbcf;
 }
 .res-prepare-thumb{
     bottom: 40px;
@@ -490,17 +497,17 @@
     line-height: 25px;
     position: absolute;
     background: #fff;
-    padding: 10px 20px;
+    padding: 10px;
     display: none;
     color: #999;
     min-width: 200px;
     z-index: 99999;
+    font-size: 14px;
 }
 .addPrepare-custom{
     width: 100px;
     float: left;
     height: 40px;
-    padding: 0 6px !important;
     margin-top: 5px;
     position: relative;
 }
@@ -644,6 +651,7 @@
     width: 46px;
     left: 0px;
     top:-8px;
+    z-index: 999;
 }
 
 // 缩略图样式调整
@@ -656,6 +664,11 @@
     text-align: center;
     overflow: hidden;
 }
+.img-thumb-list>img{
+    max-width: 130px;
+    max-height: 130px;
+    line-height: 130px;
+}
 .img-thumb-list>img:hover{
     transform: scale(1.1);
     transition:  0.5s transform;
@@ -663,7 +676,28 @@
     -webkit-transition: 0.5s transform; /* Safari 和 Chrome */
     -o-transition: 0.5s transform; /* Opera */
 }
-
+// 大缩略图
+.img-thumb2-list{
+    position: absolute;
+    line-height: 200px;
+    width: 238px;
+    height: 200px;
+    background: #ddd;
+    text-align: center;
+    overflow: hidden;
+}
+.img-thumb2-list>img{
+    max-width: 230px;
+    max-height: 200px;
+    line-height: 200px;
+}
+.img-thumb2-list>img:hover{
+    transform: scale(1.1);
+    transition:  0.5s transform;
+    -moz-transition: 0.5s transform; /* Firefox 4 */
+    -webkit-transition: 0.5s transform; /* Safari 和 Chrome */
+    -o-transition: 0.5s transform; /* Opera */
+}
 .img-thumb-list-res{
     margin-left: 40px;
 }

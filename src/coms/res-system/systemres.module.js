@@ -63,8 +63,8 @@
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval',
-			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval','$uibModal',
+			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval,$uibModal) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -103,15 +103,19 @@
 				// 读取备课夹 列表
 				var currentPrepareId = '';
 				var getPrepare = function(id) {
-//					Prepare.latestPrepare({}}
+					//获取当前节点 备课夹
 					Prepare.baseGetApi({
 						tfcode: id
-					}, function(data) {
+					}, function(data){
+						console.log("prepareTree:",data.data);
+						$scope.prepareDataList = data.data;
+						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
+					})
+					
+					//获取 最近三个备课夹
+					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
-						
-						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
-						
 					})
 				}
 				setTimeout(function(){
@@ -138,7 +142,7 @@
 				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
 				$scope.addToCurrentPrepare = function(listIndex) {
 					// 当前没有备课夹时，创建
-					if($scope.prepareList.length == 0) {
+					if($scope.prepareDataList.length == 0) {
 						Prepare.basePostApi({
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
@@ -179,7 +183,7 @@
 						return;
 					}
 					// 当前没有备课夹时，创建
-					if($scope.prepareList.length == 0) {
+					if($scope.prepareDataList.length == 0) {
 						Prepare.basePostApi({
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
@@ -483,7 +487,91 @@
 					} else {
 						ModalMsg.logger("还没有选中资源哦");
 					}
-				}			
+				}
+				
+				// 选择备课夹
+				$scope.selectPrepare = function(e,listIndex) {
+					e.stopPropagation();
+					var selectPrepareModal = $uibModal.open({
+						templateUrl: "select-prepare.html",
+						controller: 'selectPrepareCtrl',
+					})
+
+					//到备课夹
+					selectPrepareModal.result.then(function(data) {
+						Prepare.addResToPrepareId({
+							id: data.prepareId,
+							resIds: $scope.resList.list[listIndex].id,
+							fromFlags: $localStorage.fromFlag
+						}, function(d) {
+							if(d.code == "OK") {
+								getPrepare($localStorage.currentTreeNode.tfcode);
+							}
+							else {
+								ModalMsg.logger("加入备课夹失败，请重试！")
+							}
+						})
+					});
+				}
+			}
+		])
+		
+		.controller("selectPrepareCtrl", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage', 
+			function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage) {
+				$scope.moveOk = function() {
+					console.log("test");
+					var tmpVal = {
+						'prepareId': $scope.selectedPrepare.id,
+					}
+					$uibModalInstance.close(tmpVal);
+				};
+	
+				$scope.moveCancel = function() {
+					$uibModalInstance.dismiss('cancel');
+				};
+	
+				// 监听目录树变化
+				Tree.getTree({
+					pnodeId: $localStorage.currentMaterial.id,
+				}, function(data) {
+					console.log("tree data:", data.data);
+					$scope.treedataSelect = data.data;
+					//展开第一个节点
+					$scope.expandedNodes = [$scope.treedataSelect[0]];
+					 console.log("tree data:", data.data);
+				})
+				
+				// 目录树 控制
+				$scope.showTree = false;
+				$scope.treeTrigger = function() {
+					$scope.showTree = true;
+				}
+				$scope.closeThis = function() {
+					$scope.showTree = false;
+				}
+				
+				// 目录树节点选择
+				$scope.currentNode = $localStorage.currentTreeNode;
+				
+				$scope.showSelected = function(sel) {
+					$scope.currentNode =  sel;
+					//获取当前节点下的所有备课夹
+					Prepare.baseGetApi({
+						tfcode: $scope.currentNode.tfcode
+					}, function(data) {
+						$scope.prepares = data.data;
+						if($scope.prepares.length == 0) {
+							$uibModalInstance.close();
+							ModalMsg.alert("当前目录下没有备课夹，请重新选择！");
+						}
+					})
+				};
+				
+				$scope.selectedPrepare = {};
+				$scope.selectPrepare = function(prepare) {
+					var p = JSON.parse(prepare);
+					$scope.selectedPrepare.id = p.id;
+				}
 			}
 		])
 }());
