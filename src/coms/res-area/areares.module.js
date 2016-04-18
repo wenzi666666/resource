@@ -12,7 +12,8 @@
 						url: '/areares',
 						views: {
 							'content@': {
-								templateUrl: '/coms/res-area/views/areares.html',
+//								templateUrl: '/coms/res-area/views/areares.html',
+								templateUrl: '/coms/res-system/views/systemres.html',
 								controller: 'AreaResController'
 							},
 							'header@': {
@@ -259,6 +260,7 @@
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
+						fromFlag: $localStorage.fromFlag,
 						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
