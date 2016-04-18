@@ -602,19 +602,19 @@
 				$scope.shopCount=0;
 				var currentPrepareId = '';
 				 function getPrepare() {
-//					Prepare.baseGetApi({
-//						tfcode:$scope.VM.tfCode 
-//					}, function(data) {
-//						console.log("prepare:",data.data);
-//						$scope.prepareList = data.data;
-//						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
-//						
-//					});
+				 	//获取当前节点 备课夹
+					Prepare.baseGetApi({
+						tfcode:$scope.VM.tfCode 
+					}, function(data) {
+						console.log("prepare:",data.data);
+						$scope.prepareList = data.data;
+						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
+						
+					});
+					//获取 最近三个备课夹
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
-						
-						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
 						
 					});
 				}
