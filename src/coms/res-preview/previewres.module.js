@@ -89,6 +89,7 @@
 				$scope.VM.resourceId=$stateParams.resId;
 				$scope.VM.tfCode=$stateParams.curTfcode;
 				$scope.VM.fromFlag=$localStorage.fromFlag;
+				
 				$scope.VM.search="html";
 				$scope.searchKeyWord=localStorage.searchKeyWord;
 				console.log($scope.searchKeyWord);
@@ -110,10 +111,12 @@
 				}
 				
 				
-				console.log($stateParams)
-				//备课夹显示问题
-				$scope.VM.preShow=false;
+				console.log($stateParams);
 				
+				
+				
+				//资源格式下拉显示问题
+				$scope.VM.preShow=false;
 				//所有资源列表显示
 				$scope.VM.resShow=false;
 				//左右切换
@@ -133,20 +136,23 @@
 					getAllSource("");//获取对应资源
 					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
 					$scope.links[0]=true;
+					$scope.VM.preShow=true;
 					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
 					$scope.VM.name=$localStorage.currentTreeNode.label;
 					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
 				}
 				else if($scope.VM.search=="person" && $scope.VM.personType=="0")
-				{//个人中心页面 非上传 没有推荐资源
+				{//个人中心页面 非上传 没有推荐资源  资源定制页情况一样
 					$scope.sourceType=[{"id":"0","mtype":"全部"}];
 					$scope.sourceTypeId=0;
 					$scope.typeLight=[];
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
 					$scope.VM.resShow=true;
-					$scope.VM.preShow=true;
 					$scope.VM.slide=true;
+					$scope.VM.preShow=true;
+					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+					$scope.VM.name=$localStorage.currentTreeNode.label;
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -160,6 +166,8 @@
 					$scope.typeLight=[];
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
+					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+					$scope.VM.name=$localStorage.currentTreeNode.label;
 					getAllSource("");//获取对应资源
 					$scope.VM.preShow=true;
 					$scope.VM.comShow=true;
@@ -449,7 +457,7 @@
 						});
 					}else if($scope.VM.search=="person" && $scope.VM.personType=="1")
 					{
-						//个人中心页面上传推荐资源
+						//个人中心页面上传推荐资源 
 						Preview.source({
 							resId:$scope.VM.resourceId,
 							fromFlag:$scope.VM.fromFlag,
