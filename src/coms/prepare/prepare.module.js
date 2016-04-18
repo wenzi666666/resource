@@ -330,6 +330,7 @@
 				}
 
 				$scope.downLoadRes = function(id, flag) {
+					console.log(id, flag);
 					Prepare.zipPrepare({
 						ids: id,
 						fromflags: flag
@@ -343,6 +344,7 @@
 									id: data.data
 								}, function(data) {
 									if(!!data.data.status) {
+										console.log(data.data.zippath);
 										clearInterval(t);
 										openwin(data.data.zippath);
 									}
@@ -354,6 +356,7 @@
 
 				//下载资源
 				$scope.zipPrepare = function(id, flag) {
+					console.log(id);
 					//批量下载
 					if(flag == -1) {
 						var resIds = [];
@@ -362,7 +365,7 @@
 							resIds.push(v.resId);
 							flags.push(v.fromFlag);
 						})
-						$scope.downLoadRes(resIds, flags);
+						$scope.downLoadRes(resIds.toString(), flags.toString());
 					}
 					//单个资源下载
 					else {
@@ -370,6 +373,7 @@
 						$scope.downLoadRes(id, flag);
 					}
 				}
+
 
 				//编辑资源
 				//0，系统资源，1自建资源，2共享资源,3校本资源,4区本资源 
@@ -430,10 +434,19 @@
 
 					// 上传结束
 					modalNewUpload.result.then(function(data) {
-						console.log(data)
+						console.log(data);
 					});
 				}
 
+				//在线授课
+				$scope.turnToClass = function(list) {
+					if(list && list.children && list.children.length > 0) {
+						$state.go('onlineres', {prepareId: list.id});
+					}
+					else {
+						ModalMsg.alert("当前备课夹下没有资源哦,请先添加备课资源~");
+					}
+				}
 			}
 		])
 

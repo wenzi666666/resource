@@ -4,6 +4,7 @@
 	 * 用a标签实现是为了不被 浏览器拦截
 	*/
 	window.openwin = function(url) {
+		console.log("test open win");
 		var a = document.createElement("a");
 		a.setAttribute("href", url);
 		a.setAttribute("target", "_new");

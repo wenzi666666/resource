@@ -53,7 +53,7 @@
 				//选中的学科
 				$scope.selectedSubject;
 				
-				
+				console.log($localStorage.authUser.userId);
 				//获取用户信息
 				User.get({
 					userid: $localStorage.authUser.userId

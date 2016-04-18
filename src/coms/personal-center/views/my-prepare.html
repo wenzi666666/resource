@@ -40,6 +40,7 @@
 							<img class="res-list-thumb" ng-src="{{res.imgPath}}" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0'})"/>
 						</div>
 						<span class="resource-title" ng-bind="res.title" title="{{res.title}}"></span>
+
 					</div>
 					<div class="col-md-2 col-sm-2">
 						<span class="resource-type" ng-bind="res.unifyType"></span>
@@ -47,6 +48,7 @@
 					<div class="col-md-3 col-sm-3">
 						<span class="resource-date"><show-time item-date data-value="{{res.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time></span>
 					</div>
+
 				</li>
 			</ul>
 		</div>
