@@ -536,6 +536,9 @@
 						}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
+						_.each($scope.showStar, function(v, i) {
+							$scope.curStar[i]=false;
+						});
 						$scope.currentSlideIndex = $scope.VM.allSourceList.length - 1;
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
@@ -558,7 +561,9 @@
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
-						
+						_.each($scope.showStar, function(v, i) {
+							$scope.curStar[i]=false;
+						});
 						$scope.currentSlideIndex = 0;
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
