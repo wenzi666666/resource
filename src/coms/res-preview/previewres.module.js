@@ -513,7 +513,8 @@
 					});
 					$scope.currentSlideIndex = index;
 					$scope.VM.resourceId=id;
-					$scope.VM.fromeFlag=fromFlag;
+					$scope.VM.fromFlag=fromFlag;
+					console.log("当前切换的"+$scope.VM.fromeFlag)
 					$scope.VM.listInfoCom(id,$scope.VM.fromFlag);
 					for(var i=0;i<$scope.VM.allSourceList.length;i++)
 					{
@@ -529,13 +530,14 @@
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
 						});
-						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex-1].id,$scope.VM.allSourceList[$scope.currentSlideIndex-1].fromFlag);
 						$scope.currentSlideIndex --;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 						{
 							$scope.curImg[i]=false;
 						}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						
 					} else {
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
@@ -546,6 +548,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
 				}
 					//下一个
@@ -554,8 +557,8 @@
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
 						});
-						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex+1].id,$scope.VM.allSourceList[$scope.currentSlideIndex+1].fromFlag);
 						$scope.currentSlideIndex ++;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
 								$scope.curImg[i]=false;
@@ -571,6 +574,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
 				}
 				
