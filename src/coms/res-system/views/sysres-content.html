@@ -46,7 +46,7 @@
 						<div class="res-prepare-list">
 							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}</div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
-							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0">更多备课夹...</div>
+							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
 					</div>
 					<br>
@@ -61,7 +61,7 @@
 				<label for="{{$index}}"></label>
 				<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
 				<div class="img-thumb2-list">
-					<img class="" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+					<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				</div>
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">{{ list.title }}</label>
