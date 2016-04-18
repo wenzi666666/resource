@@ -91,8 +91,8 @@
 				$scope.VM.fromFlag=$localStorage.fromFlag;
 				
 				$scope.VM.search="html";
-				$scope.searchKeyWord=localStorage.searchKeyWord;
-				console.log($scope.searchKeyWord);
+				$scope.searchKeyWord=$localStorage.searchKeyWord;
+				console.log("关键字"+$scope.searchKeyWord);
 				$scope.VM.load=true;//加载
 				
 				if($stateParams.search=="search")
@@ -110,9 +110,7 @@
 					console.log($scope.VM.fromFlag,$scope.VM.personType);
 				}
 				
-				
 				console.log($stateParams);
-				
 				
 				
 				//资源格式下拉显示问题
@@ -323,7 +321,8 @@
 							console.log($scope.VM.resourceId,$scope.VM.tfCode,current,typeId)
 							console.log(data)
 							if(data.code=="OK")
-							{	
+							{	console.log("系统跳转")
+								console.log(data.data)
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								
@@ -353,7 +352,6 @@
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
-								console.log(data.data)
 							}else{
 								alert(data.message);
 							}
@@ -373,6 +371,7 @@
 							$scope.VM.load=false;
 							if(data.code=="OK")
 							{	
+								console.log("校本/区本跳转");
 								console.log(data.data)
 								pageSize=data.data.total;
 								$scope.localIndex=0;
@@ -419,7 +418,8 @@
 							$scope.VM.load=false;
 							console.log(data)
 							if(data.code=="OK")
-							{	
+							{	console.log("搜索页面跳转");
+								console.log(data.data)
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								_.each(data.data.list, function(v, i) {
@@ -448,7 +448,7 @@
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
-								console.log(data.data)
+
 							}else{
 								alert(data.message);
 							}
@@ -466,7 +466,8 @@
 							$scope.VM.load=false;
 							console.log(data)
 							if(data.code=="OK")
-							{	console.log("个人中心上传跳转")
+							{	console.log("个人中心上传跳转");
+								console.log(data.data)
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								_.each(data.data.list, function(v, i) {
@@ -495,7 +496,7 @@
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
-								console.log(data.data)
+								
 							}else{
 								alert(data.message);
 							}
