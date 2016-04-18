@@ -104,9 +104,10 @@
 				var currentPrepareId = '';
 				var getPrepare = function(id) {
 //					Prepare.latestPrepare({}}
-					Prepare.baseGetApi({
-						tfcode: id
-					}, function(data) {
+//					Prepare.baseGetApi({
+//						tfcode: id
+//					}
+					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
 						

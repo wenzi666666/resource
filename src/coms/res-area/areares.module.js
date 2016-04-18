@@ -92,8 +92,8 @@
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
-			    // 设置 匹本资源为4;
-			    $localStorage.fromFlag = 0;
+			    // 设置 区本资源为4;
+			    $localStorage.fromFlag = 4;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
 				
