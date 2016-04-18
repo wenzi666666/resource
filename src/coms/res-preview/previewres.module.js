@@ -514,8 +514,7 @@
 					$scope.currentSlideIndex = index;
 					$scope.VM.resourceId=id;
 					$scope.VM.fromFlag=fromFlag;
-					console.log("当前切换的"+$scope.VM.fromeFlag)
-					$scope.VM.listInfoCom(id,$scope.VM.fromFlag);
+					$scope.VM.listInfoCom(id,fromFlag);
 					for(var i=0;i<$scope.VM.allSourceList.length;i++)
 					{
 						$scope.curImg[i]=false;
