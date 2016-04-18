@@ -27,20 +27,69 @@
 					})
 			}
 		])
-		.factory('Message', ['$resource', 'Constants',
-			function($resource, Constants) {
+		.factory('Message', ['$resource', 
+			function($resource) {
 				return $resource('', {}, {
 					total: {
 						method: "GET",
 						url: BackendUrl + "/api/discuss/home/total"
+					},
+					userMessage: { //查询自己评论
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/message"
 					}
 				})
 			}
 		])
-		.controller("MessageController", ['$scope', '$stateParams', '$state', '$location', 
-			function($scope, $stateParams, $state, $location) {
+		.controller("MessageController", ['$scope', '$stateParams', '$state', '$location','Message', 
+			function($scope, $stateParams, $state, $location,Message) {
 				// 变量共享
 				$scope.VM = {};
+				
+				/*获取消息*/
+//				Message.userMessage({},function(data){
+//					console.log(data)
+//				});
+				$scope.messageList=[];
+				$scope.messageList=[{
+					"type":"系统消息",
+					"time":"1460948698000",
+					"content":"系统将于2016年4月18日进行维护"
+				},
+				{
+					"type":"个人消息",
+					"time":1460948698000,
+					"content":"系统将于2016年4月18日进行维护"
+				},{
+					"type":"系统消息",
+					"time":1460948698000,
+					"content":"啦啦啦阿联啦啦啦拉开阿拉蕾阿里啦啦拉开阿拉蕾阿里啦啦拉开阿拉蕾阿里啦啦拉开阿拉蕾阿里啦啦拉开阿拉蕾阿里啦啦拉开阿拉蕾阿里 啦啦拉开阿拉蕾阿里 奥拉鲁啊啊拉开拉链阿里阿"
+				},{
+					"type":"个人消息",
+					"time":1460948698000,
+					"content":"系统将于2016年4月18日进行维护"
+				},{
+					"type":"系统消息",
+					"time":1460948698000,
+					"content":"系统将于2016年4月18日进行维护"
+				}];
+				
+				$scope.bigCurrentPage=1;
+				$scope.bigTotalItems=2;
+				$scope.maxSize=3;
+				$scope.pageChanged = function(pagenum) {
+					console.log(pagenum);
+					if(pagenum == undefined) {
+						console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
+					}
+					else {
+						console.log('Page changed to: ' + page);
+						$scope.bigCurrentPage = pagenum;
+					   
+					} 
+				};
+				$scope.pageTo=$scope.bigCurrentPage;
+				
 			}
 		])
 }());
