@@ -173,8 +173,8 @@
 					$scope.VM.comShow=true;
 				}
 				else
-				{//系统/区本/校本
-					// 资源nav数据
+				{//系统/区本/校本 资源nav数据
+					console.log("系统/区本/校本"+$scope.VM.tfCode,$scope.VM.resourceId,$scope.VM.fromFlag)
 					Preview.lists({
 						resId: $scope.VM.resourceId,
 						curTfcode: $scope.VM.tfCode,
@@ -184,7 +184,6 @@
 						$scope.currentNav = $scope.navList[0];
 						$scope.VM.tfCode=$scope.navList[0][$scope.navList[0].length-1].tfcode;
 						$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
-						console.log($scope.VM.tfCode,$scope.VM.name)
 						$scope.links[2]=true;
 						getTypes();//获取资源类型
 					});	
@@ -232,7 +231,6 @@
 				}
 				
 				//获取资源格式
-				
 				function getTypes(){
 					
 					$scope.sourceType=[];
@@ -308,7 +306,6 @@
 				 
 				 function getAllSource(typeId) {
 			      	//获取所有资源相关变量
-			      	
 					$scope.currentSlideIndex = 0;
 					$scope.curImg=[];
 					if (($scope.VM.fromFlag == "0")&&($scope.VM.search=="html")) {
@@ -375,7 +372,9 @@
 						}, function(data) {
 							$scope.VM.load=false;
 							if(data.code=="OK")
-							{	pageSize=data.data.total;
+							{	
+								console.log(data.data)
+								pageSize=data.data.total;
 								$scope.localIndex=0;
 								
 								_.each(data.data.list, function(v, i) {
@@ -402,7 +401,7 @@
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
-								console.log(data.data)
+								
 							}else{
 								alert(data.message);
 							}
@@ -537,6 +536,9 @@
 						}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
+						_.each($scope.showStar, function(v, i) {
+							$scope.curStar[i]=false;
+						});
 						$scope.currentSlideIndex = $scope.VM.allSourceList.length - 1;
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
@@ -559,7 +561,9 @@
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
 					} else {
-						
+						_.each($scope.showStar, function(v, i) {
+							$scope.curStar[i]=false;
+						});
 						$scope.currentSlideIndex = 0;
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
@@ -623,7 +627,6 @@
 						}, function(d) {
 							// 获取备课夹
 							getPrepare();
-							
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
@@ -671,13 +674,10 @@
 				 	{
 				 		$scope.VM.showPre=true;
 				 	}
-				 	
 				 }
 				 $scope.hidePre=function(){
 				 	$scope.VM.showPre=false;
 				 }
-				
-				
 				
 			}
 		])

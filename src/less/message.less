@@ -42,6 +42,7 @@
     padding: 0px;
     font-size: @resNavFontSize;
     color: @color11;
+    min-height:580px ;
 }
 #message-container .mes_list li{
     border-bottom: 1px dashed #ccc;
@@ -59,11 +60,10 @@
 }
 #message-container .mes_content
 {
-   padding-left: 8px;
 }
 #message-container .mes_pagination
 {
-    height: 100px;
+    min-height: 100px;
     padding:0px 20px;
      font-size: @resNavFontSize;
 }
@@ -81,6 +81,12 @@
 //分页控件显示区域
 #message-container .page
 {
-    height: 50px;
+    height: 60px;
     margin:20px auto;
+    text-align: center;
+}
+#message-container .coms-pagination
+{
+    margin-top: 0px;
+    text-align: center;
 }
