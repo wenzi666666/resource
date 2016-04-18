@@ -168,7 +168,7 @@
 							</div>
 						</div>
 						<div class="img-thumb-list">
-							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1'})"/>
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ng-click="previewRes(list)"/>
 						</div>
 						<span class="resource-title">{{list.title}}</span>
 					</div>

@@ -102,6 +102,17 @@
 					})
 				}
 
+				//预览自建资源
+				$scope.previewRes = function(res) {
+					//已转换为可预览格式
+					if(res.isFinished) {
+						$state.go('previewres', {resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1'});
+					}
+					else {
+						ModalMsg.alert("该资源正在转码中，暂时不能预览，请稍后重试！");
+					}
+				}
+
 				//分页
 				$scope.pageTo = 1;
 				$scope.pageChanged = function(pagenum) {
