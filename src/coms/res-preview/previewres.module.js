@@ -513,8 +513,8 @@
 					});
 					$scope.currentSlideIndex = index;
 					$scope.VM.resourceId=id;
-					$scope.VM.fromeFlag=fromFlag;
-					$scope.VM.listInfoCom(id,$scope.VM.fromFlag);
+					$scope.VM.fromFlag=fromFlag;
+					$scope.VM.listInfoCom(id,fromFlag);
 					for(var i=0;i<$scope.VM.allSourceList.length;i++)
 					{
 						$scope.curImg[i]=false;
@@ -529,13 +529,14 @@
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
 						});
-						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex-1].id,$scope.VM.allSourceList[$scope.currentSlideIndex-1].fromFlag);
 						$scope.currentSlideIndex --;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 						{
 							$scope.curImg[i]=false;
 						}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						
 					} else {
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
@@ -546,6 +547,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
 				}
 					//下一个
@@ -554,8 +556,8 @@
 						_.each($scope.showStar, function(v, i) {
 							$scope.curStar[i]=false;
 						});
-						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex+1].id,$scope.VM.allSourceList[$scope.currentSlideIndex+1].fromFlag);
 						$scope.currentSlideIndex ++;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
 								$scope.curImg[i]=false;
@@ -571,6 +573,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
 				}
 				
@@ -599,19 +602,19 @@
 				$scope.shopCount=0;
 				var currentPrepareId = '';
 				 function getPrepare() {
-//					Prepare.baseGetApi({
-//						tfcode:$scope.VM.tfCode 
-//					}, function(data) {
-//						console.log("prepare:",data.data);
-//						$scope.prepareList = data.data;
-//						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
-//						
-//					});
+				 	//获取当前节点 备课夹
+					Prepare.baseGetApi({
+						tfcode:$scope.VM.tfCode 
+					}, function(data) {
+						console.log("prepare:",data.data);
+						$scope.prepareList = data.data;
+						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
+						
+					});
+					//获取 最近三个备课夹
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
-						
-						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
 						
 					});
 				}

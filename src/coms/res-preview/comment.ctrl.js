@@ -59,11 +59,10 @@
 				$scope.VM.listInfoCom = function(id, fromFlag) {
 					$scope.VM.resourceId=id;
 					$scope.VM.fromFlag=fromFlag;
-					console.log($scope.VM.resourceId+"id",fromFlag)
+					console.log(id+"id",fromFlag)
 					Preview.listInfo({
 						resId: id,
 						fromFlag: fromFlag
-
 					}, function(data) {
 						if (data.code == "OK") {
 							$scope.VM.load=false;
