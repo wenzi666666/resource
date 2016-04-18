@@ -59,7 +59,9 @@
 				<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
 				<label for="{{$index}}"></label>
 				<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
-				<img class="prepare-shop res-thubmlist-thumb" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				<div class="img-thumb2-list">
+					<img class="" ng-src="{{list.thumbnailpath}}" fallback-src="assets/img/title.jpg" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+				</div>
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">{{ list.title }}</label>
 					<label class="res-type">类型: {{ list.mtype }}</label>

@@ -371,6 +371,7 @@
 }
 .res-thubmlist-info{
     font-size: 13px;
+    margin-top: 200px;
 }
 .res-thubmlist-info label{
     margin: 5px 0;
@@ -446,7 +447,7 @@
   border-bottom: 1px dashed #9b9b9b;
   padding: 8px;
   margin: 8px 0;
-  height: 310px;
+  height: 355px;
 }
 .res-list-main .res-thubmlist-item:hover{
     background: #e6f4f4;
@@ -656,6 +657,11 @@
     text-align: center;
     overflow: hidden;
 }
+.img-thumb-list>img{
+    max-width: 130px;
+    max-height: 130px;
+    line-height: 130px;
+}
 .img-thumb-list>img:hover{
     transform: scale(1.1);
     transition:  0.5s transform;
@@ -663,7 +669,28 @@
     -webkit-transition: 0.5s transform; /* Safari 和 Chrome */
     -o-transition: 0.5s transform; /* Opera */
 }
-
+// 大缩略图
+.img-thumb2-list{
+    position: absolute;
+    line-height: 200px;
+    width: 238px;
+    height: 200px;
+    background: #ddd;
+    text-align: center;
+    overflow: hidden;
+}
+.img-thumb2-list>img{
+    max-width: 230px;
+    max-height: 200px;
+    line-height: 200px;
+}
+.img-thumb2-list>img:hover{
+    transform: scale(1.1);
+    transition:  0.5s transform;
+    -moz-transition: 0.5s transform; /* Firefox 4 */
+    -webkit-transition: 0.5s transform; /* Safari 和 Chrome */
+    -o-transition: 0.5s transform; /* Opera */
+}
 .img-thumb-list-res{
     margin-left: 40px;
 }
