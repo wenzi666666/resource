@@ -40,7 +40,9 @@
 		</div>
 		<div class="slide-list">
 			<div class="slide-list-item" ng-repeat="item in VM.allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
-				<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}" ng-class="curImg[$index]?'line':''" fallback-src="assets/img/sample.png">
+				<div class="img-box" ng-class="curImg[$index]?'line':''">
+					<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}"  fallback-src="assets/img/sample.png">
+				</div>
 				<span class="text-ellipsis">{{item.title}}</span>
 			</div>
 			<div class="more" ng-click="getAllSourceMore()" ng-hide="VM.resShow">加载更多</div>

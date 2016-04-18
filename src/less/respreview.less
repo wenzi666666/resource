@@ -356,3 +356,34 @@
     top:25%;
     z-index: 30;
 }
+
+#preview-container .img-box{
+     width: 100%;
+    height: 110px;
+    line-height: 105px;
+    background: #ccc;
+    overflow: hidden;
+}
+#preview-container .img-box:hover
+{
+    border: 2px solid @color1;
+}
+#preview-container .img-box:hover img
+{
+    transform: scale(1.1);
+    transition: 0.5s ease;
+    -webkit-transition:0.5s ease;
+    -moz-transition:0.5s ease;
+    -o-transition:0.5s ease;
+}
+
+#preview-container .img-box img
+{
+    max-width: 90%;
+    max-height: 100px;
+    width: auto;
+}
+#preview-container .img-box img:hover
+{
+    border: none !important;
+}
