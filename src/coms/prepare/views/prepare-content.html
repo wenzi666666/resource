@@ -18,7 +18,7 @@
 				</div>
 				<div class="list-item" ng-repeat="item in list.children">
 					<input type="checkbox"/>
-					<img class="list-item-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="assets/img/title.jpg"/>
+					<img class="list-item-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix}}"/>
 					<div class="item-info">
 						<span class="item-info-title">{{item.title}}</span><br>
 						<span class="item-info-type">类型: {{item.unifyType}}</span>
@@ -51,6 +51,8 @@
 				<img src="assets/img/prepare/add_res.png" />
 				<i ui-sref="systemres">系统资源</i>
 				<i ng-click="uploadRes()">本地资源</i>
+				<!-- 上传模态框 -->
+				<div data-ng-include="'/coms/layout/modal/modal/upload-modal.html'"></div>
 			</div>
 		</div>
 	</div>
