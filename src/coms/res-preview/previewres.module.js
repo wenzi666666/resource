@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag/:search/:type',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search/:type/:back',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -148,6 +148,8 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
+					$scope.currentNav = [{"name":"返回"}];
+					$scope.links[0]=true;
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -189,7 +191,7 @@
 					if(index==2 && $scope.VM.search=="html")
 					{
 						history.back();
-					}else if(index==0 && $scope.VM.search=="search")
+					}else if(index==0 && $scope.VM.search!="html")
 					{
 						history.back();
 					}
@@ -318,6 +320,7 @@
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[i].title;
 										console.log($scope.VM.fromFlag)
 										break;
 										
@@ -331,6 +334,7 @@
 										$scope.curImg[0]=true;
 										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[0].title;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 							}else{
@@ -368,6 +372,7 @@
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[i].title;
 										break;
 										
 									}else{
@@ -380,6 +385,7 @@
 										$scope.curImg[0]=true;
 										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[0].title;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 								
@@ -415,6 +421,7 @@
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[i].title;
 										console.log($scope.VM.fromFlag)
 										break;
 										
@@ -428,6 +435,7 @@
 										$scope.curImg[0]=true;
 										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[0].title;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 
@@ -463,6 +471,7 @@
 										$scope.currentSlideIndex=i; 
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[i].title;
 										console.log($scope.VM.fromFlag)
 										break;
 										
@@ -476,6 +485,7 @@
 										$scope.curImg[0]=true;
 										$scope.VM.resourceId=$scope.VM.allSourceList[0].id;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[0].fromFlag;
+										$scope.VM.resName=$scope.VM.allSourceList[0].title;
 								}
 								$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 								
@@ -490,12 +500,14 @@
 				 
 				 //点击资源切换
 				$scope.slideChange=function(id,index,fromFlag){
+					console.log(id,fromFlag)
 					_.each($scope.showStar, function(v, i) {
 						$scope.curStar[i]=false;
 					});
 					$scope.currentSlideIndex = index;
 					$scope.VM.resourceId=id;
 					$scope.VM.fromFlag=fromFlag;
+					$scope.VM.resName=$scope.VM.allSourceList[index].title;
 					$scope.VM.listInfoCom(id,fromFlag);
 					for(var i=0;i<$scope.VM.allSourceList.length;i++)
 					{
@@ -512,6 +524,7 @@
 							$scope.curStar[i]=false;
 						});
 						$scope.currentSlideIndex --;
+						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 						{
@@ -529,6 +542,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
 				}
@@ -539,6 +553,7 @@
 							$scope.curStar[i]=false;
 						});
 						$scope.currentSlideIndex ++;
+						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
 							{
@@ -555,6 +570,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
 				}

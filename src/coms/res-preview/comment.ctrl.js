@@ -83,12 +83,13 @@
 								$scope.VM.allSourceList=[
 								{
 									"thumbnailpath":$scope.VM.info.fpath,
-									"fromFlag":$scope.VM.info.fromFlag,
+									"fromFlag":$scope.VM.info.fromflag,
 									"id":$scope.VM.info.id,
 									"title":$scope.VM.info.title,
 									"fileExt":$scope.VM.info.fileExt
 								}
 								];
+								$scope.VM.resName=$scope.VM.info.title;
 								
 							}
 							

@@ -28,7 +28,7 @@
 				<label for="{{$index}}"></label>
 				<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
 				<div class="img-thumb-list img-thumb-list-res">
-					<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+					<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				</div>
 				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 					<label class="res-title text-ellipsis">{{ list.title }}</label>
@@ -61,7 +61,7 @@
 				<label for="{{$index}}"></label>
 				<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
 				<div class="img-thumb2-list">
-					<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
+					<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
 				</div>
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">{{ list.title }}</label>
