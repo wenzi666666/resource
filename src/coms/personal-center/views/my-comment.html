@@ -21,7 +21,7 @@
 					<div class="col-md-12 col-sm-12">
 						<div class="col-md-3 col-sm-3">
 							<div class="img-thumb-list">
-								<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})"/>
+								<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0', back:'comment'})"/>
 							</div>
 							<span class="resource-title text-ellipsis" >{{list.title}}</span>
 						</div>
