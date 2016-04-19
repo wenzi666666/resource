@@ -87,9 +87,10 @@
 				//对于tfcode和fromFlag不同页面跳转过来不同  
 				//所以后期fromFlag会根据单个资源的fromFlag进行切换 不会只读取localStorage里面的
 				$scope.VM.resourceId=$stateParams.resId;
-				$scope.VM.tfCode=$stateParams.curTfcode;
+				$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+				$scope.VM.name=$localStorage.currentTreeNode.label;
 				$scope.VM.fromFlag=$localStorage.fromFlag;
-				
+				$scope.VM.name=$localStorage.currentTreeNode.label;
 				$scope.VM.search="html";
 				$scope.searchKeyWord=$localStorage.searchKeyWord;
 				console.log("关键字"+$scope.searchKeyWord);
@@ -135,8 +136,8 @@
 					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
 					$scope.links[0]=true;
 					$scope.VM.preShow=true;
-					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
-					$scope.VM.name=$localStorage.currentTreeNode.label;
+//					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+//					$scope.VM.name=$localStorage.currentTreeNode.label;
 					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
 				}
 				else if($scope.VM.search=="person" && $scope.VM.personType=="0")
@@ -149,8 +150,8 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
-					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
-					$scope.VM.name=$localStorage.currentTreeNode.label;
+//					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+//					$scope.VM.name=$localStorage.currentTreeNode.label;
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -164,8 +165,8 @@
 					$scope.typeLight=[];
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
-					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
-					$scope.VM.name=$localStorage.currentTreeNode.label;
+//					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+//					$scope.VM.name=$localStorage.currentTreeNode.label;
 					getAllSource("");//获取对应资源
 					$scope.VM.preShow=true;
 					$scope.VM.comShow=true;
@@ -315,7 +316,8 @@
 							fromFlag:$scope.VM.fromFlag,
 							tfcode: $scope.VM.tfCode,
 							page: current,
-							perPage: 20
+							perPage: 20,
+							orderBy:0
 						}, function(data) {
 							$scope.VM.load=false;
 							console.log($scope.VM.resourceId,$scope.VM.tfCode,current,typeId)
@@ -365,7 +367,8 @@
 							typeId: typeId,//资源格式id
 							tfcode: $scope.VM.tfCode,
 							page: current,
-							perPage: 20
+							perPage: 20,
+							orderBy:0
 	
 						}, function(data) {
 							$scope.VM.load=false;
@@ -620,7 +623,7 @@
 				}
 				setTimeout(function(){
 					getPrepare();
-				}, 1000);
+				}, 100);
 				
 				//加入备课夹
 				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹

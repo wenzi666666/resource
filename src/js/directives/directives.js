@@ -10,9 +10,22 @@
 				link: function postLink(scope, iElement, iAttrs) {
 					iElement.bind('error', function() {
 						var src = iAttrs.fallbackSrc;
+						//是否包含中文正则
+						var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
 						if (src == "")
-							src = window.fallbacksrc
-						angular.element(this).attr("src", src);
+						{
+							src = window.fallbacksrc;
+						}
+						if(reg.test(src))
+						{
+						  angular.element(this).attr("src", "assets/img/sample.png");
+
+						}else
+						{
+						  angular.element(this).attr("src", src);
+						}
+						
+							
 					});
 				}
 			}
