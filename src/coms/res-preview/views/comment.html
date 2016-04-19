@@ -63,6 +63,7 @@
 		<span class="down-orign" ng-click="resDownload(VM.resourceId)">下载到本地</span>
 		<ul class="prepareList" ng-show="VM.showPre" ng-mouseover="showPre()" ng-mouseout="hidePre()">
 			<li ng-repeat="item in prepareList track by $index"  class="text-ellipsis" ng-class="curPre?'curPre':''" ng-click="addToCurrentPrepare('list',item.id)">{{$index+1}}、{{item.title}}</li>
+			<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 		</ul>
 
 	</div>
