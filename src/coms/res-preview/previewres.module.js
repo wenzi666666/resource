@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('previewres', {
-						url: '/previewres/:resId/:curTfcode/:fromFlag/:search/:type',
+						url: '/previewres/:resId/:curTfcode/:fromFlag/:search/:type/:back',
 						views: {
 							'content@': {
 								templateUrl: '/coms/res-preview/views/previewres.html',
@@ -148,6 +148,8 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
+					$scope.currentNav = [{"name":"资源定制"}];
+					$scope.links[0]=true;
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -189,7 +191,7 @@
 					if(index==2 && $scope.VM.search=="html")
 					{
 						history.back();
-					}else if(index==0 && $scope.VM.search=="search")
+					}else if(index==0 && $scope.VM.search!="html")
 					{
 						history.back();
 					}
@@ -498,6 +500,7 @@
 				 
 				 //点击资源切换
 				$scope.slideChange=function(id,index,fromFlag){
+					console.log(id,fromFlag)
 					_.each($scope.showStar, function(v, i) {
 						$scope.curStar[i]=false;
 					});
