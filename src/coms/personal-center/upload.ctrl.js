@@ -9,12 +9,16 @@
 			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Upload, $timeout, $uibModalInstance) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
-
+				
+				// 获取上传地址
 				Res.getUploadUrl({}, function(data) {
-
 					$scope.uploadData = data.data
-					console.log("uploadData:", $scope.uploadData)
-						//					
+					console.log("uploadData:", $scope.uploadData)			
+				})
+				
+				// 获取资源类型
+				Res.unifyType({}, function(data) {
+					$localStorage.unifyType = data.data;
 				})
 
 				// 编辑完资源信息上传
@@ -78,10 +82,6 @@
 						files = files.concat(tmp);
 					})
 					$localStorage.files = files;
-//					$localStorage.files = {
-//						name: $scope.files[0].name,
-//						responseName:  $scope.files[0].result
-//					};
 					
 					setTimeout(function(){
 						var modalNewUpload = $uibModal.open({
@@ -95,41 +95,124 @@
 			}
 		])
 		// 编辑资源信息
-		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout) {
+		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout','Tree',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout,Tree) {
 				//变量共享
 				$scope.VM = {};
 				
 				$scope.uploadData = $localStorage.uploadData;
 				$scope.uploadFilesData = $localStorage.files;
 				
+				$scope.unifyType = $localStorage.unifyType;
 				
+				// 批量上传
+				$scope.addAll = false;
+				if($scope.uploadFilesData.length >1){
+					$scope.addAll = true;
+				}
+				
+				//根据上传后缀名确定 上传类型
+				var fileType = $scope.uploadFilesData[0].name.split('.')[$scope.uploadFilesData[0].name.length-1]
+//				typeConfirm(fileType)	
 				
 				console.log($scope.uploadData, $scope.uploadFilesData)
-				// 获取资源类型
-				Res.unifyType({}, function(data) {
-					$scope.unifyType = data.data;
-				})
 				
+				// 监听目录树变化
+				var getTreeData = function(){
+					Tree.getTree({
+						pnodeId: $localStorage.currentMaterial.id,
+					}, function(data) {
+						$scope.treedataSelect = data.data;
+						
+						$scope.currentNode = data.data[0];
+						//展开第一个节点
+						$scope.expandedNodes = [$scope.treedataSelect[0]];
+						console.log("tree data:", data.data);
+					})
+				}
+				
+				
+				// 目录树 控制
+				$scope.showTree = false;
+				$scope.treeTrigger = function() {
+					$scope.showTree = true;
+				}
+				$scope.closeThis = function() {
+					$scope.showTree = false;
+				}
+				
+				// 目录树节点选择
+				$scope.currentNode = $localStorage.currentTreeNode;
+				
+				$scope.showSelected = function(sel) {
+					$scope.currentNode =  sel;
+					//获取当前节点下的所有备课夹
+					
+				};
+				
+				
+				
+				// 数据初始化
 				$scope.res = {};
-				// resTitle
 				$scope.res.resTitle = $scope.uploadFilesData[0].name.split('.')[0];
 				$scope.res.keywords = '';
 				$scope.res.description = '';
+				$scope.res.paths = $scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName;
+				$scope.res.sizes = $scope.uploadFilesData[0].size;
+				$scope.res.iscoursewares = 0;
+				$scope.res.islocals = 0;
+				
 				$scope.uploadEditResInfo = function() {
-					console.log("ooooo")
-//					$scope.VM.name = $scope.files.name;
+					// 统一批量上传
+					if(!!$scope.addAll) {
+						var names = [];
+						var tfCodes = [];
+						var unifTypeIds = [];
+						var scopes = [];
+						var keywords = [];
+						var descs = [];
+						var sizes = [];
+						var paths = [];
+						var iscoursewares = [];
+						var islocals = [];
+						
+						_.each($scope.uploadFilesData,function(v,i) {
+							console.log(v.name.split('.')[0])
+							names.push(v.name.split('.')[0]);
+							tfCodes.push($scope.currentNode.tfcode);
+							unifTypeIds.push($scope.unifyType[$scope.currentTypeIndexSeclet].id);
+							scopes.push($scope.currentScopeIndexSeclet);
+							keywords.push($scope.res.keywords);
+							descs.push($scope.res.description);
+							paths.push($scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName);
+							sizes.push(v.size);
+							iscoursewares.push(0);
+							islocals.push(0);
+						})
+						
+						$scope.res.resTitle = names.toString();
+						$scope.currentNode.tfcode = tfCodes.toString();
+						$scope.unifyType[$scope.currentTypeIndexSeclet].id = unifTypeIds.toString();
+						$scope.currentScopeIndexSeclet = scopes.toString();
+						$scope.res.keywords = keywords.toString();
+						$scope.res.description = descs.toString();
+						$scope.res.paths = paths.toString();
+						$scope.res.sizes = sizes.toString();
+						$scope.res.iscoursewares = iscoursewares.toString();
+						$scope.res.islocals = islocals.toString();
+					}
+					
 					Res.resCtrl({
 						names:$scope.res.resTitle,
 						unifTypeIds: $scope.unifyType[$scope.currentTypeIndexSeclet].id,
-						tfcodes: $scope.VM.currentMaterial.tfcode,
+						tfcodes: $scope.currentNode.tfcode,
 						scopes: $scope.currentScopeIndexSeclet,
 						keywords: $scope.res.keywords,
 						descs: $scope.res.description,
-						paths: $scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName,
-						sizes: $scope.uploadFilesData[0].size,
-						iscoursewares: 0,
-						islocals: 0
+						paths: $scope.res.paths,
+						sizes: $scope.res.sizes,
+						iscoursewares: $scope.res.iscoursewares,
+						islocals: $scope.res.islocals
 					}, function(data) {
 						if(data.code == "OK") {
 							$uibModalInstance.dismiss('cancel');
@@ -259,7 +342,7 @@
 										$scope.VM.currentMaterialSeclet[i] = true;
 								})
 								// 触发 目录树更新
-//								$scope.$emit("currentTreeId", $localStorage.currentMaterial.id)
+								getTreeData();
 
 							}).$promise;
 						}
@@ -340,7 +423,8 @@
 							})
 							$scope.VM.currentMaterial = $scope.VM.material[0];
 							$scope.VM.currentMaterialSeclet[0] = true;
-//							$scope.$emit("currentTreeId", $scope.VM.material[0].id)
+							
+							getTreeData();
 						}).$promise;
 					})
 				}
@@ -391,7 +475,7 @@
 							$scope.VM.currentMaterial = $scope.VM.material[0];
 							$scope.VM.currentMaterialSeclet[0] = true;
 							// 当没有教材时，取版本id
-//							$scope.$emit("currentTreeId", $scope.VM.material[0] ? $scope.VM.material[0].id : $scope.VM.version[0].id)
+							getTreeData();
 						}).$promise;
 					})
 				}
@@ -441,8 +525,8 @@
 						$scope.VM.currentMaterialSeclet[i] = false;
 					})
 					$scope.VM.currentMaterialSeclet[index] = true;
-//					$scope.$emit("currentTreeId", $scope.VM.currentMaterial.id);
 					
+					getTreeData();
 
 				}
 				
