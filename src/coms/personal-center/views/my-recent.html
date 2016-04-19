@@ -36,7 +36,7 @@
 				<li ng-repeat="list in VM.recentFileList.list track by $index">
 					<div class="col-md-6 col-sm-6">
 						<div class="img-thumb-list">
-							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})"/>
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0', back: 'recent'})"/>
 						</div>
 						<span class="resource-title">{{list.title}}</span>
 					</div>

@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('personalcenter', {
-						url: '/personalcenter',
+						url: '/personalcenter/:back',
 						views: {
 							'content@': {
 								templateUrl: '/coms/personal-center/views/personal-center.html',

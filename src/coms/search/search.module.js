@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('search', {
-						url: '/search',
+						url: '/search/:fromFlag',
 						views: {
 							'content@': {
 								templateUrl: '/coms/search/views/search.html',
@@ -54,6 +54,8 @@
 					$scope.searchKeyWord=$localStorage.searchKeyWord;
 				}
 				
+				
+				
 				//搜索资源范围
 
 				$scope.VM.searchArea = [{
@@ -75,15 +77,23 @@
 				//资源范围
 				$scope.VM.currentAreaSelect = [];
 				
-//				_.each($scope.VM.searchArea, function(v, i) {
-//					if($localStorage.search_fromFlag==$scope.VM.searchArea[i].id)
-//					{
-						$scope.VM.currentAreaSelect[0] = true;
-						$scope.VM.currentFromFlag = $scope.VM.searchArea[0].id;
-						$scope.VM.currentArea = $scope.VM.searchArea[0].area; //文本当前内容
-						$localStorage.search_fromFlag=$scope.VM.currentFromFlag;
-//					}
-//				});
+				
+				if($stateParams.fromFlag)
+				{
+					 _.each($scope.VM.searchArea, function(v, i) {
+						if($stateParams.fromFlag==v.id)
+						{
+							$scope.VM.currentAreaSelect[i] = true;
+							$scope.VM.currentFromFlag = $scope.VM.searchArea[i].id;
+							$scope.VM.currentArea = $scope.VM.searchArea[i].area; //文本当前内容
+						}
+					  });
+				}else
+				{
+					$scope.VM.currentAreaSelect[0] = true;
+					$scope.VM.currentFromFlag = $scope.VM.searchArea[0].id;
+					$scope.VM.currentArea = $scope.VM.searchArea[0].area; //文本当前内容
+				}
 				
 				$scope.VM.selectArea = function(index) {
 					//选中
@@ -94,7 +104,6 @@
 					$scope.VM.currentAreaSelect[index] = true;
 					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
-					$localStorage.search_fromFlag=$scope.VM.currentFromFlag;
 					clearPage();
 					getFormat();//资源格式
 					getSourceList();
