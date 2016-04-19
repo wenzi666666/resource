@@ -148,8 +148,7 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
-					$scope.currentNav = [{"name":"返回"}];
-					$scope.links[0]=true;
+				
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -186,14 +185,50 @@
 					
 				}
 				
+				
+				//资源定制/个人中心返回链接
+				if($stateParams.back)
+				{
+					var back=$stateParams.back;
+					
+					if(back=="custom")
+					{
+						$scope.currentNav = [{"name":"资源定制"}];
+					}else if(back=="prepare")
+					{
+						$scope.currentNav = [{"name":"资源引用列表"}];
+					}else if(back=="upload")
+					{
+						$scope.currentNav = [{"name":"我的上传"}];
+					}else if(back=="download")
+					{
+						$scope.currentNav = [{"name":"我的下载"}];
+					}else if(back=="comment")
+					{
+						$scope.currentNav = [{"name":"我的评论"}];	
+					}else if(back=="recent")
+					{
+						$scope.currentNav = [{"name":"最近浏览"}];	
+					}
+					$scope.links[0]=true;
+					
+				}
+				
 				// 当前目录点击事件
 				$scope.back=function(index,tfcode){
 					if(index==2 && $scope.VM.search=="html")
-					{
+					{//系统/区本/校本
 						history.back();
-					}else if(index==0 && $scope.VM.search!="html")
-					{
+					}else if(index==0 && $scope.VM.search=="search")
+					{//搜索页 返回
+						window.location.href="search/"+$stateParams.fromFlag;
+						
+					}else if(index==0 && $stateParams.back=="custom")
+					{//资源定制页返回
 						history.back();
+					}else if(index==0 && $stateParams.back!="custom")
+					{//个人中心页面返回
+						window.location.href="personalcenter/"+$stateParams.back;
 					}
 				}
 				

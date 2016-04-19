@@ -53,10 +53,10 @@
 				<div class="list-all-item col-md-3" ng-repeat="item in subject.list">
 					<div class="item_inner">
 						<div class="img-thumb">
-						  <img class="res-list-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ui-sref="previewres({resId:item.resId,curTfcode:'',fromFlag:VM.fromFlag,search:'person',type:0,back:'simple'})"/>
+						  <img class="res-list-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ui-sref="previewres({resId:item.resId,curTfcode:'',fromFlag:VM.fromFlag,search:'person',type:0,back:'custom'})"/>
 
 						</div>
-						<div class="list-all-title text-ellipsis" ui-sref="previewres({resId:item.resId,curTfcode:'',fromFlag:VM.fromFlag,search:'person',type:0})">{{item.unifyType}}：{{item.title}}</div>
+						<div class="list-all-title text-ellipsis" ui-sref="previewres({resId:item.resId,curTfcode:'',fromFlag:VM.fromFlag,search:'person',type:0,back:'curtom'})">{{item.unifyType}}：{{item.title}}</div>
 						<div class="btnBox">
 							<span class="download" ng-click="resDownload(item.resId)">立即下载</span>
 						</div>
