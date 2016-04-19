@@ -85,7 +85,8 @@
 									"thumbnailpath":$scope.VM.info.fpath,
 									"fromFlag":$scope.VM.info.fromFlag,
 									"id":$scope.VM.info.id,
-									"title":$scope.VM.info.title
+									"title":$scope.VM.info.title,
+									"fileExt":$scope.VM.info.fileExt
 								}
 								];
 								

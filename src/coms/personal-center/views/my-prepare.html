@@ -37,7 +37,7 @@
 				<!-- <li class="active"> -->
 					<div class="col-md-7 col-sm-7">
 						<div class="img-thumb-list">
-							<img class="res-list-thumb" ng-src="{{res.imgPath}}" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0'})"/>
+							<img class="res-list-thumb" ng-src="{{res.imgPath?res.imgPath:'null'}}" fallback-src="http://chat.tfedu.net/tfedu/resicon/{{res.fileSuffix | lowercase}}.png" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0'})"/>
 						</div>
 						<span class="resource-title" ng-bind="res.title" title="{{res.title}}"></span>
 

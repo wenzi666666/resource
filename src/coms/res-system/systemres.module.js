@@ -376,8 +376,10 @@
 				}
 				
 				// 综合 排序 0 最多下载 1 最新发布2
+				$localStorage.orderBy=$scope.orderBy;
 				$scope.dataSortByType = function(type){
 					$scope.orderBy = type;
+					$localStorage.orderBy=$scope.orderBy;
 					page = 1;
 					getResList();
 				}

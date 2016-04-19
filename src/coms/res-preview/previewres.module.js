@@ -77,8 +77,8 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes','Prepare',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes,Prepare) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes','Prepare','$uibModal',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes,Prepare,$uibModal) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -87,9 +87,10 @@
 				//对于tfcode和fromFlag不同页面跳转过来不同  
 				//所以后期fromFlag会根据单个资源的fromFlag进行切换 不会只读取localStorage里面的
 				$scope.VM.resourceId=$stateParams.resId;
-				$scope.VM.tfCode=$stateParams.curTfcode;
+				$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
+				$scope.VM.name=$localStorage.currentTreeNode.label;
 				$scope.VM.fromFlag=$localStorage.fromFlag;
-				
+				$scope.VM.name=$localStorage.currentTreeNode.label;
 				$scope.VM.search="html";
 				$scope.searchKeyWord=$localStorage.searchKeyWord;
 				console.log("关键字"+$scope.searchKeyWord);
@@ -135,8 +136,6 @@
 					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
 					$scope.links[0]=true;
 					$scope.VM.preShow=true;
-					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
-					$scope.VM.name=$localStorage.currentTreeNode.label;
 					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
 				}
 				else if($scope.VM.search=="person" && $scope.VM.personType=="0")
@@ -149,8 +148,6 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
-					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
-					$scope.VM.name=$localStorage.currentTreeNode.label;
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -164,8 +161,6 @@
 					$scope.typeLight=[];
 					$scope.typeLight[0]=true;
 					$scope.typeName="全部";
-					$scope.VM.tfCode=$localStorage.currentTreeNode.tfcode;
-					$scope.VM.name=$localStorage.currentTreeNode.label;
 					getAllSource("");//获取对应资源
 					$scope.VM.preShow=true;
 					$scope.VM.comShow=true;
@@ -184,6 +179,7 @@
 						$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
 						$scope.links[2]=true;
 						getTypes();//获取资源类型
+						console.log("获取的最新tfcode"+$scope.VM.tfCode)
 					});	
 					
 				}
@@ -199,23 +195,7 @@
 					}
 				}
 				
-				
-				
-//				//切换目录
-//				$scope.selectNav = function(index) {
-//					//选中
-//					_.each($scope.navList, function(v, i) {
-//						$scope.VM.curNav[i] = false;
-//					});
-//					$scope.VM.curNav[index] = true;
-//					$scope.currentNav = $scope.navList[index];
-//					$scope.VM.tfCode=$scope.navList[index][$scope.navList[index].length-1].tfcode;
-//					$scope.VM.name=$scope.navList[index][$scope.navList[index].length-1].name;
-//					console.log($scope.VM.tfCode);
-//					getTypes();//获取资源类型
-//					getPrepare();//获取备课夹
-//				}
-				
+				//切换资源格式
 				$scope.selectType=function(id,index){
 					_.each($scope.sourceType, function(v, i) {
 						$scope.typeLight[i] = false;
@@ -315,7 +295,8 @@
 							fromFlag:$scope.VM.fromFlag,
 							tfcode: $scope.VM.tfCode,
 							page: current,
-							perPage: 20
+							perPage: 20,
+							orderBy:$localStorage.orderBy
 						}, function(data) {
 							$scope.VM.load=false;
 							console.log($scope.VM.resourceId,$scope.VM.tfCode,current,typeId)
@@ -365,7 +346,8 @@
 							typeId: typeId,//资源格式id
 							tfcode: $scope.VM.tfCode,
 							page: current,
-							perPage: 20
+							perPage: 20,
+							orderBy:$localStorage.orderBy
 	
 						}, function(data) {
 							$scope.VM.load=false;
@@ -607,8 +589,8 @@
 						tfcode:$scope.VM.tfCode 
 					}, function(data) {
 						console.log("prepare:",data.data);
-						$scope.prepareList = data.data;
-						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
+						$scope.prepareDataList = data.data;
+						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
 						
 					});
 					//获取 最近三个备课夹
@@ -620,7 +602,7 @@
 				}
 				setTimeout(function(){
 					getPrepare();
-				}, 1000);
+				}, 200);
 				
 				//加入备课夹
 				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
@@ -670,13 +652,38 @@
 				    	console.log(newVal,oldVal)
 						Prepare.basePostApi({
 							tfcode: $scope.VM.tfCode,
-							title: $scope.VM.name
+							title: $scope.VM.newPrepare
 						}, function(d) {
 							$scope.VM.newPrepare = "新建备课夹"
 							getPrepare();
 						})
 				    }
 				 });
+				 
+				 // 选择备课夹
+				$scope.selectPrepare = function(e,listIndex) {
+					e.stopPropagation();
+					var selectPrepareModal = $uibModal.open({
+						templateUrl: "select-prepare.html",
+						controller: 'selectPrepareCtrl',
+					})
+
+					//到备课夹
+					selectPrepareModal.result.then(function(data) {
+						Prepare.addResToPrepareId({
+							id: data.prepareId,
+							resIds: $scope.resList.list[listIndex].id,
+							fromFlags: $scope.VM.fromflag
+						}, function(d) {
+							if(d.code == "OK") {
+								getPrepare();
+							}
+							else {
+								ModalMsg.logger("加入备课夹失败，请重试！")
+							}
+						})
+					});
+				}
 				 
 				 //显示底部备课夹
 				 $scope.VM.showPre=false;

@@ -116,6 +116,9 @@
 						{
 							console.log(data);
 							$scope.VM.typeNums=data.data;
+							$scope.VM.currentTypeNum = [];
+							$scope.VM.currentTypeNum[0] = true;
+							$scope.VM.currentFormat = $scope.VM.typeNums[0];
 						}else{
 							alert(data.message);
 						}
@@ -124,9 +127,7 @@
 				}
 				getFormat();//资源格式
 				//资源格式切换
-				$scope.VM.currentTypeNum = [];
-				$scope.VM.currentTypeNum[0] = true;
-				$scope.VM.currentFormat = $scope.VM.typeNums[0];
+				
 				$scope.VM.typeClick = function(index) {
 					_.each($scope.VM.typeNums, function(v, i) {
 						$scope.VM.currentTypeNum[i] = false;

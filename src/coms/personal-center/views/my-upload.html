@@ -168,7 +168,7 @@
 							</div>
 						</div>
 						<div class="img-thumb-list">
-							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="assets/img/sample.png" ng-click="previewRes(list)"/>
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="http://chat.tfedu.net/tfedu/resicon/{{list.fileSuffix | lowercase}}.png" ng-click="previewRes(list)"/>
 						</div>
 						<span class="resource-title">{{list.title}}</span>
 					</div>
