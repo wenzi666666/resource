@@ -10,28 +10,32 @@
 				link: function postLink(scope, iElement, iAttrs) {
 					iElement.bind('error', function() {
 						var src = iAttrs.fallbackSrc;
-						
-						//是否包含中文正则
-						var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
-						if (src == "")
-						{
-							src = window.fallbacksrc;
+						//备课夹默认图片
+						if(src == "prepare") {
+							angular.element(this).attr("src", "assets/img/prepare_default.png");
 						}
-						if(reg.test(src)||(src==null))
-						{
-						  angular.element(this).attr("src", "assets/img/sample.png");
+						else {
+							//是否包含中文正则
+							var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+							if (src == "")
+							{
+								src = window.fallbacksrc;
+							}
+							if(reg.test(src)||(src==null))
+							{
+							  angular.element(this).attr("src", "assets/img/sample.png");
 
-						}else
-						{
-						  angular.element(this).attr("src", "http://chat.tfedu.net/tfedu/resicon/"+src+".png");
-						}
-						
-							
+							}else
+							{
+							  angular.element(this).attr("src", "http://chat.tfedu.net/tfedu/resicon/"+src+".png");
+							}
+						}								
 					});
 				}
 			}
 			return fallbackSrc;
 		})
+
 		// 日期转换
 		.directive('showTime', ['$filter', function($filter) {
 			//这是打开锁定日历控件后用于显示锁定时间，包括日期的directive

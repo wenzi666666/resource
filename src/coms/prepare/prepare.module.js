@@ -124,7 +124,6 @@
 					Prepare.baseGetApi({
 						tfcode: id
 					}, function(data) {
-						console.log(data.data);
 						$scope.listData = data.data;
 						console.log($scope.listData);
 						if(data.data && data.data.length > 0) $scope.listData[0].active = true;
@@ -145,7 +144,7 @@
 					}, function(data) {
 						console.log(data.data);
 						$scope.listAllData = data.data;
-						console.log($scope.listData);
+						// console.log($scope.listData);
 					})
 				}
 
@@ -424,7 +423,6 @@
 				}
 
 				//上传本地资源
-				// 上传
 				$scope.uploadRes = function() {
 					var modalNewUpload = $uibModal.open({
 						templateUrl: "uploadModal.html",
@@ -434,9 +432,11 @@
 
 					// 上传结束
 					modalNewUpload.result.then(function(data) {
-						console.log(data);
+						// 更新上传 处理结果
+						
 					});
 				}
+
 
 				//在线授课
 				$scope.turnToClass = function(list) {

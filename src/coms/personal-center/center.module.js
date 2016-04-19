@@ -80,6 +80,7 @@
 				$scope.user = $localStorage.authUser;
 				console.log($scope.user);
 
+
 				// 上传
 				$scope.uploadRes = function() {
 					var modalNewUpload = $uibModal.open({
@@ -95,7 +96,29 @@
 				}
 
 				// 左侧导航 切换
-				$scope.switchItemCtrl = [true, false, false, false, false]
+				$scope.switchItemCtrl = [false, false, false, false, false]
+				switch($stateParams.back) {
+					case "prepare":
+						$scope.switchItemCtrl[0] = true;
+						break;
+					case "upload":
+						$scope.switchItemCtrl[1] = true;
+						break;
+					case "download":
+						$scope.switchItemCtrl[2] = true;
+						break;
+					case "comment":
+						$scope.switchItemCtrl[3] = true;
+						break;
+					case "recent":
+						$scope.switchItemCtrl[4] = true;
+						break;
+					default:
+						$scope.switchItemCtrl[0] = true;
+						break;
+				} 
+
+				
 				$scope.switchItem = function(index) {
 					_.each($scope.switchItemCtrl, function(v, i) {
 						$scope.switchItemCtrl[i] = false;
