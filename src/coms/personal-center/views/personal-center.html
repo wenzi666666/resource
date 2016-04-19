@@ -4,8 +4,12 @@
 			<div class="col-md-4 col-sm-12 cen-left">
 				<div class="cen-info">
 					<div class="user-avatar">
-						<img ng-src="{{user.userImage}}">
+						<div class="avatar-box">
+							<img ng-src="{{user.userImage}}">
+							<img class="edit-avatar-icon" src="assets/img/person/edit_avatar.png" ui-sref="settings"></img>		
+						</div>
 						<span class="user-name">{{user.trueName }}</span>
+						
 					</div>
 					<div class="user-info user-info-custom">
 						<span><img src="assets/img/loc.png" /><i>{{ user.termName }}</i>|<i>{{ user.subjectNames }}老师 </i>|<i ng-class="user.male == '男'? 'icon-male':'icon-female'"></i></span>
