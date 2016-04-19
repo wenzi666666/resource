@@ -40,7 +40,7 @@
 						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag,$index)" />
 						<label for="{{$index}}"></label>
 					<div class="img-thumb-list" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
-						<img class="res-list-thumb" ng-src="{{source.thumbnailpath?source.thumbnailpath:'null'}}" fallback-src="assets/img/sample.png" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
+						<img class="res-list-thumb" ng-src="{{source.thumbnailpath?source.thumbnailpath:'null'}}" fallback-src="http://chat.tfedu.net/tfedu/resicon/{{source.fileExt | lowercase}}.png" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
 					</div>
 					<span class="res-list-info" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
 					<label class="res-title text-ellipsis">{{source.title}}</label>
