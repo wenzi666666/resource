@@ -41,7 +41,7 @@
 		<div class="slide-list">
 			<div class="slide-list-item" ng-repeat="item in VM.allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
 				<div class="img-box" ng-class="curImg[$index]?'line':''">
-					<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}"  fallback-src="http://chat.tfedu.net/tfedu/resicon/{{item.fileExt | lowercase}}.png">
+					<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}"  fallback-src="{{item.fileExt | lowercase}}">
 				</div>
 				<span class="text-ellipsis">{{item.title}}</span>
 			</div>
