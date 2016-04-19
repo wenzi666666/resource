@@ -86,6 +86,32 @@
 //				}
 //			});
 //		});
+
+		/**
+		 * 上传文件类型过滤
+		 * 
+		*/
+		window.typeConfirm = function(type) {
+			// 图片 素材
+			var imgType = ['jpg', 'jpeg', 'png', 'gif'];
+			// 文本 素材
+			var docType = ['docx', 'doc', 'txt', 'pdf', 'wps'];
+			// ppt 素材
+			var pptType = ['ppt', 'pptx', 'pptm', 'wpt'];
+			// 动画 素材
+			var swfType = ['swf', 'gsp', 'exe', '3ds'];
+			// 网络 学案
+			var webType = ['html', 'htm'];
+			// 视频  素材
+			var videoType = ['wmv', 'asf', 'asx', 'rm', 'rmvb', 'mpg', 'mpeg', '3gp', 'mov', 'mp4', 'm4v', 'avi', 'dat', 'mkv', 'flv', 'vob', 'mts'];
+			// 音频  素材
+			var audioType = ['cd', 'ogg', 'mp3', 'wma', 'wav', 'rm', 'midi', 'vqf'];
+			// 其他  素材
+			var webType = ['xls', 'xlsx'];
+			// 拓展资源
+			var cajType = ['kdh', 'caj'];
+		}
+
 	}
 
 }());
