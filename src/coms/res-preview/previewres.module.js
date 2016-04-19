@@ -148,7 +148,7 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
-					$scope.currentNav = [{"name":"资源定制"}];
+					$scope.currentNav = [{"name":"返回"}];
 					$scope.links[0]=true;
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
