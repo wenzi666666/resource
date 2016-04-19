@@ -90,7 +90,8 @@
 
 					// 上传结束
 					modalNewUpload.result.then(function(data) {
-						console.log(data)
+						// 更新上传列表
+						$scope.$broadcast('myUploadChange', data);
 					});
 				}
 
@@ -175,16 +176,13 @@
 				
 				
 				$scope.VM.uploadResInfo = function() {
-//					if(!!$localStorage.files) {
-						var modalNewUpload = $uibModal.open({
-							templateUrl: "eiditResModal.html",
-							windowClass: "upload-modal",
-							controller: 'editResController',
-							scope:$scope //Refer to parent scope here
-						})
-//					}
+					var modalNewUpload = $uibModal.open({
+						templateUrl: "eiditResModal.html",
+						windowClass: "upload-modal",
+						controller: 'editResController',
+						scope:$scope //Refer to parent scope here
+					})
 				}	
-				
 			}
 		])
 }());

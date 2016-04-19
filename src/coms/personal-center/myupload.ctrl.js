@@ -34,6 +34,13 @@
 				}
 
 				$scope.getResList();
+				
+				// 监听 上传
+				$scope.$on("myUploadChange", function(e, d) {
+					console.log("upload")
+					$scope.getResList();
+				})
+				
 
 				//获取资源类型
 				Personal.getResType({
