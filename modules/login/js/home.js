@@ -44,13 +44,24 @@ $("#slides").slides({
 		var index = $(this).index();
 		$(".themes").animate({left:-mw*index,opacity:1},500);
 	})
-})
+});
+
 
 $(function(){
 	//登陆
 	var BackendUrl = "http://chat.tfedu.net:3030/resapi";
+	var clickNum=0;
 	$('.loginBtn').on('click', function(){
-		
+		if($(".showBox").css("display")=="block")
+		{
+			var inputCode=$("#validCode").val().toLowerCase();
+			var getCode=$(".showCode").text().toLowerCase();
+			if(inputCode!=getCode)
+			{
+				alert("验证码输入错误，请重新输入");
+				return false;
+			}
+		}
 		$.ajax({
 			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
 			data: { user_name: $('input[name=username]').val(), 
@@ -68,12 +79,41 @@ $(function(){
 						}
 					})
 				}else{
-					alert("用户名或密码不正确")
+					alert("用户名或密码不正确");
+					clickNum++;
+					if(clickNum>=3)
+					{
+						$(".showBox").show();
+						//获取验证码
+						getVerification(BackendUrl);
+					}
 				}
 			},
 			error: function(data){
 				console.log(data.error);
 			}
 		})
-	})
+	});
+	
+	//获取验证码
+	
  });
+ 
+function getVerification(BackendUrl)
+{
+	$.ajax({
+			url: BackendUrl+ "/resRestAPI/v1.0/verificationcode",
+			data: {
+			}, 
+			success: function(data){
+				if(data.code == "OK") {
+					$(".showCode").text(data.data);
+				}else{
+					alert("系统异常，请联系管理员");
+				}
+			},
+			error: function(data){
+				alert(data.error);
+			}
+		});
+}
