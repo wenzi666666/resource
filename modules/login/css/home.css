@@ -7,7 +7,19 @@
 	height: 30px;
 	width: auto;
 }
-
+.showCode
+{
+	border: 2px solid #ddd;
+	padding: 3px 15px;
+	text-align: center;
+	letter-spacing: 2px;
+	float: right;
+	margin-right: 15px;
+}
+.showBox
+{
+	display: none;
+}
 .rollBox{
 	width: auto;
 	height: 30px;
@@ -215,7 +227,8 @@
 	margin-top: 15px;
 }
 #validCode{
-	width: 100px;
+	width: 140px;
+	margin-right: 5px;
 }
 
 .loginBtn{

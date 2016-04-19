@@ -82,8 +82,9 @@
 		<!--添加网络资源-->
 		<div class="upload-network-content" ng-show="!isLocal">
 			<div class="first-upload">
-				输入网址：<input /><br><br>
-				<button class="btn btn-success btn-general">上传</button>
+				<br><br>
+				输入网址：<input ng-model="uploadWebUrl" class="upload-url-input"/><br><br><br><br>
+				<button class="btn btn-success btn-general" ng-click="uploadResInfo(true)"><i class="icon-upload-alt" ></i> 上传</button>
 			</div>
 		</div>
 	</div>

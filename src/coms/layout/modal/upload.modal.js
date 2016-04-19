@@ -1,10 +1,10 @@
 /**
- * 个人中心模块
+ * 上传
  */
 (function() {
 	'use strict';
 	//Module configuration
-	angular.module('webApp.coms.personalcenter')
+	angular.module('webApp.coms.modal')
 		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModal', 'ModalMsg', 'Res', 'Upload', '$timeout', '$uibModalInstance',
 			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Upload, $timeout, $uibModalInstance) {
 				// 用户信息
@@ -64,34 +64,49 @@
 						});
 					});
 				}
-
-				$scope.uploadResInfo = function() {
-					$uibModalInstance.dismiss('cancel');
-					
+				
+				// 上传
+				$scope.uploadResInfo = function(isWeb) {
+					console.log(isWeb)
 					$localStorage.uploadData = $scope.uploadData;
-					
-					// localstorage不支持file对象？ 转存一下
 					var files = [];
-					_.each($scope.files, function(v,i){
-						console.log(v)
-						var tmp = {};
-						tmp.name = v.name;
-						tmp.responseName = v.result;
-						tmp.size = v.size;
+					//本地
+					if(!isWeb) {
+						$localStorage.isWeb = false;
+						// localstorage不支持file对象？ 转存一下
+						_.each($scope.files, function(v,i){
+							console.log(v)
+							var tmp = {};
+							tmp.name = v.name;
+							tmp.responseName = v.result;
+							tmp.size = v.size;
+							files = files.concat(tmp);
+						})
 						
+					}else{
+						//web
+						$localStorage.isWeb = true;
+						var tmp = {};
+						tmp.name =  $scope.uploadWebUrl;
+						tmp.responseName =  $scope.uploadWebUrl;
+						tmp.size = 0;
 						files = files.concat(tmp);
-					})
+					}
 					$localStorage.files = files;
 					
 					setTimeout(function(){
-						var modalNewUpload = $uibModal.open({
+						var modalNewUploadInfo = $uibModal.open({
 							templateUrl: "eiditResModal.html",
 							windowClass: "upload-modal",
 							controller: 'editResController',
-	//						scope: $scope //Refer to parent scope here
+							// scope: $scope //Refer to parent scope here
 						})
+						//上传返回处理
+						modalNewUploadInfo.result.then(function(data) {
+							$uibModalInstance.close('OK');
+						});
 					}, 300) 
-				}
+				}	
 			}
 		])
 		// 编辑资源信息
@@ -147,22 +162,28 @@
 				$scope.showSelected = function(sel) {
 					$scope.currentNode =  sel;
 					//获取当前节点下的所有备课夹
-					
 				};
 				
-				
-				
+
 				// 数据初始化
 				$scope.res = {};
 				$scope.res.resTitle = $scope.uploadFilesData[0].name.split('.')[0];
 				$scope.res.keywords = '';
 				$scope.res.description = '';
-				$scope.res.paths = $scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName;
+				$scope.res.paths = !!$localStorage.isWeb?$scope.uploadFilesData[0].responseName:$scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName;
 				$scope.res.sizes = $scope.uploadFilesData[0].size;
 				$scope.res.iscoursewares = 0;
-				$scope.res.islocals = 0;
+				$scope.res.islocals = !!$localStorage.isWeb ? 1 : 0;
 				
 				$scope.uploadEditResInfo = function() {
+					if(!$scope.res.resTitle) {
+						ModalMsg.logger("资源名称不能为空");
+						return;
+					}
+					if(!$scope.res.keywords) {
+						ModalMsg.logger("关键词不能为空");
+						return;
+					}
 					// 统一批量上传
 					if(!!$scope.addAll) {
 						var names = [];
@@ -208,19 +229,22 @@
 						tfcodes: $scope.currentNode.tfcode,
 						scopes: $scope.currentScopeIndexSeclet,
 						keywords: $scope.res.keywords,
-						descs: $scope.res.description,
+						descs: $scope.res.description ? $scope.res.description.toString():' ',
 						paths: $scope.res.paths,
 						sizes: $scope.res.sizes,
 						iscoursewares: $scope.res.iscoursewares,
 						islocals: $scope.res.islocals
 					}, function(data) {
 						if(data.code == "OK") {
-							$uibModalInstance.dismiss('cancel');
+//							$uibModalInstance.dismiss('cancel');
+							$uibModalInstance.close('OK');
 							ModalMsg.logger("上传成功啦");
 							// 上传资源 列表
-							setTimeout(function(){
-								window.location.reload();
-							}, 1000)
+//							setTimeout(function(){
+//								window.location.reload();
+//							}, 1000)
+
+							
 						}else{
 							ModalMsg.logger("内容填写不正确，请修改");
 						}
