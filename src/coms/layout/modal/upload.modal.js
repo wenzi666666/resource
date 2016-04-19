@@ -103,7 +103,7 @@
 						})
 						//上传返回处理
 						modalNewUploadInfo.result.then(function(data) {
-							$uibModalInstance.close('OK');
+							$uibModalInstance.close(data);
 						});
 					}, 300) 
 				}	
@@ -237,7 +237,7 @@
 					}, function(data) {
 						if(data.code == "OK") {
 //							$uibModalInstance.dismiss('cancel');
-							$uibModalInstance.close('OK');
+							$uibModalInstance.close(data.data);
 							ModalMsg.logger("上传成功啦");
 							// 上传资源 列表
 //							setTimeout(function(){

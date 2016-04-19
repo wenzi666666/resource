@@ -97,9 +97,21 @@
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
 				
-				
-				
-				
+				// 上传
+				$scope.uploadRes = function() {
+					var modalNewUpload = $uibModal.open({
+						templateUrl: "uploadModal.html",
+						windowClass: "upload-modal",
+						controller: 'uploadResController',
+					})
+
+					// 上传结束
+					modalNewUpload.result.then(function(data) {
+						// 更新上传列表
+						$scope.$broadcast('myUploadChange', data);
+					});
+				}
+
 				// 读取备课夹 列表
 				var currentPrepareId = '';
 				var getPrepare = function(id) {

@@ -92,7 +92,8 @@
 					// 上传结束
 					modalNewUpload.result.then(function(data) {
 						// 更新上传列表
-						$scope.$broadcast('myUploadChange', data);
+						console.log(data)
+						$scope.$broadcast('myUploadChange', "OK");
 					});
 				}
 
