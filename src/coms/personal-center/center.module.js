@@ -99,34 +99,35 @@
 
 				// 左侧导航 切换
 				$scope.switchItemCtrl = [false, false, false, false, false]
-				switch($stateParams.back) {
-					case "prepare":
-						$scope.switchItemCtrl[0] = true;
-						break;
-					case "upload":
-						$scope.switchItemCtrl[1] = true;
-						break;
-					case "download":
-						$scope.switchItemCtrl[2] = true;
-						break;
-					case "comment":
-						$scope.switchItemCtrl[3] = true;
-						break;
-					case "recent":
-						$scope.switchItemCtrl[4] = true;
-						break;
-					default:
-						$scope.switchItemCtrl[0] = true;
-						break;
-				} 
+				console.log($stateParams.back);
+				var backType = {
+					prepare: 0,
+					upload: 1,
+					download: 2,
+					comment: 3,
+					recent: 4
+				}
 
-				
+
+
+
 				$scope.switchItem = function(index) {
+					console.log(index);
 					_.each($scope.switchItemCtrl, function(v, i) {
 						$scope.switchItemCtrl[i] = false;
 					})
 					$scope.switchItemCtrl[index] = true;
 				}
+
+
+				if($stateParams.back) {
+					console.log("test", backType[$stateParams.back]);
+					$scope.switchItem(backType[$stateParams.back]);
+				}
+				else $scope.switchItem(0);
+
+				
+
 
 				//备课统计
 				// 备课数据初始化
