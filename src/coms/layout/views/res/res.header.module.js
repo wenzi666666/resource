@@ -133,7 +133,8 @@
 							$scope.VM.currentSubjectId = $localStorage.currentSubject.id;
 						}else {
 							$scope.VM.currentSubject = $scope.user.subjectNames.split(',')[0];
-							var currentSubjectId = $scope.user.subjectIds.split(',')[0];			
+							
+							var currentSubjectId = $scope.user.subjectIds.split(',')[0];
 							//缓存用户当前 学科
 							$localStorage.currentSubject = {
 								name: $scope.VM.currentSubject,
