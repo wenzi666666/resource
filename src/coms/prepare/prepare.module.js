@@ -461,6 +461,15 @@
 						ModalMsg.alert("当前备课夹下没有资源哦,请先添加备课资源~");
 					}
 				}
+
+				//资源预览
+				$scope.previewRes = function(res) {
+					console.log(res);
+					if(res.fromFlag == 1) {
+						ModalMsg.alert("当前资源不能预览！");
+					}
+					else $state.go('previewres', {resId:res.resId, curTfcode:'', fromFlag:res.fromFlag, search:'prepare'});
+				}
 			}
 		])
 
