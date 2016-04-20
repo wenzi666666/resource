@@ -190,7 +190,7 @@
 							
 						} else {
 
-							alert(data.code);
+//							alert(data.code);
 						}
 
 					});
