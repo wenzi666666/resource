@@ -274,9 +274,8 @@
 					$scope.sourceTypeId=id;
 				}
 				
-				//获取资源格式
+				//获取资源格式 只在系统/区本/校本跳转调用
 				function getTypes(){
-					
 					$scope.sourceType=[];
 					$scope.sourceTypeId=0;
 					$scope.typeLight=[];
@@ -588,6 +587,7 @@
 							$scope.curStar[i]=false;
 						});
 						$scope.currentSlideIndex --;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
@@ -606,6 +606,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
@@ -617,6 +618,7 @@
 							$scope.curStar[i]=false;
 						});
 						$scope.currentSlideIndex ++;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
@@ -634,6 +636,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
