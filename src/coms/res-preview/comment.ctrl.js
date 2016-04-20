@@ -77,7 +77,7 @@
 								//几颗星亮
 								$scope.curStar[i] = true;
 							}
-							if($scope.VM.personType=="0")
+							if(($scope.VM.personType=="0") || ($scope.VM.search=="prepare"))
 							{
 								
 								$scope.VM.allSourceList=[
