@@ -47,7 +47,7 @@
 				// 变量共享
 				$scope.VM = {};
 				$scope.VM.fromFlag = 0; //资源定制页fromFllag都为0
-				
+				$scope.VM.load=true;
 				
 				// 下载资源
 				$scope.resDownload = function(id) {
@@ -66,6 +66,7 @@
 				CustomtemRes.resource({
 					
 				},function(data){
+					$scope.VM.load=false;
 					console.log("定制资源列表")
 					if(data.code=="OK")
 					{
