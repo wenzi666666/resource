@@ -17,20 +17,7 @@
 			}
 		])
 		.controller("TreeController", ['$scope', '$stateParams', '$state', '$location', 'Tree','$localStorage',
-			function($scope, $stateParams, $state, $location, Tree,$localStorage) {
-				 // 目录树样式
-				 $scope.opts = {
-			         injectClasses: {
-			             "ul": "c-ul",
-			             "li": "c-li",
-			             "liSelected": "c-liSelected",
-			             "iExpanded": "c-iExpanded",
-			             "iCollapsed": "c-iCollapsed",
-			             "iLeaf": "c-iLeaf",
-			             "label": "c-label",
-			             "labelSelected": "c-labelSelected"
-			         }
-			     };
+			function($scope, $stateParams, $state, $location, Tree, $localStorage) {
 				// 监听目录树变化
 				$scope.$on("currentTreeIdUpdate",function(e, d) {
 					Tree.getTree({
@@ -47,28 +34,37 @@
 							$localStorage.currentTreeNode =  currentTreeNode;
 						}
 						// 选择
-						$scope.expandedNodes = []
+						$scope.expandedNodes = [];
+						// 记住上次选择处理
 						if(!!$localStorage.selectChange) {
 							var nodes = currentTreeNode.i.split('.');
 							console.log(nodes)
-							if(nodes.length == 1)
+							if(nodes.length == 1) {
 								$scope.selected = $scope.treedata[nodes[0]-1];
-							else if(nodes.length == 2){
+								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[0],$scope.treedata[nodes[0]-1].children[1],$scope.treedata[nodes[0]-1].children[2],$scope.treedata[nodes[0]-1].children[3]]);
+							}else if(nodes.length == 2){
 								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1];
-								$scope.expandedNodes[0] = $scope.selected;
+								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.selected]);
 							} else if(nodes.length == 3) {
 								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1];
-								$scope.expandedNodes[0] = $scope.selected;
-							} else
+								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.selected]);
+							} else if(nodes.length == 4) {
+								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1];
+								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1],$scope.selected]);
+							}else if(nodes.length == 5) {
+								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1].children[nodes[4]-1];
+								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1], $scope.selected]);
+							}else
 								$scope.selected = $scope.treedata[0];
 						}else{
 							$scope.selected = $scope.treedata[0];
+							//展开第一个节点
+							$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
 						}
 							
 							
 						console.log("$scope.selected:", $scope.selected)
-						//展开第一个节点
-						$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
+						
 						console.log($scope.expandedNodes)
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode);

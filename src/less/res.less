@@ -380,6 +380,7 @@
 }
 .res-thubmlist-info .res-title{
     width: 90%;
+    font-weight: normal;
 }
 .res-list-info{
   position: absolute;
@@ -453,7 +454,7 @@
   border-bottom: 1px dashed #9b9b9b;
   padding: 8px;
   margin: 8px 0;
-  height: 355px;
+  height: 350px;
 }
 .res-list-main .res-thubmlist-item:hover{
     background: #e6f4f4;
@@ -499,23 +500,26 @@
 .res-prepare-thumb{
     bottom: 40px;
     width: 100%;
-    left:0;
+    right:-25px;
     line-height: 25px;
     position: absolute;
     background: #fff;
     padding: 10px;
     display: none;
     color: #999;
-    min-width: 200px;
+    width: 170px;
     z-index: 99999;
     font-size: 14px;
+    border: 2px solid #41C9A9;
 }
 .addPrepare-custom{
     width: 100px;
-    float: left;
+    float: right;
     height: 40px;
     margin-top: 5px;
     position: relative;
+    margin-left: 5px !important;
+    margin-right: 8%;
 }
 .thubmlist-tools-custom .res-download{
     float: left;
@@ -587,6 +591,9 @@
     padding: 5px;
     border-radius: 3px;
     overflow-y: auto;
+}
+.prepare-fixed  .prepare-ctrls .btn{
+    padding: 4px 8px;
 }
 .prepare-fixed .ctrls-prepare-list-item{
     font-size: 14px;
@@ -695,7 +702,7 @@
     overflow: hidden;
 }
 .img-thumb2-list>img{
-    max-width: 230px;
+    max-width: 222px;
     max-height: 200px;
     line-height: 200px;
 }

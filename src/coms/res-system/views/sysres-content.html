@@ -44,7 +44,7 @@
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
 						加入备课夹
 						<div class="res-prepare-list">
-							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}</div>
+							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}  ({{item.contentNumber}})</div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
@@ -65,21 +65,21 @@
 				</div>
 				<div class="res-thubmlist-info">
 					<label class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">{{ list.title }}</label>
-					<label class="res-type"> 类型: {{ list.mtype }}</label>
+					<label class="res-type"> 类型: {{ list.mtype }} </label>
 					
 					<label class="res-size">
-						<res-size2 data-value="{{list.fsize}}"></res-size2>
+						<res-size data-value="{{list.fsize}}"></res-size>
 					</label><br>
-					<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
+					<!--<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 					
-					<label class="res-number"> {{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
+					<label class="res-number"> {{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>-->
 				</div>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
 					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
 						  加入备课夹
 						<div class="res-prepare-thumb" >
-							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}</div>
+							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}  ({{item.contentNumber}})</div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>

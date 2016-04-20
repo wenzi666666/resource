@@ -124,12 +124,17 @@
 						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
 					})
 					
-					//获取 最近三个备课夹
+					getLatesPrepare();
+				}
+				
+				//获取 最近三个备课夹
+				var getLatesPrepare = function() {
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
 					})
 				}
+				
 				setTimeout(function(){
 					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 				}, 1000)
@@ -147,6 +152,8 @@
 						$scope.shopCount++;
 						
 						currentPrepareId = $scope.prepareList[prepareIndex].id;
+						
+						getLatesPrepare();
 
 					})
 				}
@@ -159,8 +166,8 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取备课夹
-							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 获取最近三个备课夹
+							getLatesPrepare();
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
@@ -179,6 +186,8 @@
 						}, function(data) {
 							//加1
 							$scope.shopCount++;
+							// 获取最近三个备课夹
+							getLatesPrepare();
 	
 						})
 					}
@@ -200,8 +209,8 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取备课夹
-							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 获取最近三个备课夹
+							getLatesPrepare();
 							// 加入备课夹
 							//生成flags
 							var flags = new Array($scope.resList.select.length);
@@ -230,6 +239,8 @@
 						}, function(data) {
 							//加$scope.shopCount.length
 							$scope.shopCount += $scope.resList.select.length;
+							// 获取最近三个备课夹
+							getLatesPrepare();
 	
 						})
 					}
