@@ -25,10 +25,12 @@
 				
 				
 
-				$scope.getDownload = function() {
+				$scope.getDownload = function(type) {
 					// 下载资源 列表
+					var typeId = 0;
+					if(type) typeId = type.id;
 					Personal.getDownloadRes({
-						unifyTypeId: '0',
+						unifyTypeId: typeId,
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
@@ -39,6 +41,14 @@
 				}
 
 				$scope.getDownload();
+
+
+				//按资源类型选择
+				$scope.selectResType = function(type) {
+					console.log(type.id);
+					$scope.VM.currentPage = 1;
+					$scope.getDownload(type);
+				}
 
 				$scope.changPerPage = function() {
 					$scope.VM.currentPage = 1;

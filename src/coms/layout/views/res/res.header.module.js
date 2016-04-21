@@ -36,10 +36,22 @@
 						method: "POST",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
 					},
-					// 资源上传 删除 
+					// 获取资源 
 					getUploadRes: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+					},
+					//删除资源
+					deleteUploadRes: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+					},
+					editUploadRes: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/:id",
+						params: {
+							id: '@id'
+						}
 					},
 					// 上传资源 服务 url
 					getUploadUrl: {

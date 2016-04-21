@@ -18,7 +18,6 @@
 							$scope.cancelModal = function(){
 								$uibModalInstance.dismiss('cancel');
 							}
-						
 						}]
 					});
 				},

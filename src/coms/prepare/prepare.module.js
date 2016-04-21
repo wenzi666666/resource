@@ -164,8 +164,10 @@
 					Prepare.prepareContent({
 						id: id
 					}, function(data) {
-						console.log("test", data.data);
 						$scope.listData[index].children = data.data;
+						_.each(data.data, function(v, i) {
+							v.isSelected = true;
+						})
 					})
 				}
 
@@ -328,22 +330,20 @@
 					})
 				}
 
-				$scope.downLoadRes = function(id, flag) {
+				$scope.downLoadRes = function(id, flag, title) {
 					console.log(id, flag);
 					Prepare.zipPrepare({
 						ids: id,
-						fromflags: flag
+						fromflags: flag,
+						zipname: title
 					}, function(data) {
 						if(data.data) {
-							console.log(data.data);
 							ModalMsg.alert("正在打包中，请稍候...");
 							var t = setInterval(function() {
-								console.log("tt")
 								Res.getMyDownloadStatus({
 									id: data.data
 								}, function(data) {
 									if(!!data.data.status) {
-										console.log(data.data.zippath);
 										clearInterval(t);
 										openwin(data.data.zippath);
 									}
@@ -361,16 +361,22 @@
 						var resIds = [];
 						var flags = [];
 						_.each(id.children, function(v, i) {
-							resIds.push(v.resId);
-							flags.push(v.fromFlag);
+							if(v.isSelected) {
+								resIds.push(v.resId);
+								flags.push(v.fromFlag);
+							}
 						})
-						$scope.downLoadRes(resIds.toString(), flags.toString());
+						$scope.downLoadRes(resIds.toString(), flags.toString(), id.title);
 					}
-					//单个资源下载
+					//单个资源下载a
 					else {
 						console.log(id, flag);
 						$scope.downLoadRes(id, flag);
 					}
+				}
+
+				$scope.selectRes = function(item) {
+					item.isSelected = !item.isSelected;
 				}
 
 
@@ -405,19 +411,39 @@
 
 					//移动到备课夹
 					movePrepareModal.result.then(function(data) {
-						console.log(data);
-						Prepare.addResToPrepareId({
-							id: data.prepareId,
-							resIds: res.resId,
-							fromFlags: res.fromFlag
-						}, function(d) {
-							if(d.code == "OK") {
-								if(optype == 1) $scope.deleteItem(res.id, "");
-								getPrepare($localStorage.currentTreeNode.tfcode);
+						// console.log(data);
+						//判断当前资源是否已经存在
+						Prepare.prepareContent({
+							id: data.prepareId
+						}, function(items) {
+							var resData = items.data;
+							var hasTheRes = false;
+							if(resData && resData.length > 0) {
+								console.log(res.resId);
+								for(var i = 0; i < resData.length; i ++) {
+									if(resData[i].resId == res.resId) {
+										hasTheRes = true;
+										ModalMsg.alert("该资源已经存在，不能移动或复制！");
+										break;
+									}
+								}
 							}
-							else {
-								ModalMsg.logger("移动到备课夹失败，请重试！")
+							if(!hasTheRes) {
+								Prepare.addResToPrepareId({
+									id: data.prepareId,
+									resIds: res.resId,
+									fromFlags: res.fromFlag
+								}, function(d) {
+									if(d.code == "OK") {
+										if(optype == 1) $scope.deleteItem(res.id, "");
+										getPrepare($localStorage.currentTreeNode.tfcode);
+									}
+									else {
+										ModalMsg.logger("操作失败，请重试！")
+									}
+								})
 							}
+							
 						})
 					});
 				}

@@ -1,4 +1,3 @@
-
 /**
  * 个人中心模块
  */
@@ -6,178 +5,117 @@
 	'use strict';
 	//Module configuration
 	angular.module('webApp.coms.personalcenter')
-		.controller("myUploadCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage', "$uibModal", 'ModalMsg','Res', 'Personal',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Personal) {
-				//共享变量
-				$scope.VM = {};
-
+		.controller("uploadResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModal', 'ModalMsg', 'Res', 'Upload', '$timeout', '$uibModalInstance',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Upload, $timeout, $uibModalInstance) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
-				$scope.VM.currentPage = 1;
-				$scope.VM.perPage = 10;
-				$scope.maxSize = 3;
-				var page = 1;
-				// 上传资源 列表
 				
-
-				//获取上传资源
-				$scope.getResList = function() {
-					Res.getUploadRes({
-						unifyTypeId: '0',
-						fileFormat: '全部',
-						page: $scope.VM.currentPage,
-						perPage: $scope.VM.perPage
-					}, function(data) {
-						console.log("uploadList:", data.data)
-						$scope.VM.uploadFileList = data.data;
-						$scope.totalItems = data.data.totalLines;
-					})
-				}
-
-				$scope.getResList();
-				
-				// 监听 上传
-				$scope.$on("myUploadChange", function(e, d) {
-					console.log("upload")
-					$scope.getResList();
+				// 获取上传地址
+				Res.getUploadUrl({}, function(data) {
+					$scope.uploadData = data.data
+					console.log("uploadData:", $scope.uploadData)			
 				})
 				
-
-				//获取资源类型
-				Personal.getResType({
-					tabCode: "myUpload"
-				}, function(data) {
-					$scope.resTypes = data.data;	
-					$scope.VM.resType = $scope.resTypes[0].mtype; 			
+				// 获取资源类型
+				Res.unifyType({}, function(data) {
+					$localStorage.unifyType = data.data;
 				})
 
-				//按类型筛选资源
-				$scope.selectResType = function(type) {
-					Res.getUploadRes({
-						unifyTypeId: type.id,
-						fileFormat: '全部',
-						page: $scope.VM.currentPage,
-						perPage: $scope.VM.perPage
-					}, function(data) {
-						console.log("uploadList:", data.data)
-						$scope.VM.uploadFileList = data.data;
-						$scope.totalItems = data.data.totalLines;
-					})
+				// 编辑完资源信息上传
+				$scope.VM = {
+					resName: '未命名',
+					resSize: 0
 				}
 
-				//添加批量删除资源
-				$scope.resToBeDelete = [];
-				$scope.addResDeleting = function(id) {
-					$scope.resToBeDelete.push(id);
-				}
+				// 第一屏显示
+				$scope.firstUpload = true;
 
-				$scope.deleteSingleRes = function(id) {
-					var deleteModal = ModalMsg.confirm("确定删除该上传资源？");
-					deleteModal.result.then(function(data) {
-						if(data) {
-							Res.deleteUploadRes({
-								_method: "DELETE",
-								resIds: id
-							}, function(data) {
-								ModalMsg.logger("删除资源成功！");
-								$scope.getResList();
-							})
-						}
-					}) 
-				}
+				// 显示本地资源
+				$scope.isLocal = true;
 
-				//批量删除资源
-				$scope.deleteSomeRes = function() {
-					if($scope.resToBeDelete.length == 0) {
-						ModalMsg.logger("您没有选择任何资源");
-					}
-					else {
-						var deleteModal = ModalMsg.confirm("确定批量删除这些上传资源？");
-						deleteModal.result.then(function(data) {
-							if(data) {
-								Res.deleteUploadRes({
-									_method: "DELETE",
-									resIds: $scope.resToBeDelete.join(',')
-								}, function(data) {
-									ModalMsg.logger("删除资源成功！");
-									$scope.getResList();
-								})
+				// 上传返回的文件名
+				$scope.uploadFiles = function(files, errFiles) {
+					$scope.firstUpload = false;
+					$scope.files = files;
+					//			        console.log(files)
+					//			        $scope.errFiles = errFiles;
+					angular.forEach($scope.files, function(file) {
+						console.log(file)
+						file.upload = Upload.upload({
+							url: $scope.uploadData.uploadUrl,
+							data: {
+								file: file
 							}
-						}) 
-					}
+						});
+
+						file.upload.then(function(response) {
+							$timeout(function() {
+								file.result = response.data;
+								$scope.files.responseName = response.data;
+								console.log(response.data)
+							});
+						}, function(response) {
+							console.log(response.data)
+							if (response.status > 0)
+								$scope.errorMsg = response.status + ': ' + response.data;
+						}, function(evt) {
+							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+							$scope.progress = file.progress;
+						});
+					});
 				}
 
-				//编辑资源
-				$scope.editRes = function(res) {
-					console.log(res);
-					var editResModal = $uibModal.open({
-						templateUrl: 'edit.html', 
-						controller: 'editResInstanceCtrl',
-						size: 'slg',
-						resolve: {
-							resitem: function() {
-								return res;
-							}
-						}
+				$scope.uploadResInfo = function() {
+					$uibModalInstance.dismiss('cancel');
+					
+					$localStorage.uploadData = $scope.uploadData;
+					
+					// localstorage不支持file对象？ 转存一下
+					var files = [];
+					_.each($scope.files, function(v,i){
+						console.log(v)
+						var tmp = {};
+						tmp.name = v.name;
+						tmp.responseName = v.result;
+						tmp.size = v.size;
+						
+						files = files.concat(tmp);
 					})
-
-					editResModal.result.then(function(data) {
-						console.log(data);
-						// Res.editUploadRes({
-						// 	id: data.resId,
-						// 	name: data.title,
-						// 	unifTypeId: data.unifTypeId,
-						// 	tfcode: data.tfCode,
-						// 	keyword: data.keywords,
-						// 	desc: '',
-						// 	path: data.fpath,
-						// 	size: ''
-						// })
-					})
-				}
-
-				//预览自建资源
-				$scope.previewRes = function(res) {
-					//已转换为可预览格式
-					if(res.isFinished) {
-						$state.go('previewres', {resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
-					}
-					else {
-						ModalMsg.alert("该资源正在转码中，暂时不能预览，请稍后重试！");
-					}
-				}
-
-				//分页
-				$scope.pageTo = 1;
-				$scope.pageChanged = function(pagenum) {
-					console.log($scope.VM.currentPage);
-					if(pagenum == undefined) {
-						$scope.getResList();
-					}
-					else {
-						$scope.VM.currentPage = pagenum;
-						$scope.getResList();
-					}
-				}
-
-				$scope.changPerPage = function() {
-					$scope.VM.currentPage = 1;
-					$scope.getResList();
+					$localStorage.files = files;
+					
+					setTimeout(function(){
+						var modalNewUpload = $uibModal.open({
+							templateUrl: "eiditResModal.html",
+							windowClass: "upload-modal",
+							controller: 'editResController',
+	//						scope: $scope //Refer to parent scope here
+						})
+					}, 300) 
 				}
 			}
 		])
-
-
 		// 编辑资源信息
-		.controller("editResInstanceCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout','Tree', 'resitem',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout,Tree, resitem) {
+		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout','Tree',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout,Tree) {
 				//变量共享
 				$scope.VM = {};
 				
-				$scope.res = resitem;
-				console.log("resitem", resitem);
+				$scope.uploadData = $localStorage.uploadData;
+				$scope.uploadFilesData = $localStorage.files;
 				
-
+				$scope.unifyType = $localStorage.unifyType;
+				
+				// 批量上传
+				$scope.addAll = false;
+				if($scope.uploadFilesData.length >1){
+					$scope.addAll = true;
+				}
+				
+				//根据上传后缀名确定 上传类型
+				var fileType = $scope.uploadFilesData[0].name.split('.')[$scope.uploadFilesData[0].name.length-1]
+//				typeConfirm(fileType)	
+				
+				console.log($scope.uploadData, $scope.uploadFilesData)
 				
 				// 监听目录树变化
 				var getTreeData = function(){
@@ -187,9 +125,9 @@
 						$scope.treedataSelect = data.data;
 						
 						$scope.currentNode = data.data[0];
-						$scope.res.tfCode = $scope.currentNode.tfcode;
 						//展开第一个节点
 						$scope.expandedNodes = [$scope.treedataSelect[0]];
+						console.log("tree data:", data.data);
 					})
 				}
 				
@@ -209,17 +147,91 @@
 				$scope.showSelected = function(sel) {
 					$scope.currentNode =  sel;
 					//获取当前节点下的所有备课夹
-					// console.log($scope.currentNode);
-					$scope.res.tfCode = $scope.currentNode.tfcode;
 					
 				};
 				
 				
 				
 				// 数据初始化
+				$scope.res = {};
+				$scope.res.resTitle = $scope.uploadFilesData[0].name.split('.')[0];
 				$scope.res.keywords = '';
 				$scope.res.description = '';
-
+				$scope.res.paths = $scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName;
+				$scope.res.sizes = $scope.uploadFilesData[0].size;
+				$scope.res.iscoursewares = 0;
+				$scope.res.islocals = 0;
+				
+				$scope.uploadEditResInfo = function() {
+					// 统一批量上传
+					if(!!$scope.addAll) {
+						var names = [];
+						var tfCodes = [];
+						var unifTypeIds = [];
+						var scopes = [];
+						var keywords = [];
+						var descs = [];
+						var sizes = [];
+						var paths = [];
+						var iscoursewares = [];
+						var islocals = [];
+						
+						_.each($scope.uploadFilesData,function(v,i) {
+							console.log(v.name.split('.')[0])
+							names.push(v.name.split('.')[0]);
+							tfCodes.push($scope.currentNode.tfcode);
+							unifTypeIds.push($scope.unifyType[$scope.currentTypeIndexSeclet].id);
+							scopes.push($scope.currentScopeIndexSeclet);
+							keywords.push($scope.res.keywords);
+							descs.push($scope.res.description);
+							paths.push($scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName);
+							sizes.push(v.size);
+							iscoursewares.push(0);
+							islocals.push(0);
+						})
+						
+						$scope.res.resTitle = names.toString();
+						$scope.currentNode.tfcode = tfCodes.toString();
+						$scope.unifyType[$scope.currentTypeIndexSeclet].id = unifTypeIds.toString();
+						$scope.currentScopeIndexSeclet = scopes.toString();
+						$scope.res.keywords = keywords.toString();
+						$scope.res.description = descs.toString();
+						$scope.res.paths = paths.toString();
+						$scope.res.sizes = sizes.toString();
+						$scope.res.iscoursewares = iscoursewares.toString();
+						$scope.res.islocals = islocals.toString();
+					}
+					
+					Res.resCtrl({
+						names:$scope.res.resTitle,
+						unifTypeIds: $scope.unifyType[$scope.currentTypeIndexSeclet].id,
+						tfcodes: $scope.currentNode.tfcode,
+						scopes: $scope.currentScopeIndexSeclet,
+						keywords: $scope.res.keywords,
+						descs: $scope.res.description,
+						paths: $scope.res.paths,
+						sizes: $scope.res.sizes,
+						iscoursewares: $scope.res.iscoursewares,
+						islocals: $scope.res.islocals
+					}, function(data) {
+						if(data.code == "OK") {
+							$uibModalInstance.dismiss('cancel');
+							ModalMsg.logger("上传成功啦");
+							// 上传资源 列表
+							setTimeout(function(){
+								window.location.reload();
+							}, 1000)
+						}else{
+							ModalMsg.logger("内容填写不正确，请修改");
+						}
+						
+					})
+				}
+				
+				// 取消
+				$scope.moveCancel = function() {
+					$uibModalInstance.dismiss('cancel');
+				};
 
 				// 筛选选择控制
 				$scope.VM.currentGradeSeclet = [];
@@ -518,6 +530,18 @@
 
 				}
 				
+				// 资源类型选择
+				$scope.currentTypeSeclet = [];
+				$scope.currentTypeSeclet[0] = true;
+				$scope.currentTypeIndexSeclet = 4;
+				$scope.selectType = function(index) {
+					//选中
+					_.each($scope.unifyType, function(v, i) {
+						$scope.currentTypeSeclet[i] = false;
+					})
+					$scope.currentTypeSeclet[index] = true;
+					$scope.currentTypeIndexSeclet = index;
+				}
 				
 				// 共享范围
 				$scope.currentScopeSeclet = [];
@@ -531,17 +555,9 @@
 					$scope.currentScopeSeclet[index] = true;
 					$scope.currentScopeIndexSeclet = index;
 				}
+				
+				
 
-
-			$scope.editDone = function() {
-				$uibModalInstance.close($scope.res);
 			}
-
-			$scope.close = function() {
-				$uibModalInstance.close();
-			}
-
-		}])
+		])
 }());
-
-//问题：编辑我的上传资源UI，接口在上传资源位置

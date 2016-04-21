@@ -182,8 +182,13 @@
 
 .type-select-box  {
     .menu-drop .trigger {
-         margin-top: 0;
+        min-width: 100px;
+        margin-top: 0;
         border: 1px solid #219B81;
+    }
+
+    .menu-drop .trigger i {
+        margin-left: 30px;
     }
 
     .menu-drop .menu-drop-main {
@@ -337,29 +342,34 @@
 }
 
 .edit-res-modal .modal-body {
-    width: 80%;
+    width: 90%;
     text-align: left;
     margin: auto;
-}
 
-.edit-res-modal .modal-body p {
-    margin-top: 20px;
-}
+    .edit-list-left {
+        width: 12%;
+    }
 
-.edit-res-modal .modal-body input {
-    width: 180px;
-    height: 25px;
-}
+    p {
+        margin-top: 20px;
+    }
 
-.edit-res-modal .modal-body .keyword-input {
-    width: 260px;
-}
+    input {
+        width: 180px;
+        height: 25px;
+    }
 
-.edit-res-modal .modal-body .btn-op {
-    width: 60px;
-    height: auto;
-    margin-left: 15px;
-    border-radius: 6px;
+    .btn-op {
+        width: 60px;
+        height: auto;
+        margin-left: 15px;
+        border-radius: 6px;
+    }
+
+    .keyword-input {
+        width: 260px;
+    }
+
 }
 
 .edit-list {
@@ -391,6 +401,10 @@
 
     .menu-drop .menu-drop-main {
         width: 95%;
+    }
+
+    .my-upload-tree {
+        left: 0;
     }
 }
 
