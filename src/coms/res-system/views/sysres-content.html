@@ -24,21 +24,23 @@
 		<ul class="res-ul-list" ng-show="isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
-				<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
-				<label for="{{$index}}"></label>
-				<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
-				<div class="img-thumb-list img-thumb-list-res">
-					<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
-				</div>
-				<span class="res-list-info" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
-					<label class="res-title text-ellipsis">{{ list.title }}</label>
-					<label class="res-type">类型: {{ list.mtype }}</label>
-					<label class="res-size">
-						<res-size data-value="{{list.fsize}}"></res-size>
-					</label><br>
-					<res-star data-value="{{list.avgScore}}"></res-star>
-					<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
-				</span>
+				<a ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_new" title="{{list.title}}">
+					<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
+					<label for="{{$index}}"></label>
+					<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
+					<div class="img-thumb-list img-thumb-list-res">
+						<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+					</div>
+					<span class="res-list-info">
+						<label class="res-title text-ellipsis">{{ list.title }}</label>
+						<label class="res-type">类型: {{ list.mtype }}</label>
+						<label class="res-size">
+							<res-size data-value="{{list.fsize}}"></res-size>
+						</label><br>
+						<res-star data-value="{{list.avgScore}}"></res-star>
+						<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
+					</span>
+				</a>
 				<span class="res-list-tools">
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
 						加入备课夹
@@ -56,23 +58,25 @@
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
-				<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
-				<label for="{{$index}}"></label>
-				<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
-				<div class="img-thumb2-list">
-					<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">
-				</div>
-				<div class="res-thubmlist-info">
-					<label class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})">{{ list.title }}</label>
-					<label class="res-type"> 类型: {{ list.mtype }} </label>
-					
-					<label class="res-size">
-						<res-size data-value="{{list.fsize}}"></res-size>
-					</label><br>
-					<!--<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-					
-					<label class="res-number"> {{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>-->
-				</div>
+				<a ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_new" title="{{list.title}}">
+					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
+					<label for="{{$index}}"></label>
+					<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
+					<div class="img-thumb2-list">
+						<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+					</div>
+					<div class="res-thubmlist-info">
+						<label class="res-title text-ellipsis">{{ list.title }}</label>
+						<label class="res-type"> 类型: {{ list.mtype }} </label>
+						
+						<label class="res-size">
+							<res-size data-value="{{list.fsize}}"></res-size>
+						</label><br>
+						<!--<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
+						
+						<label class="res-number"> {{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>-->
+					</div>
+				</a>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
 					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
