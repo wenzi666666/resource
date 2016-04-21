@@ -87,33 +87,19 @@
 				}
 				// list切换
 				$scope.isList = $localStorage.resList==true?$localStorage.resList:false;
-				console.log($scope.isList)
 			    $scope.switchList = function(list){
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
 			    // 设置 系统资源为0;
 			    $localStorage.fromFlag = 0;
+				
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
-				
-				// 上传
-				$scope.uploadRes = function() {
-					var modalNewUpload = $uibModal.open({
-						templateUrl: "uploadModal.html",
-						windowClass: "upload-modal",
-						controller: 'uploadResController',
-					})
-
-					// 上传结束
-					modalNewUpload.result.then(function(data) {
-						// 更新上传列表
-						$scope.$broadcast('myUploadChange', data);
-					});
-				}
 
 				// 读取备课夹 列表
 				var currentPrepareId = '';
+				
 				var getPrepare = function(id) {
 					//获取当前节点 备课夹
 					Prepare.baseGetApi({
@@ -137,7 +123,22 @@
 				
 				setTimeout(function(){
 					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
-				}, 1000)
+				}, 1000);
+				
+				//加入备课夹后，动画显示 加入的备课夹
+				
+				var addPrepareAnimation = function(){
+					var $list = $('.prepare-ctrls');
+					
+					$list.eq(0).addClass('prepare-add');
+					
+					$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
+					
+					setTimeout(function(){
+						$list.eq(0).removeClass('prepare-add');
+						$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
+					},3000)
+				}
 				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
@@ -150,6 +151,8 @@
 					}, function(data) {
 						//加1
 						$scope.shopCount++;
+						// 动画显示
+						addPrepareAnimation();
 						
 						currentPrepareId = $scope.prepareList[prepareIndex].id;
 						
@@ -176,6 +179,8 @@
 							}, function(data) {
 								//加1
 								$scope.shopCount++;
+								// 动画显示
+								addPrepareAnimation();
 							})
 						})
 					}else{
@@ -188,6 +193,8 @@
 							$scope.shopCount++;
 							// 获取最近三个备课夹
 							getLatesPrepare();
+							// 动画显示
+							addPrepareAnimation();
 	
 						})
 					}
@@ -224,6 +231,8 @@
 							}, function(data) {
 								//加$scope.shopCount.length
 								$scope.shopCount += $scope.resList.select.length;
+								// 动画显示
+								addPrepareAnimation();
 							})
 						})
 					}else{
@@ -239,9 +248,10 @@
 						}, function(data) {
 							//加$scope.shopCount.length
 							$scope.shopCount += $scope.resList.select.length;
+							// 动画显示
+							addPrepareAnimation();
 							// 获取最近三个备课夹
 							getLatesPrepare();
-	
 						})
 					}
 				}
@@ -261,6 +271,33 @@
 						})
 				    }
 				 });
+				 
+				 // 选择备课夹
+				$scope.selectPrepare = function(e,listIndex) {
+					e.stopPropagation();
+					var selectPrepareModal = $uibModal.open({
+						templateUrl: "select-prepare.html",
+						controller: 'selectPrepareCtrl',
+					})
+
+					//到备课夹
+					selectPrepareModal.result.then(function(data) {
+						Prepare.addResToPrepareId({
+							id: data.prepareId,
+							resIds: $scope.resList.list[listIndex].id,
+							fromFlags: $localStorage.fromFlag
+						}, function(d) {
+							if(d.code == "OK") {
+								getPrepare($localStorage.currentTreeNode.tfcode);
+								// 动画显示
+								addPrepareAnimation();
+							}
+							else {
+								ModalMsg.logger("加入备课夹失败，请重试！")
+							}
+						})
+					});
+				}
 				 
 				
 				// 监听 目录树 选择
@@ -502,8 +539,8 @@
 					})
 				}
 				
+				// 打包下载
 				$scope.downLoadSelect = function() {
-					// 打包下载
 					if(!!$scope.resList.select) {
 						//生成flags
 						var flags = new Array($scope.resList.select.length);
@@ -515,31 +552,6 @@
 					} else {
 						ModalMsg.logger("还没有选中资源哦");
 					}
-				}
-				
-				// 选择备课夹
-				$scope.selectPrepare = function(e,listIndex) {
-					e.stopPropagation();
-					var selectPrepareModal = $uibModal.open({
-						templateUrl: "select-prepare.html",
-						controller: 'selectPrepareCtrl',
-					})
-
-					//到备课夹
-					selectPrepareModal.result.then(function(data) {
-						Prepare.addResToPrepareId({
-							id: data.prepareId,
-							resIds: $scope.resList.list[listIndex].id,
-							fromFlags: $localStorage.fromFlag
-						}, function(d) {
-							if(d.code == "OK") {
-								getPrepare($localStorage.currentTreeNode.tfcode);
-							}
-							else {
-								ModalMsg.logger("加入备课夹失败，请重试！")
-							}
-						})
-					});
 				}
 			}
 		])
