@@ -110,21 +110,6 @@
 					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 				}, 1000);
 				
-				//加入备课夹后，动画显示 加入的备课夹
-				
-				var addPrepareAnimation = function(){
-					var $list = $('.prepare-ctrls');
-					
-					$list.eq(0).addClass('prepare-add');
-					
-					$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
-					
-					setTimeout(function(){
-						$list.eq(0).removeClass('prepare-add');
-						$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
-					},3000)
-				}
-				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
 					$event.stopPropagation();
@@ -522,11 +507,7 @@
 									if(!!data.data.status) {
 										clearInterval(t);
 										// 打包完成后提示
-										var text = "打包成功，会自动弹出下载。<br>如果没有弹出下载，请点击以下链接下载：<br>" + '<a href="' + data.data.zippath +'" target="_new">'+ $localStorage.currentTreeNode.label + '_打包文件</a>';
-										$('.alert-modal .modal-inner-content').html(text);
-										setTimeout(function(){
-											openwin(data.data.zippath);
-										},1000) 
+										zipDownloadTips(data.data.zippath);
 									}
 								})
 							}, 2000)

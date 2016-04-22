@@ -38,6 +38,7 @@
 						<label class="res-size">
 							<res-size data-value="{{list.fsize}}"></res-size>
 						</label>
+						<label class="res-time" ng-show="list.res_time">时长: {{ list.res_time }}</label>
 						<label class="res-uploader" ng-show="fromFlag==3 || fromFlag==4"> 上传者: {{ list.author }}</label>
 						<br>
 						<res-star data-value="{{list.avgScore}}"></res-star>
@@ -55,7 +56,7 @@
 						</div>
 					</div>
 					<br>
-					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list.id)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 			</li>
@@ -112,7 +113,7 @@
 					<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 				</div>
 			</div>
-			<label class="res-download res-download-all" ng-click="downLoadSelect()"><i class="icon-download-alt"></i>点击下载</label>
+			<label class="res-download res-download-all" ng-click="downLoadSelect()"><i class="icon-download-alt"></i> 打包下载 </label>
 		</div>
 		<div class="coms-pagination" ng-show="isLoadingFinish">
 		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" num-pages="perPage" ng-change="pageChanged()"></uib-pagination>

@@ -76,11 +76,12 @@
 				}
 					
 				//上一个
-				var currentSlideIndex = 3;
+				var currentSlideIndex = 0;
 				$scope.slidePre = function() {
 					if(currentSlideIndex > 0) {
-						$scope.selectRes(currentSlideIndex-1);
-						$scope.getResPlayUrl(currentSlideIndex-1, $scope.slides[currentSlideIndex-1].resId);
+						currentSlideIndex--;
+						$scope.selectRes(currentSlideIndex);
+						$scope.getResPlayUrl(currentSlideIndex, $scope.slides[currentSlideIndex].resId);
 					}else{
 						currentSlideIndex = $scope.slides.length-1;
 					}
@@ -90,8 +91,9 @@
 				//下一个
 				$scope.slideNext = function() {
 					if(currentSlideIndex < $scope.slides.length-1) {
-						$scope.selectRes(currentSlideIndex+1);
-						$scope.getResPlayUrl(currentSlideIndex+1, $scope.slides[currentSlideIndex+1].resId);
+						currentSlideIndex++;
+						$scope.selectRes(currentSlideIndex);
+						$scope.getResPlayUrl(currentSlideIndex, $scope.slides[currentSlideIndex].resId);
 					}else{
 						currentSlideIndex = 0;
 					}
@@ -100,7 +102,6 @@
 				//跳转到
 				$scope.selectRes = function(index) {
 					var tpl = '';
-					currentSlideIndex = index;
 					switch($scope.slides[index].type)
 					{
 					default:
