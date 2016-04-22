@@ -87,6 +87,21 @@
 					unifyType: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
+					},
+					// 查询资源库
+					pools: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/pools"
+					},
+					// 点击下载
+					resDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/res_down"
+					},
+					//打包下载
+					resZIpDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
 					}
 				})
 			}
@@ -145,7 +160,8 @@
 							$scope.VM.currentSubjectId = $localStorage.currentSubject.id;
 						}else {
 							$scope.VM.currentSubject = $scope.user.subjectNames.split(',')[0];
-							var currentSubjectId = $scope.user.subjectIds.split(',')[0];			
+							
+							var currentSubjectId = $scope.user.subjectIds.split(',')[0];
 							//缓存用户当前 学科
 							$localStorage.currentSubject = {
 								name: $scope.VM.currentSubject,

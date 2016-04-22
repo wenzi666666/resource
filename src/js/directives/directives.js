@@ -244,6 +244,30 @@
 				}
 			}
 		})
+		// 显示星星评分
+		.directive('resStar', function() {
+			return {
+				restrict: 'E',
+				transclude: true,
+				template: '<label class="res-star"><i class="icon-star" ng-repeat="v in starData track by $index" ' + "ng-class=\"{'star-active':isStar[$index]}\"" +'></i></label>',
+				replace: true,
+				link: function($scope, ele, attrs) {
+					$scope.starData = [1,2,3,4,5];
+					$scope.isStar = [false,false,false,false,false];
+					attrs.$observe('value', function(param) {
+						var value = Math.round(param);
+						
+						_.each($scope.starData, function(v,i) {
+							if(i < value){
+								$scope.isStar[i] = true;
+							}else{
+								$scope.isStar[i] = false;
+							}
+						})
+					})
+				}
+			}
+		})
 		//资源操作icon样式悬停变化
 		.directive('activeSrc', function() {
 			var activeSrc = {

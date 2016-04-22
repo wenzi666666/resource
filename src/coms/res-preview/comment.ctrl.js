@@ -77,7 +77,7 @@
 								//几颗星亮
 								$scope.curStar[i] = true;
 							}
-							if($scope.VM.personType=="0")
+							if(($scope.VM.personType=="0") || ($scope.VM.search=="prepare"))
 							{
 								
 								$scope.VM.allSourceList=[
@@ -224,7 +224,7 @@
 					console.log(index,$scope.VM.resourceId,$scope.VM.fromFlag)
 					Preview.editComment({
 						resId: $scope.VM.resourceId,
-						displayContent: "",
+						displayContent: " ",
 						fromFlag: $scope.VM.fromFlag,
 						ascore: index,
 						isScore: 0

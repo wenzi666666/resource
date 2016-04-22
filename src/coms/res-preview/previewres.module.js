@@ -107,8 +107,13 @@
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					$scope.VM.personType=$stateParams.type;
 					$scope.VM.search="person";
-					console.log("个人中心页面");
+					console.log("个人中心页面/定制页");
 					console.log($scope.VM.fromFlag,$scope.VM.personType);
+				}else if($stateParams.search=="prepare")
+				{
+					$scope.VM.fromFlag=$stateParams.fromFlag;
+					$scope.VM.search="prepare";
+					console.log("备课夹页面跳转");
 				}
 				
 				console.log($stateParams);
@@ -122,6 +127,9 @@
 				$scope.VM.slide=false;
 				//评分和发布显示问题
 				$scope.VM.comShow=false;
+				//备课夹显示问题
+				$scope.VM.prepareShow=false;
+				
 				
 				//当前目录  返回显示
 				$scope.links=[];
@@ -148,7 +156,6 @@
 					$scope.VM.resShow=true;
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
-				
 					//获取单个资源信息
 					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
@@ -165,6 +172,24 @@
 					getAllSource("");//获取对应资源
 					$scope.VM.preShow=true;
 					$scope.VM.comShow=true;
+				}else if($scope.VM.search=="prepare")
+				{//备课夹
+					$scope.sourceType=[{"id":"0","mtype":"全部"}];
+					$scope.sourceTypeId=0;
+					$scope.typeLight=[];
+					$scope.typeLight[0]=true;
+					$scope.typeName="全部";
+					$scope.VM.resShow=true;
+					$scope.VM.slide=true;
+					$scope.VM.preShow=true;
+					//获取单个资源信息
+					$scope.VM.prepareShow=true;
+					$scope.currentNav = [{"name":"备课夹"}];
+					$scope.links[0]=true;
+					console.log("备课夹"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
+					setTimeout(function(){					
+						$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
+					},300);
 				}
 				else
 				{//系统/区本/校本 资源nav数据
@@ -221,14 +246,18 @@
 						history.back();
 					}else if(index==0 && $scope.VM.search=="search")
 					{//搜索页 返回
-						window.location.href="search/"+$stateParams.fromFlag;
+						$state.go('search', {fromFlag:$stateParams.fromFlag});
 						
 					}else if(index==0 && $stateParams.back=="custom")
 					{//资源定制页返回
 						history.back();
-					}else if(index==0 && $stateParams.back!="custom")
+					}else if(index==0 && $stateParams.back!="custom" && $scope.VM.search=="person")
 					{//个人中心页面返回
-						window.location.href="personalcenter/"+$stateParams.back;
+						$state.go('personalcenter', {back:$stateParams.back});
+					}else if(index==0 && $stateParams.search=="prepare")
+					{//备课夹返回
+						
+						$state.go('prepare',{})
 					}
 				}
 				
@@ -245,9 +274,8 @@
 					$scope.sourceTypeId=id;
 				}
 				
-				//获取资源格式
+				//获取资源格式 只在系统/区本/校本跳转调用
 				function getTypes(){
-					
 					$scope.sourceType=[];
 					$scope.sourceTypeId=0;
 					$scope.typeLight=[];
@@ -278,8 +306,8 @@
 					else if($scope.VM.fromFlag == "3" || $scope.VM.fromFlag == "4" )
 					{//区本/校本资源类型
 						Preview.districtTypes({
-							poolId:0,
-							tfcode:$scope.VM.tfCode,
+							fromFlag: $localStorage.fromFlag,
+							tfcode:$scope.VM.tfCode
 						},function(data){
 							console.log("类型")
 							console.log(data);
@@ -559,6 +587,7 @@
 							$scope.curStar[i]=false;
 						});
 						$scope.currentSlideIndex --;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
@@ -577,6 +606,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}
@@ -588,6 +618,7 @@
 							$scope.curStar[i]=false;
 						});
 						$scope.currentSlideIndex ++;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 						for(var i=0;i<$scope.VM.allSourceList.length;i++)
@@ -605,6 +636,7 @@
 								$scope.curImg[i]=false;
 							}
 						$scope.curImg[$scope.currentSlideIndex]=true;
+						$(".slide-list").animate({scrollTop:$scope.currentSlideIndex*152},500);
 						$scope.VM.resName=$scope.VM.allSourceList[$scope.currentSlideIndex].title;
 						$scope.VM.listInfoCom($scope.VM.allSourceList[$scope.currentSlideIndex].id,$scope.VM.allSourceList[$scope.currentSlideIndex].fromFlag);
 					}

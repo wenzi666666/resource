@@ -12,8 +12,7 @@
 						url: '/schoolres',
 						views: {
 							'content@': {
-//								templateUrl: '/coms/res-school/views/schoolres.html',
-								templateUrl: '/coms/res-system/views/systemres.html',
+								templateUrl: '/coms/layout/views/res/res-container.html',
 								controller: 'SchoolResController'
 							},
 							'header@': {
@@ -31,17 +30,12 @@
 		.factory('SchoolRes', ['$resource',
 			function($resource) {
 				return $resource('', {}, {
-					// 查询资源库
-					pools: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/pools"
-					},
-					// 系统资源类型 
+					// 资源类型 
 					types: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/districtResource/types"
 					},
-					// 查询 系统资源格式 
+					// 查询 资源格式 
 					formats: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/districtResource/formats"
@@ -50,22 +44,12 @@
 					resList: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/districtResource"
-					},
-					// 点击下载
-					resDownload: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/res_down"
-					},
-					//打包下载
-					resZIpDownload: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
 					}
 				})
 			}
 		])
-		.controller("SchoolResController", ['$scope', '$stateParams', '$state', '$location', 'SchoolRes','Prepare','$localStorage','ModalMsg','$timeout',
-			function($scope, $stateParams, $state, $location,SchoolRes,Prepare,$localStorage,ModalMsg,$timeout) {
+		.controller("SchoolResController", ['$scope', '$stateParams', '$state', '$location', 'SchoolRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval','$uibModal',
+			function($scope, $stateParams, $state, $location,SchoolRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval,$uibModal) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -88,36 +72,58 @@
 				}
 				// list切换
 				$scope.isList = $localStorage.resList==true?$localStorage.resList:false;
-				console.log($scope.isList)
 			    $scope.switchList = function(list){
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
-			    // 设置 校本资源为3;
+			    // 设置 系统资源为0  校本是3 区本是4;
 			    $localStorage.fromFlag = 3;
+				$scope.fromFlag =  $localStorage.fromFlag;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
-				
-				
-				
-				
+
 				// 读取备课夹 列表
 				var currentPrepareId = '';
+				
 				var getPrepare = function(id) {
-//					Prepare.latestPrepare({}}
+					//获取当前节点 备课夹
 					Prepare.baseGetApi({
 						tfcode: id
-					}, function(data) {
+					}, function(data){
+						console.log("prepareTree:",data.data);
+						$scope.prepareDataList = data.data;
+						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
+					})
+					
+					getLatesPrepare();
+				}
+				
+				//获取 最近三个备课夹
+				var getLatesPrepare = function() {
+					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
-						
-						currentPrepareId = !!$scope.prepareList[0]?$scope.prepareList[0].id:'';
-						
 					})
 				}
+				
 				setTimeout(function(){
 					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
-				}, 1000)
+				}, 1000);
+				
+				//加入备课夹后，动画显示 加入的备课夹
+				
+				var addPrepareAnimation = function(){
+					var $list = $('.prepare-ctrls');
+					
+					$list.eq(0).addClass('prepare-add');
+					
+					$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
+					
+					setTimeout(function(){
+						$list.eq(0).removeClass('prepare-add');
+						$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
+					},3000)
+				}
 				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
@@ -128,24 +134,31 @@
 						resIds: $scope.resList.list[listIndex].id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data) {
-						//加1
-						$scope.shopCount++;
-						
-						currentPrepareId = $scope.prepareList[prepareIndex].id;
-
+						if(data.code == 'OK' || data.code == 'ok') {
+							//加1
+							$scope.shopCount++;
+							// 动画显示
+							addPrepareAnimation();
+							
+							currentPrepareId = $scope.prepareList[prepareIndex].id;
+							
+							getLatesPrepare();
+						} else {
+							ModalMsg.error(data);
+						}
 					})
 				}
 				
 				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
 				$scope.addToCurrentPrepare = function(listIndex) {
 					// 当前没有备课夹时，创建
-					if($scope.prepareList.length == 0) {
+					if($scope.prepareDataList.length == 0) {
 						Prepare.basePostApi({
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取备课夹
-							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 获取最近三个备课夹
+							getLatesPrepare();
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
@@ -154,6 +167,8 @@
 							}, function(data) {
 								//加1
 								$scope.shopCount++;
+								// 动画显示
+								addPrepareAnimation();
 							})
 						})
 					}else{
@@ -162,9 +177,16 @@
 							resIds: $scope.resList.list[listIndex].id,
 							fromFlags: $localStorage.fromFlag
 						}, function(data) {
-							//加1
-							$scope.shopCount++;
-	
+							if(data.code == 'OK' || data.code == 'ok') {
+								//加1
+								$scope.shopCount++;
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 动画显示
+								addPrepareAnimation();
+							} else {
+								ModalMsg.error(data);
+							}
 						})
 					}
 					
@@ -180,13 +202,13 @@
 						return;
 					}
 					// 当前没有备课夹时，创建
-					if($scope.prepareList.length == 0) {
+					if($scope.prepareDataList.length == 0) {
 						Prepare.basePostApi({
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取备课夹
-							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 获取最近三个备课夹
+							getLatesPrepare();
 							// 加入备课夹
 							//生成flags
 							var flags = new Array($scope.resList.select.length);
@@ -200,6 +222,8 @@
 							}, function(data) {
 								//加$scope.shopCount.length
 								$scope.shopCount += $scope.resList.select.length;
+								// 动画显示
+								addPrepareAnimation();
 							})
 						})
 					}else{
@@ -215,7 +239,10 @@
 						}, function(data) {
 							//加$scope.shopCount.length
 							$scope.shopCount += $scope.resList.select.length;
-	
+							// 动画显示
+							addPrepareAnimation();
+							// 获取最近三个备课夹
+							getLatesPrepare();
 						})
 					}
 				}
@@ -236,11 +263,41 @@
 				    }
 				 });
 				 
+				 // 选择备课夹
+				$scope.selectPrepare = function(e,listIndex) {
+					e.stopPropagation();
+					var selectPrepareModal = $uibModal.open({
+						templateUrl: "select-prepare.html",
+						controller: 'selectPrepareCtrl',
+					})
+
+					//到备课夹
+					selectPrepareModal.result.then(function(data) {
+						Prepare.addResToPrepareId({
+							id: data.prepareId,
+							resIds: $scope.resList.list[listIndex].id,
+							fromFlags: $localStorage.fromFlag
+						}, function(d) {
+							if(d.code == "OK") {
+								getPrepare($localStorage.currentTreeNode.tfcode);
+								// 动画显示
+								addPrepareAnimation();
+							}
+							else {
+								ModalMsg.logger("加入备课夹失败，请重试！")
+							}
+						})
+					});
+				}
+				 
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
 					console.log("received:",d)
+					// 列出资源
 					getResList(d);
+					// 列出  资源类型和格式
+					$scope.typeAndFormat(0, 0);
 					// 更改目录标题
 					$scope.currentVersion = $localStorage.currentVersion;
 					$timeout(function(){
@@ -260,9 +317,9 @@
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
+						fromFlag: $scope.fromFlag,
 						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
-						fromFlag: $localStorage.fromFlag,
 						page:page,
 						perPage: $scope.perPage
 					}, function(data) {
@@ -297,7 +354,7 @@
 				}
 				
 				// 列出资源库
-				SchoolRes.pools({}, function(data) {
+				Res.pools({}, function(data) {
 					$scope.pools =data.data;
 				})
 				// 列出资源类型 和格式
@@ -374,8 +431,10 @@
 				}
 				
 				// 综合 排序 0 最多下载 1 最新发布2
+				$localStorage.orderBy=$scope.orderBy;
 				$scope.dataSortByType = function(type){
 					$scope.orderBy = type;
+					$localStorage.orderBy=$scope.orderBy;
 					page = 1;
 					getResList();
 				}
@@ -406,7 +465,7 @@
 				
 				// 下载资源
 				$scope.resDownload = function(id){
-					SchoolRes.resDownload({
+					Res.resDownload({
 						resIds:id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data){
@@ -449,21 +508,21 @@
 				
 				// 打包下载
 				var resZipDownload = function(ids,flags){
-					SchoolRes.resZIpDownload({
+					ModalMsg.alert("正在打包中，请稍候...");
+					Res.resZIpDownload({
 						ids:ids,
-						fromflags: flags
+						fromflags: flags,
+						zipname: $localStorage.currentTreeNode.label + '_打包文件'
 					}, function(data){
 						if(data.data) {
-							console.log(data.data);
-							ModalMsg.alert("正在打包中，请稍候...");
 							var t = setInterval(function() {
-								console.log("tt")
 								Res.getMyDownloadStatus({
 									id: data.data
 								}, function(data) {
 									if(!!data.data.status) {
-										openwin(data.data.zippath);
-										clear(t);
+										clearInterval(t);
+										// 打包完成后提示
+										zipDownloadTips(data.data.zippath);
 									}
 								})
 							}, 2000)
@@ -471,8 +530,8 @@
 					})
 				}
 				
+				// 打包下载
 				$scope.downLoadSelect = function() {
-					// 打包下载
 					if(!!$scope.resList.select) {
 						//生成flags
 						var flags = new Array($scope.resList.select.length);
@@ -484,7 +543,7 @@
 					} else {
 						ModalMsg.logger("还没有选中资源哦");
 					}
-				}	
+				}
 			}
 		])
 }());

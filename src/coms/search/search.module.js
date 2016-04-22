@@ -129,7 +129,7 @@
 							$scope.VM.currentTypeNum[0] = true;
 							$scope.VM.currentFormat = $scope.VM.typeNums[0];
 						}else{
-							alert(data.message);
+							ModalMsg.logger(data.message);
 						}
 					});
 					
@@ -190,7 +190,7 @@
 							
 						} else {
 
-							alert(data.code);
+//							alert(data.code);
 						}
 
 					});

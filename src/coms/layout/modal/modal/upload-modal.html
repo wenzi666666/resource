@@ -21,22 +21,24 @@
 				<div class="upload-tips">
 					<p class="upload-tips-icon"><i class="icon-exclamation-sign"></i> 支持格式：</p>
 					<div class="upload-tips-text">
-						<p>图片：jpg、gif、jpeg、png、bmp，限制5M;</p>
-						<p>文本：doc/docx、ppt/pptx、xls/xlsx、pdf/txt，限制30M;</p>
-						<p>动画：swf，限制30M；</p>
-						<p>音频：mp3、wma、wav，限制30M；</p>
-						<p>视频：mp4、flv，限制150M；</p>
-						<p>压缩包：rar、zip，限制100M.</p>
+						<p>图片：.jpg、.gif、.png，最大5M;</p>
+						<p>文本：.doc/.docx/.dot/.dotm/.docm、.ppt/.pptx/.pot/.potm/.pptm、<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.xls/.xlsx/.xlsm、.pdf/.txt/.caj/.kdh/.teb，最大30M;</p>
+						<p>动画：.swf、.gsp(几何画板)，最大10M；</p>
+						<p>音频：.mp3、.wma、.wav，最大10M；</p>
+						<p>视频：.mp4（其他格式请用格式工厂类软件转为mp4）最大150M；</p>
+						<p>压缩包：.rar、.zip，最大100M。</p>
 					</div>
 				</div>
 				<div class="upload-tips upload-tips-custom">
 					<p class="upload-tips-icon"><i class="icon-exclamation-sign"></i> 每个文件最大不超过150M</p>
 					<div class="upload-tips-text">
-						<p>如果您的资源不属于这些格式,请下载格式工厂进行格式转换</p>
+						<p>如果您的资源不属于这些格式,请下载<a href="http://www.pcfreetime.com/CN/index.html" target="_new">格式工厂</a>进行格式转换</p>
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<button class="btn btn-success btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'*'" ngf-accept="'*'" multiple ngf-max-size="150MB"><i class="icon-upload-alt"></i> 上传</button>
+				<button ng-disabled="uploadDisable" class="btn btn-lg btn-success btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'{{formats}}'" ngf-accept="'{{formats}}'"  ngf-max-size="150MB">
+					<i class="icon-upload-alt"></i> 上传
+				</button>
 			</div>
 			<div class="continue-upload" ng-hide="firstUpload">
 				<table class="table">
@@ -44,8 +46,8 @@
 						<tr>
 							<th width="30%" style="text-align: center;">文件名</th>
 							<th width="10%" style="text-align: center;">大小</th>
-							<th width="40%" style="text-align: center;">进度</th>
-							<th width="20%" style="text-align: center;">上传控制 </th>
+							<th width="60%" style="text-align: center;">进度</th>
+							<!--<th width="20%" style="text-align: center;">上传控制 </th>-->
 						</tr>
 					</thead>
 					<tbody>
@@ -60,23 +62,23 @@
 									<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }" style="width: 0%;"></div>
 								</div>
 							</td>
-							<td nowrap="">
+							<!--<td nowrap="">-->
 								<!--<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                                         <span class="glyphicon glyphicon-upload"></span> 上传
                                     </button>-->
-								<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading" disabled="disabled">
+								<!--<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading" disabled="disabled">
                                         <span class="glyphicon glyphicon-ban-circle"></span> 取消
                                     </button>
 								<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
                                         <span class="glyphicon glyphicon-trash"></span> 清除
                                     </button>
-							</td>
+							</td>-->
 						</tr>
 					</tbody>
 				</table>
 
 				<!--<button class="btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="150MB">继续添加</button>-->
-				<button class="btn btn-success btn-general" ng-click="uploadResInfo()">完成</button>
+				<button ng-disabled="uploadFinish" class="btn btn-lg btn-success btn-general" ng-click="uploadResInfo()">完成</button>
 			</div>
 		</div>
 		<!--添加网络资源-->

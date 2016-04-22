@@ -29,7 +29,6 @@
     padding-left: 6px;
     height: 30px;
     line-height: 30px;
-    padding-right: 0;
     cursor: pointer;
 }
 
@@ -42,7 +41,8 @@
     font-size: 18px;
     margin: 1px;
     margin-left: 5px;
-    padding: 1px 5px;
+    padding: 1px 0 1px 5px;
+    margin-right: 5px;
     color: #fff;
     width: 15px;
 }
@@ -144,7 +144,8 @@
   background: #0094ce;
   display: inline-block;
   position: relative;
-  top: 13px;
+  top: 9px;
+  cursor: pointer;
   right: 10px;
 }
 .res-header .icon-search{
@@ -344,7 +345,7 @@
   padding: 6px;
   margin: 8px 0;
   font-size: 13px;
-  min-height: 148px;
+  min-height: 155px;
 }
 .res-list-main .res-list-item:hover{
     background: #e6f4f4;
@@ -379,6 +380,7 @@
 }
 .res-thubmlist-info .res-title{
     width: 90%;
+    font-weight: normal;
 }
 .res-list-info{
   position: absolute;
@@ -390,7 +392,7 @@
     font-size: 17px;
     margin-top: 20px;
     color:#040000;
-    width: 100%;
+    width: 350px;
     margin-left: 5px;
 }
 .res-title:hover{
@@ -401,7 +403,7 @@
 .res-type{
     margin-left: 5px;
 }
-.res-size{
+.res-size, .res-time, .res-uploader{
     margin-left: 15px;
 }
 
@@ -412,13 +414,40 @@
     margin-left: 5px;
 }
 .res-star i{
-    color: #dea618;
+    color: #666;
     font-size: 16px;
     margin-right: 5px;
 }
+.res-star i.star-active{
+    color: #dea618;
+}
+.res-status{
+    float: right;
+    margin-right: 40px;
+    margin-top: 30px;
+    color: #e68024;
+    font-size: 16px;
+}
+.res-status-thumb{
+    color: #e68024; 
+}
+.res-author{
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    line-height: 30px;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    color: #fff;
+}
+.img-thumb-list-res:hover .res-author{
+    display: block;
+}
 .res-list-tools{
     float: right;
-    
+    margin-top: 10px;
 }
 .res-select{
     background: @color5;
@@ -452,7 +481,7 @@
   border-bottom: 1px dashed #9b9b9b;
   padding: 8px;
   margin: 8px 0;
-  height: 355px;
+  height: 350px;
 }
 .res-list-main .res-thubmlist-item:hover{
     background: #e6f4f4;
@@ -473,13 +502,14 @@
 .res-prepare-list{
     position: absolute;
     right: 36px;
-    top:55px;
+    top:67px;
     background: #fff;
-    padding: 10px 20px;
+    padding: 5px 20px;
     display: none;
     color: #999;
     min-width: 100px;
     z-index: 99999;
+    border: 2px solid #41C9A9;
 }
 .res-prepare-list-item{
     margin: 5px;
@@ -497,23 +527,26 @@
 .res-prepare-thumb{
     bottom: 40px;
     width: 100%;
-    left:0;
+    right:-25px;
     line-height: 25px;
     position: absolute;
     background: #fff;
     padding: 10px;
     display: none;
     color: #999;
-    min-width: 200px;
+    width: 170px;
     z-index: 99999;
     font-size: 14px;
+    border: 2px solid #41C9A9;
 }
 .addPrepare-custom{
     width: 100px;
-    float: left;
+    float: right;
     height: 40px;
     margin-top: 5px;
     position: relative;
+    margin-left: 5px !important;
+    margin-right: 8%;
 }
 .thubmlist-tools-custom .res-download{
     float: left;
@@ -533,6 +566,7 @@
     color: #999;
     min-width: 100px;
     z-index: 99999;
+    border: 2px solid #41C9A9;
 }
 // 备课夹 悬浮
 .prepare-fixed{
@@ -575,7 +609,7 @@
 }
 .prepare-fixed  .prepare-ctrls{
     float: left;
-    height: 100px;
+    height: 120px;
     width: 150px;
     margin-left: 3px;
     visibility: hidden;
@@ -585,8 +619,12 @@
     border-radius: 3px;
     overflow-y: auto;
 }
+.prepare-fixed  .prepare-ctrls .btn{
+    padding: 4px 8px;
+}
 .prepare-fixed .ctrls-prepare-list-item{
     font-size: 14px;
+    line-height: 28px;
 }
 .prepare-fixed .ctrls-prepare-list-item:hover{
     color: #219B81;
@@ -606,7 +644,7 @@
     padding: 5px 15px;
     line-height: 20px;
     color: #2B2C2C;
-    margin-top: 15px;
+    margin-top: 30px;
     position: relative;
     margin-left: 15px;
 }
@@ -614,6 +652,16 @@
     width: 15px;
     height: 15px;
 }
+
+// 加入备课夹 时，当前备课夹样式改变
+.prepare-fixed  .prepare-add{
+    visibility:visible;
+}
+.prepare-fixed  .prepare-add-item{
+   color: #DF3D6D;
+}
+
+
 .res-text-total{
     margin-left: 30px;
 }
@@ -649,6 +697,7 @@
     position: absolute;
     width: 36px;
     left: 50px;
+    z-index: 999;
 }
 .is-new-thumb{
     position: absolute;
@@ -691,7 +740,7 @@
     overflow: hidden;
 }
 .img-thumb2-list>img{
-    max-width: 230px;
+    max-width: 222px;
     max-height: 200px;
     line-height: 200px;
 }
