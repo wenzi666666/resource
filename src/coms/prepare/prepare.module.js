@@ -449,7 +449,7 @@
 				}
 
 				//上传本地资源
-				$scope.uploadRes = function() {
+				$scope.uploadRes = function(prepareId) {
 					var modalNewUpload = $uibModal.open({
 						templateUrl: "uploadModal.html",
 						windowClass: "upload-modal",
@@ -460,19 +460,20 @@
 					modalNewUpload.result.then(function(data) {
 						console.log(data);
 						// 更新上传 处理结果
-						// Prepare.addResToPrepareId({
-						// 	id: data.prepareId,
-						// 	resIds: res.resId,
-						// 	fromFlags: res.fromFlag
-						// }, function(d) {
-						// 	if(d.code == "OK") {
-						// 		if(optype == 1) $scope.deleteItem(res.id, "");
-						// 		getPrepare($localStorage.currentTreeNode.tfcode);
-						// 	}
-						// 	else {
-						// 		ModalMsg.logger("移动到备课夹失败，请重试！")
-						// 	}
-						// })
+						console.log(prepareId);
+						Prepare.addResToPrepareId({
+							id: prepareId,
+							resIds: data[0].id,
+							fromFlags: 1
+						}, function(d) {
+							getPrepare($localStorage.currentTreeNode.tfcode);
+							if(d.code == "OK") {
+								getPrepare($localStorage.currentTreeNode.tfcode);
+							}
+							else {
+								ModalMsg.logger("上传到备课夹失败，请重试！")
+							}
+						})
 						
 					});
 				}

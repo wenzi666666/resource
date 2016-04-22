@@ -139,8 +139,9 @@
 				//预览自建资源
 				$scope.previewRes = function(res) {
 					//已转换为可预览格式
+					console.log(res);
 					if(res.isFinished == 0) {
-						$state.go('previewres', {resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
+						$state.go('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
 					}
 					else {
 						ModalMsg.alert("该资源正在转码中，暂时不能预览，请稍后重试！");
