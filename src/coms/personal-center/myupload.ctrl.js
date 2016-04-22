@@ -139,7 +139,7 @@
 				//预览自建资源
 				$scope.previewRes = function(res) {
 					//已转换为可预览格式
-					if(res.isFinished) {
+					if(res.isFinished == 0) {
 						$state.go('previewres', {resId:list.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
 					}
 					else {
