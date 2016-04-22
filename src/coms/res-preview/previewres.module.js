@@ -306,8 +306,8 @@
 					else if($scope.VM.fromFlag == "3" || $scope.VM.fromFlag == "4" )
 					{//区本/校本资源类型
 						Preview.districtTypes({
-							poolId:0,
-							tfcode:$scope.VM.tfCode,
+							fromFlag: $localStorage.fromFlag,
+							tfcode:$scope.VM.tfCode
 						},function(data){
 							console.log("类型")
 							console.log(data);

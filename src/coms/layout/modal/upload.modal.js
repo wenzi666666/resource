@@ -10,10 +10,17 @@
 				// 用户信息
 				$scope.user = $localStorage.authUser;
 				
+				//可上传的格式
+				window.typeConfirm();
+				$scope.formats = window.allFormats.toString();
+				
 				// 获取上传地址
+				$scope.uploadDisable = true;
+				$scope.uploadFinish = true;
 				Res.getUploadUrl({}, function(data) {
-					$scope.uploadData = data.data
-					console.log("uploadData:", $scope.uploadData)			
+					$scope.uploadData = data.data;
+					$scope.uploadDisable = false;
+					console.log("uploadData:", $scope.uploadData);			
 				})
 				
 				// 获取资源类型
@@ -35,10 +42,14 @@
 
 				// 上传返回的文件名
 				$scope.uploadFiles = function(files, errFiles) {
+					if( errFiles.length > 0) {
+						ModalMsg.logger("文件格式不正确，请重新选择！");
+						return;
+					}
+
 					$scope.firstUpload = false;
 					$scope.files = files;
-					//			        console.log(files)
-					//			        $scope.errFiles = errFiles;
+					
 					angular.forEach($scope.files, function(file) {
 						console.log(file)
 						file.upload = Upload.upload({
@@ -61,6 +72,10 @@
 						}, function(evt) {
 							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 							$scope.progress = file.progress;
+							if($scope.progress ==100) {
+								$scope.uploadFinish = false;
+							}
+//							
 						});
 					});
 				}

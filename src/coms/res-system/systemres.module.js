@@ -110,6 +110,7 @@
 					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 				}, 1000);
 				
+				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
 					$event.stopPropagation();
@@ -367,7 +368,9 @@
 					
 					SystemRes.types({
 						poolId: $scope.poolId,
-						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
+						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
@@ -402,6 +405,8 @@
 					SystemRes.formats({
 						poolId: $scope.poolId,
 						pTfcode: $localStorage.currentTreeNode.tfcode,
+						tfcode: $localStorage.currentTreeNode.tfcode,
+						fromFlag:$scope.fromFlag,
 						typeId: mTypeId
 					}, function(data) {
 						$scope.formats = data.data;

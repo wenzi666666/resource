@@ -31,6 +31,7 @@
 				$scope.goToSpace = function(){
 					openwin(spaceNavUrl)
 				}
+				
 				//退出
 				$scope.logout = function() {
 					localStorage.removeItem("ngStorage-authUser");
