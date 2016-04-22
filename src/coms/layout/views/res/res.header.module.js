@@ -75,6 +75,21 @@
 					unifyType: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
+					},
+					// 查询资源库
+					pools: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/pools"
+					},
+					// 点击下载
+					resDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/res_down"
+					},
+					//打包下载
+					resZIpDownload: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
 					}
 				})
 			}

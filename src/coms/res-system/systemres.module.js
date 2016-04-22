@@ -12,7 +12,7 @@
 						url: '/systemres',
 						views: {
 							'content@': {
-								templateUrl: '/coms/res-system/views/systemres.html',
+								templateUrl: '/coms/layout/views/res/res-container.html',
 								controller: 'SystemResController'
 							},
 							'header@': {
@@ -30,11 +30,6 @@
 		.factory('SystemRes', ['$resource',
 			function($resource) {
 				return $resource('', {}, {
-					// 查询资源库
-					pools: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/pools"
-					},
 					// 系统资源类型 
 					types: {
 						method: "GET",
@@ -49,16 +44,6 @@
 					resList: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/sysResource"
-					},
-					// 点击下载
-					resDownload: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/res_down"
-					},
-					//打包下载
-					resZIpDownload: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
 					}
 				})
 			}
@@ -91,9 +76,9 @@
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
 			    }
-			    // 设置 系统资源为0;
+			    // 设置 系统资源为0  校本是3 区本是4;
 			    $localStorage.fromFlag = 0;
-				
+				$scope.fromFlag =  $localStorage.fromFlag;
 				// 加入备课夹 动画
 				$scope.shopCount = 0;
 
@@ -326,6 +311,7 @@
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
 						fileFormat: format,
+						fromFlag: $scope.fromFlag,
 						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
@@ -362,7 +348,7 @@
 				}
 				
 				// 列出资源库
-				SystemRes.pools({}, function(data) {
+				Res.pools({}, function(data) {
 					$scope.pools =data.data;
 				})
 				// 列出资源类型 和格式
@@ -473,7 +459,7 @@
 				
 				// 下载资源
 				$scope.resDownload = function(id){
-					SystemRes.resDownload({
+					Res.resDownload({
 						resIds:id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data){
@@ -516,7 +502,7 @@
 				
 				// 打包下载
 				var resZipDownload = function(ids,flags){
-					SystemRes.resZIpDownload({
+					Res.resZIpDownload({
 						ids:ids,
 						fromflags: flags
 					}, function(data){

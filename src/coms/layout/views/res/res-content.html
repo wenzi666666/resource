@@ -30,17 +30,21 @@
 					<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
 					<div class="img-thumb-list img-thumb-list-res">
 						<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+						<span class="res-author" ng-show="fromFlag==0 && list.speaker">主讲人：{{ list.speaker }}</span>
 					</div>
 					<span class="res-list-info">
 						<label class="res-title text-ellipsis">{{ list.title }}</label>
 						<label class="res-type">类型: {{ list.mtype }}</label>
 						<label class="res-size">
 							<res-size data-value="{{list.fsize}}"></res-size>
-						</label><br>
+						</label>
+						<label class="res-uploader" ng-show="fromFlag==3 || fromFlag==4"> 上传者: {{ list.author }}</label>
+						<br>
 						<res-star data-value="{{list.avgScore}}"></res-star>
 						<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 					</span>
 				</a>
+				
 				<span class="res-list-tools">
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
 						加入备课夹
@@ -53,6 +57,7 @@
 					<br>
 					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
 				</span>
+				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 			</li>
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
@@ -66,14 +71,16 @@
 						<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
 					</div>
 					<div class="res-thubmlist-info">
-						<label class="res-title text-ellipsis">{{ list.title }}</label>
+						<label class="res-title text-ellipsis">
+							<span class="res-status-thumb" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
+							{{ list.title }}
+						</label>
 						<label class="res-type"> 类型: {{ list.mtype }} </label>
 						
 						<label class="res-size">
 							<res-size data-value="{{list.fsize}}"></res-size>
 						</label><br>
 						<!--<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
-						
 						<label class="res-number"> {{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>-->
 					</div>
 				</a>

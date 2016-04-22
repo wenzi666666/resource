@@ -90,7 +90,7 @@
 					          down : 10,
 					          up : 20
 					        },
-					        offset : 205,
+					        offset : 300,
 					        classes: {
 					          initial: "slide",
 					          pinned: "slide--reset",
@@ -109,7 +109,7 @@
 					          down : 10,
 					          up : 20
 					        },
-					        offset : 105,
+					        offset : 300,
 					        classes: {
 					          initial: "slide",
 					          pinned: "slide--reset",
@@ -126,9 +126,9 @@
 					    new Headroom(mainNav, {
 					        tolerance: {
 					          down : 10,
-					          up : 300
+					          up : 20
 					        },
-					        offset : 280,
+					        offset : 300,
 					        classes: {
 					          initial: "slide",
 					          pinned: "slide--reset",

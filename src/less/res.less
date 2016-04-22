@@ -29,7 +29,6 @@
     padding-left: 6px;
     height: 30px;
     line-height: 30px;
-    padding-right: 0;
     cursor: pointer;
 }
 
@@ -42,7 +41,8 @@
     font-size: 18px;
     margin: 1px;
     margin-left: 5px;
-    padding: 1px 5px;
+    padding: 1px 0 1px 5px;
+    margin-right: 5px;
     color: #fff;
     width: 15px;
 }
@@ -403,7 +403,7 @@
 .res-type{
     margin-left: 5px;
 }
-.res-size{
+.res-size,.res-uploader{
     margin-left: 15px;
 }
 
@@ -421,10 +421,33 @@
 .res-star i.star-active{
     color: #dea618;
 }
-
+.res-status{
+    float: right;
+    margin-right: 40px;
+    margin-top: 30px;
+    color: #e68024;
+    font-size: 16px;
+}
+.res-status-thumb{
+    color: #e68024; 
+}
+.res-author{
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    line-height: 30px;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    color: #fff;
+}
+.img-thumb-list-res:hover .res-author{
+    display: block;
+}
 .res-list-tools{
     float: right;
-    
+    margin-top: 15px;
 }
 .res-select{
     background: @color5;
