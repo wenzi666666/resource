@@ -40,7 +40,19 @@
 				/** 消息提示 弹出框*/
 				'logger': function logger(key) {
 					return $uibModal.open({
-						template: tplLeft + key + loggerRight,
+						template: tplLeft + key + alertRight,
+						windowClass: "logger-modal",
+						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
+							setTimeout(function(){
+								$uibModalInstance.dismiss('cancel');
+							}, 3000)
+						}]
+					});
+				},
+				/** 错误处理*/
+				'error': function logger(key) {
+					return $uibModal.open({
+						template: tplLeft + key.message + alertRight,
 						windowClass: "logger-modal",
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
 							setTimeout(function(){

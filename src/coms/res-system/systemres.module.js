@@ -134,15 +134,18 @@
 						resIds: $scope.resList.list[listIndex].id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data) {
-						//加1
-						$scope.shopCount++;
-						// 动画显示
-						addPrepareAnimation();
-						
-						currentPrepareId = $scope.prepareList[prepareIndex].id;
-						
-						getLatesPrepare();
-
+						if(data.code == 'OK' || data.code == 'ok') {
+							//加1
+							$scope.shopCount++;
+							// 动画显示
+							addPrepareAnimation();
+							
+							currentPrepareId = $scope.prepareList[prepareIndex].id;
+							
+							getLatesPrepare();
+						} else {
+							ModalMsg.error(data);
+						}
 					})
 				}
 				
@@ -174,13 +177,16 @@
 							resIds: $scope.resList.list[listIndex].id,
 							fromFlags: $localStorage.fromFlag
 						}, function(data) {
-							//加1
-							$scope.shopCount++;
-							// 获取最近三个备课夹
-							getLatesPrepare();
-							// 动画显示
-							addPrepareAnimation();
-	
+							if(data.code == 'OK' || data.code == 'ok') {
+								//加1
+								$scope.shopCount++;
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 动画显示
+								addPrepareAnimation();
+							} else {
+								ModalMsg.error(data);
+							}
 						})
 					}
 					
@@ -502,22 +508,25 @@
 				
 				// 打包下载
 				var resZipDownload = function(ids,flags){
+					ModalMsg.alert("正在打包中，请稍候...");
 					Res.resZIpDownload({
 						ids:ids,
-						fromflags: flags
+						fromflags: flags,
+						zipname: $localStorage.currentTreeNode.label + '_打包文件'
 					}, function(data){
 						if(data.data) {
-							console.log(data.data);
-							ModalMsg.alert("正在打包中，请稍候...");
 							var t = setInterval(function() {
-								console.log("tt")
 								Res.getMyDownloadStatus({
 									id: data.data
 								}, function(data) {
 									if(!!data.data.status) {
 										clearInterval(t);
-										openwin(data.data.zippath);
-										
+										// 打包完成后提示
+										var text = "打包成功，会自动弹出下载。<br>如果没有弹出下载，请点击以下链接下载：<br>" + '<a href="' + data.data.zippath +'" target="_new">'+ $localStorage.currentTreeNode.label + '_打包文件</a>';
+										$('.alert-modal .modal-inner-content').html(text);
+										setTimeout(function(){
+											openwin(data.data.zippath);
+										},1000) 
 									}
 								})
 							}, 2000)
