@@ -666,7 +666,8 @@
 				// 读取备课夹 列表
 				$scope.shopCount=0;
 				var currentPrepareId = '';
-				 function getPrepare() {
+				// 当前节点备课夹 列表
+				var getPrepare = function () {
 				 	//获取当前节点 备课夹
 					Prepare.baseGetApi({
 						tfcode:$scope.VM.tfCode 
@@ -676,15 +677,18 @@
 						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
 						
 					});
-					//获取 最近三个备课夹
+				}
+				 
+				//获取 最近三个备课夹
+				var getLatesPrepare = function() {
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
-						
-					});
+					})
 				}
 				setTimeout(function(){
 					getPrepare();
+					getLatesPrepare();
 				}, 200);
 				
 				//加入备课夹
@@ -701,8 +705,6 @@
 							tfcode: $scope.VM.tfCode,
 							title: $scope.VM.name
 						}, function(d) {
-							// 获取备课夹
-							getPrepare();
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
@@ -711,6 +713,12 @@
 							}, function(data) {
 								//加1
 								$scope.shopCount++;
+								// 获取备课夹
+								getPrepare();
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 动画显示
+								addPrepareAnimation();
 							})
 						})
 					}else{
@@ -719,9 +727,16 @@
 							resIds: $scope.VM.resourceId,
 							fromFlags: $scope.VM.fromFlag
 						}, function(data) {
-							//加1
-							$scope.shopCount++;
-							console.log($scope.VM.resourceId+"_"+ $scope.VM.fromFlag)
+							if(data.code == 'OK' || data.code == 'ok') {
+								//加1
+								$scope.shopCount++;
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 动画显示
+								addPrepareAnimation();
+							} else {
+								ModalMsg.error(data);
+							}
 						})
 					}
 					
@@ -737,8 +752,11 @@
 							tfcode: $scope.VM.tfCode,
 							title: $scope.VM.newPrepare
 						}, function(d) {
-							$scope.VM.newPrepare = "新建备课夹"
+							$scope.VM.newPrepare = "新建备课夹";
+							// 获取备课夹
 							getPrepare();
+							// 获取最近三个备课夹
+							getLatesPrepare();
 						})
 				    }
 				 });

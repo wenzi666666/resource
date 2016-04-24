@@ -79,12 +79,12 @@
 			    // 设置 系统资源为0  校本是3 区本是4;
 			    $localStorage.fromFlag = 0;
 				$scope.fromFlag =  $localStorage.fromFlag;
-				// 加入备课夹 动画
+				// 加入备课夹 计数
 				$scope.shopCount = 0;
 
-				// 读取备课夹 列表
+				// 当前备课夹 
 				var currentPrepareId = '';
-				
+				// 当前节点备课夹 列表
 				var getPrepare = function(id) {
 					//获取当前节点 备课夹
 					Prepare.baseGetApi({
@@ -94,8 +94,6 @@
 						$scope.prepareDataList = data.data;
 						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
 					})
-					
-					getLatesPrepare();
 				}
 				
 				//获取 最近三个备课夹
@@ -107,7 +105,8 @@
 				}
 				
 				setTimeout(function(){
-					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+					getLatesPrepare();
+					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'');
 				}, 1000);
 				
 				
@@ -143,14 +142,16 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取最近三个备课夹
-							getLatesPrepare();
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
 								resIds: $scope.resList.list[listIndex].id,
 								fromFlags: $localStorage.fromFlag
 							}, function(data) {
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 获取当前节点备课夹
+								getPrepare($localStorage.currentTreeNode.tfcode);
 								//加1
 								$scope.shopCount++;
 								// 动画显示
@@ -193,8 +194,6 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取最近三个备课夹
-							getLatesPrepare();
 							// 加入备课夹
 							//生成flags
 							var flags = new Array($scope.resList.select.length);
@@ -206,6 +205,10 @@
 								resIds: $scope.resList.select.toString(),
 								fromFlags: flags.toString()
 							}, function(data) {
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 获取当前节点备课夹
+								getPrepare($localStorage.currentTreeNode.tfcode);
 								//加$scope.shopCount.length
 								$scope.shopCount += $scope.resList.select.length;
 								// 动画显示
@@ -243,8 +246,11 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $scope.VM.newPrepare
 						}, function(d) {
-							$scope.VM.newPrepare = "新建备课夹"
+							$scope.VM.newPrepare = "新建备课夹";
+							// 获取备课夹
 							getPrepare($localStorage.currentTreeNode.tfcode);
+							// 获取最近三个备课夹
+							getLatesPrepare();
 						})
 				    }
 				 });
