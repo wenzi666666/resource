@@ -41,8 +41,8 @@
 				})
 			}
 		])
-		.controller("SearchController", ['$scope', '$stateParams','$localStorage', '$state', '$location', 'Search','SystemRes','ModalMsg',
-			function($scope, $stateParams, $localStorage,$state, $location, Search,SystemRes,ModalMsg) {
+		.controller("SearchController", ['$scope', '$stateParams','$localStorage', '$state', '$location', 'Search','SystemRes','ModalMsg','Res',
+			function($scope, $stateParams, $localStorage,$state, $location, Search,SystemRes,ModalMsg,Res) {
 				// 变量共享
 				$scope.VM = {};
 				
@@ -272,16 +272,16 @@
 						}
 					}
 					
-					SystemRes.resDownload({
+					Res.resDownload({
 						resIds:id,
-						fromFlags:flag 
+						fromFlags:flag
 					}, function(data){
 						console.log(data.data)
 						
 						
 						for(var i=0;i<data.data.length;i++)
 						{
-							window.open(data.data[i].path, "_blank");
+							openwin(data.data[i].path);
 						}
 						$scope.resList.select=[];
 						$scope.resList.fromFlag=[];

@@ -20,7 +20,7 @@
 				Res.getUploadUrl({}, function(data) {
 					$scope.uploadData = data.data;
 					$scope.uploadDisable = false;
-					console.log("uploadData:", $scope.uploadData);			
+					console.log("uploadData:", $scope.uploadData);		
 				})
 				
 				// 获取资源类型
@@ -72,6 +72,7 @@
 						}, function(evt) {
 							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 							$scope.progress = file.progress;
+							// 上传完成
 							if($scope.progress ==100) {
 								$scope.uploadFinish = false;
 							}
@@ -82,7 +83,7 @@
 				
 				// 上传
 				$scope.uploadResInfo = function(isWeb) {
-					console.log(isWeb)
+					$uibModalInstance.dismiss('cancel');
 					$localStorage.uploadData = $scope.uploadData;
 					var files = [];
 					//本地
@@ -198,6 +199,9 @@
 					if(!$scope.res.keywords) {
 						ModalMsg.logger("关键词不能为空");
 						return;
+					}
+					if(!$scope.res.description) {
+						$scope.res.description = ' ';
 					}
 					// 统一批量上传
 					if(!!$scope.addAll) {
