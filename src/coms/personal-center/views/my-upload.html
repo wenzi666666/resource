@@ -1,5 +1,5 @@
 <!-- 编辑上传资源模态框 -->
-<div ng-controller="editUploadResCtrl">
+<div>
 <script type="text/ng-template" id="edit.html">
 <div class="edit-res-modal">
 	<div class="modal-header">
@@ -84,6 +84,23 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="select-nav-item" id="catogry-trigger" ng-click="treeTrigger()" >
+								<div class="menu-drop">
+									<div class="trigger">
+										<span class="select-current" href="">{{ currentNode.label }}</span>
+										<i class="icon-angle-down"></i>
+										<i class="icon-angle-up"></i>
+									</div>
+									<div class="menu-drop-main">
+										<ul class="menu-drop-list tree-embed my-upload-tree" ng-show="showTree">
+											<treecontrol id="tree-embed" click-outside="closeThis()" outside-if-not="tree-embed,catogry-trigger" class="tree-light" tree-model="treedataSelect" on-selection="showSelected(node)" expanded-nodes="expandedNodes" options="opts">
+										     	{{node.label}}
+										 	</treecontrol>
+										</ul>
+									</div>
+								</div>
+							</div>
 						<div class="clearfix"></div>
     				</div>
 
@@ -103,11 +120,10 @@
     			<input type="text" ng-model="res.keywords" class="keyword-input" placeholder="多个关键词用分号隔开" />
     		</div>
     		<div class="edit-list">
-    			<span class="red-tip">*</span>
     			<span class="sp-label">资源介绍</span>
     			<textarea ng-model="res.description" placeholder="选填，主要介绍资源的主要内容，方便资源的管理和分享，限200字">
     			</textarea>
-    			<span class="sp-count-word"><span ng-model="res.description.length"></span>/200</span>
+    			<!-- <span class="sp-count-word"><span ng-model="res.description.length"></span>/200</span> -->
     		</div>
     	</div>
     </div>

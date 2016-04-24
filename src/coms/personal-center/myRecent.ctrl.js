@@ -25,10 +25,12 @@
 				
 				
 
-				$scope.getRecent = function() {
-					// 下载资源 列表
+				$scope.getRecent = function(type) {
+					var typeId = "0";
+					if(type) typeId = type.id;
+					// 最近资源 列表
 					Personal.getRecentView({
-						unifyTypeId: '0',
+						unifyTypeId: typeId,
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
@@ -39,6 +41,13 @@
 				}
 
 				$scope.getRecent();
+
+				//按资源类型筛选
+				$scope.selectResType = function(type) {
+					$scope.VM.currentPage = 1;
+					$scope.getRecent(type);
+				}
+
 
 				$scope.changPerPage = function() {
 					$scope.VM.currentPage = 1;

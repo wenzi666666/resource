@@ -12,12 +12,13 @@
 		<div class="list-content" ng-show="list.active">
 			<div ng-show="list.children.length>0">
 				<span class="hold-on" ui-sref="systemres"><i class="icon-plus-sign"></i>继续逛逛</span>
-				<span class="local-res" ng-click="uploadRes"><i class="icon-plus-sign"></i>本地资源</span>
+				<span class="local-res" ng-click="uploadRes(list.id)"><i class="icon-plus-sign"></i>本地资源</span>
 				<div class="clearfix">
 					
 				</div>
 				<div class="list-item" ng-repeat="item in list.children">
-					<input type="checkbox"/>
+						<input id="{{parentIndex*10+$index}}" type="checkBox" class="check" ng-click="selectRes(item)" ng-checked="item.isSelected">
+						<label for="{{parentIndex*10+$index}}"></label>
 					<img class="list-item-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="previewRes(item)"/>
 					<div class="item-info">
 						<span class="item-info-title">{{item.title}}</span><br>
@@ -50,7 +51,7 @@
 			<div class="list-item list-no-res" ng-show="list.children.length == 0">
 				<img src="assets/img/prepare/add_res.png" />
 				<i ui-sref="systemres">系统资源</i>
-				<i ng-click="uploadRes()">本地资源</i>
+				<i ng-click="uploadRes(list.id)">本地资源</i>
 				<!-- 上传模态框 -->
 				<div data-ng-include="'/coms/layout/modal/modal/upload-modal.html'"></div>
 			</div>

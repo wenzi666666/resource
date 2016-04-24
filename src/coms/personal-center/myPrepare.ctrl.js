@@ -29,7 +29,7 @@
 						page: page,
 						perPage: perpage
 					}, function(data) {
-						//console.log(data.data);
+						console.log("preparelist", data.data);
 						$scope.prepareList = data.data.list;
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
@@ -67,11 +67,10 @@
 				};
 							//按type筛选资源
 				$scope.selectResType = function(type) {
-					//console.log(type);
-					var typeObj = JSON.parse(type);
+					// var typeObj = JSON.parse(type);
 					//console.log(typeObj.id);
 					Res.getPrepareResource({
-						unifyTypeId: typeObj.id,
+						unifyTypeId: type.id,
 						fileFormat: '全部',
 						page: 1,
 						perPage: 10

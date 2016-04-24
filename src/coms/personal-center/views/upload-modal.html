@@ -1,0 +1,253 @@
+<!-- 模态框（Modal） -->
+<!-- 上传 -->
+<script type="text/ng-template" id="uploadModal.html">
+	<div class="modal-body upload-modal-body">
+		<div class="nav nav-tabs avatar-tabs" role="tablist">
+			<ul>
+				<li role="presentation" class="active">
+					<img src="{{isLocal?'assets/img/settings/tab_left_normal.png':'assets/img/settings/tab_left_active.png'}}" />
+					<a role="tab" data-toggle="tab" ng-click="isLocal=true">本地资源</a>
+				</li>
+				<li role="presentation">
+					<img src="{{!isLocal?'assets/img/settings/tab2_normal.png':'assets/img/settings/tab2.png'}}" />
+					<a role="tab" data-toggle="tab" ng-click="isLocal=false">网络资源</a>
+				</li>
+				<div style="clear: both"></div>
+			</ul>
+		</div>
+		<!--添加本地资源-->
+		<div class="upload-file-content" ng-show="isLocal">
+			<div class="first-upload" ng-show="firstUpload">
+				<div class="upload-tips">
+					<p class="upload-tips-icon"><i class="icon-exclamation-sign"></i> 支持格式：</p>
+					<div class="upload-tips-text">
+						<p>图片：jpg、gif、jpeg、png、bmp，限制5M;</p>
+						<p>文本：doc/docx、ppt/pptx、xls/xlsx、pdf/txt，限制30M;</p>
+						<p>动画：swf，限制30M；</p>
+						<p>音频：mp3、wma、wav，限制30M；</p>
+						<p>视频：mp4、flv，限制150M；</p>
+						<p>压缩包：rar、zip，限制100M.</p>
+					</div>
+				</div>
+				<div class="upload-tips upload-tips-custom">
+					<p class="upload-tips-icon"><i class="icon-exclamation-sign"></i> 每个文件最大不超过150M</p>
+					<div class="upload-tips-text">
+						<p>如果您的资源不属于这些格式,请下载格式工厂进行格式转换</p>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<button class="btn btn-success btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'*'" ngf-accept="'*'" multiple ngf-max-size="150MB"><i class="icon-upload-alt"></i> 上传</button>
+			</div>
+			<div class="continue-upload" ng-hide="firstUpload">
+				<table class="table">
+					<thead>
+						<tr>
+							<th width="30%" style="text-align: center;">文件名</th>
+							<th width="10%" style="text-align: center;">大小</th>
+							<th width="40%" style="text-align: center;">进度</th>
+							<th width="20%" style="text-align: center;">上传控制 </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="item in files">
+							<td><b>{{item.name}}</b></td>
+
+							<td>
+								<res-sizet data-value="{{item.size}}"></res-sizet>
+							</td>
+							<td>
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }" style="width: 0%;"></div>
+								</div>
+							</td>
+							<td nowrap="">
+								<!--<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> 上传
+                                    </button>-->
+								<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading" disabled="disabled">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                                    </button>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> 清除
+                                    </button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<!--<button class="btn-general" ngf-select="uploadFiles($files, $invalidFiles)" ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="150MB">继续添加</button>-->
+				<button class="btn btn-success btn-general" ng-click="uploadResInfo()">完成</button>
+			</div>
+		</div>
+		<!--添加网络资源-->
+		<div class="upload-network-content" ng-show="!isLocal">
+			<div class="first-upload">
+				输入网址：<input /><br><br>
+				<button class="btn btn-success btn-general">上传</button>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!-- 上传资源信息编辑 -->
+<script type="text/ng-template" id="eiditResModal.html">
+	<div class="modal-body modal-prepare-body upload-modal-body">
+		<div class="modal-prepare-header">上传资源</div>
+		<div class="edit-upload-res">
+			<div class="row">
+				<div class="col-sm-2">资源列表：</div>
+				<table class="col-sm-10 table table-striped table-hover table-bordered">
+					<tr>
+						<td>序号</td>
+						<td>资源名称</td>
+					</tr>
+					<tr ng-repeat="v in uploadFilesData track by $index">
+						<td>{{ $index +1 }}</td>
+						<td>{{ v.name}}</td>
+					</tr>
+				</table>
+			</div>
+			<!--<span class="upload-all" ng-class="addAll? 'add-active':''" ng-click="addAll=true">方式一： 为资源添加统一的信息</span>
+			<span class="upload-onebyone" ng-class="!addAll? 'add-active':''" ng-click="addAll=false">方式二： 为每个资源单独添加信息</span>-->
+
+			<div class="edit-detail-box">
+				<div class="edit-list" ng-show="!addAll">
+					<span class="red-tip">*</span>
+					<span class="sp-label">资源名称:</span>
+					<input type="text" ng-model="res.resTitle"/>
+				</div>
+				<div class="edit-list" ng-show="addAll">
+					<span class="red-tip">*</span>
+					<span class="sp-label">资源名称:</span>
+					<input type="text" style="width: 360px;" placeholder="批量上传资源不支持名称修改，可到我的上传修改" disabled=/>
+				</div>
+				<div class="edit-list">
+					<div class="item-left">
+						<span class="red-tip">*</span>
+						<span class="sp-label">资源类型:</span>
+					</div>
+
+					<div class="item-right">
+						<span class="type-item" ng-repeat="v in unifyType track by $index" ng-class="currentTypeSeclet[$index]?'selected':''" ng-click="selectType($index)"> {{ v.mtype }}</span>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="edit-list">
+					<div class="edit-list-left">
+						<span class="red-tip">*</span>
+						<span class="sp-label">上传至:</span>
+					</div>
+
+					<div class="edit-list-right">
+						<div class="select-loc-box">
+							<div class="select-nav-item">
+								<div class="menu-drop">
+									<div class="trigger">
+										<span class="select-current" href="" ng-bind="VM.currentGrade"></span>
+										<i class="icon-angle-down"></i>
+										<i class="icon-angle-up"></i>
+									</div>
+
+									<div class="menu-drop-main">
+										<ul class="menu-drop-list">
+											<li ng-repeat="grade in VM.grade track by $index" ng-class="VM.currentGradeSeclet[$index]?'selected':''" ng-click="VM.selectGrade($index)"><span ng-bind="grade.name"></span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="select-nav-item">
+								<div class="menu-drop">
+									<div class="trigger">
+										<span class="select-current">{{VM.currentSubject.name}}</span>
+										<i class="icon-angle-down"></i>
+										<i class="icon-angle-up"></i>
+									</div>
+
+									<div class="menu-drop-main">
+										<ul class="menu-drop-list">
+											<li ng-repeat="subject in VM.subject track by $index" ng-class="VM.currentSubjectSeclet[$index]?'selected':''" ng-click="VM.selectSubject($index)"><span>{{ subject.name }}</span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="select-nav-item">
+								<div class="menu-drop">
+									<div class="trigger" ng-click="closeCurrentVersion()">
+										<span class="select-current" href="">{{VM.currentVersion.name}}</span>
+										<i class="icon-angle-down"></i>
+										<i class="icon-angle-up"></i>
+									</div>
+									<div class="menu-drop-main">
+										<ul class="menu-drop-list">
+											<li ng-repeat="version in VM.version track by $index" ng-class="VM.currentVersionSeclet[$index]?'selected':''" ng-click="VM.selectVersion($index)"><span>{{ version.name }}</span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="select-nav-item">
+								<div class="menu-drop">
+									<div class="trigger" ng-click="closeCurrentMaterial()">
+										<span class="select-current" href="">{{VM.currentMaterial.name}}</span>
+										<i class="icon-angle-down"></i>
+										<i class="icon-angle-up"></i>
+									</div>
+									<div class="menu-drop-main">
+										<ul class="menu-drop-list">
+											<li ng-repeat="material in VM.material track by $index" ng-class="VM.currentMaterialSeclet[$index]?'selected':''" ng-click="VM.selectMaterial($index)"><span>{{ material.name }}</span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<div class="select-nav-item" id="catogry-trigger" ng-click="treeTrigger()" >
+								<div class="menu-drop">
+									<div class="trigger">
+										<span class="select-current" href="">{{ currentNode.label }}</span>
+										<i class="icon-angle-down"></i>
+										<i class="icon-angle-up"></i>
+									</div>
+									<div class="menu-drop-main">
+										<ul class="menu-drop-list tree-embed" ng-show="showTree">
+											<treecontrol id="tree-embed" click-outside="closeThis()" outside-if-not="tree-embed,catogry-trigger" class="tree-light" tree-model="treedataSelect" on-selection="showSelected(node)" expanded-nodes="expandedNodes" options="opts">
+										     	{{node.label}}
+										 	</treecontrol>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<div class="clearfix"></div>
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="edit-list">
+					<span class="red-tip">*</span>
+					<span class="sp-label">共享范围:</span>
+					<span class="tag" ng-class="currentScopeSeclet[0]?'selected':''" ng-click="selectScope(0)">仅自己可见</span>
+					<span class="tag" ng-class="currentScopeSeclet[1]?'selected':''" ng-click="selectScope(1)">本校可见</span>
+					<span class="tag" ng-class="currentScopeSeclet[2]?'selected':''" ng-click="selectScope(2)">本区可见</span>
+				</div>
+				<div class="edit-list">
+					<span class="red-tip">*</span>
+					<span class="sp-label">关键词:</span>
+					<input type="text" ng-model="res.keywords" class="keyword-input" placeholder="多个关键词用英文分号隔开" />
+				</div>
+				<div class="edit-list">
+					<div style="float: left;">
+						<span class="red-tip">*</span>
+						<span class="sp-label">资源介绍:</span>
+					</div>
+					<textarea class="des-editor" ng-model="res.description" placeholder="选填，主要介绍资源的主要内容，方便资源的管理和分享，限200字">
+    			</textarea>
+					<!--<span class="sp-count-word"><span ng-model="res.description.length"></span>/200</span>-->
+				</div>
+			</div>
+			<div class="upload-footer">
+				<button class="btn btn-lg btn-success btn-custom-modal" ng-click="uploadEditResInfo()">确定</button>
+				<button class="btn btn-lg btn-success btn-custom-modal" ng-click="moveCancel()">取消</button>
+			</div>
+		</div>
+	</div>
+</script>
