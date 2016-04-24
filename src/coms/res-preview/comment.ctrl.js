@@ -164,7 +164,10 @@
 				$scope.commentNum = 200;
 				$scope.VM.inputComment = "";
 				$scope.changeComment = function() {
-					$scope.commentNum = 200 - $scope.VM.inputComment.length;
+					if( $scope.VM.inputComment.length <= 200)
+						$scope.commentNum = 200 - $scope.VM.inputComment.length;
+					else
+						$scope.commentNum = $scope.VM.inputComment.length;
 				}
 
 				$scope.myShow = true;

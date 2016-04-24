@@ -730,6 +730,8 @@
 							if(data.code == 'OK' || data.code == 'ok') {
 								//加1
 								$scope.shopCount++;
+								// 获取备课夹
+								getPrepare();
 								// 获取最近三个备课夹
 								getLatesPrepare();
 								// 动画显示
