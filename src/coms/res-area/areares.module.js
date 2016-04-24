@@ -376,8 +376,10 @@
 						console.log("types:",data.data);
 						AreaRes.formats({
 							poolId: $scope.poolId,
-							pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
-							typeId: typeId
+							pTfcode: $localStorage.currentTreeNode.tfcode,
+							tfcode: $localStorage.currentTreeNode.tfcode,
+							fromFlag:$scope.fromFlag,
+							typeId: mTypeId
 						}, function(data) {
 							$scope.formats =data.data;
 						})
