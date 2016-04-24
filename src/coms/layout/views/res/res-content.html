@@ -29,7 +29,7 @@
 					<label for="{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
 					<div class="img-thumb-list img-thumb-list-res">
-						<img class="res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+						<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
 						<span class="res-author" ng-show="fromFlag==0 && list.speaker">主讲人：{{ list.speaker }}</span>
 					</div>
 					<span class="res-list-info">
