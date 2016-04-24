@@ -110,20 +110,6 @@
 					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 				}, 1000);
 				
-				//加入备课夹后，动画显示 加入的备课夹
-				
-				var addPrepareAnimation = function(){
-					var $list = $('.prepare-ctrls');
-					
-					$list.eq(0).addClass('prepare-add');
-					
-					$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
-					
-					setTimeout(function(){
-						$list.eq(0).removeClass('prepare-add');
-						$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
-					},3000)
-				}
 				
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
@@ -382,7 +368,9 @@
 					
 					AreaRes.types({
 						poolId: $scope.poolId,
-						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:''
+						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
@@ -417,6 +405,8 @@
 					AreaRes.formats({
 						poolId: $scope.poolId,
 						pTfcode: $localStorage.currentTreeNode.tfcode,
+						tfcode: $localStorage.currentTreeNode.tfcode,
+						fromFlag:$scope.fromFlag,
 						typeId: mTypeId
 					}, function(data) {
 						$scope.formats = data.data;
