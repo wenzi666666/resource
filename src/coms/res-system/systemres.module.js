@@ -226,12 +226,18 @@
 							resIds: $scope.resList.select.toString(),
 							fromFlags: flags.toString()
 						}, function(data) {
-							//加$scope.shopCount.length
-							$scope.shopCount += $scope.resList.select.length;
-							// 动画显示
-							addPrepareAnimation();
-							// 获取最近三个备课夹
-							getLatesPrepare();
+							if(data.code == 'OK' || data.code == 'ok') {
+								//加$scope.shopCount.length
+								$scope.shopCount += $scope.resList.select.length;
+								// 动画显示
+								addPrepareAnimation();
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								
+								ModalMsg.logger("批量加入成功");
+							} else {
+								ModalMsg.error(data);
+							}
 						})
 					}
 				}
