@@ -10,6 +10,8 @@
 				link: function postLink(scope, iElement, iAttrs) {
 					iElement.bind('error', function() {
 						var src = iAttrs.fallbackSrc;
+						var fallbacksrc = "assets/img/sample.png";
+						console.log(src)
 						//备课夹默认图片
 						if(src == "prepare") {
 							angular.element(this).attr("src", "assets/img/prepare_default.png");
@@ -17,17 +19,10 @@
 						else {
 							//是否包含中文正则
 							var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
-							if (src == "")
-							{
-								src = window.fallbacksrc;
-							}
-							if(reg.test(src)||(src==null))
-							{
-							  angular.element(this).attr("src", "assets/img/sample.png");
-
-							}else
-							{
-							  angular.element(this).attr("src", "http://chat.tfedu.net/tfedu/resicon/"+src+".png");
+							if (!src){
+								angular.element(this).attr("src", fallbacksrc);
+							} else {
+							  angular.element(this).attr("src", window.IconServer+src+".png");
 							}
 						}								
 					});
