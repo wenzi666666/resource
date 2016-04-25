@@ -243,14 +243,24 @@
 				$scope.back=function(index,tfcode){
 					if(index==2 && $scope.VM.search=="html")
 					{//系统/区本/校本
-						history.back();
+						if($localStorage.fromFlag=="0")
+						{
+							$state.go('systemres',{});
+						}else if($localStorage.fromFlag=="3")
+						{
+							$state.go('schoolres',{});
+						}else if($localStorage.fromFlag=="4")
+						{
+							$state.go('areares',{});
+						}
+						
 					}else if(index==0 && $scope.VM.search=="search")
 					{//搜索页 返回
 						$state.go('search', {fromFlag:$stateParams.fromFlag});
 						
 					}else if(index==0 && $stateParams.back=="custom")
 					{//资源定制页返回
-						history.back();
+						$state.go('customres',{});
 					}else if(index==0 && $stateParams.back!="custom" && $scope.VM.search=="person")
 					{//个人中心页面返回
 						$state.go('personalcenter', {back:$stateParams.back});
