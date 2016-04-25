@@ -144,7 +144,7 @@
 					}, function(data) {
 						// console.log(data.data);
 						$scope.listAllData = data.data;
-						// console.log($scope.listData);
+						console.log("listAllData",$scope.listAllData);
 					})
 				}
 
@@ -466,13 +466,12 @@
 							fromFlags: 1
 						}, function(d) {
 							console.log(d);
-							getPrepare($localStorage.currentTreeNode.tfcode);
-							// if(d.code == "OK") {
-							// 	getPrepare($localStorage.currentTreeNode.tfcode);
-							// }
-							// else {
-							// 	ModalMsg.logger("上传到备课夹失败，请重试！")
-							// }
+							if(d.code == "OK") {
+								getPrepare($localStorage.currentTreeNode.tfcode);
+							}
+							else {
+								ModalMsg.logger("上传到备课夹失败，请重试！")
+							}
 						})
 						
 					});
