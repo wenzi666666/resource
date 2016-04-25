@@ -105,6 +105,7 @@
 					$localStorage.files = files;
 					
 					// 根据后缀名 获取资源类型
+					console.log("upload")
 					Res.unifyType4ext({
 						ext:'.'+files[0].name.split('.')[files[0].name.split('.').length-1]
 					}, function(data) {
