@@ -32,7 +32,7 @@
 						<img src="assets/img/prepare/edit_icon.png"/>
 						<div class="popover">
 							<ul>
-								<li ng-click="editRes(item)">编辑</li>
+								<li ng-click="editRes(item)" ng-show="item.fromFlag == 1">编辑</li>
 								<li ng-click="opResTo(item, 1)">移动到</li>
 								<li ng-click="opResTo(item, 2)">复制到</li>
 							</ul>

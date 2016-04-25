@@ -250,6 +250,10 @@
     line-height: 20px;
     color: #fff;
     border-radius: 5px;  
+
+    i {
+        margin-left: 0px;
+    }
 }
 .list-all-item i{
     margin-left:10px
@@ -357,7 +361,7 @@
 .popover {
     display: none;
     position: absolute;
-    top: initial;
+    top: 15px;
     width: 70px;
     text-align: center;
     border: 2px solid #219b81;
@@ -410,7 +414,10 @@
     }
 
     .list-all-title {
-        margin: 10px;
+        margin: 10px auto;
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .icon-play-circle, .icon-trash {

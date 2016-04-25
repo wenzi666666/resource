@@ -15,7 +15,7 @@
 		<div class="prepare-gallery" >
 			<div class="list-box row">
 				<!-- <div class="col-md-3" ng-repeat="list in listAllData | filter:{timeLabel:'withinweek'}"> -->
-				<div class="col-md-3" ng-repeat="list in listAllData">
+				<div class="col-md-3" ng-repeat="list in listAllData.list">
 					<div class="list-all-item ">
 						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" />
