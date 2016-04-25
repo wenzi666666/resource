@@ -467,11 +467,11 @@
 							}
 						});
 					}else if((($scope.VM.fromFlag == "0") || ($scope.VM.fromFlag == "-1") || ($scope.VM.fromFlag == "3") || ($scope.VM.fromFlag == "4"))&&($scope.VM.search=="search")){
-						//搜索页面系统资源 //头部显示加上数目
+						//搜索页面资源 跳转
 						Preview.source({
-							resId:$scope.VM.resourceId,
-							searchKeyword:$scope.searchKeyWord,
-							fromFlag:$scope.VM.fromFlag,
+							resId: $scope.VM.resourceId,
+							searchKeyword: $scope.searchKeyWord,
+							fromFlag: $scope.VM.fromFlag,
 							isSearch: 1,
 							page: current,
 							perPage: 20
