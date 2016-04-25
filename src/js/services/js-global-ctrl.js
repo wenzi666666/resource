@@ -106,7 +106,7 @@
 		window.allFormats = imgType.concat(docType, pptType, swfType, webType, videoType, audioType, cajType, otherType);
 		
 	}
-
+	window.typeConfirm();
 	/**
 	 * 打包完成提示
 	 */

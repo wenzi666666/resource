@@ -30,14 +30,15 @@
 		</div>
 	</div>
 	<div class="col-md-2" >
-		<div class="slide_head">类型：<span class="type_box"><span>{{typeName}}</span><i class="icon-angle-down" ng-hide="VM.preShow"></i></span>
-			<div class="pop-type-box" ng-hide="VM.preShow">
+		<!--<div class="slide_head">类型：<span class="type_box"><span>{{typeName}}</span><i class="icon-angle-down" ng-hide="VM.preShow"></i></span>-->
+		<div class="slide_head">推荐资源：
+			<!--<div class="pop-type-box" ng-hide="VM.preShow">
 				<div class="pop-type">
 					<ul>
 						<li ng-repeat="type in sourceType" ng-click="selectType(type.id,$index)" ng-class="typeLight[$index]?'selected':''" >{{type.mtype}}</li>
 					</ul>
 				</div>
-			</div>
+			</div>-->
 		</div>
 		<div class="slide-list">
 			<div class="slide-list-item" ng-repeat="item in VM.allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
@@ -46,7 +47,7 @@
 				</div>
 				<span class="text-ellipsis">{{item.title}}</span>
 			</div>
-			<div class="more" ng-click="getAllSourceMore()" ng-hide="VM.resShow">加载更多</div>
+			<!--<div class="more" ng-click="getAllSourceMore()" ng-hide="VM.resShow">加载更多</div>-->
 		</div>
 		
 	</div>

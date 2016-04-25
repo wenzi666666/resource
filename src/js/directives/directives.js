@@ -10,24 +10,24 @@
 				link: function postLink(scope, iElement, iAttrs) {
 					iElement.bind('error', function() {
 						var src = iAttrs.fallbackSrc;
+						var format = '.' + src.split('.')[src.split('.').length-1];
 						var fallbacksrc = "assets/img/sample.png";
 						console.log(src)
 						//备课夹默认图片
 						if(src == "prepare") {
 							angular.element(this).attr("src", "assets/img/prepare_default.png");
-						}
-						else if(src == "personalcenter") {
+						}else if(src == "personalcenter") {
 							angular.element(this).attr("src", "assets/img/person/head/Icon12.jpg");
-						}
-						else {
+						}else {
 							//是否包含中文正则
-							var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
-							if (!src){
+//							var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+							console.log(window.allFormats, format)
+							if(_.indexOf(window.allFormats, format) > -1 ){
+							  	angular.element(this).attr("src", window.IconServer+src+".png");
+							}else{
 								angular.element(this).attr("src", fallbacksrc);
-							} else {
-							  angular.element(this).attr("src", window.IconServer+src+".png");
 							}
-						}								
+						}
 					});
 				}
 			}

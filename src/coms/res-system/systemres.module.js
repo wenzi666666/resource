@@ -97,10 +97,14 @@
 				}
 				
 				//获取 最近三个备课夹
-				var getLatesPrepare = function() {
+				var getLatesPrepare = function(showModal) {
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
+						
+						if(showModal){
+							ModalMsg.logger("成功加入备课夹：" + $scope.prepareList[0].title);
+						}
 					})
 				}
 				
@@ -127,7 +131,8 @@
 							
 							currentPrepareId = $scope.prepareList[prepareIndex].id;
 							
-							getLatesPrepare();
+							getLatesPrepare(true);
+
 						} else {
 							ModalMsg.error(data);
 						}
@@ -149,7 +154,7 @@
 								fromFlags: $localStorage.fromFlag
 							}, function(data) {
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 获取当前节点备课夹
 								getPrepare($localStorage.currentTreeNode.tfcode);
 								//加1
@@ -168,7 +173,7 @@
 								//加1
 								$scope.shopCount++;
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 动画显示
 								addPrepareAnimation();
 							} else {
@@ -206,7 +211,7 @@
 								fromFlags: flags.toString()
 							}, function(data) {
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 获取当前节点备课夹
 								getPrepare($localStorage.currentTreeNode.tfcode);
 								//加$scope.shopCount.length
@@ -232,7 +237,7 @@
 								// 动画显示
 								addPrepareAnimation();
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								
 								ModalMsg.logger("批量加入成功");
 							} else {
@@ -258,9 +263,9 @@
 								// 获取备课夹
 								getPrepare($localStorage.currentTreeNode.tfcode);
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 成功提示
-								ModalMsg.logger("创建成功！")
+//								ModalMsg.logger("创建成功！")
 							})
 					    }
 					 });
