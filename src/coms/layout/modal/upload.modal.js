@@ -104,27 +104,36 @@
 					}
 					$localStorage.files = files;
 					
-					// 根据后缀名 获取资源类型
-					console.log("upload")
-					Res.unifyType4ext({
-						ext:'.'+files[0].name.split('.')[files[0].name.split('.').length-1]
-					}, function(data) {
-						$localStorage.unifyType = data.data;
+					// 打开资源信息编辑
+					var openModal = function() {
 						setTimeout(function(){
-							var modalNewUploadInfo = $uibModal.open({
-								templateUrl: "eiditResModal.html",
-								windowClass: "upload-modal",
-								controller: 'editResController',
-								// scope: $scope //Refer to parent scope here
-							})
-							//上传返回处理
-							modalNewUploadInfo.result.then(function(data) {
-								console.log("receive", data)
-								$uibModalInstance.close(data);
-							});
+								var modalNewUploadInfo = $uibModal.open({
+									templateUrl: "eiditResModal.html",
+									windowClass: "upload-modal",
+									controller: 'editResController',
+									// scope: $scope //Refer to parent scope here
+								})
+								//上传返回处理
+								modalNewUploadInfo.result.then(function(data) {
+									console.log("receive", data)
+									$uibModalInstance.close(data);
+								});
 						}, 300) 
-					})
-					
+					}
+					// 根据后缀名 获取资源类型
+					//本地
+					if(!isWeb) {
+						Res.unifyType4ext({
+							ext:'.'+files[0].name.split('.')[files[0].name.split('.').length-1]
+						}, function(data) {
+							$localStorage.unifyType = data.data;
+							openModal();
+						})
+					}else{
+						// 默认
+						$localStorage.unifyType = [{"id":2,"mtype":"文本素材","code":"FL0101"}];
+						openModal();
+					}
 					
 				}	
 			}
