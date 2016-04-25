@@ -115,80 +115,101 @@
 #prepare-content .list-content{
     margin: 10px;
 }
-.list-content .hold-on, .list-content .local-res{
-    color: @color2;
-    float: right;
-    margin-right: 10px;
-    padding:5px;
-}
-.list-content .list-item{
-   padding: 15px 0;
-   margin-top: 5px;
-   position: relative;
-}
-.list-content .list-item:hover{
-  background: @color4;
-}
-.list-content .item-info{
-   display: inline-block;
-   margin-left: 10px;
-   min-width: 250px;
-   vertical-align: middle;
-}
-.list-content .list-item i{
-   color: @color5;
-   margin: 5px;
-   padding: 5px;
-   border-radius: 3px;
-}
-.list-content .list-item i:hover{
-   color: #fff;
-   background: @color5;
-}
-.list-item span {
-    cursor: pointer;
-}
-.list-content .list-item-thumb{
-    width: 100px;
-    height: 60px;
-}
-.list-content .item-info-title{
-    padding-top: 10px;
-}
-.list-content .prepare-download {
-    margin-left: 50px;
-    margin-right: 20px;
-    display: inline-block;
-}
+
+.list-content {
+
+    .hold-on, .list-content .local-res{
+        color: @color2;
+        float: right;
+        margin-right: 10px;
+        padding:5px;
+    }
+
+    .list-item{
+       padding: 15px 0;
+       margin-top: 5px;
+       position: relative;
+    }
+
+    .list-item:hover{
+      background: @color4;
+    }
+
+    .item-info{
+       display: inline-block;
+       margin-left: 10px;
+       width: 20%;
+       vertical-align: middle;
+    }
+
+    .list-item i{
+       color: @color5;
+       margin: 5px;
+       padding: 5px;
+       border-radius: 3px;
+    }
+
+    .list-item span {
+        cursor: pointer;
+    }   
+
+    .list-item i:hover{
+       color: #fff;
+       background: @color5;
+    }
+
+    .list-item-thumb{
+        width: 100px;
+        height: 60px;
+    }
+
+    .item-info-title{
+        padding-top: 10px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
+
+    .prepare-download {
+        margin-left: 50px;
+        margin-right: 20px;
+        display: inline-block;
+    }
+
+    span img {
+        width: 20px;
+    }
+
+    .right-tools{
+        float: right;
+        padding-right: 15px;
+        text-align: center;
+        vertical-align: bottom;
+    }
 
 
-.list-content span img {
-    width: 20px;
-}
-.list-content .right-tools{
-    float: right;
-    padding-right: 15px;
-    text-align: center;
-    vertical-align: bottom;
-}
-.list-content .right-tools span {
-    cursor: pointer;
-}
+    .right-tools span {
+        cursor: pointer;
+    }
 
-.list-content .right-tools span .sp-wrap-img {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-}
-.list-content .right-tools span img {
-    margin: 0 5px;
-    width: 25px;
-    height: 25px;
-}
 
-.list-content .right-tools span img.active {
-    background-color: #219B81;
-    border-radius: 10px;
+    .right-tools span .sp-wrap-img {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+    }
+
+    .right-tools span img {
+        margin: 0 5px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .right-tools span img.active {
+        background-color: #219B81;
+        border-radius: 10px;
+    }
 }
 
 //备课夹列表
