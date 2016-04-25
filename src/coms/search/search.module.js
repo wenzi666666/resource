@@ -106,7 +106,6 @@
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
 					clearPage();
 					getFormat();//资源格式
-					getSourceList();
 				}
 				
 				//资源格式
@@ -128,12 +127,15 @@
 							$scope.VM.currentTypeNum = [];
 							$scope.VM.currentTypeNum[0] = true;
 							$scope.VM.currentFormat = $scope.VM.typeNums[0];
+							getSourceList();
 						}else{
 							ModalMsg.logger(data.message);
 						}
 					});
+						
 					
 				}
+				
 				getFormat();//资源格式
 				//资源格式切换
 				
@@ -145,7 +147,6 @@
 					$scope.VM.currentTypeNum[index] = true;
 					$scope.VM.currentFormat = $scope.VM.typeNums[index];
 					clearPage();
-					
 					getSourceList();
 				}
 				
@@ -163,7 +164,8 @@
 						searchKeyword:$scope.searchKeyWord,
 						format: $scope.VM.currentFormat,
 						page: $scope.bigCurrentPage,
-						perPage: $scope.perPage
+						perPage: $scope.perPage,
+						orderBy:$localStorage.orderBy
 					}, function(data) {
 						$scope.isLoading = false;
 						if (data.code == "OK") {
@@ -195,7 +197,7 @@
 
 					});
 				}
-				getSourceList();
+			
 				
 				//切换清楚分页
 				function clearPage(){
@@ -208,8 +210,6 @@
 			
 				//搜索内容
 				$scope.changeKeyWord=function(){
-					
-					getSourceList();
 					getFormat();//资源格式
 				}
 				//改变每页条数
