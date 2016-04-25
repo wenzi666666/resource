@@ -104,15 +104,23 @@
 					$scope.VM.currentAreaSelect[index] = true;
 					$scope.VM.currentArea = $scope.VM.searchArea[index].area;
 					$scope.VM.currentFromFlag = $scope.VM.searchArea[index].id;
-					clearPage();
 					getFormat();//资源格式
 				}
 				
 				//资源格式
 				
 				function getFormat(){
+					clearPage();
 					$scope.VM.typeNums=[];
-					console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
+					$scope.sourceList=""; 
+					console.log($scope.VM.currentFromFlag,$scope.searchKeyWord);
+					if($scope.searchKeyWord=="")
+				 	{
+				 		 ModalMsg.logger("请输入搜索关键字");
+				 		 $scope.isLoading = false;
+				 		 return false;
+				 	}
+				 	$scope.isLoading = true;
 					Search.resourceFormats({
 						fromFlag:$scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord
@@ -159,6 +167,12 @@
 				 	$scope.sourceList="";
 				 	$scope.isLoading = true;
 				 	$scope.showNoInfo=false;
+				 	if($scope.searchKeyWord=="")
+				 	{
+				 		 ModalMsg.logger("请输入搜索关键字");
+				 		  $scope.isLoading = false;
+				 		 return false;
+				 	}
 					Search.searchResults({
 						fromFlag: $scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord,
