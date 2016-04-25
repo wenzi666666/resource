@@ -23,11 +23,6 @@
 					// console.log("uploadData:", $scope.uploadData);		
 				})
 				
-				// 获取资源类型
-				Res.unifyType({}, function(data) {
-					$localStorage.unifyType = data.data;
-				})
-
 				// 编辑完资源信息上传
 				$scope.VM = {
 					resName: '未命名',
@@ -83,7 +78,6 @@
 				
 				// 上传
 				$scope.uploadResInfo = function(isWeb) {
-//					$uibModalInstance.dismiss('cancel');
 					$localStorage.uploadData = $scope.uploadData;
 					var files = [];
 					//本地
@@ -110,19 +104,37 @@
 					}
 					$localStorage.files = files;
 					
-					setTimeout(function(){
-						var modalNewUploadInfo = $uibModal.open({
-							templateUrl: "eiditResModal.html",
-							windowClass: "upload-modal",
-							controller: 'editResController',
-							// scope: $scope //Refer to parent scope here
+					// 打开资源信息编辑
+					var openModal = function() {
+						setTimeout(function(){
+								var modalNewUploadInfo = $uibModal.open({
+									templateUrl: "eiditResModal.html",
+									windowClass: "upload-modal",
+									controller: 'editResController',
+									// scope: $scope //Refer to parent scope here
+								})
+								//上传返回处理
+								modalNewUploadInfo.result.then(function(data) {
+									console.log("receive", data)
+									$uibModalInstance.close(data);
+								});
+						}, 300) 
+					}
+					// 根据后缀名 获取资源类型
+					//本地
+					if(!isWeb) {
+						Res.unifyType4ext({
+							ext:'.'+files[0].name.split('.')[files[0].name.split('.').length-1]
+						}, function(data) {
+							$localStorage.unifyType = data.data;
+							openModal();
 						})
-						//上传返回处理
-						modalNewUploadInfo.result.then(function(data) {
-							console.log("receive", data)
-							$uibModalInstance.close(data);
-						});
-					}, 300) 
+					}else{
+						// 默认
+						$localStorage.unifyType = [{"id":2,"mtype":"文本素材","code":"FL0101"}];
+						openModal();
+					}
+					
 				}	
 			}
 		])
@@ -578,7 +590,7 @@
 				// 资源类型选择
 				$scope.currentTypeSeclet = [];
 				$scope.currentTypeSeclet[0] = true;
-				$scope.currentTypeIndexSeclet = 4;
+				$scope.currentTypeIndexSeclet = 0;
 				$scope.selectType = function(index) {
 					//选中
 					_.each($scope.unifyType, function(v, i) {
@@ -600,9 +612,6 @@
 					$scope.currentScopeSeclet[index] = true;
 					$scope.currentScopeIndexSeclet = index;
 				}
-				
-				
-
 			}
 		])
 }());

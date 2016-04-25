@@ -130,6 +130,8 @@
 				//备课夹显示问题
 				$scope.VM.prepareShow=false;
 				
+				//当前页
+				var current=1;
 				
 				//当前目录  返回显示
 				$scope.links=[];
@@ -340,7 +342,7 @@
 				
 				//获取所有资源
 				var pageSize=0;
-				var current=1;
+//				var current=1;
 				$scope.VM.allSourceList=[];
 				 //加载更多资源
 				 $scope.getAllSourceMore=function(){
@@ -363,6 +365,7 @@
 					$scope.curImg=[];
 					if (($scope.VM.fromFlag == "0")&&($scope.VM.search=="html")) {
 						//系统
+						
 						Preview.source({
 							resId:$scope.VM.resourceId,
 							poolId: 0,
@@ -466,12 +469,14 @@
 								alert(data.message);
 							}
 						});
-					}else if((($scope.VM.fromFlag == "0") || ($scope.VM.fromFlag == "-1") || ($scope.VM.fromFlag == "3") || ($scope.VM.fromFlag == "4"))&&($scope.VM.search=="search")){
-						//搜索页面系统资源 //头部显示加上数目
+					}else if($scope.VM.search=="search")
+					{
+						//搜索页面资源 跳转
+						console.log(current+"搜索页")
 						Preview.source({
-							resId:$scope.VM.resourceId,
-							searchKeyword:$scope.searchKeyWord,
-							fromFlag:$scope.VM.fromFlag,
+							resId: $scope.VM.resourceId,
+							searchKeyword: $scope.searchKeyWord,
+							fromFlag: $scope.VM.fromFlag,
 							isSearch: 1,
 							page: current,
 							perPage: 20
@@ -520,6 +525,7 @@
 					}else if($scope.VM.search=="person" && $scope.VM.personType=="1")
 					{
 						//个人中心页面上传推荐资源 
+						console.log(current+"个人中心")
 						Preview.source({
 							resId:$scope.VM.resourceId,
 							fromFlag:$scope.VM.fromFlag,
