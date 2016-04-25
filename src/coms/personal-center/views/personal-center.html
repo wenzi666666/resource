@@ -5,7 +5,7 @@
 				<div class="cen-info">
 					<div class="user-avatar">
 						<div class="avatar-box">
-							<img ng-src="{{user.userImage}}">
+							<img ng-src="{{user.userImage}}" fallback-src="personalcenter">
 							<img class="edit-avatar-icon" src="assets/img/person/edit_avatar.png" ui-sref="settings"></img>		
 						</div>
 						<span class="user-name">{{user.trueName }}</span>

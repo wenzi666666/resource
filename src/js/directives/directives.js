@@ -16,6 +16,9 @@
 						if(src == "prepare") {
 							angular.element(this).attr("src", "assets/img/prepare_default.png");
 						}
+						else if(src == "personalcenter") {
+							angular.element(this).attr("src", "assets/img/person/head/Icon12.jpg");
+						}
 						else {
 							//是否包含中文正则
 							var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
