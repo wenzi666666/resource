@@ -165,7 +165,6 @@
 						format: $scope.VM.currentFormat,
 						page: $scope.bigCurrentPage,
 						perPage: $scope.perPage,
-						orderBy:$localStorage.orderBy
 					}, function(data) {
 						$scope.isLoading = false;
 						if (data.code == "OK") {
