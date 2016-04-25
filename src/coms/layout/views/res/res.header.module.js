@@ -88,6 +88,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
 					},
+					//获取资源类型(根据文件的后缀)
+					unifyType4ext: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType4ext"
+					},
 					// 查询资源库
 					pools: {
 						method: "GET",
