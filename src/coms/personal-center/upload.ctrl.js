@@ -16,11 +16,6 @@
 					console.log("uploadData:", $scope.uploadData)			
 				})
 				
-				// 获取资源类型
-				Res.unifyType({}, function(data) {
-					$localStorage.unifyType = data.data;
-				})
-
 				// 编辑完资源信息上传
 				$scope.VM = {
 					resName: '未命名',
