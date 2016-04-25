@@ -44,7 +44,10 @@
 						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
 							setTimeout(function(){
 								$uibModalInstance.dismiss('cancel');
-							}, 3000)
+							}, 3000);
+							$scope.cancelModal = function(){
+								$uibModalInstance.dismiss('cancel');
+							}
 						}]
 					});
 				},

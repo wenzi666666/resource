@@ -244,22 +244,28 @@
 				
 				// 新建备课夹
 				$scope.VM.newPrepare = "新建备课夹";
-				$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
-					console.log(newVal,oldVal)
-				    if (newVal !== oldVal && newVal != "新建备课夹") {
-				    	console.log(newVal,oldVal)
-						Prepare.basePostApi({
-							tfcode: $localStorage.currentTreeNode.tfcode,
-							title: $scope.VM.newPrepare
-						}, function(d) {
-							$scope.VM.newPrepare = "新建备课夹";
-							// 获取备课夹
-							getPrepare($localStorage.currentTreeNode.tfcode);
-							// 获取最近三个备课夹
-							getLatesPrepare();
-						})
-				    }
-				 });
+				
+				setTimeout(function(){
+					$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
+						console.log(newVal,oldVal)
+					    if (newVal !== oldVal && newVal != "新建备课夹") {
+					    	console.log(newVal,oldVal)
+							Prepare.basePostApi({
+								tfcode: $localStorage.currentTreeNode.tfcode,
+								title: $scope.VM.newPrepare
+							}, function(d) {
+								$scope.VM.newPrepare = "新建备课夹";
+								// 获取备课夹
+								getPrepare($localStorage.currentTreeNode.tfcode);
+								// 获取最近三个备课夹
+								getLatesPrepare();
+								// 成功提示
+								ModalMsg.logger("创建成功！")
+							})
+					    }
+					 });
+				},2000)
+				
 				 
 				 // 选择备课夹
 				$scope.selectPrepare = function(e,listIndex) {
