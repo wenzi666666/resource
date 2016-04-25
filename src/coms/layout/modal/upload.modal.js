@@ -20,7 +20,7 @@
 				Res.getUploadUrl({}, function(data) {
 					$scope.uploadData = data.data;
 					$scope.uploadDisable = false;
-					console.log("uploadData:", $scope.uploadData);		
+					// console.log("uploadData:", $scope.uploadData);		
 				})
 				
 				// 获取资源类型
@@ -51,7 +51,7 @@
 					$scope.files = files;
 					
 					angular.forEach($scope.files, function(file) {
-						console.log(file)
+						// console.log(file)
 						file.upload = Upload.upload({
 							url: $scope.uploadData.uploadUrl,
 							data: {
@@ -63,10 +63,10 @@
 							$timeout(function() {
 								file.result = response.data;
 								$scope.files.responseName = response.data;
-								console.log(response.data)
+								// console.log(response.data)
 							});
 						}, function(response) {
-							console.log(response.data)
+							// console.log(response.data)
 							if (response.status > 0)
 								$scope.errorMsg = response.status + ': ' + response.data;
 						}, function(evt) {
@@ -91,7 +91,7 @@
 						$localStorage.isWeb = false;
 						// localstorage不支持file对象？ 转存一下
 						_.each($scope.files, function(v,i){
-							console.log(v)
+							// console.log(v)
 							var tmp = {};
 							tmp.name = v.name;
 							tmp.responseName = v.result;
@@ -147,7 +147,7 @@
 				var fileType = $scope.uploadFilesData[0].name.split('.')[$scope.uploadFilesData[0].name.length-1]
 //				typeConfirm(fileType)	
 				
-				console.log($scope.uploadData, $scope.uploadFilesData)
+				// console.log($scope.uploadData, $scope.uploadFilesData)
 				
 				// 监听目录树变化
 				var getTreeData = function(){
@@ -159,7 +159,7 @@
 						$scope.currentNode = data.data[0];
 						//展开第一个节点
 						$scope.expandedNodes = [$scope.treedataSelect[0]];
-						console.log("tree data:", data.data);
+						// console.log("tree data:", data.data);
 					})
 				}
 				
@@ -218,7 +218,7 @@
 						var islocals = [];
 						
 						_.each($scope.uploadFilesData,function(v,i) {
-							console.log(v.name.split('.')[0])
+							// console.log(v.name.split('.')[0])
 							names.push(v.name.split('.')[0]);
 							tfCodes.push($scope.currentNode.tfcode);
 							unifTypeIds.push($scope.unifyType[$scope.currentTypeIndexSeclet].id);
@@ -256,9 +256,10 @@
 						islocals: $scope.res.islocals
 					}, function(data) {
 						if(data.code == "OK") {
-//							$uibModalInstance.dismiss('cancel');
+							// $uibModalInstance.dismiss('cancel');
+							console.log(data.data);
 							$uibModalInstance.close(data.data);
-							ModalMsg.logger("上传成功啦");
+							// ModalMsg.logger("上传成功啦");
 							// 上传资源 列表
 //							setTimeout(function(){
 //								window.location.reload();
@@ -287,7 +288,7 @@
 
 				//读取 学段 学科 版本 和教材
 				Res.getTerms({}, function(data) {
-						console.log(data);
+						// console.log(data);
 						if (data.code == "OK") {
 							$scope.VM.grade = data.data;
 							// 根据用户当前选择>当前信息选择
@@ -333,7 +334,7 @@
 								if (v.id == $localStorage.currentSubject.id)
 									$scope.VM.currentSubjectSeclet[i] = true;
 							})
-							console.log("学科：", data.data)
+							// console.log("学科：", data.data)
 						}).$promise;
 					})
 					.then(function(data) {
@@ -341,7 +342,7 @@
 							termId: $localStorage.currentGrade.id,
 							subjectId: $localStorage.currentSubject.id
 						}, function(data) {
-							console.log("版本：", data.data);
+							// console.log("版本：", data.data);
 							$scope.VM.version = data.data;
 							if ($scope.VM.version.length == 0) {
 								$scope.VM.currentVersion = null;
@@ -371,7 +372,7 @@
 							return Res.getBooks({
 								pnodeId: id
 							}, function(data) {
-								console.log("books：", data.data);
+								// console.log("books：", data.data);
 								$scope.VM.material = data.data;
 								if ($localStorage.currentMaterial) {
 									$scope.VM.currentMaterial = $localStorage.currentMaterial;
@@ -457,7 +458,7 @@
 						return Res.getBooks({
 							pnodeId: $scope.VM.version[0].id
 						}, function(data) {
-							console.log("books：", data.data);
+							// console.log("books：", data.data);
 							$scope.VM.material = data.data;
 							//缓存用户当前 教材
 							$localStorage.currentMaterial = $scope.VM.material[0];
@@ -503,12 +504,12 @@
 						})
 						$scope.VM.currentVersion = $scope.VM.version[0];
 						$scope.VM.currentVersionSeclet[0] = true;
-						console.log("版本：", data.data);
+						// console.log("版本：", data.data);
 					}).$promise.then(function(data) {
 						return Res.getBooks({
 							pnodeId: $scope.VM.version[0] ? $scope.VM.version[0].id : ''
 						}, function(data) {
-							console.log("books：", data.data);
+							// console.log("books：", data.data);
 							$scope.VM.material = data.data;
 							//缓存用户当前 教材
 							$localStorage.currentMaterial = $scope.VM.material[0];
@@ -541,7 +542,7 @@
 					Res.getBooks({
 						pnodeId: $scope.VM.version[index].id
 					}, function(data) {
-						console.log("books：", data.data);
+						// console.log("books：", data.data);
 						$scope.VM.material = data.data;
 						if ($scope.VM.material && $scope.VM.material.length > 0)
 						//缓存用户当前 教材

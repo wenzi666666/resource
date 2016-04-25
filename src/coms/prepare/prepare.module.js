@@ -142,7 +142,7 @@
 						termId: $localStorage.currentGrade.id,
 						subjectId: $localStorage.currentSubject.id,
 					}, function(data) {
-						console.log(data.data);
+						// console.log(data.data);
 						$scope.listAllData = data.data;
 						// console.log($scope.listData);
 					})
@@ -190,7 +190,7 @@
 				// 删除备课夹
 				$scope.deletePrepare = function(index, e) {
 					e.stopPropagation();
-					console.log($scope.listData[index]);
+					// console.log($scope.listData[index]);
 					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listData[index].title);
 
 					deleteModal.result.then(function(data) {
@@ -198,27 +198,26 @@
 							id: $scope.listData[index].id,
 							_method: "DELETE"
 						}, function(data) {
-
-							getPrepare();
+							console.log(data);
+							getPrepare($localStorage.currentTreeNode.tfcode);
 						})
 					})
 				}
 				
-				// 删除备课夹
-				$scope.deletePrepare2 = function(index, e) {
-					e.stopPropagation();
-					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData[index].title);
+				// // 删除备课夹
+				// $scope.deletePrepare2 = function(index, e) {
+				// 	e.stopPropagation();
+				// 	var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData[index].title);
 
-					deleteModal.result.then(function(data) {
-						Prepare.basePostApi({
-							id: $scope.listAllData[index].id,
-							_method: "DELETE"
-						}, function(data) {
-
-							getAllPrepare();
-						})
-					})
-				}
+				// 	deleteModal.result.then(function(data) {
+				// 		Prepare.basePostApi({
+				// 			id: $scope.listAllData[index].id,
+				// 			_method: "DELETE"
+				// 		}, function(data) {
+				// 			getAllPrepare();
+				// 		})
+				// 	})
+				// }
 
 				// 新建备课夹
 				$scope.newPrepare = function() {
@@ -466,13 +465,14 @@
 							resIds: data[0].id,
 							fromFlags: 1
 						}, function(d) {
+							console.log(d);
 							getPrepare($localStorage.currentTreeNode.tfcode);
-							if(d.code == "OK") {
-								getPrepare($localStorage.currentTreeNode.tfcode);
-							}
-							else {
-								ModalMsg.logger("上传到备课夹失败，请重试！")
-							}
+							// if(d.code == "OK") {
+							// 	getPrepare($localStorage.currentTreeNode.tfcode);
+							// }
+							// else {
+							// 	ModalMsg.logger("上传到备课夹失败，请重试！")
+							// }
 						})
 						
 					});
