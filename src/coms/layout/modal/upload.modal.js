@@ -83,7 +83,7 @@
 				
 				// 上传
 				$scope.uploadResInfo = function(isWeb) {
-					$uibModalInstance.dismiss('cancel');
+//					$uibModalInstance.dismiss('cancel');
 					$localStorage.uploadData = $scope.uploadData;
 					var files = [];
 					//本地
@@ -119,6 +119,7 @@
 						})
 						//上传返回处理
 						modalNewUploadInfo.result.then(function(data) {
+							console.log("receive", data)
 							$uibModalInstance.close(data);
 						});
 					}, 300) 
