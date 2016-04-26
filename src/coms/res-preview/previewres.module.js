@@ -77,8 +77,8 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes','Prepare','$uibModal',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes,Prepare,$uibModal) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','Res','Prepare','$uibModal',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,Res,Prepare,$uibModal) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -668,12 +668,12 @@
 				//下载资源
 				$scope.resDownload = function(id){
 					console.log(id,$scope.VM.fromFlag)
-					SystemRes.resDownload({
+					Res.resDownload({
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag
 					}, function(data){
+						openwin(data.data[0].path);
 						$scope.VM.info.dloadTimes=	$scope.VM.info.dloadTimes+1;
-						window.open(data.data[0].path, "_blank");
 					});
 				}
 				
