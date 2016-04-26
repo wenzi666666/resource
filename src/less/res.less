@@ -509,13 +509,13 @@
 }
 .res-prepare-list{
     position: absolute;
-    right: 36px;
-    top:67px;
+    right: -37px;
+    top:27px;
     background: #fff;
     padding: 5px 20px;
     display: none;
     color: #999;
-    min-width: 100px;
+    min-width: 200px;
     z-index: 99999;
     border: 2px solid #41C9A9;
 }
@@ -549,7 +549,7 @@
 }
 
 .addPrepare-custom{
-    width: 100px;
+    width: 120px;
     float: right;
     height: 40px;
     margin-top: 5px;
@@ -567,13 +567,13 @@
 }
 .res-prepare-all{
     position: absolute;
-    right: 50px;
-    top:33px;
+    right: -15px;
+    top:29px;
     background: #fff;
     padding: 10px 20px;
     display: none;
     color: #999;
-    min-width: 100px;
+    min-width: 200px;
     z-index: 99999;
     border: 2px solid #41C9A9;
     font-size: 14px;
@@ -675,7 +675,82 @@
    color: #DF3D6D;
 }
 
+// 选择备课夹弹出框
+.prepare-select-modal .modal-dialog{
+    width: 900px;
+    height: 550px;
+}
+.prepare-select-modal .modal-body{
+    width: 900px;
+    text-align: left;
+    color: #666;
+    font-size: 15px;
+    height: 550px;
+    background: #fff;
+    border-radius: 5px;
+    border: 2px solid #41C9A9;
+    padding: 0;
+}
+.prepare-select-modal .select-prepare-content{
+    min-height: 300px;
+    padding:50px;
+    padding-bottom: 5px;
+    text-align: center;
+}
+.prepare-select-modal .modal-catogry,.prepare-select-modal .modal-prepare-name{
+    min-width: 35%;
+    float: left;
+    text-align: left;
+}
+.prepare-select-modal .prepare-seperate{
+    line-height: 350px;
+    width: 10%;
+    float: left;
+    color: #41c9a9;
+    font-size: 30px;
+}
+.prepare-select-modal .select-prepare-list{
+    height: 300px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    padding: 6px;
+    cursor: pointer;
+}
+.prepare-select-modal .select-prepare-list div{
+    margin-bottom: 5px;
+}
+.prepare-select-modal .select-prepare-list div:hover{
+   color: #41c9a9;
+}
 
+.prepare-select-modal .tree-embed{
+    left:50px;
+}
+.prepare-select-modal .select-active{
+    color: #41c9a9;
+    font-weight: bold;
+}
+// 加入最近备课夹
+.addLatestPrepare{
+    padding: 0;
+    margin-top: 0;
+    position: absolute;
+    right: 26px;
+    top:38px;
+    height: 31px;
+    width: 15px;
+    padding-left: 12px;
+}
+.addAllLatestPrepare{
+    padding: 0;
+    margin-top: 0;
+    position: absolute;
+    right: 30px;
+    top:3px;
+    height: 31px;
+    width: 15px;
+    padding-left: 12px;
+}
 .res-text-total{
     margin-left: 30px;
 }

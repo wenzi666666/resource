@@ -8,37 +8,38 @@
 	<div class="prepare-ctrls">
 		<div class="ctrls-prepare-list">
 			<div class="ctrls-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index">{{$index+1}}、{{item.title}} <span class="prepare-num">({{item.contentNumber}})</span></div>
-			<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>
+			<!--<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>-->
 		</div>
 	</div>
 </div>
 
 <!-- 选择加入 备课夹-->
 <script type="text/ng-template" id="select-prepare.html">
-	<div class="modal-body modal-prepare-body">
-		<div class="modal-prepare-header">选择备课夹</div>
-		<div class="modal-prepare-content">
-			<div class="modal-inner-content">
+	<div class="modal-body">
+		<div class="modal-prepare-header">备课夹</div>
+		<div class="select-prepare-content">
+			<div class="select-inner-content">
 				<div class="modal-catogry">
-					<span>教材目录：</span>
-					<span class="catogry-trigger" id="catogry-trigger" ng-click="treeTrigger()">
-						<span class="select-current" href="">{{ currentNode.label }}</span>
-					<i class="icon-angle-down"></i>
-					<i class="icon-angle-up"></i>
-					</span>
-					<div class="tree-embed" ng-show="showTree">
-						<treecontrol id="tree-embed" click-outside="closeThis()" outside-if-not="tree-embed,catogry-trigger" class="tree-light" tree-model="treedataSelect" on-selection="showSelected(node)" expanded-nodes="expandedNodes" options="opts">
+					<span>选择目录：</span><br>
+					<div class="tree-embed">
+						<treecontrol id="tree-embed" class="tree-light" tree-model="treedataSelect" on-selection="showSelected(node)" expanded-nodes="expandedNodes" selected-node="selected" options="opts">
 							{{node.label}}
 						</treecontrol>
 					</div>
 				</div>
+				<div class="prepare-seperate"><i class="icon-angle-right"></i><i class="icon-angle-right"></i></div>
 				<div class="modal-prepare-name">
-					<span>备课夹名称：</span>
-					<select ng-change="selectPrepare(currentPrepare)" ng-model="currentPrepare">
-						<option ng-repeat="pp in prepares track by $index" ng-bind="pp.title" value="{{pp}}"></option>
-					</select>
+					<span>选择备课夹:</span>
+					<!--<select ng-change="selectPrepare(currentPrepare)" ng-model="currentPrepare">-->
+					<div class="select-prepare-list">
+						<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>
+						<div ng-repeat="pp in prepares track by $index" ng-class="{'select-active':isActive($index)}" ng-click="selectPrepare($index)" ng-bind="pp.title" value="{{pp}}"></div>
+						<div ng-show="prepares.length == 0">当前选择下没有备课夹，请重新选择 或者 新建</div>
+					</div>
+					<!--</select>-->
 				</div>
 			</div>
+			<div class="clearfix"></div>
 			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="moveOk()">确定</button>
 			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="moveCancel()">取消</button>
 		</div>

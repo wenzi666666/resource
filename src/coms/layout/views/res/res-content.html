@@ -48,7 +48,10 @@
 				
 				<span class="res-list-tools">
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
-						加入备课夹
+						加入当前节点备课夹&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+					<div class="res-select addPrepare addLatestPrepare">
+						<i class="icon-sort-down"></i>
 						<div class="res-prepare-list">
 							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
@@ -88,7 +91,7 @@
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
 					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
-						  加入备课夹
+						  加入备课夹&nbsp; <i class="icon-sort-down"></i>
 						<div class="res-prepare-thumb" >
 							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
@@ -107,7 +110,10 @@
 			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
 			
 			<div class="res-select addPrepareAll res-add-prepare-all" ng-click="addAllToPrepare($event)">
-				加入备课夹
+				加入当前节点备课夹&nbsp;&nbsp;
+			</div>
+			<div class="res-select addPrepareAll addAllLatestPrepare">
+				<i class="icon-sort-down"></i>
 				<div class="res-prepare-all addPrepareAllInner">
 					<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index" ng-click="addAllToPrepare($event, $index)">{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 					<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
