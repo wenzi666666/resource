@@ -68,8 +68,10 @@
 							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 							$scope.progress = file.progress;
 							// 上传完成
-							if($scope.progress ==100) {
-								$scope.uploadFinish = false;
+							if($scope.progress == 100) {
+								setTimeout(function(){
+									$scope.uploadFinish = false;
+								},1000)
 							}
 //							
 						});
@@ -157,9 +159,6 @@
 				
 				//根据上传后缀名确定 上传类型
 				var fileType = $scope.uploadFilesData[0].name.split('.')[$scope.uploadFilesData[0].name.length-1]
-//				typeConfirm(fileType)	
-				
-				// console.log($scope.uploadData, $scope.uploadFilesData)
 				
 				// 监听目录树变化
 				var getTreeData = function(){
@@ -213,9 +212,20 @@
 						ModalMsg.logger("关键词不能为空");
 						return;
 					}
+					// path生成失败，需重试
+					if(!$scope.uploadFilesData) {
+						$scope.uploadFilesData = $localStorage.files;
+						ModalMsg.logger("上传文件路径获取不成功，请重试");
+						return;
+					};
 					if(!$scope.res.description) {
 						$scope.res.description = ' ';
 					}
+					// 资源类型失败，默认为素材
+					if(!$scope.unifyType) {
+						$scope.unifyType = [{"id":2,"mtype":"文本素材","code":"FL0101"}];
+					};
+					
 					// 统一批量上传
 					if(!!$scope.addAll) {
 						var names = [];
