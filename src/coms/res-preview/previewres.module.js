@@ -688,24 +688,28 @@
 					Prepare.baseGetApi({
 						tfcode:$scope.VM.tfCode 
 					}, function(data) {
-						console.log("prepare:",data.data);
+						
 						$scope.prepareDataList = data.data;
-						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
+						currentPrepareId = $scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
+						console.log("prepare:",$scope.prepareDataList,currentPrepareId);
 						
 					});
 				}
 				 
 				//获取 最近三个备课夹
-				var getLatesPrepare = function() {
+				var getLatesPrepare = function(showModal) {
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
+						if(showModal){
+							ModalMsg.logger("成功加入备课夹：" + $scope.prepareList[0].title);
+						}
 					})
 				}
 				setTimeout(function(){
 					getPrepare();
 					getLatesPrepare();
-				}, 200);
+				}, 600);
 				
 				//加入备课夹
 				//将资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
@@ -715,8 +719,8 @@
 					{
 						currentPrepareId=preId;
 					}
-					console.log(currentPrepareId)
-					if($scope.prepareList.length == 0) {
+					console.log("id:",currentPrepareId)
+					if($scope.prepareDataList.length == 0) {
 						Prepare.basePostApi({
 							tfcode: $scope.VM.tfCode,
 							title: $scope.VM.name
@@ -732,7 +736,7 @@
 								// 获取备课夹
 								getPrepare();
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 动画显示
 								addPrepareAnimation();
 							})
@@ -749,7 +753,7 @@
 								// 获取备课夹
 								getPrepare();
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 动画显示
 								addPrepareAnimation();
 							} else {
