@@ -204,20 +204,21 @@
 					})
 				}
 				
-				// // 删除备课夹
-				// $scope.deletePrepare2 = function(index, e) {
-				// 	e.stopPropagation();
-				// 	var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData[index].title);
+				// 删除备课夹
+				$scope.deletePrepare2 = function(index, e) {
+					e.stopPropagation();
+					// console.log($scope.listAllData);
+					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData.list[index].title);
 
-				// 	deleteModal.result.then(function(data) {
-				// 		Prepare.basePostApi({
-				// 			id: $scope.listAllData[index].id,
-				// 			_method: "DELETE"
-				// 		}, function(data) {
-				// 			getAllPrepare();
-				// 		})
-				// 	})
-				// }
+					deleteModal.result.then(function(data) {
+						Prepare.basePostApi({
+							id: $scope.listAllData.list[index].id,
+							_method: "DELETE"
+						}, function(data) {
+							getAllPrepare();
+						})
+					})
+				}
 
 				// 新建备课夹
 				$scope.newPrepare = function() {
@@ -229,12 +230,22 @@
 
 					//创建备课夹
 					modalNewPrepare.result.then(function(data) {
-						console.log(data)
+						console.log(data);
+						var title = data.name;
+						var newTitle = data.name;
+						// var count = 1;
+						// _.each($scope.listData, function(v, i) {
+						// 	if(v.title == title) {
+						// 		count ++;
+						// 	}
+						// })
+						// newTitle = title + "(" + count + ")";
 						Prepare.basePostApi({
 							tfcode: data.code,
-							title: data.name
+							title: newTitle
 						}, function(d) {
 							getPrepare(data.code);
+							getAllPrepare();
 						})
 					});
 				}
