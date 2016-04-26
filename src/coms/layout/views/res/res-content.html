@@ -50,10 +50,10 @@
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
 						加入当前节点备课夹&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
-					<div class="res-select addPrepare addLatestPrepare">
+					<div class="addPrepare-list addLatestPrepare">
 						<i class="icon-sort-down"></i>
 						<div class="res-prepare-list">
-							<div class="res-prepare-list-item addPrepareInner" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
+							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
@@ -93,9 +93,9 @@
 					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
 						  加入备课夹&nbsp; <i class="icon-sort-down"></i>
 						<div class="res-prepare-thumb" >
-							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
+							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
-							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
+							<div class="res-prepare-list-item res-prepare-list-more res-prepare-list-item" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
 					</div>
 				</div>
@@ -112,10 +112,10 @@
 			<div class="res-select addPrepareAll res-add-prepare-all" ng-click="addAllToPrepare($event)">
 				加入当前节点备课夹&nbsp;&nbsp;
 			</div>
-			<div class="res-select addPrepareAll addAllLatestPrepare">
+			<div class="addPrepareAll-list addAllLatestPrepare">
 				<i class="icon-sort-down"></i>
 				<div class="res-prepare-all addPrepareAllInner">
-					<div class="res-prepare-list-item" ng-repeat="item in prepareList track by $index" ng-click="addAllToPrepare($event, $index)">{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
+					<div class="res-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addAllToPrepare($event, $index)" title="{{item.title}}">{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 					<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 					<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 				</div>

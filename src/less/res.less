@@ -507,6 +507,9 @@
 .addPrepare:hover .res-prepare-list,.addPrepare:hover .res-prepare-thumb,.addPrepareAll:hover .res-prepare-all{
     display: block;   
 }
+.addPrepare-list:hover .res-prepare-list,.addPrepareAll-list:hover .res-prepare-all{
+    display: block;   
+}
 .res-prepare-list{
     position: absolute;
     right: -37px;
@@ -515,12 +518,14 @@
     padding: 5px 20px;
     display: none;
     color: #999;
-    min-width: 200px;
+    width: 200px;
     z-index: 99999;
     border: 2px solid #41C9A9;
 }
 .res-prepare-list-item{
     margin: 5px;
+    text-align: left;
+    cursor: pointer;
 }
 .res-prepare-thumb .res-prepare-list-item{
     margin: 0;
@@ -573,7 +578,7 @@
     padding: 10px 20px;
     display: none;
     color: #999;
-    min-width: 200px;
+    width: 200px;
     z-index: 99999;
     border: 2px solid #41C9A9;
     font-size: 14px;
@@ -589,6 +594,9 @@
 // 备课夹 资源数量
 .prepare-num{
     color: #E78024;
+}
+.icon-sort-down:hover{
+    color: #999;
 }
 @media screen and (max-width: 1400px) { /*当屏幕尺寸小于1050px时，应用下面的CSS样式*/
      .prepare-fixed{
@@ -735,11 +743,17 @@
     padding: 0;
     margin-top: 0;
     position: absolute;
-    right: 26px;
+    right: 56px;
     top:38px;
     height: 31px;
-    width: 15px;
+    width: 180px;
+    color: #fff;
     padding-left: 12px;
+    margin-left: 40px;
+    text-align: right;
+}
+.addLatestPrepare i{
+    text-align: left;
 }
 .addAllLatestPrepare{
     padding: 0;
@@ -748,8 +762,11 @@
     right: 30px;
     top:3px;
     height: 31px;
-    width: 15px;
+    width: 180px;
     padding-left: 12px;
+    color: #fff;
+    margin-right: 30px;
+    text-align: right;
 }
 .res-text-total{
     margin-left: 30px;
