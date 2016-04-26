@@ -47,9 +47,7 @@
 				</a>
 				
 				<span class="res-list-tools">
-					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
-						加入当前节点备课夹&nbsp;&nbsp;&nbsp;&nbsp;
-					</div>
+					
 					<div class="addPrepare-list addLatestPrepare">
 						<i class="icon-sort-down"></i>
 						<div class="res-prepare-list">
@@ -57,6 +55,9 @@
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
+					</div>
+					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
+						加入当前节点备课夹&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<br>
 					<label class="res-download" ng-click="resDownload(list.id)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
