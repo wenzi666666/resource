@@ -18,7 +18,7 @@
 			<ul class="slide-thumbnail">
 				<li ng-repeat="item in slidesCustom" ng-click="selectRes($index)">
 					<img ng-src="{{ item.imgPath }}" ng-click="getResPlayUrl($index, item.resId)"/>
-					<span>{{item.title}}</span>
+					<span class="slide-title text-ellipsis">{{item.title}}</span>
 				</li>
 			</ul>
 		</div>
