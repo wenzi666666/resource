@@ -109,31 +109,41 @@
 
 				//编辑资源
 				$scope.editRes = function(res) {
-					console.log(res);
-					var editResModal = $uibModal.open({
-						templateUrl: "eiditResModal.html",
-						windowClass: "upload-modal",
-						controller: 'editResInstanceCtrl',
-						resolve: {
-							resitem: function() {
-								return res;
+					console.log(res)
+					// 获取资源详细信息
+					Res.getResDetails({
+						id: res.resId
+					}, function(data){
+						var resDetails = data.data;
+						var editResModal = $uibModal.open({
+							templateUrl: "eiditResModal.html",
+							windowClass: "upload-modal",
+							controller: 'editResInstanceCtrl',
+							resolve: {
+								resitem: function() {
+									return res;
+								},
+								resDetails: function() {
+									return resDetails;
+								}
 							}
-						}
+						})
+	
+						editResModal.result.then(function(data) {
+							console.log(data);
+							// Res.editUploadRes({
+							// 	id: data.resId,
+							// 	name: data.title,
+							// 	unifTypeId: data.unifTypeId,
+							// 	tfcode: data.tfCode,
+							// 	keyword: data.keywords,
+							// 	desc: '',
+							// 	path: data.fpath,
+							// 	size: ''
+							// })
+						})
 					})
-
-					editResModal.result.then(function(data) {
-						console.log(data);
-						// Res.editUploadRes({
-						// 	id: data.resId,
-						// 	name: data.title,
-						// 	unifTypeId: data.unifTypeId,
-						// 	tfcode: data.tfCode,
-						// 	keyword: data.keywords,
-						// 	desc: '',
-						// 	path: data.fpath,
-						// 	size: ''
-						// })
-					})
+					
 				}
 
 				//预览自建资源

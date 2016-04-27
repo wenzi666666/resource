@@ -111,10 +111,10 @@
 					//获取单个资源信息(准备编辑)
 					getResDetails: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/asset",
-						params: {
-							id: '@id'
-						}
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/:id", 
+					    params:{ 
+					        id:'@id'
+					    }
 					}
 				})
 			}

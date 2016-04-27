@@ -627,14 +627,48 @@
 			}
 		])
 		
-		// 编辑资源信息
-		.controller("editResInstanceCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout','Tree', 'resitem',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout,Tree, resitem) {
+		// 再次编辑资源信息
+		.controller("editResInstanceCtrl", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout','Tree', 'resitem','resDetails',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout,Tree, resitem, resDetails) {
 				//变量共享
 				$scope.VM = {};
 				
 				$scope.res = resitem;
-				console.log("resitem", resitem);
+				$scope.resDetails = resDetails;
+				console.log("resitem", resitem, resDetails);
+				
+				// 获取并定位资源类型
+				Res.unifyType4ext({
+					ext: '.' + $scope.res.fileSuffix
+				}, function(data) {
+					$scope.unifyType = data.data;
+					console.log("$scope.unifyType:", $scope.unifyType);
+					
+				})
+				
+				// 定位资源类型 当前选择
+				var typeIndex = function(){
+					var index = 0; 
+					_.each($scope.unifyType, function(v,i){
+						console.log(v.mtype,$scope.res.unifyType );
+						
+						if(v.mtype == $scope.res.unifyType) {
+							index = i;
+						}
+					})
+					return index;
+				}
+				
+				// 资源类型选择
+				$scope.currentTypeSeclet = [];
+				$scope.selectType = function(index) {
+					//选中
+					_.each($scope.unifyType, function(v, i) {
+						$scope.currentTypeSeclet[i] = false;
+					})
+					$scope.currentTypeSeclet[index] = true;
+					$scope.currentTypeIndexSeclet = index;
+				}
 				
 				$scope.showHeader = false;
 				// 监听目录树变化
@@ -650,14 +684,6 @@
 						$scope.expandedNodes = [$scope.treedataSelect[0]];
 					})
 				}
-				
-				// 获取资源详细信息
-				Res.getResDetails({
-					id:$scope.res.id
-				},function(data){
-					console.log(data)
-				})
-				
 				
 				// 目录树 控制
 				$scope.showTree = false;
