@@ -1,7 +1,7 @@
 // 全局配置文件
 
 // 后端jsonapi代理
-window.BackendUrl = "http://127.0.0.1:3366/api";
+var BackendUrl = window.location.protocol + "//" + window.location.hostname + ":3366/api";
 //window.BackendUrl = "http://192.168.111.204:8880";
 // 后端tomcat服务
 window.TomcatUrl = "http://127.0.0.1:90";
