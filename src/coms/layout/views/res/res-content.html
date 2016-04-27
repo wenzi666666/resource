@@ -23,7 +23,7 @@
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="animated slideInUp res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
+			<li class="animated slideInUp res-input res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<a ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_new" title="{{list.title}}">
 					<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
 					<label for="{{$index}}"></label>
@@ -67,7 +67,7 @@
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="animated slideInUp res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
+			<li class="animated slideInUp res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<a ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_new" title="{{list.title}}">
 					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
 					<label for="{{$index}}"></label>
@@ -129,6 +129,7 @@
 				<span class="page-text">转到</span>
 				<input class="page-input" ng-model="pageTo"/>
 				<span class="page-go-btn" ng-click="pageChanged(pageTo)">Go</span>
+				<input class="page-input" type="checkbox"/>
 			</div>
 		</div> 
 	</div>

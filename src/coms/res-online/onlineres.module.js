@@ -55,7 +55,7 @@
 						id: id
 					}, function(data) {
 						$scope.slides = data.data;
-						$scope.getResPlayUrl(0,$scope.slides[0].resId)
+						$scope.getResPlayUrl(0,$scope.slides[0].resId,$scope.slides[0].fromFlag)
 						slideToolsInit();
 						console.log(data.data)
 					})
@@ -63,11 +63,11 @@
 				getPrepareDetails($stateParams.prepareId);
 				
 				// 获取 播放链接
-				$scope.getResPlayUrl = function(index,id) {
+				$scope.getResPlayUrl = function(index,id, flag) {
 					console.log(index,id)
 					Preview.resViewUrl({
 						resIds: id,
-						fromFlags:$localStorage.fromFlag
+						fromFlags:flag
 					}, function(data){
 						$scope.slides[index].src = data.data[0].path;
 						$scope.selectRes(index);
@@ -81,7 +81,7 @@
 					if(currentSlideIndex > 0) {
 						currentSlideIndex--;
 						$scope.selectRes(currentSlideIndex);
-						$scope.getResPlayUrl(currentSlideIndex, $scope.slides[currentSlideIndex].resId);
+						$scope.getResPlayUrl(currentSlideIndex, $scope.slides[currentSlideIndex].resId,$scope.slides[currentSlideIndex].fromFlag);
 					}else{
 						currentSlideIndex = $scope.slides.length-1;
 					}
@@ -93,7 +93,7 @@
 					if(currentSlideIndex < $scope.slides.length-1) {
 						currentSlideIndex++;
 						$scope.selectRes(currentSlideIndex);
-						$scope.getResPlayUrl(currentSlideIndex, $scope.slides[currentSlideIndex].resId);
+						$scope.getResPlayUrl(currentSlideIndex, $scope.slides[currentSlideIndex].resId,$scope.slides[currentSlideIndex].fromFlag);
 					}else{
 						currentSlideIndex = 0;
 					}

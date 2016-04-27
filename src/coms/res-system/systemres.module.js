@@ -313,6 +313,7 @@
 					}, function(data) {
 						
 						//初始化全选
+						$scope.VM.checkAll = [];
 //						_.each(data.data.list, function(v, i) {
 //							data.data.list[i].select = false;
 //						})
@@ -494,9 +495,16 @@
 				$scope.checkAll =  function() {
 					if(($scope.VM.checkAll)) {
 						$scope.resList.select = $scope.resList.list.map(function(item) { return item.id; });
-						console.log($scope.resList.select);
+						
+						setTimeout(function(){
+							$('.res-input input').trigger("click");
+						},300)
+						console.log($('.res-input input').length)
 					}else{
 						$scope.resList.select = [];
+						setTimeout(function(){
+							$('.res-input input').trigger("click");
+						},300)
 					}
 				}
 				

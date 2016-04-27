@@ -49,8 +49,6 @@ $("#slides").slides({
 
 $(function(){
 	//登陆
-	var BackendUrl = "http://chat.tfedu.net:3366/api1";
-	var TomcatUrl = "http://192.168.111.204:8880";
 	var clickNum=0;
 	$('.loginBtn').on('click', function(){
 		if($(".showBox").css("display")=="block")
