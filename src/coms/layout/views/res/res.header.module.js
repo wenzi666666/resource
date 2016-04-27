@@ -107,6 +107,14 @@
 					resZIpDownload: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
+					},
+					//获取单个资源信息(准备编辑)
+					getResDetails: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/:id", 
+					    params:{ 
+					        id:'@id'
+					    }
 					}
 				})
 			}

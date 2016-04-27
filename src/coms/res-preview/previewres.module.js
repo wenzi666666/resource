@@ -77,8 +77,8 @@
 				})
 			}
 		])
-		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','SystemRes','Prepare','$uibModal',
-			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,SystemRes,Prepare,$uibModal) {
+		.controller("PreviewResController", ['$scope', '$stateParams', '$state', '$location', 'Preview', '$localStorage','ModalMsg','Res','Prepare','$uibModal',
+			function($scope, $stateParams, $state, $location, Preview, $localStorage,ModalMsg,Res,Prepare,$uibModal) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -668,19 +668,18 @@
 				//下载资源
 				$scope.resDownload = function(id){
 					console.log(id,$scope.VM.fromFlag)
-					SystemRes.resDownload({
+					Res.resDownload({
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag
 					}, function(data){
+						openwin(data.data[0].path);
 						$scope.VM.info.dloadTimes=	$scope.VM.info.dloadTimes+1;
-						window.open(data.data[0].path, "_blank");
 					});
 				}
 				
 				
 				//获取备课夹
 				// 读取备课夹 列表
-				$scope.shopCount=0;
 				var currentPrepareId = '';
 				// 当前节点备课夹 列表
 				var getPrepare = function () {
@@ -731,8 +730,6 @@
 								resIds: $scope.VM.resourceId,
 								fromFlags: $scope.VM.fromFlag
 							}, function(data) {
-								//加1
-								$scope.shopCount++;
 								// 获取备课夹
 								getPrepare();
 								// 获取最近三个备课夹
@@ -748,8 +745,6 @@
 							fromFlags: $scope.VM.fromFlag
 						}, function(data) {
 							if(data.code == 'OK' || data.code == 'ok') {
-								//加1
-								$scope.shopCount++;
 								// 获取备课夹
 								getPrepare();
 								// 获取最近三个备课夹
@@ -763,25 +758,6 @@
 					}
 					
 				}
-				
-				// 新建备课夹
-				$scope.VM.newPrepare = "新建备课夹";
-				$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
-					console.log(newVal,oldVal)
-				    if (newVal !== oldVal && newVal != "新建备课夹") {
-				    	console.log(newVal,oldVal)
-						Prepare.basePostApi({
-							tfcode: $scope.VM.tfCode,
-							title: $scope.VM.newPrepare
-						}, function(d) {
-							$scope.VM.newPrepare = "新建备课夹";
-							// 获取备课夹
-							getPrepare();
-							// 获取最近三个备课夹
-							getLatesPrepare();
-						})
-				    }
-				 });
 				 
 				 // 选择备课夹
 				$scope.selectPrepare = function(e,listIndex) {
@@ -789,17 +765,22 @@
 					var selectPrepareModal = $uibModal.open({
 						templateUrl: "select-prepare.html",
 						controller: 'selectPrepareCtrl',
+						windowClass: "prepare-select-modal"
 					})
 
 					//到备课夹
 					selectPrepareModal.result.then(function(data) {
+						console.log("flag:", $scope.VM.fromFlag)
 						Prepare.addResToPrepareId({
 							id: data.prepareId,
-							resIds: $scope.resList.list[listIndex].id,
-							fromFlags: $scope.VM.fromflag
+							resIds: $scope.VM.resourceId,
+							fromFlags: $scope.VM.fromFlag
 						}, function(d) {
 							if(d.code == "OK") {
 								getPrepare();
+								getLatesPrepare(true);
+								// 动画显示
+								addPrepareAnimation();
 							}
 							else {
 								ModalMsg.logger("加入备课夹失败，请重试！")

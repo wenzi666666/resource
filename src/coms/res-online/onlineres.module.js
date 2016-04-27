@@ -143,7 +143,9 @@
 				}
 				
 				// 全屏切换
+//				$scope.isFullscreen = screenfull.isFullscreen;
 				$scope.toggleFullscreen = function() {
+					console.log(screenfull.isFullscreen)
 					if (screenfull.enabled) {
 					    screenfull.toggle($('.slide-container')[0]);
 					    
@@ -154,7 +156,27 @@
 				        	$scope.VM.slideTools = false;
 				        }
 					}
-				}				
+				}
+				
+				$scope.toggleSlideTools = function() {
+				    $scope.$apply(function() {
+						 $scope.VM.slideTools = false;
+					})
+				}
+				
+				// 监听 按键
+				$(document).keyup(function(event){
+
+					switch(event.keyCode) {
+						case 27:{
+							$scope.toggleSlideTools();
+							break;
+						}	
+						case 96:
+//						 	$scope.toggleSlideTools();
+						 	break;
+					}
+				})
 			}
 		])
 }());

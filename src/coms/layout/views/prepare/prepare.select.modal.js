@@ -6,10 +6,15 @@
 	angular.module('webApp.coms.modal')
 		.controller("selectPrepareCtrl", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage', 
 			function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage) {
+				// 变量共享
+				$scope.VM = {};
 				$scope.moveOk = function() {
-					console.log("test");
+					if(!$scope.selectedPrepareId){
+						ModalMsg.logger("请选择备课夹");
+						return;
+					}
 					var tmpVal = {
-						'prepareId': $scope.selectedPrepare.id,
+						'prepareId': $scope.selectedPrepareId,
 					}
 					$uibModalInstance.close(tmpVal);
 				};
@@ -26,39 +31,59 @@
 					$scope.treedataSelect = data.data;
 					//展开第一个节点
 					$scope.expandedNodes = [$scope.treedataSelect[0]];
+					$scope.selected = $scope.treedataSelect[0];
 					console.log("tree data:", data.data);
+					// 目录树节点选择
+					$scope.currentNode = $scope.treedataSelect[0];
+					getPrepare();
 				})
 				
-				// 目录树 控制
-				$scope.showTree = false;
-				$scope.treeTrigger = function() {
-					$scope.showTree = true;
-				}
-				$scope.closeThis = function() {
-					$scope.showTree = false;
-				}
+				$scope.isActive = function(item) {
+			        return $scope.listSelected === item;
+			 	};
 				
-				// 目录树节点选择
-				$scope.currentNode = $localStorage.currentTreeNode;
-				
-				$scope.showSelected = function(sel) {
-					$scope.currentNode =  sel;
-					//获取当前节点下的所有备课夹
+				//获取当前节点下的所有备课夹
+				var getPrepare = function(){
+					console.log($scope.currentNode.tfcode)
 					Prepare.baseGetApi({
 						tfcode: $scope.currentNode.tfcode
 					}, function(data) {
 						$scope.prepares = data.data;
-						if($scope.prepares.length == 0) {
-							$uibModalInstance.close();
-							ModalMsg.alert("当前目录下没有备课夹，请重新选择！");
-						}
+						
 					})
+				}
+				
+				// 新建备课夹
+				$scope.VM.newPrepare = "新建备课夹";
+				
+				setTimeout(function(){
+					$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
+						console.log(newVal,oldVal)
+					    if (newVal !== oldVal && newVal != "新建备课夹") {
+					    	console.log(newVal,oldVal)
+							Prepare.basePostApi({
+								tfcode: $scope.currentNode.tfcode,
+								title: $scope.VM.newPrepare
+							}, function(d) {
+								$scope.VM.newPrepare = "新建备课夹";
+								// 获取备课夹
+								getPrepare();
+							})
+					    }
+					 });
+				},2000)
+				
+				
+				$scope.showSelected = function(sel) {
+					$scope.selectedPrepareId = '';
+					$scope.currentNode =  sel;
+					getPrepare();
 				};
 				
-				$scope.selectedPrepare = {};
-				$scope.selectPrepare = function(prepare) {
-					var p = JSON.parse(prepare);
-					$scope.selectedPrepare.id = p.id;
+				$scope.selectedPrepareId = '';
+				$scope.selectPrepare = function(index) {
+					$scope.listSelected = index;
+					$scope.selectedPrepareId = $scope.prepares[index].id;
 				}
 			}
 		])	

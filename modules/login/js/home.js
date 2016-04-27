@@ -49,7 +49,8 @@ $("#slides").slides({
 
 $(function(){
 	//登陆
-	var BackendUrl = "http://chat.tfedu.net:3030/resapi";
+	var BackendUrl = "http://chat.tfedu.net:3366/api1";
+	var TomcatUrl = "http://192.168.111.204:8880";
 	var clickNum=0;
 	$('.loginBtn').on('click', function(){
 		if($(".showBox").css("display")=="block")
@@ -65,14 +66,15 @@ $(function(){
 		$.ajax({
 			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
 			data: { user_name: $('input[name=username]').val(), 
-				  	user_pwd: $('input[name=passwd]').val()
+				  	user_pwd: $('input[name=passwd]').val(),
+				  	target: TomcatUrl
 			}, 
 			success: function(data){
 				if(data.code == "OK") {
 					window.localStorage.setItem("credentialsToken", data.data.token);
 					//初始化用户信息
 					$.ajax({
-						url: BackendUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?token=' + data.data.token,
+						url: BackendUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?token=' + data.data.token + '&target=' + TomcatUrl,
 						success: function(data){
 							window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
 							window.location.href = '/';

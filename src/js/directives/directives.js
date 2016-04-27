@@ -21,7 +21,7 @@
 						}else {
 							//是否包含中文正则
 //							var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
-							console.log(window.allFormats, format)
+//							console.log(window.allFormats, format)
 							if(_.indexOf(window.allFormats, format) > -1 ){
 							  	angular.element(this).attr("src", window.IconServer+src+".png");
 							}else{

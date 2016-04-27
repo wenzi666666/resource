@@ -79,12 +79,12 @@
 			    // 设置 系统资源为0  校本是3 区本是4;
 			    $localStorage.fromFlag = 3;
 				$scope.fromFlag =  $localStorage.fromFlag;
-				// 加入备课夹 动画
-				$scope.shopCount = 0;
+				// 加入备课夹 计数
+//				$scope.shopCount = 0;
 
-				// 读取备课夹 列表
+				// 当前备课夹 
 				var currentPrepareId = '';
-				
+				// 当前节点备课夹 列表
 				var getPrepare = function(id) {
 					//获取当前节点 备课夹
 					Prepare.baseGetApi({
@@ -94,20 +94,23 @@
 						$scope.prepareDataList = data.data;
 						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
 					})
-					
-					getLatesPrepare();
 				}
 				
 				//获取 最近三个备课夹
-				var getLatesPrepare = function() {
+				var getLatesPrepare = function(showModal) {
 					Prepare.latestPrepare({}, function(data) {
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
+						
+						if(showModal){
+							ModalMsg.logger("成功加入备课夹：" + $scope.prepareList[0].title);
+						}
 					})
 				}
 				
 				setTimeout(function(){
-					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
+					getLatesPrepare();
+					getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'');
 				}, 1000);
 				
 				
@@ -122,13 +125,14 @@
 					}, function(data) {
 						if(data.code == 'OK' || data.code == 'ok') {
 							//加1
-							$scope.shopCount++;
+//							$scope.shopCount++;
 							// 动画显示
 							addPrepareAnimation();
 							
 							currentPrepareId = $scope.prepareList[prepareIndex].id;
 							
-							getLatesPrepare();
+							getLatesPrepare(true);
+
 						} else {
 							ModalMsg.error(data);
 						}
@@ -143,16 +147,18 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取最近三个备课夹
-							getLatesPrepare();
 							// 加入备课夹
 							Prepare.addResToPrepareId({
 								id: d.data.id,
 								resIds: $scope.resList.list[listIndex].id,
 								fromFlags: $localStorage.fromFlag
 							}, function(data) {
+								// 获取最近三个备课夹
+								getLatesPrepare(true);
+								// 获取当前节点备课夹
+								getPrepare($localStorage.currentTreeNode.tfcode);
 								//加1
-								$scope.shopCount++;
+//								$scope.shopCount++;
 								// 动画显示
 								addPrepareAnimation();
 							})
@@ -165,9 +171,9 @@
 						}, function(data) {
 							if(data.code == 'OK' || data.code == 'ok') {
 								//加1
-								$scope.shopCount++;
+//								$scope.shopCount++;
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								// 动画显示
 								addPrepareAnimation();
 							} else {
@@ -193,8 +199,6 @@
 							tfcode: $localStorage.currentTreeNode.tfcode,
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
-							// 获取最近三个备课夹
-							getLatesPrepare();
 							// 加入备课夹
 							//生成flags
 							var flags = new Array($scope.resList.select.length);
@@ -206,8 +210,12 @@
 								resIds: $scope.resList.select.toString(),
 								fromFlags: flags.toString()
 							}, function(data) {
+								// 获取最近三个备课夹
+								getLatesPrepare(true);
+								// 获取当前节点备课夹
+								getPrepare($localStorage.currentTreeNode.tfcode);
 								//加$scope.shopCount.length
-								$scope.shopCount += $scope.resList.select.length;
+//								$scope.shopCount += $scope.resList.select.length;
 								// 动画显示
 								addPrepareAnimation();
 							})
@@ -225,11 +233,11 @@
 						}, function(data) {
 							if(data.code == 'OK' || data.code == 'ok') {
 								//加$scope.shopCount.length
-								$scope.shopCount += $scope.resList.select.length;
+//								$scope.shopCount += $scope.resList.select.length;
 								// 动画显示
 								addPrepareAnimation();
 								// 获取最近三个备课夹
-								getLatesPrepare();
+								getLatesPrepare(true);
 								
 								ModalMsg.logger("批量加入成功");
 							} else {
@@ -238,22 +246,6 @@
 						})
 					}
 				}
-				
-				// 新建备课夹
-				$scope.VM.newPrepare = "新建备课夹";
-				$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
-					console.log(newVal,oldVal)
-				    if (newVal !== oldVal && newVal != "新建备课夹") {
-				    	console.log(newVal,oldVal)
-						Prepare.basePostApi({
-							tfcode: $localStorage.currentTreeNode.tfcode,
-							title: $scope.VM.newPrepare
-						}, function(d) {
-							$scope.VM.newPrepare = "新建备课夹"
-							getPrepare($localStorage.currentTreeNode.tfcode);
-						})
-				    }
-				 });
 				 
 				 // 选择备课夹
 				$scope.selectPrepare = function(e,listIndex) {
@@ -261,6 +253,7 @@
 					var selectPrepareModal = $uibModal.open({
 						templateUrl: "select-prepare.html",
 						controller: 'selectPrepareCtrl',
+						windowClass: "prepare-select-modal"
 					})
 
 					//到备课夹
@@ -271,6 +264,9 @@
 							fromFlags: $localStorage.fromFlag
 						}, function(d) {
 							if(d.code == "OK") {
+								// 获取最近三个备课夹
+								getLatesPrepare(true);
+								// 获取当前节点备课夹
 								getPrepare($localStorage.currentTreeNode.tfcode);
 								// 动画显示
 								addPrepareAnimation();
