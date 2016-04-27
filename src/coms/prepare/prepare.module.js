@@ -76,6 +76,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/latestPrepare"
 					},
+					//搜索备课夹
+					searchResults: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/coursewareAll"
+					}
 				})
 			}
 		])
@@ -126,7 +131,16 @@
 					}, function(data) {
 						$scope.listData = data.data;
 						console.log($scope.listData);
-						if(data.data && data.data.length > 0) $scope.listData[0].active = true;
+						if(data.data && data.data.length > 0) {
+							var paramsId = $stateParams.prepareId;
+							if(paramsId) {
+								_.each($scope.listData, function(v, i) {
+									if(v.id == paramsId) v.active = true;
+									else v.active = false;
+								})
+							}
+							else $scope.listData[0].active = true;
+						}
 						//获取备课夹详细内容
 						_.each(data.data, function(v,i) {
 							getPrepareDetails(v.id, i);
@@ -169,6 +183,11 @@
 							v.isSelected = true;
 						})
 					})
+				}
+
+				// 备课夹列表页跳转
+				$scope.turnToPrepare = function(id) {
+					$state.reload();
 				}
 
 				//编辑备课夹标题
@@ -233,13 +252,19 @@
 						console.log(data);
 						var title = data.name;
 						var newTitle = data.name;
-						// var count = 1;
+						var count = 1;
 						// _.each($scope.listData, function(v, i) {
 						// 	if(v.title == title) {
-						// 		count ++;
+						// 		var reg = (/\(\d\)/).test(v.title);
+						// 		if(reg) {
+						// 			count = parseInt((/\d/).test(reg)) + 1;
+						// 			newTitle = title + "(" + count + ")";
+						// 		}
+						// 		else {
+						// 			newTitle = title + "(" + 1 + ")";
+						// 		}
 						// 	}
 						// })
-						// newTitle = title + "(" + count + ")";
 						Prepare.basePostApi({
 							tfcode: data.code,
 							title: newTitle
@@ -376,7 +401,10 @@
 								flags.push(v.fromFlag);
 							}
 						})
-						$scope.downLoadRes(resIds.toString(), flags.toString(), id.title);
+						if(resIds.length == 0) {
+							ModalMsg.alert("当前备课夹下没有资源哦");
+						}
+						else $scope.downLoadRes(resIds.toString(), flags.toString(), id.title);
 					}
 					//单个资源下载a
 					else {
@@ -385,8 +413,45 @@
 					}
 				}
 
+				//下载资源
+				$scope.zipPrepareList = function(id) {
+					console.log($scope.listData);
+					_.each($scope.listData, function(pre, i) {
+						if(pre.id == id) {
+							//批量下载
+							var resIds = [];
+							var flags = [];
+							_.each(pre.children, function(v, i) {
+								resIds.push(v.resId);
+								flags.push(v.fromFlag);
+							})
+							if(resIds.length == 0) {
+								ModalMsg.alert("当前备课夹下没有资源哦");
+							}
+							else $scope.downLoadRes(resIds.toString(), flags.toString(), id.title);
+						}
+					})
+				}
+
 				$scope.selectRes = function(item) {
 					item.isSelected = !item.isSelected;
+				}
+
+				//搜索备课夹
+				$scope.searchwords = "";
+				$scope.searchList = [];
+				$scope.showSearchResults = false;
+				$scope.searchPrepare = function(searchwords) {
+					if(searchwords != "") {
+						Prepare.searchResults({
+							title: searchwords
+						}, function(data) {
+							$scope.showSearchResults = true;
+							console.log("search",data);
+							$scope.searchList = data.data;
+							console.log($scope.showSearchResults);
+						})
+					}
 				}
 
 
