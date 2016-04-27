@@ -25,7 +25,7 @@
 				<div class="clearfix">
 					
 				</div>
-				<div class="list-item" ng-repeat="item in list.children">
+				<div class="list-item" ng-class="{'item-active': item.active}" ng-repeat="item in list.children" ng-click="setItemActive($index, parentIndex)">
 						<input id="{{parentIndex*10+$index}}" type="checkBox" class="check" ng-click="selectRes(item)" ng-checked="item.isSelected">
 						<label for="{{parentIndex*10+$index}}"></label>
 					<img class="list-item-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="previewRes(item)"/>
@@ -47,7 +47,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="right-tools">
+					<div class="right-tools" ng-show="item.active">
 						<div>基础资源</div>
 						<span ng-click="setItem(item.id, $index, parentIndex, 1)"><img class="op-img" default-src="assets/img/prepare/set_bottom_icon.png" active-src="assets/img/prepare/set_bottom_icon_active.png" src="assets/img/prepare/set_bottom_icon.png" title="置底"/></span>
 						<span ng-click="setItem(item.id, $index, parentIndex, 3)"><img class="op-img" src="assets/img/prepare/back_icon.png" default-src="assets/img/prepare/back_icon.png" active-src="assets/img/prepare/back_icon_active.png" title="下移"></span>

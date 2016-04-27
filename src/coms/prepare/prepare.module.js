@@ -181,8 +181,22 @@
 						$scope.listData[index].children = data.data;
 						_.each(data.data, function(v, i) {
 							v.isSelected = true;
+							v.active = false;
 						})
+						if($scope.listData[index].children && $scope.listData[index].children.length > 0) {
+							$scope.listData[index].children[0].active = true;
+						}
 					})
+				}
+
+				//选中资源
+				$scope.setItemActive = function(index, parentIndex) {
+					if($scope.listData[parentIndex].children && $scope.listData[parentIndex].children.length > 0) {
+						_.each($scope.listData[parentIndex].children, function(v, i) {
+							v.active = false;
+						})
+						$scope.listData[parentIndex].children[index].active = true;
+					}
 				}
 
 				// 备课夹列表页跳转
@@ -525,7 +539,7 @@
 
 					movePrepareModal.result.then(function(data) {
 
-					}
+					})
 				}
 
 				//上传本地资源
@@ -548,7 +562,13 @@
 						}, function(d) {
 							console.log(d);
 							if(d.code == "OK") {
-								getPrepare($localStorage.currentTreeNode.tfcode);
+								Prepare.addResToPrepareId({
+									id: prepareId,
+									resIds: d.resId,
+									fromFlags: 1
+								}, function(d) {
+									getPrepare($localStorage.currentTreeNode.tfcode);
+								})
 							}
 							else {
 								ModalMsg.logger("上传到备课夹失败，请重试！")
