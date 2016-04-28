@@ -222,7 +222,12 @@
 					attrs.$observe('value', function(param) {
 						var flo = parseFloat(param);
 						if(isNaN(flo)) $scope.resSize = 0;
-						else $scope.resSize = Math.round(param/1024/1024*10)/10;
+						else {
+							$scope.resSize = Math.round(param/1024/1024*10)/10;
+							if($scope.resSize == 0)
+								$scope.resSize = 0.1
+							
+						}
 					})
 				}
 			}
@@ -237,7 +242,11 @@
 					attrs.$observe('value', function(param) {
 						var flo = parseFloat(param);
 						if(isNaN(flo)) $scope.resSize = 0;
-						else $scope.resSize = Math.round(param/1024/1024*10)/10;
+						else {
+							$scope.resSize = Math.round(param/1024/1024*10)/10;
+							if($scope.resSize == 0)
+								$scope.resSize = 0.1
+						}
 					})
 				}
 			}

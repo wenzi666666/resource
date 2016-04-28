@@ -41,9 +41,9 @@
 					</div>
 				</div>
 				<div class="prepare-seperate"><i class="icon-angle-right"></i><i class="icon-angle-right"></i></div>
-				<div class="prepare-title-box">
+				<div class="prepare-title-box prepare-new-box">
 					<input class="prepare-title-input" ng-model="prepareName" value="prepareName">
-					<button class="btn-op">确定</button>
+					<!--<button class="btn-op">确定</button>-->
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -75,9 +75,10 @@
 	</div>
 </script>
 
+<!-- 调整资源 到备课夹-->
 <script type="text/ng-template" id="move-prepare.html">
-	<div class="modal-body modal-prepare-body">
-		<div class="modal-prepare-header">新建备课夹</div>
+<div class="modal-body">
+		<div class="modal-prepare-header">{{}}</div>
 		<div class="select-prepare-content">
 			<div class="select-inner-content">
 				<div class="modal-catogry">
@@ -88,17 +89,22 @@
 						</treecontrol>
 					</div>
 				</div>
-				<div class="prepare-title-box modal-prepare-name">
-					<span>备课夹名称：</span>
-					<select ng-change="selectPrepare(currentPrepare)" ng-model="currentPrepare">
-						<option ng-repeat="pp in prepares track by $index" ng-bind="pp.title" value="{{pp}}"></option>
-					</select>
+				<div class="prepare-seperate"><i class="icon-angle-right"></i><i class="icon-angle-right"></i></div>
+				<div class="modal-prepare-name">
+					<span>选择备课夹:</span>
+					<!--<select ng-change="selectPrepare(currentPrepare)" ng-model="currentPrepare">-->
+					<div class="select-prepare-list">
+						<!--<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>-->
+						<div ng-repeat="pp in prepares track by $index" ng-class="{'select-active':isActive($index)}" ng-click="selectPrepare($index)" ng-bind="pp.title" value="{{pp}}"></div>
+						<div ng-show="prepares.length == 0">当前选择下没有备课夹，请重新选择</div>
+					</div>
+					<!--</select>-->
 				</div>
 			</div>
 			<div class="clearfix"></div>
-		</div>
-		<button class="btn btn-lg btn-success btn-custom-modal" ng-click="moveOK()">确定</button>
+			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="moveOk()">确定</button>
 			<button class="btn btn-lg btn-success btn-custom-modal" ng-click="moveCancel()">取消</button>
+		</div>
 	</div>
 </script>
 

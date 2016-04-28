@@ -355,15 +355,17 @@
 				}
 
 				//备课夹中内容操作——删除，根据关联id
-				$scope.deleteItem = function(id, msg) {
+				$scope.deleteItem = function(id, msg, prepareIndex) {
 					Prepare.prepareContentBaseApi({
 						ids: id,
 						_method: "DELETE"
 					}, function(data) {
 						console.log(data);
+						
 						if(data.code == "OK") {
-							if(msg == undefined) ModalMsg.logger("从备课夹删除资源成功！");
-							getPrepare($localStorage.currentTreeNode.tfcode);
+							ModalMsg.logger("从备课夹删除资源成功！");
+							getPrepareDetails($scope.listData[prepareIndex].id, prepareIndex);
+//							getPrepare($localStorage.currentTreeNode.tfcode);
 						}
 						else {
 							ModalMsg.logger("从备课夹删除资源失败，请重试！");
@@ -508,13 +510,16 @@
 					
 				}
 
-
-				//移动到-1 复制到-2
+				//移动文件 到-1 复制到-2
 				$scope.opResTo = function(res, optype) {
+					optype = "移动资源到备课夹";
+					if(optype == 2)
+						optype = "复制资源到备课夹";
 					var movePrepareModal = $uibModal.open({
 						templateUrl: "move-prepare.html",
-						controller: 'opModalController',
-						size: 'new-prepare'
+						controller: 'selectPrepareCtrl',
+						size: 'new-prepare',
+						windowClass: "prepare-select-modal"
 					})
 
 					//移动到备课夹
