@@ -212,6 +212,7 @@
 
 				//设定备课夹名称
 				$scope.setPrepareTitle = function(index) {
+					console.log('haha')
 					Prepare.basePostApi({
 						id: $scope.listData[index].id,
 						title: $scope.listData[index].title,
@@ -390,8 +391,19 @@
 						}
 					})
 				}
+				
+				// 下载单个资源
+				$scope.resDownload = function(id,flag){
+					Res.resDownload({
+						resIds:id,
+						fromFlags: flag
+					}, function(data){
+						if(data.data)
+							openwin(data.data[0].path)
+					})
+				}
 
-				//下载资源
+				// 打包下载资源
 				$scope.zipPrepare = function(id, flag) {
 					console.log(id);
 					//批量下载
@@ -543,7 +555,7 @@
 				}
 
 				//上传本地资源
-				$scope.uploadRes = function(prepareId) {
+				$scope.uploadRes = function(prepareId, index) {
 					var modalNewUpload = $uibModal.open({
 						templateUrl: "uploadModal.html",
 						windowClass: "upload-modal",
@@ -555,6 +567,8 @@
 						console.log(data);
 						// 更新上传 处理结果
 						console.log(prepareId);
+						
+						
 						Prepare.addResToPrepareId({
 							id: prepareId,
 							resIds: data[0].id,
@@ -562,13 +576,14 @@
 						}, function(d) {
 							console.log(d);
 							if(d.code == "OK") {
-								Prepare.addResToPrepareId({
-									id: prepareId,
-									resIds: d.resId,
-									fromFlags: 1
-								}, function(d) {
-									getPrepare($localStorage.currentTreeNode.tfcode);
-								})
+//								Prepare.addResToPrepareId({
+//									id: prepareId,
+//									resIds: d.resId,
+//									fromFlags: 1
+//								}, function(d) {
+//									getPrepare($localStorage.currentTreeNode.tfcode);
+									getPrepareDetails(prepareId, index);
+//								})
 							}
 							else {
 								ModalMsg.logger("上传到备课夹失败，请重试！")
