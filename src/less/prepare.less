@@ -33,21 +33,36 @@
     }
 
     .list-header{
-        line-height: 40px;
+        line-height: 33px;
         background: #A9DCEA;
         padding:3px 10px;
         cursor: pointer;
+        position: relative;
     }
 
     .list-header-title{
         color: #0094CE;
         font-size: 18px;
+        width: 200px;
+        display: inline-block;
+        margin-top: 4px;
     }
 
-    .list-header i{
+    .list-header .icon-edit{
         color: #808080;
         margin:0 5px;
         font-size: 20px;
+        position: absolute;
+        left: 234px;
+        top: 14px;
+    }
+    .list-header .icon-trash{
+        color: #808080;
+        margin:0 5px;
+        font-size: 20px;
+        position: absolute;
+        left: 274px;
+        top: 14px;
     }
 
     .list-header i:hover{
@@ -55,7 +70,7 @@
     }
 
     .list-header .edit-prepare{
-        margin-left: 60px;
+
     }
 
 
@@ -93,7 +108,7 @@
 #prepare-content .zip-download{
     float: right;
     padding:5px 10px;
-    margin-top:6px;
+    margin-top:9px;
     margin-right:10px;
     background: @color2;
     line-height: 20px;
@@ -111,6 +126,8 @@
     float: right;
     text-decoration: underline;
     color: @color1;
+    margin-top: 6px;
+    margin-left: 15px;
 }
 #prepare-content .online-course i{
     text-decoration: none;
@@ -144,6 +161,7 @@
        padding: 15px 0;
        margin-top: 5px;
        position: relative;
+       height: 156px;
     }
 
     .list-item:hover{
@@ -155,11 +173,30 @@
     }
 
     .item-info{
-       display: inline-block;
-       margin-left: 10px;
+       position: absolute;
+       left: 200px;
        width: 20%;
-       vertical-align: middle;
+       line-height: 30px;
     }
+    .prepare-thumb-img{
+        position: absolute;
+       left:40px;
+       top:8px;
+    }
+    
+    .sp-edit {
+        position: absolute;
+        left: 440px;
+        top: 60px;
+    }
+    
+    .sp-edit:hover {
+        .popover {
+            display: block;
+            left: 80%;
+        }
+    }
+
 
     .list-item i{
        color: #808080;
@@ -191,9 +228,10 @@
     }
 
     .prepare-download {
-        margin-left: 50px;
+        left: 400px;
         margin-right: 20px;
-        display: inline-block;
+        position: absolute;
+        top: 60px;
     }
 
     span img {
@@ -406,22 +444,14 @@
     overflow: auto;
 }
 
-.sp-edit {
-    display: inline-block;
-    position: relative;
-}
-
-.sp-edit:hover {
-    .popover {
-        display: block;
-        left: 80%;
-    }
-}
-
 .prepare-edit {
     background: none;
     margin-left: 10px;
-    top: -3px;
+    line-height: 20px;
+    margin-top: -3px;
+    position: absolute;
+    left: 304px;
+    top: 14px;
 }
 
 .op-img {

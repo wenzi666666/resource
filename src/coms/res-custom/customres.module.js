@@ -41,8 +41,8 @@
 				})
 			}
 		])
-		.controller("CustomResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes', '$http','CustomtemRes','$localStorage',
-			function($scope, $stateParams, $state, $location, SystemRes, $http,CustomtemRes,$localStorage) {
+		.controller("CustomResController", ['$scope', '$stateParams', '$state', '$location', 'Res', '$http','CustomtemRes','$localStorage',
+			function($scope, $stateParams, $state, $location, Res, $http,CustomtemRes,$localStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -51,7 +51,7 @@
 				
 				// 下载资源
 				$scope.resDownload = function(id) {
-					SystemRes.resDownload({
+					Res.resDownload({
 						resIds: id,
 						fromFlags: $scope.VM.fromFlag = 0
 					}, function(data) {

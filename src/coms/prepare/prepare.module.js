@@ -115,7 +115,7 @@
 					_.each($scope.listData, function(v, i) {
 						$scope.listData[i].active = false
 					})
-					$scope.listData[index].active = true
+					$scope.listData[index].active = true;
 				}
 
 				// 监听 目录树 选择
