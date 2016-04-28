@@ -3,7 +3,7 @@
 		<span ui-sref="prepare">{{currentTreeNode.label}} <i class="icon-angle-right"></i></span>
 		<span>{{prepare.title}}</span>
 	</div>
-	<div class="slide-container col-md-10">
+	<div class="col-md-10 slide-container">
 		<div class="slide-content">
 			<div class="slide-arrow slide-pre" ng-click="slidePre()"><i class="icon-chevron-left"></i></div>
 			<div class="slide-arrow slide-next" ng-click="slideNext()"><i class="icon-chevron-right"></i></div>
@@ -16,8 +16,10 @@
 			<div class="slide-arrow2 slide-pre" ng-click="slidePreCustom()"><i class="icon-chevron-left"></i></div>
 			<div class="slide-arrow2 slide-next" ng-click="slideNextCustom()"><i class="icon-chevron-right"></i></div>
 			<ul class="slide-thumbnail">
-				<li ng-repeat="item in slidesCustom" ng-click="selectRes($index)">
-					<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId, item.fromFlag)"/>
+				<li ng-repeat="item in slidesCustom" class="slidesCustom" ng-click="selectRes($index)"  title="{{item.title}}"> 
+					<div class="img-thumb-list">
+						<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId, item.fromFlag)"/>
+					</div>
 					<span class="slide-title text-ellipsis">{{item.title}}</span>
 				</li>
 			</ul>
@@ -26,9 +28,9 @@
 	
 	<div class="col-md-2">
 		<div class="slide-list">
-			<div class="slide-list-item" ng-repeat="item in slides track by $index">
+			<div class="slide-list-item" ng-repeat="item in slides track by $index"  title="{{item.title}}">
 				<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId,item.fromFlag)">
-				<span>{{item.title}}</span>
+				<span class="slide-rigth-title text-ellipsis">{{item.title}}</span>
 			</div>
 		</div>
 	</div>
