@@ -42,7 +42,7 @@
     }
 
     .list-header i{
-        color: #0094CE;
+        color: #808080;
         margin:0 5px;
         font-size: 20px;
     }
@@ -123,6 +123,7 @@
         float: right;
         margin-right: 10px;
         padding:5px;
+        cursor: pointer;
     }
 
     .list-item{
@@ -135,6 +136,10 @@
       background: @color4;
     }
 
+    .item-active {
+        background: @color4;
+    }
+
     .item-info{
        display: inline-block;
        margin-left: 10px;
@@ -143,7 +148,7 @@
     }
 
     .list-item i{
-       color: @color5;
+       color: #808080;
        margin: 5px;
        padding: 5px;
        border-radius: 3px;
@@ -202,8 +207,8 @@
 
     .right-tools span img {
         margin: 0 5px;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
     }
 
     .right-tools span img.active {
@@ -235,6 +240,7 @@
 .prepare-all-list{
     background: #fff;
     margin: 10px 0 50px 0;
+    min-height: 450px;
 }
 .prepare-all-header-img{
     margin-top: -33px;
@@ -263,6 +269,10 @@
     margin-top: 10px;
 }
 
+.modal-new-prepare {
+    min-width: 800px;
+}
+
 // 新建备课夹 弹出框
 .modal-prepare-body{
     background: #fff;
@@ -270,6 +280,43 @@
     border: 2px solid #41C9A9;
     text-align: center;
     padding: 0;
+
+
+    .select-prepare-content {
+        min-height: 350px;
+        margin-top: 30px;
+        text-align: left;
+
+        label {
+            color: #41C9A9;
+            font-weight: 500;
+        }
+    }
+
+    .modal-catogry {
+        margin-left: 100px;
+    }
+
+    .tree-embed {
+        left: 80px;
+        margin-top: 10px;
+        top: 92px;
+    }
+
+    .prepare-seperate {
+        position: absolute;
+        top: 220px;
+        left: 400px;
+    }
+
+    .prepare-title-box {
+        float: right;
+        margin: 20px 100px 20px 100px;
+    }
+
+    .modal-prepare-name {
+        margin-right: 50px;
+    }
 }
 .modal-prepare-header{
     height: 36px;
@@ -282,6 +329,7 @@
     margin: 10px;
     height: 320px;
 }
+
 .modal-prepare-content .modal-inner-content{
     color: #666;
     line-height: 20px;
@@ -328,7 +376,7 @@
 }
 
 .modal-prepare-name select {
-    width: 300px;
+    width: 250px;
     border: 1px solid #CCCCCC;
 }
 // 目录树嵌入
@@ -347,7 +395,6 @@
 .sp-edit {
     display: inline-block;
     position: relative;
-    background: url(assets/img/prepare/edit_icon.png);
 }
 
 .sp-edit:hover {
@@ -355,6 +402,17 @@
         display: block;
         left: 80%;
     }
+}
+
+.prepare-edit {
+    background: none;
+    margin-left: 10px;
+    top: -3px;
+}
+
+.op-img {
+    width: 20px;
+    height: 20px;
 }
 
 //弹出提示
@@ -418,6 +476,7 @@
         width: 80%;
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .icon-play-circle, .icon-trash {

@@ -1,13 +1,13 @@
 <div id="prepare-content-list">
 	<div class="search-prepare">
-		<input type="search" placeholder="在当前条件下搜索" />
-		<span>
+		<input type="search" placeholder="在当前条件下搜索"  value="searchwords" ng-model="searchwords"/>
+		<span ng-click="searchPrepare(searchwords)">
 			<i class="icon-search"></i>	   
 		</span>
 	</div>
 	<div class="clearfix"></div>
 	<!--<div class="prepare-all-list" ng-repeat="list in listAllData | filter:{timeLabel:'withinweek'}">-->
-	<div class="prepare-all-list">
+	<div class="prepare-all-list" ng-hide="showSearchResults">
 		<div class="prepare-all-header">
 			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
 			<span>{{listAllData[0].timeLabel =="withinweek"? "一周内":""}}</span>
@@ -18,8 +18,8 @@
 				<div class="col-md-3" ng-repeat="list in listAllData.list">
 					<div class="list-all-item ">
 						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
-						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" />
-						<span class="zip-download"><i class="icon-cloud-download"></i> 打包下载</span>
+						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
+						<span class="zip-download" ng-click="zipPrepareList(list.id)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
 						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
 						<br>
@@ -30,5 +30,27 @@
 		</div>
 		<div class="clearfix"></div>
 		
+	</div>
+
+	<div class="prepare-all-list" ng-show="showSearchResults">
+		<div class="prepare-all-header">
+			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
+		</div>
+		<div class="prepare-gallery" >
+			<div class="list-box row">
+				<div class="col-md-3" ng-repeat="list in searchList">
+					<div class="list-all-item ">
+						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
+						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
+						<span class="zip-download" ng-click="zipPrepareList(list.id)"><i class="icon-cloud-download"></i> 打包下载</span>
+						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
+						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
+						<br>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
 	</div>
 </div>

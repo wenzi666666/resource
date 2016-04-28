@@ -2,10 +2,19 @@
 <div id="prepare-content">
 	<div class="prepare-list" ng-repeat="list in listData track by $index" ng-init="parentIndex = $index">
 		<div class="list-header" ng-click="switch($index)">
-			<span class="list-header-title" ng-hide="list.editPrepareTitle">{{$index+1}}、{{list.title}}</span>
+			<span class="list-header-title" ng-hide="list.editPrepareTitle" title="list.title" ng-bind="'{{$index+1}}' + '、' + '{{list.title}}'"></span>
 			<span class="new-prepare-title" ng-show="list.editPrepareTitle"><input type="text" ng-model="list.title" value="list.title"><button class="btn-op" ng-click="setPrepareTitle($index)">确定</button></span>
 			<i class="icon-edit edit-prepare" ng-click="editPrepare($index)"></i> 
 			<i class="icon-trash" ng-click="deletePrepare($index,$event)"></i>
+			<div class="sp-edit prepare-edit">
+				<img class="op-img" src="assets/img/prepare/edit_icon.png" default-src="assets/img/prepare/edit_icon.png" active-src="assets/img/prepare/edit_icon_active.png"/>
+				<div class="popover">
+					<ul>
+						<li ng-click="opPrepareTo(list, 1)">移动到</li>
+						<li ng-click="opPrepareTo(list, 2)">复制到</li>
+					</ul>
+				</div>
+			</div>
 			<span class="online-course" ng-click="turnToClass(list)"><i class="icon-play-circle"></i>在线授课</span>
 			<span class="zip-download" ng-click="zipPrepare(list, -1)"><i class="icon-cloud-download"></i> 打包下载</span>
 		</div>
@@ -16,7 +25,7 @@
 				<div class="clearfix">
 					
 				</div>
-				<div class="list-item" ng-repeat="item in list.children">
+				<div class="list-item" ng-class="{'item-active': item.active}" ng-repeat="item in list.children" ng-click="setItemActive($index, parentIndex)">
 						<input id="{{parentIndex*10+$index}}" type="checkBox" class="check" ng-click="selectRes(item)" ng-checked="item.isSelected">
 						<label for="{{parentIndex*10+$index}}"></label>
 					<img class="list-item-thumb" ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="previewRes(item)"/>
@@ -26,10 +35,10 @@
 						<res-size data-value="{{item.size}}"></res-size>
 					</div>
 					<div class="prepare-download">
-						<img  src="assets/img/prepare/download_icon.png" ng-click="zipPrepare(item.resId, item.fromFlag)">
+						<img class="op-img" src="assets/img/prepare/download_icon.png" ng-click="zipPrepare(item.resId, item.fromFlag)">
 					</div>
 					<div class="sp-edit">
-						<img src="assets/img/prepare/edit_icon.png"/>
+						<img class="op-img" src="assets/img/prepare/edit_icon.png" default-src="assets/img/prepare/edit_icon.png" active-src="assets/img/prepare/edit_icon_active.png"/>
 						<div class="popover">
 							<ul>
 								<li ng-click="editRes(item)" ng-show="item.fromFlag == 1">编辑</li>
@@ -38,13 +47,13 @@
 							</ul>
 						</div>
 					</div>
-					<div class="right-tools">
+					<div class="right-tools" ng-show="item.active">
 						<div>基础资源</div>
-						<span ng-click="setItem(item.id, $index, parentIndex, 1)"><img default-src="assets/img/prepare/set_bottom_icon.png" active-src="assets/img/prepare/set_bottom_icon_active.png" src="assets/img/prepare/set_bottom_icon.png" title="置底"/></span>
-						<span ng-click="setItem(item.id, $index, parentIndex, 3)"><img src="assets/img/prepare/back_icon.png" default-src="assets/img/prepare/back_icon.png" active-src="assets/img/prepare/back_icon_active.png" title="下移"></span>
-						<span ng-click="setItem(item.id, $index, parentIndex, 2)"><img src="assets/img/prepare/move_icon.png" default-src="assets/img/prepare/move_icon.png" active-src="assets/img/prepare/move_icon_active.png" title="上移"></span>
-						<span ng-click="setItem(item.id, $index, parentIndex, 4)"><img src="assets/img/prepare/set_top_icon.png" default-src="assets/img/prepare/set_top_icon.png" active-src="assets/img/prepare/set_top_icon_active.png" title="置顶"></span>
-						<span ng-click="deleteItem(item.id)"><img src="assets/img/prepare/delete_icon.png" default-src="assets/img/prepare/delete_icon.png" active-src="assets/img/prepare/delete_icon_active.png" title="删除"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 1)"><img class="op-img" default-src="assets/img/prepare/set_bottom_icon.png" active-src="assets/img/prepare/set_bottom_icon_active.png" src="assets/img/prepare/set_bottom_icon.png" title="置底"/></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 3)"><img class="op-img" src="assets/img/prepare/back_icon.png" default-src="assets/img/prepare/back_icon.png" active-src="assets/img/prepare/back_icon_active.png" title="下移"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 2)"><img class="op-img" src="assets/img/prepare/move_icon.png" default-src="assets/img/prepare/move_icon.png" active-src="assets/img/prepare/move_icon_active.png" title="上移"></span>
+						<span ng-click="setItem(item.id, $index, parentIndex, 4)"><img class="op-img" src="assets/img/prepare/set_top_icon.png" default-src="assets/img/prepare/set_top_icon.png" active-src="assets/img/prepare/set_top_icon_active.png" title="置顶"></span>
+						<span ng-click="deleteItem(item.id)"><img class="op-img" src="assets/img/prepare/delete_icon.png" default-src="assets/img/prepare/delete_icon.png" active-src="assets/img/prepare/delete_icon_active.png" title="删除"></span>
 					</div>
 				</div>
 			</div>
