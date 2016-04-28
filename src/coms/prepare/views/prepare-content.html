@@ -2,7 +2,7 @@
 <div id="prepare-content">
 	<div class="prepare-list" ng-repeat="list in listData track by $index" ng-init="parentIndex = $index">
 		<div class="list-header" ng-click="switch($index)">
-			<span class="list-header-title text-ellipsis" ng-hide="list.editPrepareTitle" title="list.title">{{$index+1}}、{{list.title}}</span>
+			<span class="list-header-title text-ellipsis" ng-hide="list.editPrepareTitle" title="{{list.title}}">{{$index+1}}、{{list.title}}</span>
 			<span class="new-prepare-title" ng-show="list.editPrepareTitle"><input type="text" ng-model="list.title" value="list.title"><button class="btn-op" ng-click="setPrepareTitle($index)">确定</button></span>
 			<i class="icon-edit edit-prepare" ng-click="editPrepare($index)" ng-show="list.active"></i> 
 			<i class="icon-trash" ng-click="deletePrepare($index,$event)" ng-show="list.active"></i>
