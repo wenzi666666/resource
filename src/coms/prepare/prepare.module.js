@@ -395,7 +395,8 @@
 				}
 				
 				// 下载单个资源
-				$scope.resDownload = function(id,flag){
+				$scope.resDownloadByResId = function(id,flag){
+					console.log('resDownload')
 					Res.resDownload({
 						resIds:id,
 						fromFlags: flag
@@ -571,7 +572,11 @@
 					})
 
 					movePrepareModal.result.then(function(data) {
-						console.log(data)
+						console.log(data);
+						//移动 复制
+						if(flag == 1){
+							
+						}
 					})
 				}
 
