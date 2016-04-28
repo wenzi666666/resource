@@ -33,7 +33,7 @@
 						<img  ng-src="{{item.imgPath?item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="previewRes(item)"/>
 					</div>
 					<div class="item-info">
-						<span class="item-info-title">{{item.title}}</span><br>
+						<span class="item-info-title text-ellipsis" title="{{item.title}}">{{item.title}}</span><br>
 						<span class="item-info-type">类型: {{item.unifyType}}</span><br>
 						<res-size data-value="{{item.size}}"></res-size>
 					</div>
