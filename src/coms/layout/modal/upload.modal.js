@@ -106,24 +106,31 @@
 						tmp.size = 0;
 						files = files.concat(tmp);
 					}
-					$localStorage.files = files;
-
+					
+					$scope.files = files;
+					console.log("file:", $scope.files[0])
 					// 打开资源信息编辑
 					var openModal = function() {
-							setTimeout(function() {
-								var modalNewUploadInfo = $uibModal.open({
-										templateUrl: "eiditResModal.html",
-										windowClass: "upload-modal",
-										controller: 'editResController',
-										// scope: $scope //Refer to parent scope here
-									})
-									//上传返回处理
-								modalNewUploadInfo.result.then(function(data) {
-									console.log("receive", data)
-									$uibModalInstance.close(data);
-								});
-							}, 300)
+						if (!$scope.files[0].responseName) {
+							ModalMsg.logger("文件上传失败，请重新上传！");
+							return
 						}
+						var modalNewUploadInfo = $uibModal.open({
+							templateUrl: "eiditResModal.html",
+							windowClass: "upload-modal",
+							controller: 'editResController',
+							resolve: {
+								files: function() {
+									return files;
+								}
+							}
+						})
+						//上传返回处理
+						modalNewUploadInfo.result.then(function(data) {
+							console.log("receive", data)
+							$uibModalInstance.close(data);
+						});
+					}
 						// 根据后缀名 获取资源类型
 						//本地
 					if (!isWeb) {
@@ -147,13 +154,13 @@
 			}
 		])
 		// 编辑资源信息
-		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout', 'Tree',
-			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout, Tree) {
+		.controller("editResController", ['$scope', '$stateParams', '$state', '$location', '$localStorage', '$uibModalInstance', 'ModalMsg', 'Res', 'Upload', '$timeout', 'Tree', 'files',
+			function($scope, $stateParams, $state, $location, $localStorage, $uibModalInstance, ModalMsg, Res, Upload, $timeout, Tree, files) {
 				//变量共享
 				$scope.VM = {};
 				$scope.showHeader = true;
 				$scope.uploadData = $localStorage.uploadData;
-				$scope.uploadFilesData = $localStorage.files;
+				$scope.uploadFilesData = files;
 
 				$scope.unifyType = $localStorage.unifyType;
 
@@ -166,14 +173,14 @@
 				//根据上传后缀名确定 上传类型
 				var fileType = $scope.uploadFilesData[0].name.split('.')[$scope.uploadFilesData[0].name.length - 1]
 
-				// 监听目录树变化
+				// 获取目录树
 				var getTreeData = function() {
 					Tree.getTree({
 						pnodeId: $localStorage.currentMaterial.id,
 					}, function(data) {
 						$scope.treedataSelect = data.data;
 
-						$scope.currentNode = data.data[0];
+//						$scope.currentNode = data.data[0];
 						//展开第一个节点
 						$scope.expandedNodes = [$scope.treedataSelect[0]];
 						// console.log("tree data:", data.data);
@@ -218,7 +225,7 @@
 					}
 					// path生成失败，需重试
 					if (!$scope.uploadFilesData) {
-						$scope.uploadFilesData = $localStorage.files;
+						$scope.uploadFilesData = files;
 						ModalMsg.logger("上传文件路径获取不成功，请重试");
 						return;
 					};
@@ -688,8 +695,6 @@
 				$scope.currentScopeSeclet[index] = true;
 				$scope.currentScopeIndexSeclet = index;
 			}
-			
-			
 
 			// 监听目录树变化
 			var getTreeData = function() {
@@ -739,11 +744,11 @@
 					name: $scope.res.title,
 					unifTypeId: $scope.unifyType[$scope.currentTypeIndexSeclet].id,
 					tfcode: $scope.currentNode.tfcode,
-//					scopes: $scope.currentScopeIndexSeclet,
-					keyword: $scope.res.keywords?$scope.res.keywords:' ',
+					//					scopes: $scope.currentScopeIndexSeclet,
+					keyword: $scope.res.keywords ? $scope.res.keywords : ' ',
 					desc: $scope.res.description ? $scope.res.description.toString() : ' ',
 					path: $scope.resDetails.assetpath,
-					size: $scope.resDetails.assetsize?$scope.resDetails.assetsize:' '
+					size: $scope.resDetails.assetsize ? $scope.resDetails.assetsize : ' '
 				}, function(data) {
 					if (data.code == "OK") {
 						// $uibModalInstance.dismiss('cancel');
