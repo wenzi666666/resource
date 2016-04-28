@@ -131,16 +131,6 @@
 	
 						editResModal.result.then(function(data) {
 							console.log(data);
-							// Res.editUploadRes({
-							// 	id: data.resId,
-							// 	name: data.title,
-							// 	unifTypeId: data.unifTypeId,
-							// 	tfcode: data.tfCode,
-							// 	keyword: data.keywords,
-							// 	desc: '',
-							// 	path: data.fpath,
-							// 	size: ''
-							// })
 						})
 					})
 					

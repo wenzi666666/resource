@@ -35,7 +35,7 @@
 						<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
 					</div>
 					<div class="statistic-content">
-						<p>已备完{{currentPrepare.prepareNums}}节课，共{{prepare.length}}个备课夹，{{currentPrepare.resourceNums}}条资源，还有{{currentPrepare.nodeOmitNums}}节课要备。</p>
+						<p>需要备课的课程总数：{{currentPrepare.nodeOmitNums}}，有备课夹章节：{{currentPrepare.nodeFinishedNums}}，备课夹：{{currentPrepare.prepareNums}}，使用资源：{{currentPrepare.resourceNums}}</p>
 						<div class="statistic-box">
 							<highchart config="chartConfig"></highchart>
 						</div>

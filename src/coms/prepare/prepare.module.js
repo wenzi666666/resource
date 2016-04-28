@@ -217,6 +217,8 @@
 						id: $scope.listData[index].id,
 						title: $scope.listData[index].title,
 						_method: "PATCH"
+					},function(data){
+						 $scope.listData[index].title
 					})
 					$scope.listData[index].editPrepareTitle = false;
 				}
@@ -478,14 +480,28 @@
 						ModalMsg.alert("当前资源不允许编辑！");
 					}
 					else {
-						var editModal = $uibModal.open({
-							templateUrl: "prepare-edit-modal.html",
-							controller: "prepareEditController",
-							resolve: {
-								resItem: function() {
-									return resToBeEdit;
+						// 获取资源详细信息
+						Res.getResDetails({
+							id: res.resId
+						}, function(data){
+							var resDetails = data.data;
+							var editResModal = $uibModal.open({
+								templateUrl: "eiditResModal.html",
+								windowClass: "upload-modal",
+								controller: 'editResInstanceCtrl',
+								resolve: {
+									resitem: function() {
+										return res;
+									},
+									resDetails: function() {
+										return resDetails;
+									}
 								}
-							}
+							})
+		
+							editResModal.result.then(function(data) {
+								console.log(data);
+							})
 						})
 					}
 					
@@ -541,16 +557,21 @@
 
 				// 备课夹移动到-1，复制到-2
 				$scope.opPrepareTo = function(pre, flag) {
-					if(flag == 1) $scope.opName = "移动到";
-					else $scope.opName = "复制到";
+					var opName = "复制到备课夹"
+					if(flag == 1) opName = "移动到备课夹";
 
 					var movePrepareModal = $uibModal.open({
 						templateUrl: "modal-prepare-op.html",
 						controller: 'opPrepareController',
+						resolve: {
+							opName: function() {
+								return opName;
+							}
+						}
 					})
 
 					movePrepareModal.result.then(function(data) {
-
+						console.log(data)
 					})
 				}
 
@@ -736,17 +757,22 @@
 		}
 	])
 
-	.controller("opPrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage', 
-		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage) {
-			$scope.moveOK = function() {
-				console.log("test");
+	.controller("opPrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage', 'opName',
+		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage,opName) {
+			$scope.opName = opName
+			
+			$scope.prepareOK = function() {
+				if(!$scope.currentNode.id){
+					ModalMsg.logger("还没选择目录节点哦");
+					return;
+				}
 				var tmpVal = {
-					'prepareId': $scope.selectedPrepare.id,
+					'prepareId': $scope.currentNode.id,
 				}
 				$uibModalInstance.close(tmpVal);
 			};
 
-			$scope.moveCancel = function() {
+			$scope.prepareCancel = function() {
 				$uibModalInstance.dismiss('cancel');
 			};
 
@@ -763,35 +789,13 @@
 				// 目录树节点选择
 				$scope.currentNode = $scope.treedataSelect[0];
 			})
-
-
-			// 目录树 控制
-			$scope.showTree = false;
-			$scope.treeTrigger = function() {
-				$scope.showTree = true;
-			}
-			$scope.closeThis = function() {
-				$scope.showTree = false;
-			}
-			
+	
 			// 目录树节点选择
-			$scope.currentNode = $localStorage.currentTreeNode;
-
+			
 			$scope.showSelected = function(sel) {
 				$scope.currentNode =  sel;
 			};
 
 		}
 	])
-
-	.controller('prepareEditController',  ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg','$localStorage', 'resItem', 
-		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, $localStorage, resItem) {
-			$scope.res = resItem;
-			$scope.close = function() {
-				$uibModalInstance.close();
-			}
-			//获取学科列表
-
-	}]);
-
 }());

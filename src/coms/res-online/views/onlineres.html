@@ -17,7 +17,7 @@
 			<div class="slide-arrow2 slide-next" ng-click="slideNextCustom()"><i class="icon-chevron-right"></i></div>
 			<ul class="slide-thumbnail">
 				<li ng-repeat="item in slidesCustom" ng-click="selectRes($index)">
-					<img ng-src="{{ item.imgPath }}" ng-click="getResPlayUrl($index, item.resId, item.fromFlag)"/>
+					<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId, item.fromFlag)"/>
 					<span class="slide-title text-ellipsis">{{item.title}}</span>
 				</li>
 			</ul>
@@ -27,7 +27,7 @@
 	<div class="col-md-2">
 		<div class="slide-list">
 			<div class="slide-list-item" ng-repeat="item in slides track by $index">
-				<img ng-src="{{ item.imgPath }}" ng-click="getResPlayUrl($index, item.resId,item.fromFlag)">
+				<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId,item.fromFlag)">
 				<span>{{item.title}}</span>
 			</div>
 		</div>
