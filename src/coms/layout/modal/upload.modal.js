@@ -183,7 +183,6 @@
 //						$scope.currentNode = data.data[0];
 						//展开第一个节点
 						$scope.expandedNodes = [$scope.treedataSelect[0]];
-						// console.log("tree data:", data.data);
 					})
 				}
 

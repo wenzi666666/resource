@@ -656,9 +656,8 @@
 			}, function(data) {
 				console.log("tree data:", data.data);
 				$scope.treedata = data.data;
-				//展开第一个节点
-//				$scope.expandedNodes = [$scope.treedataSelect[0]];
-//				$scope.selected = $scope.treedataSelect[0];
+				// 目录树全展开
+				$scope.expandedNodes = window.allNodes;
 				console.log("tree data:", data.data);
 				// 目录树节点选择
 				getCurrentTreeNode();
@@ -670,20 +669,15 @@
 				$scope.prepareName = $scope.currentNode.label;
 				var nodes =  $scope.currentNode.i.split('.');
 				if (nodes.length == 1) {
-					$scope.selected = $scope.treedata[nodes[0] - 1];
-					$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0] - 1], $scope.treedata[nodes[0] - 1].children[0], $scope.treedata[nodes[0] - 1].children[1], $scope.treedata[nodes[0] - 1].children[2], $scope.treedata[nodes[0] - 1].children[3]]);
+					$scope.selected = $scope.treedata[nodes[0] - 1];	
 				} else if (nodes.length == 2) {
 					$scope.selected = $scope.treedata[nodes[0] - 1].children[nodes[1] - 1];
-					$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0] - 1], $scope.selected]);
 				} else if (nodes.length == 3) {
 					$scope.selected = $scope.treedata[nodes[0] - 1].children[nodes[1] - 1].children[nodes[2] - 1];
-					$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0] - 1], $scope.treedata[nodes[0] - 1].children[nodes[1] - 1], $scope.selected]);
 				} else if (nodes.length == 4) {
 					$scope.selected = $scope.treedata[nodes[0] - 1].children[nodes[1] - 1].children[nodes[2] - 1].children[nodes[3] - 1];
-					$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0] - 1], $scope.treedata[nodes[0] - 1].children[nodes[1] - 1], $scope.treedata[nodes[0] - 1].children[nodes[1] - 1].children[nodes[2] - 1], $scope.selected]);
 				} else if (nodes.length == 5) {
 					$scope.selected = $scope.treedata[nodes[0] - 1].children[nodes[1] - 1].children[nodes[2] - 1].children[nodes[3] - 1].children[nodes[4] - 1];
-					$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0] - 1], $scope.treedata[nodes[0] - 1].children[nodes[1] - 1], $scope.treedata[nodes[0] - 1].children[nodes[1] - 1].children[nodes[2] - 1], $scope.treedata[nodes[0] - 1].children[nodes[1] - 1].children[nodes[2] - 1].children[nodes[3] - 1], $scope.selected]);
 				} else
 					$scope.selected = $scope.treedata[0];
 			}
@@ -728,8 +722,8 @@
 			}, function(data) {
 				console.log("tree data:", data.data);
 				$scope.treedataSelect = data.data;
-				//展开第一个节点
-				$scope.expandedNodes = [$scope.treedataSelect[0]];
+				// 目录树全展开
+				$scope.expandedNodes = window.allNodes;
 				$scope.selected = $scope.treedataSelect[0];
 				console.log("tree data:", data.data);
 				// 目录树节点选择
@@ -802,8 +796,8 @@
 			}, function(data) {
 				console.log("tree data:", data.data);
 				$scope.treedataSelect = data.data;
-				//展开第一个节点
-				$scope.expandedNodes = [$scope.treedataSelect[0]];
+				// 目录树全展开
+				$scope.expandedNodes = window.allNodes;
 				$scope.selected = $scope.treedataSelect[0];
 				console.log("tree data:", data.data);
 				// 目录树节点选择
@@ -811,7 +805,6 @@
 			})
 
 			// 目录树节点选择
-
 			$scope.showSelected = function(sel) {
 				$scope.currentNode = sel;
 			};

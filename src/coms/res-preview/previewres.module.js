@@ -117,8 +117,7 @@
 				}
 				
 				console.log($stateParams);
-				
-				
+
 				//资源格式下拉显示问题
 				$scope.VM.preShow=false;
 				//所有资源列表显示
@@ -578,8 +577,8 @@
 				}
 				 
 				 //点击资源切换
-				$scope.slideChange=function(id,index,fromFlag){
-					console.log(id,fromFlag)
+				$scope.slideChange = function(id,index,fromFlag){
+					console.log(id, fromFlag)
 					_.each($scope.showStar, function(v, i) {
 						$scope.curStar[i]=false;
 					});
@@ -659,55 +658,9 @@
 				}
 				
 				// 全屏切换
-				var $container = $('.slide-container');
-				var $slideContent = $('.slide-content');
 				$scope.toggleFullscreen = function() {
-					console.log(screenfull.isFullscreen)
-					if (screenfull.enabled) {
-					    screenfull.toggle($container[0]);
-					    
-					    if(screenfull.isFullscreen) {
-				        	$scope.VM.slideTools = true;
-				        	$container.css({
-				        		'width': "100%",
-				        		'height':"100%"
-				        	});
-				        	$slideContent.css('height', "100%");
-				        	
-				        }else{
-				        	$scope.VM.slideTools = false;
-				        	$container.css({
-				        		'width': '',
-				        		'height':"700px"
-				        	})
-				        	$slideContent.css('height', "700px");
-				        }
-					}
+					openwin($scope.VM.fpath)
 				}
-				
-				$scope.toggleSlideTools = function() {
-				    $scope.$apply(function() {
-						$scope.VM.slideTools = false;
-						$container.css({
-				        	'width':'',
-				        	'height':"700px"
-				        })
-					})
-				}
-				
-				// 监听 按键
-				$(document).keyup(function(event){
-
-					switch(event.keyCode) {
-						case 27:{
-							$scope.toggleSlideTools();
-							break;
-						}	
-						case 96:
-//						 	$scope.toggleSlideTools();
-						 	break;
-					}
-				})
 				
 				//下载资源
 				$scope.resDownload = function(id){

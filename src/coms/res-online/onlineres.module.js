@@ -143,55 +143,56 @@
 				}
 				
 				// 全屏切换
-				var $container = $('.slide-container');
-				var $slideContent = $('.slide-content');
+//				var $container = $('.slide-container');
+//				var $slideContent = $('.slide-content');
 				$scope.toggleFullscreen = function() {
-					console.log(screenfull.isFullscreen)
-					if (screenfull.enabled) {
-					    screenfull.toggle($container[0]);
-					    
-					    if(screenfull.isFullscreen) {
-				        	$scope.VM.slideTools = true;
-				        	$container.css({
-				        		'width': "100%",
-				        		'height':"100%"
-				        	});
-				        	$slideContent.css('height', "75%");
-				        }else{
-				        	$scope.VM.slideTools = false;
-				        	$container.css({
-				        		'width': '',
-				        		'height':"700px"
-				        	})
-				        	$slideContent.css('height', "700px");
-				        }
-					}
+					openwin($scope.slides[currentSlideIndex].src)
+//					console.log(screenfull.isFullscreen)
+//					if (screenfull.enabled) {
+//					    screenfull.toggle($container[0]);
+//					    
+//					    if(screenfull.isFullscreen) {
+//				        	$scope.VM.slideTools = true;
+//				        	$container.css({
+//				        		'width': "100%",
+//				        		'height':"100%"
+//				        	});
+//				        	$slideContent.css('height', "75%");
+//				        }else{
+//				        	$scope.VM.slideTools = false;
+//				        	$container.css({
+//				        		'width': '',
+//				        		'height':"700px"
+//				        	})
+//				        	$slideContent.css('height', "700px");
+//				        }
+//					}
 				}
 				
-				$scope.toggleSlideTools = function() {
-				    $scope.$apply(function() {
-						$scope.VM.slideTools = false;
-						$container.css({
-				        	'width':'',
-				        	'height':"700px"
-				        })
-						$slideContent.css('height', "700px");
-					})
-				}
-				
-				// 监听 按键
-				$(document).keyup(function(event){
-
-					switch(event.keyCode) {
-						case 27:{
-							$scope.toggleSlideTools();
-							break;
-						}	
-						case 96:
-//						 	$scope.toggleSlideTools();
-						 	break;
-					}
-				})
+//				$scope.toggleSlideTools = function() {
+//				    $scope.$apply(function() {
+//						$scope.VM.slideTools = false;
+//						$container.css({
+//				        	'width':'',
+//				        	'height':"700px"
+//				        })
+//						$slideContent.css('height', "700px");
+//					})
+//				}
+//				
+//				// 监听 按键
+//				$(document).keyup(function(event){
+//
+//					switch(event.keyCode) {
+//						case 27:{
+//							$scope.toggleSlideTools();
+//							break;
+//						}	
+//						case 96:
+////						 	$scope.toggleSlideTools();
+//						 	break;
+//					}
+//				})
 			}
 		])
 }());

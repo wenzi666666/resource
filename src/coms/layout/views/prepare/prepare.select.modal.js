@@ -29,8 +29,10 @@
 				}, function(data) {
 					console.log("tree data:", data.data);
 					$scope.treedataSelect = data.data;
-					//展开第一个节点
-					$scope.expandedNodes = [$scope.treedataSelect[0]];
+					// 目录树全展开
+					// window.addToAllNodes($scope.treedata);
+					$scope.expandedNodes = window.allNodes;
+					
 					$scope.selected = $scope.treedataSelect[0];
 					console.log("tree data:", data.data);
 					// 目录树节点选择

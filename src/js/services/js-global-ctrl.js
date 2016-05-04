@@ -7,7 +7,7 @@
 			console.log("test open win");
 			var a = document.createElement("a");
 			a.setAttribute("href", url);
-			a.setAttribute("target", "_new");
+			a.setAttribute("target", "_blank");
 			document.body.appendChild(a);
 			a.click();
 		}
@@ -116,6 +116,20 @@
 		setTimeout(function() {
 			openwin(url);
 		}, 1000)
+	}
+	
+	/**
+	 * 目录树全展开处理
+	 */
+	window.allNodes = [];
+	window.addToAllNodes = function(children) {
+		if (!children || typeof(children) == "array" && children.length == 0) {
+			return;
+		}
+		for (var i = 0; i < children.length; i++) {
+			window.allNodes.push(children[i]);
+			window.addToAllNodes(children[i].children);
+		}
 	}
 
 }());

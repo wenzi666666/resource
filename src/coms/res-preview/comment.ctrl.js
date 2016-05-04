@@ -112,6 +112,7 @@
 							var tpl = "";
 							tpl = "<iframe width='100%' height='700px' src='" + data.data[0].path + "' style='border:0'></iframe>"
 							$('#res-slide-content').html(tpl);
+							$scope.VM.fpath = data.data[0].path;
 						} else {
 							alert(data.code);
 						}
