@@ -659,7 +659,7 @@
 				
 				// 全屏切换
 				$scope.toggleFullscreen = function() {
-					openwin($scope.VM.fpath)
+					openwin($scope.VM.fpath);
 				}
 				
 				//下载资源

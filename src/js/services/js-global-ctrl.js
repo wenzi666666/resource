@@ -3,14 +3,13 @@
 	 *新窗口打开页面或下载内容
 	 * 用a标签实现是为了不被 浏览器拦截
 	 */
+	var a = document.createElement("a");
 	window.openwin = function(url) {
-			console.log("test open win");
-			var a = document.createElement("a");
-			a.setAttribute("href", url);
-			a.setAttribute("target", "_blank");
-			document.body.appendChild(a);
-			a.click();
-		}
+		a.setAttribute("href", url);
+		a.setAttribute("target", "_blank");
+		document.body.appendChild(a);
+		a.click();
+	}
 		/**
 		 * juqery加入备课夹动画
 		 * 飞入效果

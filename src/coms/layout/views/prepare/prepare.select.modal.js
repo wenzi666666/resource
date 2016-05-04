@@ -30,10 +30,11 @@
 					console.log("tree data:", data.data);
 					$scope.treedataSelect = data.data;
 					// 目录树全展开
-					// window.addToAllNodes($scope.treedata);
+					window.addToAllNodes($scope.treedataSelect);
 					$scope.expandedNodes = window.allNodes;
 					
 					$scope.selected = $scope.treedataSelect[0];
+					$localStorage.tmpCurrentNode = $scope.selected;
 					console.log("tree data:", data.data);
 					// 目录树节点选择
 					$scope.currentNode = $scope.treedataSelect[0];
@@ -75,10 +76,10 @@
 					 });
 				},2000)
 				
-				
 				$scope.showSelected = function(sel) {
 					$scope.selectedPrepareId = '';
 					$scope.currentNode =  sel;
+					$localStorage.tmpCurrentNode = sel;
 					getPrepare();
 				};
 				
