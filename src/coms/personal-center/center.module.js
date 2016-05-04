@@ -99,7 +99,6 @@
 
 				// 左侧导航 切换
 				$scope.switchItemCtrl = [false, false, false, false, false]
-				console.log($stateParams.back);
 				var backType = {
 					prepare: 0,
 					upload: 1,
@@ -107,9 +106,6 @@
 					comment: 3,
 					recent: 4
 				}
-
-
-
 
 				$scope.switchItem = function(index) {
 					console.log(index);

@@ -22,6 +22,7 @@
 
 				//获取上传资源
 				$scope.getResList = function() {
+					$scope.VM.uploadFileList = [];
 					Res.getUploadRes({
 						unifyTypeId: '0',
 						fileFormat: '全部',
@@ -38,7 +39,6 @@
 				
 				// 监听 上传
 				$scope.$on("myUploadChange", function(e, d) {
-					console.log("upload")
 					$scope.getResList();
 				})
 				

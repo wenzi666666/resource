@@ -127,6 +127,10 @@
 					$scope.user = $localStorage.authUser;
 				}
 				
+				console.log($stateParams, $state)
+				// 如果是备课夹页面 隐藏搜索
+				if( $state.current.name == "prepare") $scope.isShowSearch = true;
+				
 				// 筛选选择控制
 				$scope.VM.currentGradeSeclet = [];
 				$scope.VM.currentSubjectSeclet = [];
