@@ -12,7 +12,15 @@
 					autoLearning: {
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/autoLearning"
-					}
+					},
+					// 获取用户信息
+					getUserInfo: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/users/:id",
+						params: {
+							id: '@id'
+						}
+					},
 				})
 			}
 		])
@@ -44,7 +52,19 @@
 					window.location.href= "login.html";
 				}
 				// 显示用户信息
-				$scope.userTrueName = $localStorage.authUser.trueName;
+				if(!$localStorage.authUser){
+					Layout.getUserInfo({
+						id:window.getSeachByName('userId')
+					}, function(data){
+						console.log(data);
+						$localStorage.authUser = data.data;
+						$scope.userTrueName = $localStorage.authUser.trueName;
+					})
+				} else {
+					$scope.userTrueName = $localStorage.authUser.trueName;
+				}
+				
+				
 				// 导航激活
 				$scope.isActive = function (viewLocation) {
 				     return (viewLocation === $state.current.name);
