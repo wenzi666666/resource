@@ -59,7 +59,6 @@
 				$scope.VM.listInfoCom = function(id, fromFlag) {
 					$scope.VM.resourceId=id;
 					$scope.VM.fromFlag=fromFlag;
-					console.log(id+"id",fromFlag)
 					Preview.listInfo({
 						resId: id,
 						fromFlag: fromFlag
@@ -71,12 +70,14 @@
 							$scope.VM.info = data.data;
 							_.each($scope.showStar, function(v, i) {
 								$scope.curStar[i] = false;
+								$scope.hoverStar[i] = false;
 							});
 							
 							for (var i = 0; i < $scope.VM.info.score; i++) {
 								//几颗星亮
 								$scope.curStar[i] = true;
 							}
+							
 							if(($scope.VM.personType=="0") || ($scope.VM.search=="prepare"))
 							{
 								

@@ -9,6 +9,10 @@
 			function($scope, $stateParams, $state, $location, $localStorage, $uibModal, ModalMsg, Res, Upload, $timeout, $uibModalInstance) {
 				// 用户信息
 				$scope.user = $localStorage.authUser;
+				// 关闭模态框
+				$scope.cancel = function() {
+					$uibModalInstance.dismiss('cancel');
+				};
 
 				//可上传的格式
 				window.typeConfirm();

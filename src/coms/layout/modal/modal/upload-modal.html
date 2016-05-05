@@ -12,9 +12,11 @@
 					<img src="{{!isLocal?'assets/img/settings/tab2_normal.png':'assets/img/settings/tab2.png'}}" />
 					<a role="tab" data-toggle="tab" ng-click="isLocal=false">网络资源</a>
 				</li>
-				<div style="clear: both"></div>
+				
 			</ul>
+			<div class="modal-remove" ng-click="cancel()"><i class="icon-remove"></i></div>
 		</div>
+		<!--<div style="clear: both"></div>-->
 		<!--添加本地资源-->
 		<div class="upload-file-content" ng-show="isLocal">
 			<div class="first-upload" ng-show="firstUpload">
