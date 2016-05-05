@@ -42,12 +42,13 @@
 
 				$scope.starClick = function(index) {
 					var len = 0;
-					for (var i = 0; i < $scope.curStar.length; i++)
+					for (var i = 0; i < $scope.curStar.length; i++){
 						_.each($scope.curStar, function(v, i) {
 							if ($scope.curStar[i] == true) {
 								len++;
 							}
 						});
+					}
 					if (len == 0) {
 						publishScore(index + 1);
 					} else {
@@ -239,6 +240,10 @@
 							for (var i = 0; i < index; i++) {
 								$scope.curStar[i] = true;
 							}
+							$scope.VM.info.userNum++;
+							$scope.VM.info.avgScore = index;
+							
+							
 						} else {
 							alert(data.message);
 						}
