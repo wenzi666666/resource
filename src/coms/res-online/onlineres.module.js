@@ -71,7 +71,8 @@
 					}, function(data){
 						$scope.slides[index].src = data.data[0].path;
 						$scope.selectRes(index);
-						console.log(data.data)
+						console.log(data.data);
+						currentSlideIndex = index;
 					})
 				}
 					
