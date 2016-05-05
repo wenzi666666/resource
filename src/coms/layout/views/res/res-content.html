@@ -25,8 +25,8 @@
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-input res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<a ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_new" title="{{list.title}}">
-					<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
-					<label for="{{$index}}"></label>
+					<input id="page{{VM.currentPageCtrl}}_{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
+					<label for="page{{VM.currentPageCtrl}}_{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
 					<div class="img-thumb-list img-thumb-list-res">
 						<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">

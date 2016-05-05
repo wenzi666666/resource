@@ -77,7 +77,7 @@
 			    	$scope.isList = list;
 			    }
 			    // 设置 系统资源为0  校本是3 区本是4;
-			    $localStorage.fromFlag = 3;
+			    $localStorage.fromFlag = 0;
 				$scope.fromFlag =  $localStorage.fromFlag;
 				// 加入备课夹 计数
 //				$scope.shopCount = 0;
@@ -247,7 +247,7 @@
 					}
 				}
 				 
-				 // 选择备课夹
+				// 选择备课夹
 				$scope.selectPrepare = function(e,listIndex) {
 					e.stopPropagation();
 					var selectPrepareModal = $uibModal.open({
@@ -301,6 +301,7 @@
 				$scope.currentPage = 1;
 				var getResList = function(d) {
 					$scope.isLoading = true;
+					$scope.resList = [];
 					SchoolRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
@@ -313,11 +314,9 @@
 					}, function(data) {
 						
 						//初始化全选
-//						_.each(data.data.list, function(v, i) {
-//							data.data.list[i].select = false;
-//						})
+						
+						$scope.VM.checkAll = [];
 						$scope.resList = data.data;
-						// console.log("resList:", $scope.resList)
 						
 						$scope.noDataCtrl = false;
 						$scope.isLoading = false;
@@ -494,7 +493,6 @@
 				$scope.checkAll =  function() {
 					if(($scope.VM.checkAll)) {
 						$scope.resList.select = $scope.resList.list.map(function(item) { return item.id; });
-						console.log($scope.resList.select);
 					}else{
 						$scope.resList.select = [];
 					}

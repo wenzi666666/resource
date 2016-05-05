@@ -247,7 +247,7 @@
 					}
 				}
 				 
-				 // 选择备课夹
+				// 选择备课夹
 				$scope.selectPrepare = function(e,listIndex) {
 					e.stopPropagation();
 					var selectPrepareModal = $uibModal.open({
@@ -301,6 +301,7 @@
 				$scope.currentPage = 1;
 				var getResList = function(d) {
 					$scope.isLoading = true;
+					$scope.resList = [];
 					SystemRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
@@ -313,12 +314,9 @@
 					}, function(data) {
 						
 						//初始化全选
+						
 						$scope.VM.checkAll = [];
-//						_.each(data.data.list, function(v, i) {
-//							data.data.list[i].select = false;
-//						})
 						$scope.resList = data.data;
-						// console.log("resList:", $scope.resList)
 						
 						$scope.noDataCtrl = false;
 						$scope.isLoading = false;
@@ -495,16 +493,8 @@
 				$scope.checkAll =  function() {
 					if(($scope.VM.checkAll)) {
 						$scope.resList.select = $scope.resList.list.map(function(item) { return item.id; });
-						
-						setTimeout(function(){
-							$('.res-input input').trigger("click");
-						},300)
-						console.log($('.res-input input').length)
 					}else{
 						$scope.resList.select = [];
-						setTimeout(function(){
-							$('.res-input input').trigger("click");
-						},300)
 					}
 				}
 				
