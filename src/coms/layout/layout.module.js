@@ -28,16 +28,13 @@
 			function($scope, $stateParams, $state, $location,$localStorage,Layout,ModalMsg) {
 				//主导航学生学习空间地址
 				var spaceNavUrl = '';
-				Layout.autoLearning({},function(data) {
-					if (data.code == "OK") {
-						spaceNavUrl = data.data;
-					} else {
-						ModalMsg.logger("登录失效啦，请重新登录");
-						window.location.href = "login.html";
-					}
-				})
 				$scope.goToSpace = function(){
-					openwin(spaceNavUrl)
+					Layout.autoLearning({},function(data) {
+						if (data.code == "OK") {
+							spaceNavUrl = data.data;
+							openwin(spaceNavUrl)
+						}
+					})
 				}
 				
 				//退出
@@ -53,6 +50,14 @@
 				}
 				// 显示用户信息
 				if(!$localStorage.authUser){
+					Layout.getUserInfo({
+						id:window.getSeachByName('userId')
+					}, function(data){
+						console.log(data);
+						$localStorage.authUser = data.data;
+						$scope.userTrueName = $localStorage.authUser.trueName;
+					})
+				} else if(window.getSeachByName('userId') && $localStorage.authUser.userId != window.getSeachByName('userId') ){
 					Layout.getUserInfo({
 						id:window.getSeachByName('userId')
 					}, function(data){
@@ -96,7 +101,6 @@
 					$("html, body").animate({scrollTop:0},"slow");
 				}
 				// header隐藏
-				console.log("layout")
 				setTimeout(function() {
 					var header = document.querySelector("#banner");
 					var headerTop = document.querySelector("#header-top");
