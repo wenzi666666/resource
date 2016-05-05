@@ -83,24 +83,24 @@
 	 */
 	window.typeConfirm = function(type) {
 		// 图片 素材
-		var imgType = ['.jpg', '.png', '.gif'];
+		window.imgType = ['.jpg', '.png', '.gif'];
 		// 文本 素材
-		var docType = ['.docx', '.doc', '.dot', '.dotm', '.docm', '.txt', '.pdf', '.wps', '.mht'];
+		window.docType = ['.docx', '.doc', '.dot', '.dotm', '.docm', '.txt', '.pdf', '.wps', '.mht'];
 		// ppt 素材
-		var pptType = ['.ppt', '.pptx', '.pot', '.potm', '.pptm', '.wpt'];
+		window.pptType = ['.ppt', '.pptx', '.pot', '.potm', '.pptm', '.wpt'];
 		// 动画 素材
-		var swfType = ['.swf', '.gsp'];
+		window.swfType = ['.swf', '.gsp'];
 		// 网络 学案
-		var webType = ['.html', '.htm'];
+		window.webType = ['.html', '.htm'];
 		// 视频  素材
 		//			var videoType = ['.wmv', '.asf', '.asx', '.rm', '.rmvb', '.mpg', '.mpeg', '.3gp', '.mov', '.mp4', '.m4v', 'avi', 'dat', 'mkv', 'flv', 'vob', 'mts'];
-		var videoType = ['.mp4'];
+		window.videoType = ['.mp4'];
 		// 音频  素材
-		var audioType = ['.mp3', '.wav', '.wav'];
+		window.audioType = ['.mp3', '.wav', '.wav'];
 		// 拓展资源
-		var cajType = ['.kdh', '.caj', '.teb', '.nh'];
+		window.cajType = ['.kdh', '.caj', '.teb', '.nh'];
 		// 其他  素材
-		var otherType = ['.xls', '.xlsx', '.xlsm', '.rar', '.zip'];
+		window.otherType = ['.xls', '.xlsx', '.xlsm', '.rar', '.zip'];
 
 		window.allFormats = imgType.concat(docType, pptType, swfType, webType, videoType, audioType, cajType, otherType);
 		

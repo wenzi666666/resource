@@ -116,11 +116,11 @@
 				}
 
 
-//				if($stateParams.back) {
-//					console.log("test", backType[$stateParams.back]);
-//					$scope.switchItem(backType[$stateParams.back]);
-//				}
-//				else $scope.switchItem(0);
+				if($stateParams.back) {
+					console.log("test", backType[$stateParams.back]);
+					$scope.switchItem(backType[$stateParams.back]);
+				}
+				else $scope.switchItem(0);
 
 				
 

@@ -45,7 +45,43 @@
 						ModalMsg.logger("文件格式不正确，请重新选择！");
 						return;
 					}
-
+					
+					//对上传文件进行 限制
+					var fileType = '.' + files[0].name.split('.')[files[0].name.split('.').length - 1];
+					//限制图片大小为5M
+					if(_.indexOf(imgType,fileType) > -1){
+						if((files[0].size) > 5*1024*1024) {
+							ModalMsg.logger("图片最大支持5M，请更改后上传！");
+							return;
+						}
+					} else if(_.indexOf(docType,fileType) > -1 || _.indexOf(pptType,fileType) > -1 || _.indexOf(cajType,fileType) > -1){
+						if((files[0].size) > 30*1024*1024) {
+							ModalMsg.logger("文档类文件最大30M，请更改后上传！");
+							return;
+						}
+					} else if(_.indexOf(swfType,fileType) > -1){
+						if((files[0].size) > 10*1024*1024) {
+							ModalMsg.logger("动画文件最大支持10M，请更改后上传！");
+							return;
+						}
+					} else if(_.indexOf(audioType,fileType) > -1 ){
+						if((files[0].size) > 10*1024*1024) {
+							ModalMsg.logger("音频最大支持10M，请更改后上传！");
+							return;
+						}
+					} else if(_.indexOf(videoType,fileType) > -1 ){
+						if((files[0].size) > 150*1024*1024) {
+							ModalMsg.logger("视频最大支持150M，请更改后上传！");
+							return;
+						}
+					} else {
+						if((files[0].size) > 100*1024*1024) {
+							ModalMsg.logger("文件上传最大支持100M，请更改后上传！");
+							return;
+						}
+					}
+//					
+					
 					$scope.firstUpload = false;
 					$scope.files = files;
 
