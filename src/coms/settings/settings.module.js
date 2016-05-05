@@ -53,55 +53,57 @@
 				//选中的学科
 				$scope.selectedSubject;
 				
-				console.log($localStorage.authUser.userId);
 				//获取用户信息
-				User.get({
-					userid: $localStorage.authUser.userId
-				}, function(data){
-					console.log(data);
-					var info = data.data;
-					$scope.userName = info.userName;
-					$scope.schoolName = info.schoolName;
-					$scope.trueName = info.trueName;
-					$scope.sexSelected = info.male;
-					$scope.currentAvatar = info.userImage;
-					//获取学段信息
-					User.getAllTerms({
-						
-					}, function(data) {
-						$scope.terms = data.data;
-						if($scope.terms) {
-							for(var i = 0; i < $scope.terms.length; i ++) {
-								if($scope.terms[i].name == info.termName) {
-									$scope.terms[i].active = true;
-									$scope.selectedTerm = $scope.terms[i];
+				setTimeout(function(){
+					User.get({
+						userid: $localStorage.authUser.userId
+					}, function(data){
+						console.log(data);
+						var info = data.data;
+						$scope.userName = info.userName;
+						$scope.schoolName = info.schoolName;
+						$scope.trueName = info.trueName;
+						$scope.sexSelected = info.male;
+						$scope.currentAvatar = info.userImage;
+						//获取学段信息
+						User.getAllTerms({
+							
+						}, function(data) {
+							$scope.terms = data.data;
+							if($scope.terms) {
+								for(var i = 0; i < $scope.terms.length; i ++) {
+									if($scope.terms[i].name == info.termName) {
+										$scope.terms[i].active = true;
+										$scope.selectedTerm = $scope.terms[i];
+									}
+									else $scope.terms[i].active = false;
 								}
-								else $scope.terms[i].active = false;
-							}
-							User.getAllSubjects({
-								termId: $scope.selectedTerm.id
-							}, function(data) {
-								console.log(data.data);
-								$scope.subjects = data.data;
-								if($scope.subjects && $scope.subjects.length > 0) {
-									if(info.subjectNames) {
-										for(var i = 0; i < $scope.subjects.length; i ++) {
-											if($scope.subjects[i].name == info.subjectNames) {
-												$scope.subjects[i].active = true;
-												$scope.selectedSubject = $scope.subjects[i];
+								User.getAllSubjects({
+									termId: $scope.selectedTerm.id
+								}, function(data) {
+									console.log(data.data);
+									$scope.subjects = data.data;
+									if($scope.subjects && $scope.subjects.length > 0) {
+										if(info.subjectNames) {
+											for(var i = 0; i < $scope.subjects.length; i ++) {
+												if($scope.subjects[i].name == info.subjectNames) {
+													$scope.subjects[i].active = true;
+													$scope.selectedSubject = $scope.subjects[i];
+												}
+												else $scope.subjects[i].active = false;
 											}
-											else $scope.subjects[i].active = false;
+										}
+										else {
+											$scope.subjects[0].active = true;
+											$scope.selectedSubject = $scope.subjects[0];
 										}
 									}
-									else {
-										$scope.subjects[0].active = true;
-										$scope.selectedSubject = $scope.subjects[0];
-									}
-								}
-							})
-						}
+								})
+							}
+						})
 					})
-				})
+				},300)
+				
 				
 				
 				// 变量共享
