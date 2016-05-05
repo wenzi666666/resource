@@ -192,6 +192,7 @@
 				  				console.log(data);
 				  				if(data.code == "OK") {
 				  					$scope.currentAvatar = newpath;
+				  					$localStorage.authUser.userImage = newpath;
 				  					saveSuccess = "头像更换成功！";
 				  				}
 				  				else {

@@ -137,12 +137,15 @@
 									else v.active = false;
 								})
 							} else $scope.listData[0].active = true;
+							//获取备课夹详细内容
+							_.each(data.data, function(v, i) {
+								getPrepareDetails(v.id, i);
+								v.editPrepareTitle = false;
+							})
 						}
-						//获取备课夹详细内容
-						_.each(data.data, function(v, i) {
-							getPrepareDetails(v.id, i);
-							v.editPrepareTitle = false;
-						})
+						else {
+
+						}
 					})
 				}
 
@@ -264,15 +267,14 @@
 					//创建备课夹
 					modalNewPrepare.result.then(function(data) {
 						console.log(data);
-						var title = data.name;
-						var newTitle = data.name;
+						var title = data.label;
+						var newTitle = data.label;
 						Prepare.basePostApi({
-							tfcode: data.code,
+							tfcode: data.tfcode,
 							title: newTitle
 						}, function(d) {
-							console.log("test");
-							getPrepare(data.code);
-							getAllPrepare();
+							$localStorage.currentTreeNode = data;
+							window.location.reload();
 						})
 					});
 				}
@@ -365,7 +367,7 @@
 				}
 
 				$scope.downLoadRes = function(id, flag, title) {
-					console.log(id, flag);
+					console.log(id, flag, title);
 					Prepare.zipPrepare({
 						ids: id,
 						fromflags: flag,
@@ -424,8 +426,8 @@
 				}
 
 				//下载资源
-				$scope.zipPrepareList = function(id) {
-					console.log($scope.listData);
+				$scope.zipPrepareList = function(id, title) {
+					console.log(id, title);
 					_.each($scope.listData, function(pre, i) {
 						if (pre.id == id) {
 							//批量下载
@@ -437,7 +439,7 @@
 							})
 							if (resIds.length == 0) {
 								ModalMsg.alert("当前备课夹下没有资源哦");
-							} else $scope.downLoadRes(resIds.toString(), flags.toString(), id.title);
+							} else $scope.downLoadRes(resIds.toString(), flags.toString(), title);
 						}
 					})
 				}
@@ -453,7 +455,8 @@
 				$scope.searchPrepare = function(searchwords) {
 					if (searchwords != "") {
 						Prepare.searchResults({
-							title: searchwords
+							title: searchwords,
+							orderby: 'title'
 						}, function(data) {
 							$scope.showSearchResults = true;
 							console.log("search", data);
@@ -643,7 +646,7 @@
 					'code': $scope.currentNode.tfcode,
 					'name': $scope.prepareName
 				}
-				$uibModalInstance.close(tmpVal);
+				$uibModalInstance.close($scope.currentNode);
 			};
 
 			$scope.prepareCancel = function() {

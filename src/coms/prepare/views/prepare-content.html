@@ -72,12 +72,7 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="coms-pagination">
-		 	<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页"></uib-pagination>
-			<div class="page-go">
-				<span class="page-text">转到</span>
-				<input class="page-input"/>
-				<span class="page-go-btn">Go</span>
-			</div>
-		</div> -->
+	<div class="noPrepare" ng-show="listData.length == 0">
+		<p>亲，<br>该节点下没有备课夹，<br>快点击右上角新建吧！</p>
+	</div>
 </div>

@@ -19,7 +19,7 @@
 					<div class="list-all-item ">
 						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
-						<span class="zip-download" ng-click="zipPrepareList(list.id)"><i class="icon-cloud-download"></i> 打包下载</span>
+						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
 						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
 						<br>
@@ -42,7 +42,7 @@
 					<div class="list-all-item ">
 						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
-						<span class="zip-download" ng-click="zipPrepareList(list.id)"><i class="icon-cloud-download"></i> 打包下载</span>
+						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
 						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
 						<br>
