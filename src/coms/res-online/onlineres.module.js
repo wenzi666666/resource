@@ -100,6 +100,8 @@
 				}
 				
 				//跳转到
+				$scope.curImg = [];
+				$scope.curImg[0]=true;
 				$scope.selectRes = function(index) {
 					var tpl = '';
 					switch($scope.slides[index].type)
@@ -108,6 +110,11 @@
 					   tpl = "<iframe width='100%' height='700px' src='" +$scope.slides[index].src + "' style='border:0'></iframe>"
 					   $('#res-slide-content').html(tpl);
 					}
+					for(var i=0;i<$scope.slides.length;i++)
+					{
+						$scope.curImg[i]=false;
+					}
+					$scope.curImg[index]=true;
 				}
 				
 				// 下方工具栏 
