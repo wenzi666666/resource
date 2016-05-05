@@ -316,63 +316,63 @@
 				
 				//系统头像
 				$scope.systemAvatars = [{
-					path: "assets/img/settings/system_avatar/default.png",
+					path: "person/head/default.png",
 					clicked: true
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon0.jpg", 
+					path: "person/head/Icon0.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon1.jpg", 
+					path: "person/head/Icon1.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon2.jpg", 
+					path: "person/head/Icon2.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon3.jpg", 
+					path: "person/head/Icon3.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon4.jpg", 
+					path: "person/head/Icon4.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon5.jpg", 
+					path: "person/head/Icon5.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon6.jpg", 
+					path: "person/head/Icon6.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon7.jpg", 
+					path: "person/head/Icon7.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon8.jpg", 
+					path: "person/head/Icon8.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon9.jpg", 
+					path: "person/head/Icon9.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon10.jpg", 
+					path: "person/head/Icon10.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon11.jpg", 
+					path: "person/head/Icon11.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon12.jpg", 
+					path: "person/head/Icon12.jpg", 
 					clicked: false
 				},
 				{
-					path: "assets/img/settings/system_avatar/Icon13.jpg", 
+					path: "person/head/Icon13.jpg", 
 					clicked: false
 				}];
 				
