@@ -19,7 +19,8 @@
 				Personal.getResType({
 					tabCode: "myView"
 				}, function(data) {
-					$scope.resTypes = data.data;	
+					$scope.resTypes = data.data;
+					console.log($scope.resTypes);	
 					$scope.VM.resType = $scope.resTypes[0].mtype; 			
 				})
 				

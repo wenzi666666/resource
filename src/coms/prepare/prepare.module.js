@@ -267,13 +267,14 @@
 					//创建备课夹
 					modalNewPrepare.result.then(function(data) {
 						console.log(data);
-						var title = data.label;
-						var newTitle = data.label;
+						var title = data.name;
+						var newTitle = data.name;
 						Prepare.basePostApi({
-							tfcode: data.tfcode,
+							tfcode: data.node.tfcode,
 							title: newTitle
 						}, function(d) {
-							$localStorage.currentTreeNode = data;
+							console.log(d);
+							$localStorage.currentTreeNode = data.node;
 							window.location.reload();
 						})
 					});
@@ -453,6 +454,7 @@
 				$scope.searchList = [];
 				$scope.showSearchResults = false;
 				$scope.searchPrepare = function(searchwords) {
+					console.log(searchwords);
 					if (searchwords != "") {
 						Prepare.searchResults({
 							title: searchwords,
@@ -626,8 +628,11 @@
 				$scope.previewRes = function(res) {
 					console.log(res);
 					if (res.fromFlag == 1) {
-						ModalMsg.alert("当前资源不能预览！");
-					} else $state.go('previewres', {
+						// if(res.isFinished == 0) 
+						$state.go('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'prepare',type:'1'});
+						// else ModalMsg.alert("当前资源未完成转码，不能预览！");
+					} 
+					else $state.go('previewres', {
 						resId: res.resId,
 						curTfcode: '',
 						fromFlag: res.fromFlag,
@@ -642,11 +647,16 @@
 
 			$scope.prepareOK = function() {
 				console.log("close modal");
-				var tmpVal = {
-					'code': $scope.currentNode.tfcode,
-					'name': $scope.prepareName
+				if($scope.prepareName == "") {
+					ModalMsg.alert("请输入备课夹名称！");
 				}
-				$uibModalInstance.close($scope.currentNode);
+				else {
+					var tmpVal = {
+						'node': $scope.currentNode,
+						'name': $scope.prepareName
+					}
+					$uibModalInstance.close(tmpVal);
+				}
 			};
 
 			$scope.prepareCancel = function() {

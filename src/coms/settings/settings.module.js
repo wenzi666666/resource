@@ -411,7 +411,7 @@
 				}
 				
 				$scope.close = function() {
-					$uibModalInstance.close($scope.newAvatar);
+					$uibModalInstance.close();
 				}
 			}
 		])
