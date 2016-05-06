@@ -439,17 +439,16 @@
 				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function(pagenum) {
 					console.log(pagenum);
-					if(pagenum == undefined) {
-						console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
+					if(pagenum > 0 && pagenum < $scope.resList.totalLines) {
+						page = pagenum;
+						$scope.VM.currentPageCtrl = pagenum;
+					    getResList();
+					} else if(pagenum == undefined) {
 					    page = $scope.VM.currentPageCtrl;
 					    getResList();
 					}
 					else {
-						page = pagenum;
-						console.log('Page changed to: ' + page);
-						$scope.VM.currentPageCtrl = pagenum;
-					    getResList();
-					   
+						ModalMsg.logger("请输入大于0，小于页码总数的数字~");
 					} 
 				};
 

@@ -720,6 +720,7 @@
 			$scope.currentTypeSeclet = [];
 			$scope.selectType = function(index) {
 				//选中
+				console.log(index)
 				_.each($scope.unifyType, function(v, i) {
 					$scope.currentTypeSeclet[i] = false;
 				})
@@ -733,6 +734,7 @@
 			$scope.currentScopeIndexSeclet = $scope.resDetails.sharescope;
 			$scope.selectScope = function(index) {
 				//选中
+				console.log(index)
 				_.each([0, 1, 2], function(v, i) {
 					$scope.currentScopeSeclet[i] = false;
 				})
@@ -788,7 +790,7 @@
 					name: $scope.res.title,
 					unifTypeId: $scope.unifyType[$scope.currentTypeIndexSeclet].id,
 					tfcode: $scope.currentNode.tfcode,
-					//					scopes: $scope.currentScopeIndexSeclet,
+					scopes: $scope.currentScopeIndexSeclet,
 					keyword: $scope.res.keywords ? $scope.res.keywords : ' ',
 					desc: $scope.res.description ? $scope.res.description.toString() : ' ',
 					path: $scope.resDetails.assetpath,

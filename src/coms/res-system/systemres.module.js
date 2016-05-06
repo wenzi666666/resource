@@ -441,8 +441,10 @@
 					console.log(pagenum);
 					if(pagenum > 0 && pagenum < $scope.resList.totalLines) {
 						page = pagenum;
-						console.log('Page changed to: ' + page);
 						$scope.VM.currentPageCtrl = pagenum;
+					    getResList();
+					} else if(pagenum == undefined) {
+					    page = $scope.VM.currentPageCtrl;
 					    getResList();
 					}
 					else {
