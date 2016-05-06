@@ -438,8 +438,8 @@
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function(pagenum) {
-					console.log(pagenum);
-					if(pagenum > 0 && pagenum < $scope.resList.totalLines) {
+					console.log(pagenum,Math.round($scope.resList.totalLines/$scope.perPage));
+					if(pagenum > 0 && pagenum <= Math.ceil($scope.resList.totalLines/$scope.perPage)) {
 						page = pagenum;
 						$scope.VM.currentPageCtrl = pagenum;
 					    getResList();
