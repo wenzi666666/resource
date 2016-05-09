@@ -130,7 +130,7 @@
 						})
 	
 						editResModal.result.then(function(data) {
-							console.log(data);
+							ModalMsg.logger("修改成功！");
 						})
 					})
 					
