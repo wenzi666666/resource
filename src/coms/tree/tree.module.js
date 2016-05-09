@@ -24,7 +24,6 @@
 						pnodeId: d
 					}, function(data) {
 						 $scope.treedata = data.data;
-						 console.log("tree data:", data.data);
 						 // 目录树默认选择 当前选择 > 默认第一个节点选择 
 						 if(!!$localStorage.currentTreeNode && !!$localStorage.selectChange) {
 							var currentTreeNode = $localStorage.currentTreeNode;
@@ -74,7 +73,7 @@
 				$scope.showSelected = function(sel) {
 				   // 设定  目录树 改变了
 				   $localStorage.selectChange = true;
-				   console.log("tree:", sel)
+//				   console.log("tree:", sel)
 			       // 广播当前节点选择
 					$scope.$emit("currentTreeNode", sel);
 					//缓存用户当前 版本

@@ -35,13 +35,12 @@
 			<ul class="row">
 				<li ng-repeat="res in prepareList track by $index" ng-class="{active: res.active}" ng-click="setResActive($index)">
 				<!-- <li class="active"> -->
-					<div class="col-md-7 col-sm-7">
+					<a class="col-md-7 col-sm-7" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0', back: 'prepare'})" target="_blank">
 						<div class="img-thumb-list">
-							<img class="res-list-thumb" ng-src="{{res.imgPath?res.imgPath:'null'}}" fallback-src="{{res.fileSuffix | lowercase}}" ui-sref="previewres({resId:res.resId,curTfcode:'',fromFlag:res.fromFlag,search:'person',type:'0', back: 'prepare'})"/>
+							<img class="res-list-thumb" ng-src="{{res.imgPath?res.imgPath:'null'}}" fallback-src="{{res.fileSuffix | lowercase}}"/>
 						</div>
 						<span class="resource-title" ng-bind="res.title" title="{{res.title}}"></span>
-
-					</div>
+					</a>
 					<div class="col-md-2 col-sm-2">
 						<span class="resource-type" ng-bind="res.unifyType"></span>
 					</div>

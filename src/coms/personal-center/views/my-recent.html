@@ -34,12 +34,12 @@
 		<div class="resource-list">
 			<ul class="row">
 				<li ng-repeat="list in VM.recentFileList.list track by $index">
-					<div class="col-md-6 col-sm-6">
+					<a class="col-md-6 col-sm-6"  ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0', back: 'recent'})" target="_blank">
 						<div class="img-thumb-list">
-							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0', back: 'recent'})"/>
+							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}"/>
 						</div>
 						<span class="resource-title">{{list.title}}</span>
-					</div>
+					</a>
 					<div class="col-md-3 col-sm-3">
 						<span class="resource-type">{{list.unifyType}}</span>
 					</div>

@@ -252,37 +252,35 @@
     font-size: 1.4rem;
     color: #666666;
 }
-
+.resource-list li:hover{
+    background: #E6F4F4;
+}
 .resource-list .img-thumb-list {
     top: 5px;
 }
 
-.my-upload-list .img-thumb-list {
-    width: 120px;
-    height: 120px;
-    left: 39px;
-    line-height: 120px;
-}
-.my-upload-list .res-list-thumb {
-    width: 110px;
-    height: 110px;
-    line-height: 110px;
-}
 
 
 .my-upload-list .resource-title {
-    float: left;
     width: 35%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-//  margin-left: 142px;
 }
 
 .my-upload-list .check-box-area {
     float: left;
+    position: relative;
+    width: 18px;
+    height: 140px;
 }
-
+.my-upload-list .check-box-area label{
+    position: absolute;
+    top: 50%;
+}
+.my-upload-list .upload-img-thumb {
+    margin-left: 35px;
+}
 .resource-list li.active {
     background-color: #E6F4F4;
 }
@@ -294,6 +292,7 @@
     border-radius: 4px;
     font-size: 1.3rem;
     width: 45%;
+    margin-top: 55px;
 }
 
 #btn-delete-some {
@@ -308,12 +307,14 @@
 
 .resource-title {
     position: absolute;
-    left: 170px;
-    top: 5px;
+    left: 190px;
+    top: 60px;
 }
 
 .resource-type, .resource-date{
     margin-left: 20px;
+    position: absolute;
+    top: 60px
 }
 
 
@@ -526,16 +527,20 @@
 {
     color: #EC80AF;
 }
-.com-list .resource-title
-{
-    clear: both;
-    display: block;
-    margin-left: 0px;
-    height: 30px;
-    line-height: 30px;
-    margin-top: 133px;
-    left:10px;
-   
+.com-list .resource-title {
+    text-align: center;
+    left: 0;
+    top: 150px;
+    padding-left: 10px;
+    width: 160px;
+}
+.com-right-offset{
+    margin-left: 15px;
+    padding-top: 30px;
+}
+.com-right-offset .resource-date{
+    position: relative;
+    top: 0;
 }
 .com-list li{
     min-height: 185px;
@@ -565,30 +570,6 @@
 .com-list .edit
 {
     clear: both;
-}
-
-//自适应页面bug
-@media screen and (min-width : 992px) {
-    .my-upload-list .img-thumb-list {
-        width: 100px;
-        height: 100px;
-        line-height: 100px;
-    }
-
-    .my-upload-list .res-list-thumb {
-        width: 90px;
-        height: 90px;
-    }
-
-    .resource-list span {
-        font-size: 1.2rem;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .resource-list span {
-        font-size: 1.4rem;
-    }
 }
 
 

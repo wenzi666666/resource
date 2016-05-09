@@ -89,17 +89,19 @@
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
+				// 没有备课夹时显示
+				$scope.noPrepare = false;
 
 				// 关闭版本筛选
 				$scope.closeCurrentVersion = function() {
-						$scope.VM.currentVersionShow = false;
-						$scope.VM.currentMaterialShow = false;
-						$scope.VM.currentVersionTmpShow = false;
-						$scope.VM.isList = true;
-						// 获取所有备课夹
-						getAllPrepare();
-					}
-					// 关闭教材筛选
+					$scope.VM.currentVersionShow = false;
+					$scope.VM.currentMaterialShow = false;
+					$scope.VM.currentVersionTmpShow = false;
+					$scope.VM.isList = true;
+					// 获取所有备课夹
+					getAllPrepare();
+				}
+				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
 					$scope.VM.currentMaterialShow = false;
 					$scope.VM.currentMaterialTmpShow = false;
@@ -130,8 +132,8 @@
 						tfcode: id
 					}, function(data) {
 						$scope.listData = data.data;
-						console.log($scope.listData);
 						if (data.data && data.data.length > 0) {
+							$scope.noPrepare = false;
 							var paramsId = $stateParams.prepareId;
 							if (paramsId) {
 								_.each($scope.listData, function(v, i) {
@@ -146,7 +148,7 @@
 							})
 						}
 						else {
-
+							$scope.noPrepare = true;
 						}
 					})
 				}
@@ -158,16 +160,12 @@
 						termId: $localStorage.currentGrade.id,
 						subjectId: $localStorage.currentSubject.id,
 					}, function(data) {
-						// console.log(data.data);
 						$scope.listAllData = data.data;
-						console.log("listAllData", $scope.listAllData);
 					})
 				}
 
 				//监听课本选择
 				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {
-					console.log("test");
-					getPrepare(tfcode);
 					// 更改目录标题
 					$scope.currentVersion = $localStorage.currentVersion;
 				})
@@ -211,7 +209,6 @@
 
 				//设定备课夹名称
 				$scope.setPrepareTitle = function(index) {
-					console.log('haha')
 					Prepare.basePostApi({
 						id: $scope.listData[index].id,
 						title: $scope.listData[index].title,
@@ -225,7 +222,6 @@
 				// 删除备课夹
 				$scope.deletePrepare = function(index, e) {
 					e.stopPropagation();
-					// console.log($scope.listData[index]);
 					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listData[index].title);
 
 					deleteModal.result.then(function(data) {
@@ -233,7 +229,6 @@
 							id: $scope.listData[index].id,
 							_method: "DELETE"
 						}, function(data) {
-							console.log(data);
 							getPrepare($localStorage.currentTreeNode.tfcode);
 						})
 					})
@@ -242,7 +237,6 @@
 				// 删除备课夹
 				$scope.deletePrepare2 = function(index, e) {
 					e.stopPropagation();
-					// console.log($scope.listAllData);
 					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData.list[index].title);
 
 					deleteModal.result.then(function(data) {
@@ -266,14 +260,12 @@
 
 					//创建备课夹
 					modalNewPrepare.result.then(function(data) {
-						console.log(data);
 						var title = data.name;
 						var newTitle = data.name;
 						Prepare.basePostApi({
 							tfcode: data.node.tfcode,
 							title: newTitle
 						}, function(d) {
-							console.log(d);
 							$localStorage.currentTreeNode = data.node;
 							window.location.reload();
 						})
@@ -286,8 +278,6 @@
 					var nextId = 0;
 					var prevIndex = 0;
 					var nextIndex = 0;
-					console.log($scope.listData);
-					console.log(index);
 					var list = $scope.listData[index].children;
 					var len = list.length;
 					var msg = "";
@@ -352,18 +342,14 @@
 				//备课夹中内容操作——删除，根据关联id
 				$scope.deleteItem = function(id, title, prepareIndex) {
 					var deleteModal = ModalMsg.confirm("确定从备课夹中删除资源：<br>"+ title);
-					console.log(title)
 					deleteModal.result.then(function(data) {
 						Prepare.prepareContentBaseApi({
 							ids: id,
 							_method: "DELETE"
 						}, function(data) {
-							console.log(data);
-	
 							if (data.code == "OK") {
 //								ModalMsg.logger("从备课夹删除资源成功！");
 								getPrepareDetails($scope.listData[prepareIndex].id, prepareIndex);
-								//							getPrepare($localStorage.currentTreeNode.tfcode);
 							} else {
 								ModalMsg.logger("从备课夹删除资源失败，请重试！");
 							}
@@ -374,7 +360,6 @@
 				}
 
 				$scope.downLoadRes = function(id, flag, title) {
-					console.log(id, flag, title);
 					Prepare.zipPrepare({
 						ids: id,
 						fromflags: flag,
@@ -398,7 +383,6 @@
 
 				// 下载单个资源
 				$scope.resDownloadByResId = function(id, flag) {
-					console.log('resDownload')
 					Res.resDownload({
 						resIds: id,
 						fromFlags: flag
@@ -410,7 +394,6 @@
 
 				// 打包下载资源
 				$scope.zipPrepare = function(id, flag) {
-					console.log(id);
 					//批量下载
 					if (flag == -1) {
 						var resIds = [];
@@ -427,14 +410,12 @@
 					}
 					//单个资源下载a
 					else {
-						console.log(id, flag);
 						$scope.downLoadRes(id, flag);
 					}
 				}
 
 				//下载资源
 				$scope.zipPrepareList = function(id, title) {
-					console.log(id, title);
 					_.each($scope.listData, function(pre, i) {
 						if (pre.id == id) {
 							//批量下载
@@ -460,16 +441,13 @@
 				$scope.searchList = [];
 				$scope.showSearchResults = false;
 				$scope.searchPrepare = function(searchwords) {
-					console.log(searchwords);
 					if (searchwords != "") {
 						Prepare.searchResults({
 							title: searchwords,
 							orderby: 'title'
 						}, function(data) {
 							$scope.showSearchResults = true;
-							console.log("search", data);
 							$scope.searchList = data.data;
-							console.log($scope.showSearchResults);
 						})
 					}
 				}
@@ -522,7 +500,6 @@
 
 					//移动到备课夹
 					movePrepareModal.result.then(function(data) {
-						// console.log(data);
 						//判断当前资源是否已经存在
 						Prepare.prepareContent({
 							id: data.prepareId
@@ -530,7 +507,6 @@
 							var resData = items.data;
 							var hasTheRes = false;
 							if (resData && resData.length > 0) {
-								console.log(res.resId);
 								for (var i = 0; i < resData.length; i++) {
 									if (resData[i].resId == res.resId) {
 										hasTheRes = true;
@@ -574,7 +550,6 @@
 					})
 
 					movePrepareModal.result.then(function(data) {
-						console.log(data);
 						//移动 复制
 						if (flag == 1) {
 
@@ -592,25 +567,14 @@
 
 					// 上传结束
 					modalNewUpload.result.then(function(data) {
-						console.log(data);
 						// 更新上传 处理结果
-						console.log(prepareId);
-
 						Prepare.addResToPrepareId({
 							id: prepareId,
 							resIds: data[0].id,
 							fromFlags: 1
 						}, function(d) {
-							console.log(d);
 							if (d.code == "OK") {
-								//								Prepare.addResToPrepareId({
-								//									id: prepareId,
-								//									resIds: d.resId,
-								//									fromFlags: 1
-								//								}, function(d) {
-								//									getPrepare($localStorage.currentTreeNode.tfcode);
 								getPrepareDetails(prepareId, index);
-								//								})
 							} else {
 								ModalMsg.logger("上传到备课夹失败，请重试！")
 							}
@@ -632,7 +596,6 @@
 
 				//资源预览
 				$scope.previewRes = function(res) {
-					console.log(res);
 					if (res.fromFlag == 1) {
 						// if(res.isFinished == 0) 
 						$state.go('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'prepare',type:'1'});
@@ -652,7 +615,6 @@
 		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree, $localStorage) {
 
 			$scope.prepareOK = function() {
-				console.log("close modal");
 				if($scope.prepareName == "") {
 					ModalMsg.alert("请输入备课夹名称！");
 				}
@@ -673,11 +635,9 @@
 			Tree.getTree({
 				pnodeId: $localStorage.currentMaterial.id,
 			}, function(data) {
-				console.log("tree data:", data.data);
 				$scope.treedata = data.data;
 				// 目录树全展开
 				$scope.expandedNodes = window.allNodes;
-				console.log("tree data:", data.data);
 				// 目录树节点选择
 				getCurrentTreeNode();
 			
@@ -715,7 +675,6 @@
 			$scope.currentNode = $localStorage.currentTreeNode
 			$scope.showSelected = function(sel) {
 				$scope.currentNode = sel;
-				console.log($scope.currentNode);
 				$scope.prepareName = $scope.currentNode.label;
 			};
 		}
@@ -724,7 +683,6 @@
 	.controller("opModalController", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree', '$localStorage',
 		function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree, $localStorage) {
 			$scope.moveOK = function() {
-				console.log("test");
 				var tmpVal = {
 					'prepareId': $scope.selectedPrepare.id,
 				}
@@ -739,12 +697,10 @@
 			Tree.getTree({
 				pnodeId: $localStorage.currentMaterial.id,
 			}, function(data) {
-				console.log("tree data:", data.data);
 				$scope.treedataSelect = data.data;
 				// 目录树全展开
 				$scope.expandedNodes = window.allNodes;
 				$scope.selected = $scope.treedataSelect[0];
-				console.log("tree data:", data.data);
 				// 目录树节点选择
 				$scope.currentNode = $scope.treedataSelect[0];
 			})
@@ -763,7 +719,6 @@
 			Prepare.baseGetApi({
 				tfcode: $scope.currentNode.tfcode
 			}, function(data) {
-				console.log("prepares", data.data);
 				$scope.prepares = data.data;
 				//获取备课夹详细内容
 
@@ -813,12 +768,10 @@
 			Tree.getTree({
 				pnodeId: $localStorage.currentMaterial.id,
 			}, function(data) {
-				console.log("tree data:", data.data);
 				$scope.treedataSelect = data.data;
 				// 目录树全展开
 				$scope.expandedNodes = window.allNodes;
 				$scope.selected = $scope.treedataSelect[0];
-				console.log("tree data:", data.data);
 				// 目录树节点选择
 				$scope.currentNode = $scope.treedataSelect[0];
 			})

@@ -19,26 +19,22 @@
 			<ul class="row">
 				<li ng-repeat="list in VM.commentList" class="comment-list">
 					<div class="col-md-12 col-sm-12">
-						<div class="col-md-3 col-sm-3">
+						<a class="col-md-2 col-sm-2" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag})" target="_blank">
 							<div class="img-thumb-list">
-								<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0', back:'comment'})"/>
+								<img class="person-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}"/>
 							</div>
 							<span class="resource-title text-ellipsis" >{{list.title}}</span>
-						</div>
-						<div class="col-md-9 col-sm-9">
+						</a>
+						<div class="col-md-9 col-sm-9 com-right-offset">
 							<span class="name">{{user.userName}}</span>
 							<show-time class="resource-date" data-value="{{list.time | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
-							
-							<div class="com-content">
+							<br><br>
+							<span class="com-content">
 								{{list.content}}
-							</div>
-						</div>
-						<div class="edit">
-							<button class="btn btn-success" ng-click="deleteCom(list.id,$index)" ng-show="btnShow">删除</button>
+							</span>
+							<button class="btn btn-success" ng-click="deleteCom($event,list,$index)" ng-show="btnShow">删除</button>
 							<button class="btn btn-success" ui-sref="previewres({resId:list.resId,curTfcode:'',fromFlag:list.fromFlag,search:'person',type:'0'})" ng-hide="btnShow">评价</button>
 						</div>
-						
-					
 					</div>
 					<div class="clearfix"></div>
 				</li>

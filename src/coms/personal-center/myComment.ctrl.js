@@ -78,7 +78,7 @@
 				//获取评论
 				$scope.VM.bigCurrentPage = 1;
 
-				function getComList() {
+				var getComList = function () {
 					console.log( $scope.VM.curChecked)
 					Personal.getComment({
 						reviewType: $scope.VM.curChecked,
@@ -137,15 +137,20 @@
 				};
 
 				//删除评论
-				$scope.deleteCom = function(id, index) {
-					Personal.delCom({
-						ids: id,
-						_method: "DELETE"
-					}, function(data) {
-						console.log("删除评论" + id, index);
-						console.log(data)
-						$scope.VM.commentList.splice(index,1);
-					});
+				$scope.deleteCom = function($event,list, index) {
+					$event.stopPropagation();
+					console.log(list)
+					var deleteModal = ModalMsg.confirm("确定删除评论：" +list.content);
+
+					deleteModal.result.then(function(data) {
+						Personal.delCom({
+							ids: list.id,
+							_method: "DELETE"
+						}, function(data) {
+							$scope.VM.commentList.splice(index,1);
+						});
+					})
+					
 				}
 
 			}

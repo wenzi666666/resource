@@ -141,7 +141,8 @@
 					//已转换为可预览格式
 					console.log(res);
 					if(res.isFinished == 0) {
-						$state.go('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
+						var url = $state.href('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
+						openwin(url);
 					}
 					else {
 						ModalMsg.alert("该资源正在转码中，暂时不能预览，请稍后重试！");

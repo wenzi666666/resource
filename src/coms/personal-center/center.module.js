@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('personalcenter', {
-						url: '/personalcenter',
+						url: '/personalcenter/:type',
 						views: {
 							'content@': {
 								templateUrl: '/coms/personal-center/views/personal-center.html',
@@ -78,9 +78,6 @@
 
 				// 用户信息
 				$scope.user = $localStorage.authUser;
-				console.log($scope.user);
-
-
 				// 上传
 				$scope.uploadRes = function() {
 					var modalNewUpload = $uibModal.open({
@@ -99,16 +96,8 @@
 
 				// 左侧导航 切换
 				$scope.switchItemCtrl = [false, false, false, false, false]
-				var backType = {
-					prepare: 0,
-					upload: 1,
-					download: 2,
-					comment: 3,
-					recent: 4
-				}
 
 				$scope.switchItem = function(index) {
-					console.log(index);
 					_.each($scope.switchItemCtrl, function(v, i) {
 						$scope.switchItemCtrl[i] = false;
 					})
@@ -116,9 +105,8 @@
 				}
 
 
-				if($stateParams.back) {
-					console.log("test", backType[$stateParams.back]);
-					$scope.switchItem(backType[$stateParams.back]);
+				if(!!$stateParams.type) {
+					$scope.switchItem($stateParams.type);
 				}
 				else $scope.switchItem(0);
 

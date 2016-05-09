@@ -47,9 +47,9 @@
 								<label for="{{$index}}"></label>
 							</div>
 						</div>
-						<div class="img-thumb-list">
+						<a class="img-thumb-list upload-img-thumb">
 							<img class="res-list-thumb" ng-src="{{ list.imgPath?list.imgPath:'null'}}" fallback-src="{{list.fileSuffix | lowercase}}" ng-click="previewRes(list)"/>
-						</div>
+						</a>
 						<span class="resource-title">{{list.title}}</span>
 					</div>
 					<div class="col-md-2 col-sm-2">

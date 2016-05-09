@@ -126,8 +126,6 @@
 					// 用户信息
 					$scope.user = $localStorage.authUser;
 				}
-				
-				console.log($stateParams, $state)
 				// 如果是备课夹页面 隐藏搜索
 				if( $state.current.name == "prepare") $scope.isShowSearch = true;
 				
@@ -144,7 +142,7 @@
 				//读取 学段 学科 版本 和教材
 				Res.getTerms({}, function(data) {
 					if (data.code == "OK") {
-						console.log("学段：", data)
+//						console.log("学段：", data)
 						$scope.VM.grade = data.data;
 						// 根据用户当前选择>当前信息选择
 						if($localStorage.currentGrade) {
@@ -190,14 +188,14 @@
 							if( v.id == $localStorage.currentSubject.id)
 								$scope.VM.currentSubjectSeclet[i] = true;
 						})	
-						console.log("学科：", data.data)
+//						console.log("学科：", data.data)
 					}).$promise;
 				}).then(function(data) {
 					return Res.getEditions({
 						termId: $localStorage.currentGrade.id,
 						subjectId: $localStorage.currentSubject.id
 					}, function(data) {
-						console.log("版本：", data.data);
+//						console.log("版本：", data.data);
 						$scope.VM.version = data.data;
 						// 当前用户版本： 当前选择>用户选择		
 						if($localStorage.currentVersion) {
@@ -217,7 +215,7 @@
 					return Res.getBooks({
 						pnodeId: $localStorage.currentVersion.id
 					}, function(data) {
-						console.log("books：", data.data);
+//						console.log("books：", data.data);
 						$scope.VM.material = data.data;
 						if($localStorage.currentMaterial) {
 							$scope.VM.currentMaterial = $localStorage.currentMaterial;
@@ -303,7 +301,7 @@
 						return Res.getBooks({
 							pnodeId: $scope.VM.version[0].id
 						}, function(data) {
-							console.log("books：", data.data);
+//							console.log("books：", data.data);
 							$scope.VM.material = data.data;
 							//缓存用户当前 教材
 							$localStorage.currentMaterial =  $scope.VM.material[0];
@@ -351,12 +349,12 @@
 						})
 						$scope.VM.currentVersion = $scope.VM.version[0];
 						$scope.VM.currentVersionSeclet[0] = true;
-						console.log("版本：", data.data);
+//						console.log("版本：", data.data);
 					}).$promise.then(function(data) {
 						return Res.getBooks({
 							pnodeId: $scope.VM.version[0] ? $scope.VM.version[0].id:''
 						}, function(data) {
-							console.log("books：", data.data);
+//							console.log("books：", data.data);
 							$scope.VM.material = data.data;
 							//缓存用户当前 教材
 							$localStorage.currentMaterial =  $scope.VM.material[0];
@@ -391,7 +389,7 @@
 					Res.getBooks({
 						pnodeId: $scope.VM.version[index].id
 					}, function(data) {
-						console.log("books：", data.data);
+//						console.log("books：", data.data);
 						$scope.VM.material = data.data;
 						if($scope.VM.material && $scope.VM.material.length > 0)
 							//缓存用户当前 教材
