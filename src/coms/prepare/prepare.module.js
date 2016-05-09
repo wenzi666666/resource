@@ -488,9 +488,8 @@
 
 				//移动文件 到-1 复制到-2
 				$scope.opResTo = function(res, optype) {
-					optype = "移动资源到备课夹";
-					if (optype == 2)
-						optype = "复制资源到备课夹";
+//					if (optype == 2)
+//						optype = "复制资源到备课夹";
 					var movePrepareModal = $uibModal.open({
 						templateUrl: "move-prepare.html",
 						controller: 'selectPrepareCtrl',
@@ -522,7 +521,19 @@
 									fromFlags: res.fromFlag
 								}, function(d) {
 									if (d.code == "OK") {
-										if (optype == 1) $scope.deleteItem(res.id, "");
+										if (optype == 1) {
+											// 删除当前 备课夹 当前资源
+											Prepare.prepareContentBaseApi({
+												ids: res.id,
+												_method: "DELETE"
+											}, function(data) {
+												if (data.code == "OK") {
+					//								ModalMsg.logger("从备课夹删除资源成功！");
+												} else {
+													ModalMsg.logger("从备课夹删除资源失败，请重试！");
+												}
+											})
+										}
 										getPrepare($localStorage.currentTreeNode.tfcode);
 									} else {
 										ModalMsg.logger("操作失败，请重试！")
