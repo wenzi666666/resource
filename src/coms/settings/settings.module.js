@@ -182,7 +182,6 @@
 				  					$scope.currentAvatar = newpath;
 				  					$localStorage.authUser.userImage = newpath;
 				  					saveSuccess = "头像更换成功！";
-				  					ModalMsg.logger(saveSuccess);
 				  				}
 				  				else {
 				  					saveSuccess = "头像更换失败，请重新选取！"
@@ -263,13 +262,12 @@
 		])
 		.controller('avatarInstanceController', ['$scope', '$uibModalInstance',
 			function($scope, $uibModalInstance) {
+				// 显示 系统头像
+				$scope.isLocal = true;
+				
 				$scope.panelOneShow = true;
 				$scope.panelTwoShow = false;
 				$scope.panelThreeShow = false;
-
-				$scope.sysAvatarPath = "assets/img/settings/tab_active.png";
-				$scope.selfAvatarPath = "assets/img/settings/tab2.png";
-				
 				
 				//系统头像
 				$scope.systemAvatars = [{

@@ -4,16 +4,16 @@
 	        <div class="modal-body avatar-modal-body">
 	            <div class="nav nav-tabs avatar-tabs" role="tablist">
 	            	<ul>
-	            		<li role="presentation" class="active">
-	            			<img ng-src="{{sysAvatarPath}}" />
-	            			<a href="#system-avatar" aria-controls="system-avatar" role="tab" data-toggle="tab">系统头像</a>
-	            		</li>
-	            		<li role="presentation">
-	            			<img ng-src="{{selfAvatarPath}}" />
-	            			<a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab">自定义头像</a>
-	            		</li>
-	            	<div style="clear: both"></div>
-	            	</ul>
+						<li role="presentation" class="active">
+							<img src="{{isLocal?'assets/img/settings/tab_left_normal.png':'assets/img/settings/tab_left_active.png'}}" />
+							<a role="tab" href="#system-avatar" aria-controls="system-avatar" data-toggle="tab" ng-click="isLocal=true">系统头像</a>
+						</li>
+						<li role="presentation">
+							<img src="{{!isLocal?'assets/img/settings/tab2_normal.png':'assets/img/settings/tab2.png'}}" />
+							<a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab" ng-click="isLocal=false">自定义头像</a>
+						</li>
+						
+					</ul>
 	            </div>
 	            <div class="tab-content avatar-tab-content">
 	            	<div role="tabpanel" class="tab-pane active" id="system-avatar">
