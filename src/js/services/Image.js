@@ -27,9 +27,8 @@
                         var j = 0;
                         data[i].img = [];
                         //提取图片，暂时提取以 http://ac-打头的图片，因为图片存在七牛云上。
-                        tmpImg.replace(/\http\:\/\/(ac-[^>]+|7x[^>]+)/gim, function(str) {
+                        tmpImg.replace(/\http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)/gim, function(str) {
                             //最多取3张图片
-
                             if (j < n) {
                                 data[i].img[j] = str.split('"')[0];
                             }
@@ -51,7 +50,7 @@
                     var j = 0;
                     var imgs = [];
                     //提取图片，暂时提取以 http://ac-打头的图片，因为图片存在七牛云上。
-                    data.replace(/\http\:\/\/(ac-[^>]+|7x[^>]+)/gim, function(str) {
+                    data.replace(/\http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)/gim, function(str) {
 	                    //最多取n张图片 jpg png gif jpeg bmp
 	                    var tmpStr = str.split('.');
 	                    tmpStr[6] = tmpStr[6].split('"')[0];
@@ -110,7 +109,7 @@
                                 /*retract attachments*/
                                 var url = "";
                                 var name = "";
-                                str.replace(/url\=\"http\:\/\/7x[^"]+\"/gim, function(str2){
+                                str.replace(/url\=\"http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)[^"]+\"/gim, function(str2){
                                     url = str2.split('"')[1];
                                 });
                                 str.replace(/name\=\"[^"]+\"/gim, function(str3){ 
@@ -128,7 +127,7 @@
                                 /*retract attachments*/
                                 var url = "";
                                 var name = "";
-                                str.replace(/url\=\"http\:\/\/7x[^"]+\"/gim, function(str2){
+                                str.replace(/url\=\"http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)[^"]+\"/gim, function(str2){
                                     url = str2.split('"')[1];
                                 });
                                 str.replace(/name\=\"[^"]+\"/gim, function(str3){ 
@@ -146,7 +145,7 @@
                                 /*retract attachments*/
                                 var url = "";
                                 var name = "";
-                                str.replace(/\"http\:\/\/7x[^"]+\"/gim, function(str4){
+                                str.replace(/\"http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)[^"]+\"/gim, function(str4){
                                     url = str4.split('"')[1];
                                 });
                                 uploadimgs.push({
@@ -185,12 +184,12 @@
                    
                     //找到所有img标签，对内容进行修改
 
-                    content.replace(/<img src\=\"http\:\/\/(ac-[^>]+|7x[^>]+)>/gim, function(str){
+                    content.replace(/<img src\=\"http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)>/gim, function(str){
 
                         var tmpcontent = content.split(str);
                         //对src进行缩略图裁剪
 
-                        str = str.replace(/"http\:\/\/(ac-[^>]+|7x[^>]+)\"/gim, function(newstr){
+                        str = str.replace(/"http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)\"/gim, function(newstr){
                             var img = new Object();
                             var tmpnewstr = newstr.split('"');
                             img.src = tmpnewstr[1];
@@ -244,7 +243,7 @@
                     //找到所有img标签，对内容进行修改
                     content.replace(/<img ng-lightbox\=[^>]+>/gim, function(str){
                         //对src进行缩略图裁剪
-                        str = str.replace(/"http\:\/\/7x[^>]+\"/gim, function(newstr){
+                        str = str.replace(/"http\:\/\/(ac-[^>]+|7x[^>]+|skt7n[^>]+)[^>]+\"/gim, function(newstr){
                             var tmpnewstr = newstr.split('"');
                             tmpnewstr = tmpnewstr[1].split('?');
                             tmpnewstr[0] += window.imgLargeCompress;
@@ -312,7 +311,6 @@
                 'replaceSpecialSymbol': function replaceSpecialSymbol(content){
                 	  console.log(content.toString())
 //              	 content = content.replace(/&#\w+;/g,'');
-                	
 //              	 content = $compile(content);
                 	 return content;
                 }

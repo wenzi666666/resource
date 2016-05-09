@@ -96,6 +96,8 @@
 						$scope.VM.currentMaterialShow = false;
 						$scope.VM.currentVersionTmpShow = false;
 						$scope.VM.isList = true;
+						// 获取所有备课夹
+						getAllPrepare();
 					}
 					// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
@@ -166,8 +168,6 @@
 				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {
 					console.log("test");
 					getPrepare(tfcode);
-					// 获取所有备课夹
-					getAllPrepare();
 					// 更改目录标题
 					$scope.currentVersion = $localStorage.currentVersion;
 				})
@@ -350,21 +350,27 @@
 				}
 
 				//备课夹中内容操作——删除，根据关联id
-				$scope.deleteItem = function(id, msg, prepareIndex) {
-					Prepare.prepareContentBaseApi({
-						ids: id,
-						_method: "DELETE"
-					}, function(data) {
-						console.log(data);
-
-						if (data.code == "OK") {
-							ModalMsg.logger("从备课夹删除资源成功！");
-							getPrepareDetails($scope.listData[prepareIndex].id, prepareIndex);
-							//							getPrepare($localStorage.currentTreeNode.tfcode);
-						} else {
-							ModalMsg.logger("从备课夹删除资源失败，请重试！");
-						}
+				$scope.deleteItem = function(id, title, prepareIndex) {
+					var deleteModal = ModalMsg.confirm("确定从备课夹中删除资源：<br>"+ title);
+					console.log(title)
+					deleteModal.result.then(function(data) {
+						Prepare.prepareContentBaseApi({
+							ids: id,
+							_method: "DELETE"
+						}, function(data) {
+							console.log(data);
+	
+							if (data.code == "OK") {
+//								ModalMsg.logger("从备课夹删除资源成功！");
+								getPrepareDetails($scope.listData[prepareIndex].id, prepareIndex);
+								//							getPrepare($localStorage.currentTreeNode.tfcode);
+							} else {
+								ModalMsg.logger("从备课夹删除资源失败，请重试！");
+							}
+						})
 					})
+					
+					
 				}
 
 				$scope.downLoadRes = function(id, flag, title) {
