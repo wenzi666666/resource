@@ -57,12 +57,15 @@
 						}else{
 							$scope.selected = $scope.treedata[0];
 							//展开第一个节点
-							$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
+//							$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
 						}
 
 						// 目录树全展开
+						window.allNodes = [];
 						window.addToAllNodes($scope.treedata);
 						$scope.expandedNodes = window.allNodes;
+						
+						console.log("window.allNodes:", window.allNodes)
 						
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode);

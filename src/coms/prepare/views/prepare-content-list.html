@@ -6,35 +6,80 @@
 		</span>
 	</div>
 	<div class="clearfix"></div>
-	<!--<div class="prepare-all-list" ng-repeat="list in listAllData | filter:{timeLabel:'withinweek'}">-->
-	<div class="prepare-all-list" ng-hide="showSearchResults">
+	<!-- 一周内 -->
+	<div class="prepare-all-list" ng-hide="showSearchResults || withinWeekPrepare.list.length == 0">
 		<div class="prepare-all-header">
 			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
-			<span>{{listAllData[0].timeLabel =="withinweek"? "一周内":""}}</span>
+			<span>一周内</span>
 		</div>
 		<div class="prepare-gallery" >
 			<div class="list-box row">
 				<!-- <div class="col-md-3" ng-repeat="list in listAllData | filter:{timeLabel:'withinweek'}"> -->
-				<div class="col-md-3" ng-repeat="list in listAllData.list">
+				<div class="col-md-3" ng-repeat="list in withinWeekPrepare.list">
 					<div class="list-all-item ">
 						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
 						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
-						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
+						<i class="icon-trash" ng-click="deletePrepare2(listAllData, $index,$event)"></i>
 						<br>
 					</div>
 				</div>
-				<div class="clearfix"></div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
-		
 	</div>
-
+	<!-- 一月内 -->
+	<div class="prepare-all-list" ng-hide="showSearchResults || withinMonthPrepare.list.length == 0">
+		<div class="prepare-all-header">
+			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
+			<span>一月内</span>
+		</div>
+		<div class="prepare-gallery" >
+			<div class="list-box row">
+				<!-- <div class="col-md-3" ng-repeat="list in listAllData | filter:{timeLabel:'withinweek'}"> -->
+				<div class="col-md-3" ng-repeat="list in withinMonthPrepare.list">
+					<div class="list-all-item ">
+						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
+						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
+						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
+						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
+						<i class="icon-trash" ng-click="deletePrepare2(listAllData, $index,$event)"></i>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!-- 更早 -->
+	<div class="prepare-all-list" ng-hide="showSearchResults || moreEarlyPrepare.list.length == 0">
+		<div class="prepare-all-header">
+			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
+			<span>更早{{moreEarlyPrepare.list.length}}</span>
+		</div>
+		<div class="prepare-gallery" >
+			<div class="list-box row">
+				<!-- <div class="col-md-3" ng-repeat="list in listAllData | filter:{timeLabel:'withinweek'}"> -->
+				<div class="col-md-3" ng-repeat="list in moreEarlyPrepare.list">
+					<div class="list-all-item ">
+						<div class="list-all-title">{{$index+1}}、{{list.title}}</div>
+						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
+						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
+						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
+						<i class="icon-trash" ng-click="deletePrepare2(listAllData, $index,$event)"></i>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!--搜索结果-->
 	<div class="prepare-all-list" ng-show="showSearchResults">
 		<div class="prepare-all-header">
 			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
+			<span>搜索结果</span>
 		</div>
 		<div class="prepare-gallery" >
 			<div class="list-box row">
@@ -47,6 +92,10 @@
 						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
 						<br>
 					</div>
+				</div>
+				<div class="list-all-item" ng-show="searchList.length == 0">
+					<br>
+					没有搜索到相关内容，请更换搜索内容~	
 				</div>
 				<div class="clearfix"></div>
 			</div>

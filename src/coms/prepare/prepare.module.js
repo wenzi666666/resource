@@ -76,11 +76,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/latestPrepare"
 					},
-					//搜索备课夹
-					searchResults: {
-						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/coursewareAll"
-					}
+//					//搜索备课夹
+//					searchResults: {
+//						method: "GET",
+//						url: BackendUrl + "/resRestAPI/v1.0/coursewareAll"
+//					}
 				})
 			}
 		])
@@ -155,12 +155,29 @@
 
 				// 读取 当前学科下的备课夹 列表
 				var getAllPrepare = function() {
+					// 一周内备课夹
 					Prepare.prepare4book({
-						//						title: '',
 						termId: $localStorage.currentGrade.id,
 						subjectId: $localStorage.currentSubject.id,
+						timeLabel:'withinweek'
 					}, function(data) {
-						$scope.listAllData = data.data;
+						$scope.withinWeekPrepare = data.data;
+					})
+					// 一月内备课夹
+					Prepare.prepare4book({
+						termId: $localStorage.currentGrade.id,
+						subjectId: $localStorage.currentSubject.id,
+						timeLabel:'withinmonth'
+					}, function(data) {
+						$scope.withinMonthPrepare = data.data;
+					})
+					// 更早
+					Prepare.prepare4book({
+						termId: $localStorage.currentGrade.id,
+						subjectId: $localStorage.currentSubject.id,
+						timeLabel:'moreearly'
+					}, function(data) {
+						$scope.moreEarlyPrepare = data.data;
 					})
 				}
 
@@ -202,7 +219,6 @@
 				}
 
 				//编辑备课夹标题
-				// 
 				$scope.editPrepare = function(index) {
 					$scope.listData[index].editPrepareTitle = true;
 				}
@@ -235,13 +251,13 @@
 				}
 
 				// 删除备课夹
-				$scope.deletePrepare2 = function(index, e) {
+				$scope.deletePrepare2 = function(data,index, e) {
 					e.stopPropagation();
-					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + $scope.listAllData.list[index].title);
+					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + data.list[index].title);
 
 					deleteModal.result.then(function(data) {
 						Prepare.basePostApi({
-							id: $scope.listAllData.list[index].id,
+							id: data.list[index].id,
 							_method: "DELETE"
 						}, function(data) {
 							getAllPrepare();
@@ -442,13 +458,16 @@
 				$scope.showSearchResults = false;
 				$scope.searchPrepare = function(searchwords) {
 					if (searchwords != "") {
-						Prepare.searchResults({
+						Prepare.prepare4book({
 							title: searchwords,
-							orderby: 'title'
+							termId: $localStorage.currentGrade.id,
+							subjectId: $localStorage.currentSubject.id
 						}, function(data) {
 							$scope.showSearchResults = true;
-							$scope.searchList = data.data;
+							$scope.searchList = data.data.list;
 						})
+					}else {
+						ModalMsg.logger("搜索内容不能为空");
 					}
 				}
 
