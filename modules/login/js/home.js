@@ -65,7 +65,8 @@ $(function(){
 			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
 			data: { user_name: $('input[name=username]').val(), 
 				  	user_pwd: $('input[name=passwd]').val(),
-				  	target: TomcatUrl
+				  	target: TomcatUrl,
+				  	noCache: new Date().getTime()
 			}, 
 			success: function(data){
 				if(data.code == "OK") {
