@@ -220,19 +220,19 @@
 					if(back=="custom")
 					{
 						$scope.currentNav = [{"name":"资源定制"}];
-					}else if(back=="prepare")
+					}else if(back=="0")
 					{
-						$scope.currentNav = [{"name":"资源引用列表"}];
-					}else if(back=="upload")
+						$scope.currentNav = [{"name":"我的备课"}];
+					}else if(back=="1")
 					{
 						$scope.currentNav = [{"name":"我的上传"}];
-					}else if(back=="download")
+					}else if(back=="2")
 					{
 						$scope.currentNav = [{"name":"我的下载"}];
-					}else if(back=="comment")
+					}else if(back=="3")
 					{
 						$scope.currentNav = [{"name":"我的评论"}];	
-					}else if(back=="recent")
+					}else if(back=="4")
 					{
 						$scope.currentNav = [{"name":"最近浏览"}];	
 					}

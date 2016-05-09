@@ -438,8 +438,12 @@
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function(pagenum) {
-					console.log(pagenum,Math.round($scope.resList.totalLines/$scope.perPage));
-					if(pagenum > 0 && pagenum <= Math.ceil($scope.resList.totalLines/$scope.perPage)) {
+					if(pagenum.split('.').length > 1){
+						ModalMsg.logger("请输入正整数");
+						return;
+					}
+					
+					if(pagenum > 0 && pagenum <= Math.ceil($scope.resList.total)) {
 						page = pagenum;
 						$scope.VM.currentPageCtrl = pagenum;
 					    getResList();
@@ -448,7 +452,7 @@
 					    getResList();
 					}
 					else {
-						ModalMsg.logger("请输入大于0，小于页码总数的数字~");
+						ModalMsg.logger("请输入大于0，小于页码总数的正整数~");
 					} 
 				};
 

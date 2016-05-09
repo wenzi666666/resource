@@ -9,7 +9,7 @@
 			function($stateProvider) {
 				$stateProvider
 					.state('personalcenter', {
-						url: '/personalcenter/:type',
+						url: '/personalcenter/:back',
 						views: {
 							'content@': {
 								templateUrl: '/coms/personal-center/views/personal-center.html',
@@ -105,13 +105,10 @@
 				}
 
 
-				if(!!$stateParams.type) {
-					$scope.switchItem($stateParams.type);
+				if(!!$stateParams.back) {
+					$scope.switchItem($stateParams.back);
 				}
 				else $scope.switchItem(0);
-
-				
-
 
 				//备课统计
 				// 备课数据初始化

@@ -438,8 +438,11 @@
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function(pagenum) {
-					console.log(pagenum);
-					if(pagenum > 0 && pagenum < $scope.resList.totalLines) {
+					if(pagenum.split('.').length > 1){
+						ModalMsg.logger("请输入正整数");
+						return;
+					}
+					if(pagenum > 0 && pagenum < $scope.resList.total) {
 						page = pagenum;
 						$scope.VM.currentPageCtrl = pagenum;
 					    getResList();

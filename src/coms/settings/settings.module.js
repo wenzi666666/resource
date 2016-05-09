@@ -40,8 +40,8 @@
                 })
 			}
 		])
-		.controller("SettingsController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'User','$localStorage',
-			function($scope, $stateParams, $state, $location, $uibModal,User,$localStorage) {
+		.controller("SettingsController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'User','$localStorage','ModalMsg',
+			function($scope, $stateParams, $state, $location, $uibModal,User,$localStorage,ModalMsg) {
 				
 				//当前学段
 				$scope.currentTerm = {
@@ -150,20 +150,8 @@
 						male: $scope.sexSelected == "男" ? true : false,
 						_method: "PATCH"
 					}, function(data) {
-						if(data) {
-							$scope.VM.messageModal = $uibModal.open({
-								templateUrl: "message.html",
-								controller: "messageInstanceController",
-								size: 'sm',
-								resolve: {
-									messageContent: function() {
-										return saveSuccess;
-									},
-									buttonContent: function() {
-										return btnSave;
-									}
-								}
-							})
+						if(data.code == "OK") {
+							
 						}
 					})
 				}
@@ -194,23 +182,12 @@
 				  					$scope.currentAvatar = newpath;
 				  					$localStorage.authUser.userImage = newpath;
 				  					saveSuccess = "头像更换成功！";
+				  					ModalMsg.logger(saveSuccess);
 				  				}
 				  				else {
 				  					saveSuccess = "头像更换失败，请重新选取！"
 				  				}
-			  					$scope.VM.messageModal = $uibModal.open({
-									templateUrl: "message.html",
-									controller: "messageInstanceController",
-									size: 'sm',
-									resolve: {
-										messageContent: function() {
-											return saveSuccess;
-										},
-										buttonContent: function() {
-											return btnSave;
-										}
-									}
-								})
+				  				ModalMsg.logger(saveSuccess);
 				  			});
 			  			}
 			  			else {
@@ -249,37 +226,16 @@
 							_method: "PATCH"
 						}, function(data) {
 							//修改成功
+							if(data.code == "OK") {
 								var saveSuccess = "密码修改成功，下次请用新密码登录！";
-								var btnSave = "确定";
-								$scope.VM.messageModal = $uibModal.open({
-									templateUrl: "message.html",
-									controller: "messageInstanceController",
-									size: 'sm',
-									resolve: {
-										messageContent: function() {
-											return saveSuccess;
-										},
-										buttonContent: function() {
-											return btnSave;
-										}
-									}
-								})
-
-						}, function(data) {
-							console.log(data);
-							//初始密码错误
-							if(data.code == "InvalidPassword") {
-								$scope.oldPswError = true;
-								$scope.oldPsw = "";
-								$scope.newPsw = "";
-								$scope.confirmNewPsw = "";
-							}
-							//其他错误
-							else {
-								$scope.setPswFail = true;
-								$scope.oldPsw = "";
-								$scope.newPsw = "";
-								$scope.confirmNewPsw = "";
+								ModalMsg.logger(saveSuccess);
+							} else{
+								if(data.code == "InvalidPassword") {
+									$scope.oldPswError = true;
+									$scope.oldPsw = "";
+									$scope.newPsw = "";
+									$scope.confirmNewPsw = "";
+								}
 							}
 						})
 					}
@@ -414,17 +370,5 @@
 					$uibModalInstance.close();
 				}
 			}
-		])
-		
-		.controller('messageInstanceController', ['$scope', '$uibModalInstance', 'messageContent', 'buttonContent',
-			function($scope, $uibModalInstance, messageContent, buttonContent) {
-				$scope.messageContent = messageContent;
-				$scope.buttonContent = buttonContent;
-				
-				$scope.close = function() {
-					$uibModalInstance.close();
-				}
-			}
-		])
-		
+		])	
 }());

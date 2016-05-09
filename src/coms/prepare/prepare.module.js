@@ -598,15 +598,16 @@
 				$scope.previewRes = function(res) {
 					if (res.fromFlag == 1) {
 						// if(res.isFinished == 0) 
-						$state.go('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'prepare',type:'1'});
-						// else ModalMsg.alert("当前资源未完成转码，不能预览！");
+						
+//						$state.go('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'prepare',type:'1'});
+						var url = $state.href('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'prepare',type:'1'});
+						openwin(url);
 					} 
-					else $state.go('previewres', {
-						resId: res.resId,
-						curTfcode: '',
-						fromFlag: res.fromFlag,
-						search: 'prepare'
-					});
+					else {
+//						$state.go('previewres', {resId: res.resId,curTfcode: '',fromFlag: res.fromFlag,search: 'prepare'});
+						var url = $state.href('previewres', {resId: res.resId,curTfcode: '',fromFlag: res.fromFlag,search: 'prepare'});
+						openwin(url);
+					}
 				}
 			}
 		])
