@@ -41,6 +41,13 @@
 
 				// 上传返回的文件名
 				$scope.uploadFiles = function(files, errFiles) {
+					
+					if (errFiles.length > 0) {
+						console.log(errFiles)
+						ModalMsg.logger("文件最大支持150M 或 文件格式不正确！");
+						return;
+					}
+					
 					if (files[0].size == 0) {
 						ModalMsg.logger("文件内容为空，不能上传，请添加内容吧~");
 						return;
@@ -75,18 +82,11 @@
 							return;
 						}
 					} else {
-						if((files[0].size) > 100*1024*1024) {
-							ModalMsg.logger("文件上传最大支持100M，请更改后上传！");
+						if((files[0].size) > 150*1024*1024) {
+							ModalMsg.logger("文件上传最大支持150M，请更改后上传！");
 							return;
 						}
-					}
-					
-					if (errFiles.length > 0) {
-						console.log(errFiles)
-						ModalMsg.logger("文件格式不正确，请重新选择！");
-						return;
-					}
-//					
+					}		
 					
 					$scope.firstUpload = false;
 					$scope.files = files;
