@@ -791,7 +791,7 @@
 					name: $scope.res.title,
 					unifTypeId: $scope.unifyType[$scope.currentTypeIndexSeclet].id,
 					tfcode: $scope.currentNode.tfcode,
-					scopes: $scope.currentScopeIndexSeclet,
+					scope: $scope.currentScopeIndexSeclet,
 					keyword: $scope.res.keywords ? $scope.res.keywords : ' ',
 					desc: $scope.res.description ? $scope.res.description.toString() : ' ',
 					path: $scope.resDetails.assetpath,

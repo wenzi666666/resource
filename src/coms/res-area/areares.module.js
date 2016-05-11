@@ -438,7 +438,7 @@
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
 				$scope.pageChanged = function(pagenum) {
-					if(pagenum.split('.').length > 1){
+					if(!!pagenum &&pagenum.split('.').length > 1){
 						ModalMsg.logger("请输入正整数");
 						return;
 					}
