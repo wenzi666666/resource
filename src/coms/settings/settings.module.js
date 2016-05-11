@@ -151,7 +151,7 @@
 						_method: "PATCH"
 					}, function(data) {
 						if(data.code == "OK") {
-							
+							ModalMsg.logger(saveSuccess);
 						}
 					})
 				}
