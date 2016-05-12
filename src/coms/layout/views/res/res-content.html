@@ -90,7 +90,7 @@
 					</div>
 				</a>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
-					<label class="res-download" ng-click="resDownload(list.id)"><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list.id)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
 						  加入备课夹&nbsp; <i class="icon-sort-down"></i>
 						<div class="res-prepare-thumb" >

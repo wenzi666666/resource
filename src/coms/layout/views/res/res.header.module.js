@@ -162,7 +162,9 @@
 						$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $localStorage.currentGrade.name)] = true;
 					} else {
 						ModalMsg.logger(data.message);
-						window.location.href = "login.html";
+						setTimeout(function(){
+							window.location.href = "login.html";
+						}, 2000)
 					}
 				}).$promise.then(function(data) {
 					return Res.getSubjects({
