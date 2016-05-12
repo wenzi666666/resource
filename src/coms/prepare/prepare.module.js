@@ -548,12 +548,13 @@
 											}, function(data) {
 												if (data.code == "OK") {
 					//								ModalMsg.logger("从备课夹删除资源成功！");
+													getPrepare($localStorage.currentTreeNode.tfcode);
 												} else {
 													ModalMsg.logger("从备课夹删除资源失败，请重试！");
 												}
 											})
 										}
-										getPrepare($localStorage.currentTreeNode.tfcode);
+										
 									} else {
 										ModalMsg.logger("操作失败，请重试！")
 									}

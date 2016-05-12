@@ -268,6 +268,10 @@
 						ModalMsg.logger("关键词不能为空");
 						return;
 					}
+					if ($scope.res.description.length >200) {
+						ModalMsg.logger("资源介绍不能超过200字，请修改");
+						return;
+					}
 					// path生成失败，需重试
 					if (!$scope.uploadFilesData) {
 						$scope.uploadFilesData = files;
