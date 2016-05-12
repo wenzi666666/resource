@@ -203,14 +203,14 @@
 }
 
 .loginInfo input{
-	width: 240px;
+	width: 230px;
 	height: 28px;
 	margin-left: 20px;
 	margin-bottom: 10px;
 	font-size: 16px;
 	border-color: #DDDDDD;
 	border-style: solid;
-	text-indent: 30px;
+	padding-left: 30px;
 }
 
 .loginInfo label{

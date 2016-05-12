@@ -50,7 +50,8 @@ $("#slides").slides({
 $(function(){
 	//登陆
 	var clickNum=0;
-	$('.loginBtn').on('click', function(){
+	var loginSubmit = function(){
+		// 验证码
 		if($(".showBox").css("display")=="block")
 		{
 			var inputCode=$("#validCode").val().toLowerCase();
@@ -61,10 +62,21 @@ $(function(){
 				return false;
 			}
 		}
+		
+		var username = $('input[name=username]').val();
+		var psssword = $('input[name=passwd]').val();
+		if(!username){
+			alert('用户名不能为空');
+			return;
+		}
+		if(!psssword){
+			alert('密码不能为空');
+			return;
+		}
 		$.ajax({
 			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
-			data: { user_name: $('input[name=username]').val(), 
-				  	user_pwd: $('input[name=passwd]').val(),
+			data: { user_name: username, 
+				  	user_pwd: psssword,
 				  	target: TomcatUrl,
 				  	noCache: new Date().getTime()
 			}, 
@@ -94,10 +106,16 @@ $(function(){
 				console.log(data.error);
 			}
 		})
-	});
-	
-	//获取验证码
-	
+	};
+	// 绑定登陆
+	$('.loginBtn').on('click', loginSubmit);
+	// 监听回车
+	$(document).keypress(function(e) {  
+	    // 回车键事件  
+	    if(e.which == 13) {
+	    	loginSubmit()
+	    }
+	}); 
  });
  
 function getVerification(BackendUrl)
