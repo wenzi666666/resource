@@ -284,6 +284,7 @@
 					console.log("received:",d)
 					// 列出资源
 					getResList(d);
+					tmpCtrl = true;
 					// 列出  资源类型和格式
 					$scope.typeAndFormat(0, 0);
 					// 更改目录标题
@@ -349,7 +350,7 @@
 				var mTypeId = 0;
 				var format = "全部";
 				$scope.orderBy = 0;
-				// 页面刷新时 控制list 不加载
+				// 页面刷新时和点击目录树时  控制list 不加载 
 				var tmpCtrl = true;
 				$scope.typeAndFormat = function(poolId, typeId){
 					// 设值
