@@ -303,6 +303,7 @@
 				var getResList = function(d) {
 					$scope.isLoading = true;
 					$scope.resList = [];
+					$scope.noDataCtrl = false;
 					AreaRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
@@ -318,12 +319,12 @@
 						
 						$scope.VM.checkAll = [];
 						$scope.resList = data.data;
-						
-						$scope.noDataCtrl = false;
 						$scope.isLoading = false;
 						$scope.isLoadingFinish = true;
 						if(!$scope.resList || !$scope.resList.totalLines){
-							$scope.noDataCtrl = true;
+							$timeout(function(){
+								$scope.noDataCtrl = true;
+							},1500)
 						}
 						
 						if(!!$scope.resList){
