@@ -81,11 +81,16 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/latestPrepare"
 					},
-//					//搜索备课夹
-//					searchResults: {
-//						method: "GET",
-//						url: BackendUrl + "/resRestAPI/v1.0/coursewareAll"
-//					}
+					//移动备课夹
+					prepareMove: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareMove"
+					},
+					//复制备课夹
+					prepareCopy: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/prepareCopy"
+					}
 				})
 			}
 		])
@@ -134,7 +139,7 @@
 
 				// 读取备课夹 列表
 				var getPrepare = function(id) {
-					Prepare.baseGetApi({
+					Prepare.GetSelfPrepare({
 						tfcode: id
 					}, function(data) {
 						$scope.listData = data.data;
@@ -574,7 +579,7 @@
 				}
 
 				// 备课夹移动到-1，复制到-2
-				$scope.opPrepareTo = function(pre, flag) {
+				$scope.opPrepareTo = function(list, flag) {
 					var opName = "复制到备课夹"
 					if (flag == 1) opName = "移动到备课夹";
 
@@ -591,7 +596,29 @@
 					movePrepareModal.result.then(function(data) {
 						//移动 复制
 						if (flag == 1) {
-
+							//移动 
+							Prepare.prepareMove({
+								prepareId: list.id,
+								tfcode: data.tfcode,
+							}, function(d) {
+								if (d.code == "OK") {
+									ModalMsg.logger("移动备课夹成功！")
+								} else {
+									ModalMsg.logger("移动备课夹失败，请重试！")
+								}
+							})
+						}else{
+							// 复制
+							Prepare.prepareCopy({
+								prepareId: list.id,
+								tfcode: data.tfcode,
+							}, function(d) {
+								if (d.code == "OK") {
+									ModalMsg.logger("复制备课夹成功！")
+								} else {
+									ModalMsg.logger("复制备课夹失败，请重试！")
+								}
+							})
 						}
 					})
 				}
@@ -795,7 +822,7 @@
 					return;
 				}
 				var tmpVal = {
-					'prepareId': $scope.currentNode.id,
+					'tfcode': $scope.currentNode.tfcode,
 				}
 				$uibModalInstance.close(tmpVal);
 			};
