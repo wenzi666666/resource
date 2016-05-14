@@ -63,20 +63,24 @@
 								<span class="showCode">5478</span>
 							</div>
 							
-							
-							<input type="checkbox" name="passwdRember" value="Password" id="checkBox"><label>记住密码</label>
-							<a href="#">忘记密码</a>
+							<div class="inputContainer">
+								<input type="checkbox" id="checkFlag" name="checkFlag" onclick="keep_select();"><label>记住密码</label>
+								<a href="#" onclick="pwd_tip()">忘记密码</a>
+							</div>
 						</form>
-						<div class="btn btn-primary loginBtn">登录</div>
+						<div class="inputContainer">
+							<div class="btn btn-primary loginBtn">登录</div>
+							<div class="btn btn-primary registerBtn show" onclick="register();">注册</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="lineThree">
 			<div class="nr">
-				<div class="videoBox">
+				<a class="videoBox" href="http://chat.tfedu.net/res/video/res-intro.MP4" target="_blank">
 					<img src="image/sp.jpg" width="428" height="339"/>
-				</div>
+				</a>
 				<div class="textBox">
 					<div class="textContent">
 						<h5>课程资源中心</h5>

@@ -83,6 +83,10 @@ $(function(){
 			success: function(data){
 				if(data.code == "OK") {
 					window.localStorage.setItem("credentialsToken", data.data.token);
+					// 是否记住密码
+					if($('#checkFlag').prop("checked")) {
+						keep_select(true)
+					}
 					//初始化用户信息
 					$.ajax({
 						url: BackendUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?token=' + data.data.token + '&target=' + TomcatUrl,
@@ -116,6 +120,13 @@ $(function(){
 	    	loginSubmit()
 	    }
 	}); 
+	
+	// 记住密码直接加载
+	if(window.localStorage.getItem("res-credential")){
+		var user = JSON.parse(window.localStorage.getItem("res-credential"))
+		$('input[name=username]').val(user.username);
+		$('input[name=passwd]').val(user.pwd);
+	}
  });
  
 function getVerification(BackendUrl)
@@ -135,4 +146,29 @@ function getVerification(BackendUrl)
 				alert(data.error);
 			}
 		});
+}
+
+//忘记密码提示
+function pwd_tip(){
+	alert("忘记密码了？请联系管理员帮助重置密码~");
+}
+
+function register(){
+	window.location.href = "http://zy.tfedu.net/register_new/index.jsp";
+}
+//记住密码
+function keep_select(rem){
+	console.log($('#checkFlag').prop("checked"))
+	if($('#checkFlag').prop("checked") && !!rem){
+		var username = $('input[name=username]').val();
+		var psssword = $('input[name=passwd]').val();
+		var userinfo = {
+			username:username,
+			pwd:psssword
+		}
+		window.localStorage.setItem("res-credential", JSON.stringify(userinfo));
+	}else{
+		window.localStorage.removeItem("res-credential");
+	}
+	
 }

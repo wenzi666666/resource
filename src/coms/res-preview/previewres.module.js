@@ -681,7 +681,7 @@
 				// 当前节点备课夹 列表
 				var getPrepare = function () {
 				 	//获取当前节点 备课夹
-					Prepare.baseGetApi({
+					Prepare.GetSelfPrepare({
 						tfcode:$scope.VM.tfCode 
 					}, function(data) {
 						

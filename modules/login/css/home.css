@@ -13,8 +13,7 @@
 	padding: 3px 15px;
 	text-align: center;
 	letter-spacing: 2px;
-	float: right;
-	margin-right: 15px;
+	margin-left: 15px;
 }
 .showBox
 {
@@ -183,7 +182,7 @@
 
 .contentBox{
 	width: 280px;
-	height: 150px;
+	margin-bottom: 15px;
 	padding-top: 35px;
 }
 .contentBox a{
@@ -203,7 +202,7 @@
 }
 
 .loginInfo input{
-	width: 230px;
+	width: 200px;
 	height: 28px;
 	margin-left: 20px;
 	margin-bottom: 10px;
@@ -226,18 +225,28 @@
 	margin-right: 10px;
 	margin-top: 15px;
 }
+#checkFlag{
+	width: 15px;
+	height: 15px;
+	margin-right: 10px;
+	margin-top: 15px;
+	padding-left:0px;
+	border:none;
+}
 #validCode{
-	width: 140px;
+	width: 123px;
 	margin-right: 5px;
+	padding-left: 5px;
 }
 
 .loginBtn{
-	width: 200px;
+	width: 100px;
 	height: 30px;
 	text-align: center;
-	letter-spacing: 30px;
+	letter-spacing: 19px;
 	text-indent: 20px;
-	margin-top: 40px;
+	/*margin-top: 45px;*/
+	margin-left: 36px;
 	font-size: 16px;
 	background-color: #16A085;
 	color: #FFFFFF;
@@ -245,11 +254,31 @@
 	padding-top: 5px;
 	cursor: pointer;
 }
+.registerBtn{
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	letter-spacing: 19px;
+	text-indent: 20px;
+	margin-top: -35px;
+	margin-left: 165px;
+	font-size: 16px;
+	background-color: #16A085;
+	color: #FFFFFF;
+	border-radius: 5px;
+	padding-top: 5px;
+	cursor: pointer;
+	float: left;
+}
+.loginBtn:hover,.registerBtn:hover{
+	background-color: #6cc6e9;
+}
 .videoBox{
 	width: 428px;
 	height: 349px;
 	margin: 5px 5px;
 	float: left;
+	cursor: pointer;
 }
 
 .textBox{

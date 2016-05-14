@@ -62,7 +62,7 @@
 						加入当前节点备课夹&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<br>
-					<label class="res-download" ng-click="resDownload(list.id)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 			</li>
@@ -70,18 +70,19 @@
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
-				<a ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" title="{{list.title}}">
+				<div title="{{list.title}}">
 					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
 					<label for="{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
-					<div class="img-thumb2-list">
+					<a class="img-thumb2-list" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
 						<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
-					</div>
+					</a>
 					<div class="res-thubmlist-info">
-						<label class="res-title text-ellipsis">
+						<div><a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
 							<span class="res-status-thumb" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 							{{ list.title }}
-						</label>
+							</a>
+						</div>
 						<label class="res-type"> 类型: {{ list.mtype }} </label>
 						
 						<label class="res-size">
@@ -90,9 +91,9 @@
 						<!--<label class="res-star"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></label>
 						<label class="res-number"> {{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>-->
 					</div>
-				</a>
+				</div>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
-					<label class="res-download" ng-click="resDownload(list.id)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
 						  加入备课夹&nbsp; <i class="icon-sort-down"></i>
 						<div class="res-prepare-thumb" >

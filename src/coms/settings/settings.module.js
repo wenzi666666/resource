@@ -147,6 +147,10 @@
 				}
 				
 				$scope.saveUserInfo = function() {
+					if($scope.trueName.length < 2 || $scope.trueName.length > 20){
+						ModalMsg.logger('真实姓名请输入2-20个中英文字符~');
+						return;
+					}
 					var saveSuccess = "保存成功！";
 					var btnSave = "确定";
 					User.setUserInfo({

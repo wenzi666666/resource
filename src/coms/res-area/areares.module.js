@@ -87,7 +87,7 @@
 				// 当前节点备课夹 列表
 				var getPrepare = function(id) {
 					//获取当前节点 备课夹
-					Prepare.baseGetApi({
+					Prepare.GetSelfPrepare({
 						tfcode: id
 					}, function(data){
 						console.log("prepareTree:",data.data);
@@ -461,13 +461,15 @@
 				$scope.pageTo = $scope.VM.currentPageCtrl;
 				
 				// 下载资源
-				$scope.resDownload = function(id){
+				$scope.resDownload = function(list){
 					Res.resDownload({
-						resIds:id,
+						resIds:list.id,
 						fromFlags: $localStorage.fromFlag
 					}, function(data){
-						if(data.data)
+						if(data.data){
 							openwin(data.data[0].path)
+							list.dloadTimes++;
+						}	
 					})
 				}
 				

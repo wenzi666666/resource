@@ -36,6 +36,11 @@
 						method: "GET",
 						url: BackendUrl + "/resRestAPI/v1.0/prepare/"
 					},
+					// 仅获取当前教材目录下的备课夹
+					GetSelfPrepare: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/selfPrepare/"
+					},
 					basePostApi: {
 						method: "POST",
 						url: BackendUrl + "/resRestAPI/v1.0/prepare/"
