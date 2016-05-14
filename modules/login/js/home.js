@@ -92,7 +92,10 @@ $(function(){
 						url: BackendUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?token=' + data.data.token + '&target=' + TomcatUrl,
 						success: function(data){
 							window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
-							window.location.href = '/';
+							setTimeout(function(){
+								window.location.href = '/';
+							},300)
+							
 						}
 					})
 				}else{
