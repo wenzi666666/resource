@@ -369,19 +369,19 @@
 					}else{
 						getResList();	
 					}
-					
+					var currentTfcode = $localStorage.currentTreeNode ? $localStorage.currentTreeNode.tfcode: '';
 					SystemRes.types({
 						poolId: $scope.poolId,
-						pTfcode:tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
-						tfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
+						pTfcode:tree ? tree.tfcode : currentTfcode,
+						tfcode: tree ? tree.tfcode : currentTfcode,
 						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						SystemRes.formats({
 							poolId: $scope.poolId,
-							pTfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
-							tfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
+							pTfcode: tree ? tree.tfcode : currentTfcode,
+							tfcode: tree ? tree.tfcode : currentTfcode,
 							fromFlag:$scope.fromFlag,
 							typeId: mTypeId
 						}, function(data) {

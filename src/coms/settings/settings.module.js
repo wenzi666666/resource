@@ -58,7 +58,6 @@
 					User.get({
 						userid: $localStorage.authUser.userId
 					}, function(data){
-						console.log(data);
 						var info = data.data;
 						$scope.userName = info.userName;
 						$scope.schoolName = info.schoolName;
@@ -104,6 +103,15 @@
 					})
 				},300)
 				
+				// 更新用户 信息
+				var getUserInfo = function() {
+					User.get({
+						userid: $localStorage.authUser.userId
+					}, function(data) {
+						// 更新用户信息
+						$localStorage.authUser = data.data;
+					})
+				}
 				
 				
 				// 变量共享
@@ -152,6 +160,7 @@
 					}, function(data) {
 						if(data.code == "OK") {
 							ModalMsg.logger(saveSuccess);
+							getUserInfo();
 						}
 					})
 				}

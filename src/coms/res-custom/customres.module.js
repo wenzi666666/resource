@@ -56,7 +56,7 @@
 						fromFlags: $scope.VM.fromFlag = 0
 					}, function(data) {
 						if (data.code == "OK") {
-							window.open(data.data[0].path, "_blank");
+							openwin(data.data[0].path);
 						}
 					});
 				}

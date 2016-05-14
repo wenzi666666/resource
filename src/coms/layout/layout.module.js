@@ -41,11 +41,11 @@
 				$scope.logout = function() {
 					localStorage.removeItem("ngStorage-authUser");
 					localStorage.removeItem("credentialsToken");
-//					localStorage.removeItem("ngStorage-currentGrade");
-//					localStorage.removeItem("ngStorage-currentMaterial");
-//					localStorage.removeItem("ngStorage-currentSubject");
-//					localStorage.removeItem("ngStorage-currentTreeNode");
-//					localStorage.removeItem("ngStorage-currentVersion");
+					localStorage.removeItem("ngStorage-currentGrade");
+					localStorage.removeItem("ngStorage-currentMaterial");
+					localStorage.removeItem("ngStorage-currentSubject");
+					localStorage.removeItem("ngStorage-currentTreeNode");
+					localStorage.removeItem("ngStorage-currentVersion");
 					window.location.href= "login.html";
 				}
 				// 显示用户信息
