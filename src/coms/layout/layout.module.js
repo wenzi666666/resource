@@ -28,13 +28,20 @@
 			function($scope, $stateParams, $state, $location,$localStorage,Layout,ModalMsg) {
 				//主导航学生学习空间地址
 				var spaceNavUrl = '';
+				Layout.autoLearning({},function(data) {
+					if (data.code == "OK") {
+						spaceNavUrl = data.data;
+							
+					} else {
+						ModalMsg.logger(data.message);
+						setTimeout(function(){
+							window.location.href = "login.html";
+						}, 2500)
+					}
+				})
 				$scope.goToSpace = function(){
-					Layout.autoLearning({},function(data) {
-						if (data.code == "OK") {
-							spaceNavUrl = data.data;
-							openwin(spaceNavUrl)
-						}
-					})
+					openwin(spaceNavUrl)
+					
 				}
 				
 				//退出
@@ -53,7 +60,6 @@
 					Layout.getUserInfo({
 						id:window.getSeachByName('userId')
 					}, function(data){
-						console.log(data);
 						$localStorage.authUser = data.data;
 						$scope.userTrueName = $localStorage.authUser.trueName;
 					})
