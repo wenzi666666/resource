@@ -106,7 +106,8 @@
 					$scope.VM.currentMaterialShow = false;
 					$scope.VM.currentMaterialTmpShow = false;
 				}
-
+				
+				$localStorage.isPrepareRefresh = true;
 				$scope.maxSize = 3;
 				$scope.bigTotalItems = 175;
 				$scope.bigCurrentPage = 1;
@@ -185,6 +186,8 @@
 				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {
 					// 更改目录标题
 					$scope.currentVersion = $localStorage.currentVersion;
+					// 对备课夹 搜索页 显示处理
+					$scope.showSearchResults = false;
 				})
 
 				// 读取 单个备课夹详细内容

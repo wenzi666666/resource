@@ -284,9 +284,9 @@
 					console.log("received:",d)
 					// 列出资源
 					tmpCtrl = true;
-					getResList(d);
+					getResList(d,0,0);
 					// 列出  资源类型和格式
-					$scope.typeAndFormat(0, 0);
+					$scope.typeAndFormat(0, 0, d);
 					// 更改目录标题
 					$scope.currentVersion = $localStorage.currentVersion;
 					$timeout(function(){
@@ -300,23 +300,22 @@
 				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
-				var getResList = function(d) {
+				var getResList = function(d,typeContent, formatContent) {
+					console.log(d,typeContent, formatContent)
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
 					AreaRes.resList({
 						poolId: $scope.poolId,
-						mTypeId: mTypeId,
-						fileFormat: format,
+						mTypeId: typeContent==0 ? typeContent : mTypeId,
+						fileFormat: formatContent==0 ? '全部' : format,
 						fromFlag: $scope.fromFlag,
 						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
 						perPage: $scope.perPage
 					}, function(data) {
-						
 						//初始化全选
-						
 						$scope.VM.checkAll = [];
 						$scope.resList = data.data;
 						$scope.isLoading = false;
@@ -351,9 +350,9 @@
 				var mTypeId = 0;
 				var format = "全部";
 				$scope.orderBy = 0;
-				// 页面刷新时 控制list 不加载
+				// 页面刷新时和点击目录树时  控制list 不加载 
 				var tmpCtrl = true;
-				$scope.typeAndFormat = function(poolId, typeId){
+				$scope.typeAndFormat = function(poolId, typeId, tree){
 					// 设值
 					$scope.poolId = poolId;
 					console.log("typeAndFormat:", poolId)
@@ -371,16 +370,16 @@
 					
 					AreaRes.types({
 						poolId: $scope.poolId,
-						pTfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
-						tfcode:$localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'',
+						pTfcode:tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
+						tfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
 						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						AreaRes.formats({
 							poolId: $scope.poolId,
-							pTfcode: $localStorage.currentTreeNode.tfcode,
-							tfcode: $localStorage.currentTreeNode.tfcode,
+							pTfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
+							tfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
 							fromFlag:$scope.fromFlag,
 							typeId: mTypeId
 						}, function(data) {
@@ -444,7 +443,8 @@
 						ModalMsg.logger("请输入正整数");
 						return;
 					}
-					if(pagenum > 0 && pagenum < $scope.resList.total) {
+					
+					if(pagenum > 0 && pagenum <= Math.ceil($scope.resList.total)) {
 						page = pagenum;
 						$scope.VM.currentPageCtrl = pagenum;
 					    getResList();
@@ -453,7 +453,7 @@
 					    getResList();
 					}
 					else {
-						ModalMsg.logger("请输入大于0，小于页码总数的数字~");
+						ModalMsg.logger("请输入大于0，小于页码总数的正整数~");
 					} 
 				};
 
