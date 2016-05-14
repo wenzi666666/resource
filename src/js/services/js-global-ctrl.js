@@ -98,7 +98,8 @@
 		// 音频  素材
 		window.audioType = ['.mp3', '.wav', '.wav'];
 		// 拓展资源
-		window.cajType = ['.kdh', '.caj', '.teb', '.nh'];
+//		window.cajType = ['.kdh', '.caj', '.teb', '.nh'];
+		window.cajType = [];
 		// 其他  素材
 		window.otherType = ['.xls', '.xlsx', '.xlsm', '.rar', '.zip'];
 

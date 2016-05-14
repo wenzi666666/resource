@@ -111,6 +111,7 @@
 					// 获取所有备课夹
 					getAllPrepare();
 				}
+				
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
 					$scope.VM.currentMaterialShow = false;
@@ -165,32 +166,75 @@
 				}
 
 				// 读取 当前学科下的备课夹 列表
-				var getAllPrepare = function() {
-					// 一周内备课夹
+				var page = 1;
+				$scope.perPage = 4;
+				$scope.VM.perPage = $scope.perPage;
+				$scope.maxSize = 3;
+				// 一周内备课夹
+				var getWithinWeekPrepare = function(){
 					Prepare.prepare4book({
 						termId: $localStorage.currentGrade.id,
 						subjectId: $localStorage.currentSubject.id,
-						timeLabel:'withinweek'
+						timeLabel:'withinweek',
+						page:page,
+						perPage:$scope.perPage
 					}, function(data) {
 						$scope.withinWeekPrepare = data.data;
-					})
-					// 一月内备课夹
-					Prepare.prepare4book({
-						termId: $localStorage.currentGrade.id,
-						subjectId: $localStorage.currentSubject.id,
-						timeLabel:'withinmonth'
-					}, function(data) {
-						$scope.withinMonthPrepare = data.data;
-					})
-					// 更早
-					Prepare.prepare4book({
-						termId: $localStorage.currentGrade.id,
-						subjectId: $localStorage.currentSubject.id,
-						timeLabel:'moreearly'
-					}, function(data) {
-						$scope.moreEarlyPrepare = data.data;
+						$scope.bigWeekTotalItems = data.data.totalLines;
 					})
 				}
+				// 一月内备课夹
+				var getWithinMonthPrepare = function(){
+					Prepare.prepare4book({
+						termId: $localStorage.currentGrade.id,
+						subjectId: $localStorage.currentSubject.id,
+						timeLabel:'withinmonth',
+						page:page,
+						perPage:$scope.perPage
+					}, function(data) {
+						$scope.withinMonthPrepare = data.data;
+						$scope.bigMonthTotalItems = data.data.totalLines;
+					})
+				}
+				// 一周内备课夹
+				var getMoreEarlyPrepare = function(){
+					Prepare.prepare4book({
+						termId: $localStorage.currentGrade.id,
+						subjectId: $localStorage.currentSubject.id,
+						timeLabel:'moreearly',
+						page:page,
+						perPage:$scope.perPage
+					}, function(data) {
+						$scope.moreEarlyPrepare = data.data;
+						$scope.bigEarlyTotalItems = data.data.totalLines;
+					})
+				}
+				//更早
+				var getAllPrepare = function() {
+					// 一周内备课夹
+					getWithinWeekPrepare();
+					// 一月内备课夹
+					getWithinMonthPrepare();
+					// 更早
+					getMoreEarlyPrepare();
+				}
+
+				// 分页触发
+				$scope.VM.weekPageCtrl = 1;
+				$scope.VM.monthPageCtrl = 1;
+				$scope.VM.earlyPageCtrl = 1;
+				$scope.pageWeekChanged = function(pagenum) {
+					page = $scope.VM.weekPageCtrl;
+					getWithinWeekPrepare();
+				};
+				$scope.pageMonthChanged = function(pagenum) {
+					page = $scope.VM.monthPageCtrl;
+					getWithinMonthPrepare();
+				};
+				$scope.pageEarlyChanged = function(pagenum) {
+					page = $scope.VM.earlyPageCtrl;
+					getMoreEarlyPrepare();
+				};
 
 				//监听课本选择
 				$scope.$on("currentTreeIdUpdate", function(e, tfcode) {

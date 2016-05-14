@@ -25,6 +25,10 @@
 						<br>
 					</div>
 				</div>
+				<div class="clearfix"></div>
+				<div class="coms-pagination prepare-coms-pagination" ng-show="withinWeekPrepare.totalLines > 4">
+				 	<uib-pagination total-items="bigWeekTotalItems" ng-model="VM.weekPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage" ng-change="pageWeekChanged()"></uib-pagination>
+				</div> 
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -48,6 +52,10 @@
 						<br>
 					</div>
 				</div>
+				<div class="clearfix"></div>
+				<div class="coms-pagination prepare-coms-pagination" ng-show="withinMonthPrepare.totalLines > 4">
+				 	<uib-pagination total-items="bigMonthTotalItems" ng-model="VM.monthPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage" ng-change="pageMonthChanged()"></uib-pagination>
+				</div> 
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -71,6 +79,10 @@
 						<br>
 					</div>
 				</div>
+				<div class="clearfix"></div>
+				<div class="coms-pagination prepare-coms-pagination" ng-show="withinEarlyPrepare.totalLines > 4">
+				 	<uib-pagination total-items="bigEarlyTotalItems" ng-model="VM.earlyPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage" ng-change="pageEarlyChanged()"></uib-pagination>
+				</div> 
 			</div>
 		</div>
 		<div class="clearfix"></div>

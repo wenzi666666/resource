@@ -63,9 +63,9 @@
 						// 目录树全展开
 						window.allNodes = [];
 						window.addToAllNodes($scope.treedata);
-						$scope.expandedNodes = window.allNodes;
-						
-						console.log("window.allNodes:", window.allNodes)
+						setTimeout(function(){
+							$scope.expandedNodes = window.allNodes;
+						},300)
 						
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode);
