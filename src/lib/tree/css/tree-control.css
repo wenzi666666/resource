@@ -7,8 +7,8 @@ treecontrol {
     user-select: none;
 
     /* default */
-    font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size:17px;
+    /*font-family: Verdana, Helvetica, Arial, sans-serif;*/
+    font-size:14px;
     color: #4D4D4D;
     text-decoration: none;
 }
