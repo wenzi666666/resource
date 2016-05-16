@@ -284,7 +284,7 @@
 					console.log("received:",d)
 					// 列出资源
 					tmpCtrl = true;
-					getResList(d,0,0);
+					getResList(d,0,0,0);
 					// 列出  资源类型和格式
 					$scope.typeAndFormat(0, 0, d);
 					// 更改目录标题
@@ -300,13 +300,13 @@
 				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
-				var getResList = function(d,typeContent, formatContent) {
+				var getResList = function(d,poolContent, typeContent, formatContent) {
 					console.log(d,typeContent, formatContent)
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
 					SystemRes.resList({
-						poolId: $scope.poolId,
+						poolId: poolContent == 0? poolContent: $scope.poolId,
 						mTypeId: typeContent==0 ? typeContent : mTypeId,
 						fileFormat: formatContent==0 ? '全部' : format,
 						fromFlag: $scope.fromFlag,

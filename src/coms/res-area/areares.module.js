@@ -284,7 +284,7 @@
 					console.log("received:",d)
 					// 列出资源
 					tmpCtrl = true;
-					getResList(d,0,0);
+					getResList(d,0,0,0);
 					// 列出  资源类型和格式
 					$scope.typeAndFormat(0, 0, d);
 					// 更改目录标题
@@ -300,13 +300,13 @@
 				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
-				var getResList = function(d,typeContent, formatContent) {
+				var getResList = function(d,poolContent, typeContent, formatContent) {
 					console.log(d,typeContent, formatContent)
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
 					AreaRes.resList({
-						poolId: $scope.poolId,
+						poolId: poolContent == 0? poolContent: $scope.poolId,
 						mTypeId: typeContent==0 ? typeContent : mTypeId,
 						fileFormat: formatContent==0 ? '全部' : format,
 						fromFlag: $scope.fromFlag,
@@ -315,7 +315,9 @@
 						page:page,
 						perPage: $scope.perPage
 					}, function(data) {
+						
 						//初始化全选
+						
 						$scope.VM.checkAll = [];
 						$scope.resList = data.data;
 						$scope.isLoading = false;
@@ -367,19 +369,19 @@
 					}else{
 						getResList();	
 					}
-					
+					var currentTfcode = $localStorage.currentTreeNode ? $localStorage.currentTreeNode.tfcode: '';
 					AreaRes.types({
 						poolId: $scope.poolId,
-						pTfcode:tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
-						tfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
+						pTfcode:tree ? tree.tfcode : currentTfcode,
+						tfcode: tree ? tree.tfcode : currentTfcode,
 						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
 						console.log("types:",data.data);
 						AreaRes.formats({
 							poolId: $scope.poolId,
-							pTfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
-							tfcode: tree ? tree.tfcode : $localStorage.currentTreeNode.tfcode,
+							pTfcode: tree ? tree.tfcode : currentTfcode,
+							tfcode: tree ? tree.tfcode : currentTfcode,
 							fromFlag:$scope.fromFlag,
 							typeId: mTypeId
 						}, function(data) {
@@ -528,7 +530,7 @@
 					})
 				}
 				
-				// 打包下载
+				// 打包下载 选择
 				$scope.downLoadSelect = function() {
 					if(!!$scope.resList.select) {
 						//生成flags
