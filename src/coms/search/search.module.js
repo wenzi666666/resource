@@ -53,11 +53,8 @@
 				{
 					$scope.searchKeyWord=$localStorage.searchKeyWord;
 				}
-				
-				
-				
-				//搜索资源范围
 
+				//搜索资源范围
 				$scope.VM.searchArea = [{
 						"area": "全部",
 						"id": -1
@@ -290,8 +287,7 @@
 						fromFlags:flag
 					}, function(data){
 						console.log(data.data)
-						
-						
+
 						for(var i=0;i<data.data.length;i++)
 						{
 							openwin(data.data[i].path);
@@ -300,6 +296,30 @@
 						$scope.resList.fromFlag=[];
 						$scope.VM.checkAll=[];
 					});
+				}
+				
+				// 打包下载
+				var resZipDownload = function(ids,flags){
+					ModalMsg.alert("正在打包中，请稍候...");
+					Res.resZIpDownload({
+						ids:ids,
+						fromflags: flags,
+						zipname: "搜索_" + $scope.searchKeyWord + '_打包文件'
+					}, function(data){
+						if(data.data) {
+							var t = setInterval(function() {
+								Res.getMyDownloadStatus({
+									id: data.data
+								}, function(data) {
+									if(!!data.data.status) {
+										clearInterval(t);
+										// 打包完成后提示
+										zipDownloadTips(data.data.zippath);
+									}
+								})
+							}, 2000)
+						}
+					})
 				}
 				
 				//多个下载,在搜索页面，fromFlag不一样  
@@ -325,15 +345,12 @@
 				$scope.downLoadSelect = function() {
 					// 全部打包下载
 					if(!!$scope.resList.select)
-						$scope.resDownload($scope.resList.select.toString(),$scope.resList.fromFlag.toString(),$scope.resList.loadIndex);
+						resZipDownload($scope.resList.select.toString(),$scope.resList.fromFlag.toString(),$scope.resList.loadIndex);
 						
 					else {
 						ModalMsg.logger("还没有选中资源哦");
 					}
 				}
-				
-				
-				
 			}
 		])
 }());
