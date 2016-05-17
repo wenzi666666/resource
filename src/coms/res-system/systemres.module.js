@@ -284,7 +284,7 @@
 					console.log("received:",d)
 					// 列出资源
 					tmpCtrl = true;
-					getResList(d,0,0,0);
+					getResList(0,0,0,d);
 					// 列出  资源类型和格式
 					$scope.typeAndFormat(0, 0, d);
 					// 更改目录标题
@@ -300,8 +300,8 @@
 				$scope.VM.perPage = $scope.perPage;
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
-				var getResList = function(d,poolContent, typeContent, formatContent) {
-					console.log(d,typeContent, formatContent)
+				var getResList = function(poolContent, typeContent, formatContent,tree) {
+					console.log(tree,typeContent, formatContent)
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
@@ -310,7 +310,7 @@
 						mTypeId: typeContent==0 ? typeContent : mTypeId,
 						fileFormat: formatContent==0 ? '全部' : format,
 						fromFlag: $scope.fromFlag,
-						tfcode: d?d.tfcode:$localStorage.currentTreeNode.tfcode,
+						tfcode: tree?tree.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,
 						page:page,
 						perPage: $scope.perPage
@@ -357,7 +357,7 @@
 				$scope.typeAndFormat = function(poolId, typeId, tree){
 					// 设值
 					$scope.poolId = poolId;
-					console.log("typeAndFormat:", poolId)
+					console.log("typeAndFormat:", poolId, tmpCtrl)
 					format = "全部";
 					// 设置当前选择
 					$scope.poolsSelected = poolId;
@@ -367,7 +367,7 @@
 					if(tmpCtrl){
 						tmpCtrl = false;
 					}else{
-						getResList();	
+						getResList(poolId, 0, 0);	
 					}
 					var currentTfcode = $localStorage.currentTreeNode ? $localStorage.currentTreeNode.tfcode: '';
 					SystemRes.types({
@@ -383,7 +383,7 @@
 							pTfcode: tree ? tree.tfcode : currentTfcode,
 							tfcode: tree ? tree.tfcode : currentTfcode,
 							fromFlag:$scope.fromFlag,
-							typeId: mTypeId
+							typeId: 0
 						}, function(data) {
 							$scope.formats =data.data;
 						})

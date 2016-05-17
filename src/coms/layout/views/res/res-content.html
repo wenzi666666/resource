@@ -59,7 +59,7 @@
 						</div>
 					</div>
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
-						加入当前节点备课夹&nbsp;&nbsp;&nbsp;&nbsp;
+						加入备课夹&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<br>
 					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
@@ -75,7 +75,7 @@
 					<label for="{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
 					<a class="img-thumb2-list" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
-						<img ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+						<img class="prepare-shop" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
 					</a>
 					<div class="res-thubmlist-info">
 						<div><a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
@@ -93,15 +93,19 @@
 					</div>
 				</div>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
-					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
-					<div class="res-select addPrepare  addPrepare-custom" ng-click="addToCurrentPrepare(parentIndex)">
-						  加入备课夹&nbsp; <i class="icon-sort-down"></i>
+					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'> <i class="icon-download-alt"></i> 点击下载</label>
+					<div class="res-select addPrepare  addPrepare-custom">
+						<i class="icon-sort-down icon-sort-down-custom"></i>
 						<div class="res-prepare-thumb" >
 							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 							<div class="res-prepare-list-item res-prepare-list-more res-prepare-list-item" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
 					</div>
+					<div class="add-prepare-thumb" ng-click="addToCurrentPrepare(parentIndex)">
+						  加入备课夹
+					</div>
+					
 				</div>
 			</li>
 		</ul>
@@ -114,7 +118,7 @@
 			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
 			
 			<div class="res-select addPrepareAll res-add-prepare-all" ng-click="addAllToPrepare($event)">
-				加入当前节点备课夹&nbsp;&nbsp;
+				加入备课夹&nbsp;&nbsp;
 			</div>
 			<div class="addPrepareAll-list addAllLatestPrepare">
 				<i class="icon-sort-down"></i>

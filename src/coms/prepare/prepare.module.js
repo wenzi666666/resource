@@ -140,7 +140,7 @@
 
 				// 读取备课夹 列表
 				var getPrepare = function(id) {
-					Prepare.GetSelfPrepare({
+					Prepare.baseGetApi({
 						tfcode: id
 					}, function(data) {
 						$scope.listData = data.data;
