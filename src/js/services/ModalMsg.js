@@ -51,6 +51,26 @@
 						}]
 					});
 				},
+				/** 不兼容ie的 弹出框 只在chorme下弹出，其他浏览器用原生的*/
+				'chromeLogger': function logger(key) {
+					return $uibModal.open({
+						template: tplLeft + key + alertRight,
+						windowClass: "logger-modal",
+						controller: ['$uibModalInstance', '$scope', function($uibModalInstance,$scope) {
+							setTimeout(function(){
+									$uibModalInstance.dismiss('cancel');
+								}, 3000);
+								$scope.cancelModal = function(){
+									$uibModalInstance.dismiss('cancel');
+								}
+							if (navigator.userAgent.indexOf("Chrome") == -1) {
+								var bodyHeight=$(document).height();
+								$("html, body").animate({scrollTop:bodyHeight + 'px'},"slow");
+							}
+						}]
+					});
+				},
+				 
 				/** 错误处理*/
 				'error': function logger(key) {
 					return $uibModal.open({

@@ -698,7 +698,7 @@
 						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
 						if(showModal){
-							ModalMsg.logger("成功加入备课夹：" + $scope.prepareList[0].title);
+							ModalMsg.chromeLogger("成功加入备课夹：" + $scope.prepareList[0].title);
 						}
 					})
 				}
@@ -715,7 +715,6 @@
 					{
 						currentPrepareId=preId;
 					}
-					console.log("id:",currentPrepareId)
 					if($scope.prepareDataList.length == 0) {
 						Prepare.basePostApi({
 							tfcode: $scope.VM.tfCode,
@@ -749,7 +748,7 @@
 								// 动画显示
 								addPrepareAnimation();
 							} else {
-								ModalMsg.error(data);
+								ModalMsg.chromeLogger(data.message);
 							}
 						})
 					}
@@ -780,7 +779,7 @@
 								addPrepareAnimation();
 							}
 							else {
-								ModalMsg.logger("加入备课夹失败，请重试！")
+								ModalMsg.chromeLogger("加入备课夹失败，请重试！")
 							}
 						})
 					});

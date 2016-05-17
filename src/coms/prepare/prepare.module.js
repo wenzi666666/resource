@@ -524,7 +524,8 @@
 							$scope.searchList = data.data.list;
 						})
 					}else {
-						ModalMsg.logger("搜索内容不能为空");
+//						ModalMsg.logger("搜索内容不能为空");
+						$scope.showSearchResults = false;
 					}
 				}
 

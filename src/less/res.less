@@ -611,7 +611,7 @@
 .prepare-fixed{
     position: fixed;
     bottom: 350px;
-    right: 5px;
+    right: 160px;
     cursor: pointer;
     z-index: 99999;
 }
@@ -621,22 +621,6 @@
 }
 .icon-sort-down:hover{
     color: #999;
-}
-@media screen and (max-width: 1400px) { /*当屏幕尺寸小于1050px时，应用下面的CSS样式*/
-     .prepare-fixed{
-        right: 8px;
-
-    }
-    .prepare-fixed  .prepare-ctrls{
-        position: absolute;
-        height: 100px;
-        width: 100px;
-        right: 40px;
-        margin-left: 3px;
-        visibility: hidden;
-        padding: 5px;
-        border-radius: 3px;
-    }
 }
 .prepare-fixed:hover .prepare-ctrls{
     visibility: visible;   
@@ -654,7 +638,7 @@
     border-radius: 3px;
 }
 .prepare-fixed  .prepare-ctrls{
-    float: left;
+    position: fixed;
     height: 120px;
     width: 150px;
     margin-left: 3px;
@@ -664,6 +648,15 @@
     padding: 5px;
     border-radius: 3px;
     overflow-y: auto;
+    right: 9px;
+}
+@media screen and (max-width: 1400px) { /*当屏幕尺寸小于1400px时，应用下面的CSS样式*/
+     .prepare-fixed{
+        right: 8px;
+    }
+    .prepare-fixed  .prepare-ctrls{
+        right: 48px;
+    }
 }
 .prepare-fixed  .prepare-ctrls .btn{
     padding: 4px 8px;

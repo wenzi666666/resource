@@ -21,9 +21,7 @@
 			<div ng-show="list.children.length>0">
 				<span class="hold-on" ui-sref="systemres"><i class="icon-plus-sign"></i>继续逛逛</span>
 				<span class="hold-on local-res" ng-click="uploadRes(list.id, $index)"><i class="icon-plus-sign"></i>本地资源</span>
-				<div class="clearfix">
-					
-				</div>
+				<div class="clearfix"></div>
 				<div class="list-item" ng-class="{'item-active': item.active}" ng-repeat="item in list.children" ng-click="setItemActive($index, parentIndex)">
 						<input id="{{parentIndex*10+$index}}" type="checkBox" class="check" ng-click="selectRes(item)" ng-checked="item.isSelected">
 						<label for="{{parentIndex*10+$index}}"></label>

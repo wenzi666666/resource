@@ -52,7 +52,7 @@
 					if (len == 0) {
 						publishScore(index + 1);
 					} else {
-						ModalMsg.logger("您已经评分过了，不能再次评分")
+						ModalMsg.chromeLogger("您已经评分过了，不能再次评分")
 					}
 				}
 
@@ -195,17 +195,17 @@
 							}
 						});
 						if (score == 0) {
-							ModalMsg.logger("评完分才能评论哦！");
+							ModalMsg.chromeLogger("评完分才能评论哦！");
 							return false;
 						}
 						if($scope.VM.inputComment.length==0)
 						{
-							ModalMsg.logger("评论内容不能为空！");
+							ModalMsg.chromeLogger("评论内容不能为空！");
 							return false;
 						}
 						if($scope.VM.inputComment.length>200)
 						{
-							ModalMsg.logger("评论内容不能超过个200个字符！");
+							ModalMsg.chromeLogger("评论内容不能超过个200个字符！");
 							return false;
 						}
 						Preview.editComment({
@@ -275,12 +275,12 @@
 					$scope.editSure = function(index) {
 							if($scope.myCommentList[index].acontent.length>200)
 							{
-								ModalMsg.logger("评论不能字数不能超过200！");
+								ModalMsg.chromeLogger("评论不能字数不能超过200！");
 								return false;
 							}
 							if($scope.myCommentList[index].acontent.length==0)
 							{
-								ModalMsg.logger("评论不能为空！");
+								ModalMsg.chromeLogger("评论不能为空！");
 								return false;
 							}
 							Preview.editComment({
