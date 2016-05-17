@@ -18,7 +18,6 @@
 		if(/iscoursewares/gi.test( window.location.search )) {
 			var tocken = window.getSeachByName('tocken');
 			window.localStorage.setItem("credentialsToken", tocken);
-			
 		}else if(window.localStorage.getItem("credentialsToken")) {
 			//默认登陆页 认证成功后默认系统资源页
 			$urlRouterProvider.otherwise('/systemres');
