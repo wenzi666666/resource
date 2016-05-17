@@ -33,15 +33,18 @@
 						spaceNavUrl = data.data;
 							
 					} else {
-						ModalMsg.logger(data.message);
-						setTimeout(function(){
-							window.location.href = "login.html";
-						}, 2500)
+						if(data.code == "KickOutTokenException") {
+							ModalMsg.logger(data.message);
+							setTimeout(function(){
+								$scope.logout();
+							}, 2000)
+						}else{
+							$scope.logout();
+						}
 					}
 				})
 				$scope.goToSpace = function(){
 					openwin(spaceNavUrl)
-					
 				}
 				
 				//退出

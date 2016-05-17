@@ -21,7 +21,6 @@
 			
 		}else if(window.localStorage.getItem("credentialsToken")) {
 			//默认登陆页 认证成功后默认系统资源页
-			console.log(window.localStorage.getItem("credentialsToken"))
 			$urlRouterProvider.otherwise('/systemres');
 		}
 		else
