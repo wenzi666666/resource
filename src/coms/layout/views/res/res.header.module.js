@@ -222,7 +222,7 @@
 					}).$promise;
 				}).then(function(data) {
 					return Res.getBooks({
-						pnodeId: $scope.VM.currentVersion?$scope.VM.currentVersion:''
+						pnodeId: $scope.VM.currentVersion?$scope.VM.currentVersion.id:''
 					}, function(data) {
 						console.log("books：", data.data);
 						if(data.data.length > 0){
