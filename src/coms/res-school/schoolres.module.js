@@ -286,6 +286,7 @@
 					tmpCtrl = true;
 					page = 1;
 					$scope.VM.currentPageCtrl = 1;
+					$scope.noTreeData = false;
 					getResList(0,0,0,d);
 					// 列出  资源类型和格式
 					$scope.typeAndFormat(0, 0, d);
@@ -294,6 +295,12 @@
 					$timeout(function(){
 						getPrepare($localStorage.currentTreeNode?$localStorage.currentTreeNode.tfcode:'')
 					},300)
+				})
+				
+				// 无资源时显示
+				$scope.$on("noTreeDataChange", function(e, d) {
+					console.log("noTreeDataChange")
+					$scope.noTreeData = true;
 				})
 				
 				// 列出资源

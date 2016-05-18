@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="res-list-main">
-		<ul class="res-ul-list" ng-show="isList">
+		<ul class="res-ul-list" ng-show="!isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-input res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<div title="{{list.title}}">
@@ -67,7 +67,7 @@
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 			</li>
 		</ul>
-		<ul class="res-ul-thubmlist" ng-show="!isList">
+		<ul class="res-ul-thubmlist" ng-show="isList">
 			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="animated slideInUp res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<div title="{{list.title}}">

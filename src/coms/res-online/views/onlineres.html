@@ -28,12 +28,14 @@
 	
 	<div class="col-md-2">
 		<div class="slide_head">资源列表：</div>
-		<div class="slide-list">
-			<div class="slide-list-item" ng-repeat="item in slides track by $index"  title="{{item.title}}">
-				<div class="img-box" ng-class="curImg[$index]?'line':''">
-					<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId,item.fromFlag)">
+		<div class="slide-list-container">
+			<div class="slide-list">
+				<div class="slide-list-item" ng-repeat="item in slides track by $index"  title="{{item.title}}">
+					<div class="img-box" ng-class="curImg[$index]?'line':''">
+						<img ng-src="{{ item.imgPath? item.imgPath:'null'}}" fallback-src="{{item.fileSuffix | lowercase}}" ng-click="getResPlayUrl($index, item.resId,item.fromFlag)">
+					</div>
+					<span class="slide-rigth-title text-ellipsis">{{item.title}}</span>
 				</div>
-				<span class="slide-rigth-title text-ellipsis">{{item.title}}</span>
 			</div>
 		</div>
 	</div>

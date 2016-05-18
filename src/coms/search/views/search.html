@@ -39,21 +39,21 @@
 				<li class="res-list-item" ng-repeat="source in sourceList track by $index" >
 						<input id="{{$index}}" class="res-checkbox" checklist-model="resList.select"  checklist-value="source.id"  type="checkbox" ng-click="addItemSelect(source.fromFlag,$index)" />
 						<label for="{{$index}}"></label>
-					<div class="img-thumb-list" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
-						<img class="res-list-thumb" ng-src="{{source.thumbnailpath?source.thumbnailpath:'null'}}" fallback-src="{{source.fileExt | lowercase}}" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
-					</div>
-					<span class="res-list-info" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})">
-					<label class="res-title text-ellipsis">{{source.title}}</label>
-					<label class="res-type">类型: {{source.mtype}}</label>
-					<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}M</label>
-					
-					<span class="star_box">
-						<label class="res-star">
-							<i class="icon-star star-active" ng-repeat="star in source.starNum" ></i>
-							
-						</label>
-						<label class="res-number">{{source.clickTimes}}浏览/{{source.dloadTimes}}下载</label>
-					</span>
+					<a class="img-thumb-list" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})" target="_blank">
+						<img class="res-list-thumb" ng-src="{{source.thumbnailpath?source.thumbnailpath:'null'}}" fallback-src="{{source.fileExt | lowercase}}">
+					</a>
+					<span class="res-list-info" >
+						<a class="res-title text-ellipsis" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})"  target="_blank">{{source.title}}</a>
+						<label class="res-type">类型: {{source.mtype}}</label>
+						<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}M</label>
+						
+						<span class="star_box">
+							<label class="res-star">
+								<i class="icon-star star-active" ng-repeat="star in source.starNum" ></i>
+								
+							</label>
+							<label class="res-number">{{source.clickTimes}}浏览/{{source.dloadTimes}}下载</label>
+						</span>
 					</span>
 					<span class="res-list-tools">
 					<label class="res-download" ng-click="resDownload(source.id,source.fromFlag,$index)"><i class="icon-download-alt"></i>点击下载</label>
