@@ -36,7 +36,20 @@
 					getAllSubjects: {method: "GET", url: window.BackendUrl + "/resRestAPI/v1.0/subjects"},
 					setUserInfo: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/:userid", params: {userid: '@userid'}},
 					setNewPasswd: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/password/"},
-					setUserAvatar: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/userimage/:userid", params: {userid: '@userid'}}
+					setUserAvatar: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/userimage/:userid", params: {userid: '@userid'}},
+					//获取头像的上传路径
+					userImageUploadUrl: {
+						method: "GET",
+						url: BackendUrl + "/resRestAPI/v1.0/users/userImageUploadUrl"
+					},
+					// 修改头像
+					userimage: {
+						method: "POST",
+						url: BackendUrl + "/resRestAPI/v1.0/users/userimage/:userid",
+						params: {
+							userid: '@userid'
+						}
+					}
                 })
 			}
 		])
@@ -273,10 +286,11 @@
 				
 			}
 		])
-		.controller('avatarInstanceController', ['$scope', '$uibModalInstance',
-			function($scope, $uibModalInstance) {
+		.controller('avatarInstanceController', ['$scope', '$uibModalInstance','Upload','User','$timeout','ModalMsg','$localStorage',
+			function($scope, $uibModalInstance, Upload,User,$timeout,ModalMsg,$localStorage) {
 				// 显示 系统头像
 				$scope.isLocal = true;
+				$scope.VM = {};
 				
 				$scope.panelOneShow = true;
 				$scope.panelTwoShow = false;
@@ -344,8 +358,29 @@
 					clicked: false
 				}];
 				
+				// 获取上传地址
+				User.userImageUploadUrl({}, function(data){
+					$scope.uploadData = data.data;
+				})
 				
-				$scope.showPanel = function(index) {
+				// 上传文件
+				$scope.VM.uploadFiles = function(index, files, errFiles) {
+					if (errFiles && errFiles.length > 0) {
+						console.log(errFiles)
+						ModalMsg.logger("图片最大支持3M 或 文件格式不正确！");
+						return;
+					}
+					
+					if (files && files[0].size == 0) {
+						ModalMsg.logger("文件内容为空，不能上传~");
+						return;
+					}
+					
+					if(files && (files[0].size) > 3*1024*1024) {
+						ModalMsg.logger("图片最大支持3M，请更改后上传！");
+						return;
+					}
+					
 					if(index == 1) {
 						$scope.panelOneShow = true;
 						$scope.panelTwoShow = false;
@@ -356,15 +391,43 @@
 						$scope.panelTwoShow = true;
 						$scope.panelThreeShow = false;
 					}
-					else {
-						$scope.panelOneShow = false;
-						$scope.panelTwoShow = false;
-						$scope.panelThreeShow = true;
-					}
 				}
 
 				$scope.lastAvatarSelected = 0;
 				$scope.newAvatar = "";
+				
+				//上传
+				$scope.upload = function (dataUrl, name) {
+			        Upload.upload({
+			            url: $scope.uploadData.uploadUrl,
+			            data: {
+			                file: Upload.dataUrltoBlob(dataUrl, name)
+			            },
+			        }).then(function (response) {
+			        	// 上传成功
+			            $timeout(function () {
+			                // 更新头像
+			                User.userimage({
+			                	userid: $localStorage.authUser.userId,
+			                	userImage: $scope.uploadData.uploadPath + response.data
+			                }, function(data) {
+			                	console.log(data.data)
+			                	$scope.userNewAvatar = data.data;
+			                	$scope.panelOneShow = false;
+								$scope.panelTwoShow = false;
+								$scope.panelThreeShow = true;
+			                })
+			            });
+			        }, function (response) {
+			        	// 上传失败
+			            if (response.status > 0) {
+			            	ModalMsg.logger("上传失败，请重新上传");
+			            	$scope.panelOneShow = false;
+							$scope.panelTwoShow = true;
+							$scope.panelThreeShow = false;
+			            }
+			        });
+			    }
 
 				$scope.selectSystemAvatar = function(index) {
 					$scope.systemAvatars[$scope.lastAvatarSelected].clicked = false;
@@ -378,7 +441,7 @@
 				}
 				
 				$scope.close = function() {
-					$uibModalInstance.close();
+					window.location.reload();
 				}
 			}
 		])	

@@ -4,7 +4,7 @@
 var BackendUrl = window.location.protocol + "//" + window.location.hostname + ":3366/api";
 //window.BackendUrl = "http://192.168.111.204:8880";
 // 后端tomcat服务
-window.TomcatUrl = "http://127.0.0.1:90";
+window.TomcatUrl = "http://127.0.0.1:8090";
 // 文件服务
 window.FileServer =  "http://192.168.111.22/";
 // 缩略图回滚服务

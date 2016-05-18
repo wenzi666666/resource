@@ -8,7 +8,7 @@
 							<img src="{{isLocal?'assets/img/settings/tab_left_normal.png':'assets/img/settings/tab_left_active.png'}}" />
 							<a role="tab" href="#system-avatar" aria-controls="system-avatar" data-toggle="tab" ng-click="isLocal=true">系统头像</a>
 						</li>
-						<li role="presentation">
+						<li role="presentation" class="avatar-tab-second">
 							<img src="{{!isLocal?'assets/img/settings/tab2_normal.png':'assets/img/settings/tab2.png'}}" />
 							<a href="#self-avatar" aria-controls="self-avatar" role="tab" data-toggle="tab" ng-click="isLocal=false">自定义头像</a>
 						</li>
@@ -27,30 +27,41 @@
 		            	</div>
 	            	</div>
 	            	<div role="tabpanel" class="tab-pane" id="self-avatar">
-	            		<div class="self-avatar-panel panel-one" ng-show="panelOneShow">
+	            		<div class="self-avatar-panel panel-one"  ng-show="panelOneShow">
 	            			<ul>
-	            				<li class="btn-choose-avatar"><img src="assets/img/settings/choose_avatar.png" ng-click="showPanel(2)"></li>
-	            				<li class="btn-photo-avatar"><img src="assets/img/settings/photo_avatar.png" ng-click="showPanel(2)"></li>
-	            			</ul>
+	            				<li class="btn-choose-avatar"><img ng-model="VM.picFile" accept="image/*" ngf-select="VM.uploadFiles(2, $files, $invalidFiles)" src="assets/img/settings/choose_avatar.png" ngf-max-size="3MB"></li>
+	            				<!--<li class="btn-photo-avatar"><img src="assets/img/settings/photo_avatar.png" ng-click="showPanel(2)"></li>-->
+	            					            			</ul>
 	            		</div>
-	            		<div class="self-avatar-panel panel-two" ng-show="panelTwoShow">
+	            		<div class="self-avatar-panel panel-two"  ng-show="panelTwoShow">
 	            			<div class="panel-two-left">
-	            				<img src="assets/img/settings/user_icon_slg.png" />
+	            				 <div ngf-drop ng-model="VM.picFile" ngf-pattern="image/*"
+						             class="cropArea">
+						            <img-crop image="VM.picFile  | ngfDataUrl"                 
+						            result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+						            </img-crop>
+						        </div>
 	            			</div>
+	            			
+					        
+					        
 	            			<div class="panel-two-right">
-	            				<img src="assets/img/settings/img_size_line.png" />
-	            				<img src="assets/img/settings/img_size_btn.png"  id="btn-change-size"/>
+	            				<h6>头像预览：</h6>
+	            				<div class="avatar-thumb">
+						            <img ng-src="{{croppedDataUrl}}" />
+						        </div>
+						        <br> <br>
 	            				<div class="btn-box">
-	            					<button class="btn-general" ng-click="showPanel(1)">重选</button>
-		    						<button class="btn-general" ng-click="showPanel(3)">确定</button>
+	            					<button class="btn-general" ng-click="VM.uploadFiles(2)">重选</button>
+		    						<button class="btn-general" ng-click="upload(croppedDataUrl, picFile.name)">确定</button>
 	            				</div>
 	            			</div>
 	            		</div>
 	            		<div class="self-avatar-panel panel-three" ng-show="panelThreeShow">
 	            			<div class="img-box">
-	            				<img src="assets/img/settings/user_icon_lg.png" />
-		            			<img src="assets/img/settings/user_icon_md.png" />
-		            			<img src="assets/img/settings/user_icon_sm.png" />
+	            				<img class="thumb-avatar1" ng-src="{{userNewAvatar}}" />
+		            			<img class="thumb-avatar2" ng-src="{{userNewAvatar}}" />
+		            			<img class="thumb-avatar3" ng-src="{{userNewAvatar}}" />
 	            			</div>
 	            			<span class="hint-three">以上是您头像的三种尺寸</span>
 	            			<div class="btn-box">
@@ -81,6 +92,7 @@
 	    				<button class="btn-general btn-change-avatar" ng-click="changeAvatar()">更换头像</button>
 	    				<span class="hint-one">仅支持JPG、GIF、PNG图片文件；且小于2M</span>
 		    		</div>
+
 		    		<div class="main-right">
 		    			<div class="user-info">
 		    				<span class="info-label">用户名：</span>

@@ -71,7 +71,7 @@
 					$scope.VM.currentMaterialTmpShow = false;
 				}
 				// list切换
-				$scope.isList = $localStorage.resList==true?$localStorage.resList:false;
+				$scope.isList = $localStorage.resList==true?$localStorage.resList:true;
 			    $scope.switchList = function(list){
 			    	$localStorage.resList = list
 			    	$scope.isList = list;
