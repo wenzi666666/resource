@@ -284,6 +284,8 @@
 					console.log("received:",d)
 					// 列出资源
 					tmpCtrl = true;
+					page = 1;
+					$scope.VM.currentPageCtrl = 1;
 					getResList(0,0,0,d);
 					// 列出  资源类型和格式
 					$scope.typeAndFormat(0, 0, d);
@@ -363,6 +365,8 @@
 					$scope.poolsSelected = poolId;
 					$scope.typeSelected =0;
 					$scope.formatSelected =0;
+					page = 1;
+					$scope.VM.currentPageCtrl = 1;
 					// 获取资源列表
 					if(tmpCtrl){
 						tmpCtrl = false;
@@ -406,6 +410,8 @@
 				$scope.listFormat = function(index) {
 					mTypeId = $scope.types[index].id;
 					$scope.typeSelected = mTypeId;
+					page = 1;
+					$scope.VM.currentPageCtrl = 1;
 					format = "全部";
 					getResList();
 					AreaRes.formats({
@@ -423,6 +429,8 @@
 				$scope.filterFormat = function(i) {
 					format = $scope.formats[i];
 					$scope.formatSelected = i;
+					page = 1;
+					$scope.VM.currentPageCtrl = 1;
 					getResList();
 				}
 				

@@ -2,7 +2,7 @@
 	<!--header导航-->
 	<div data-ng-include="'/coms/layout/views/res/res-header.html'"></div>
 	<!--左侧目录-->
-	<div class="col-md-3 catalog">
+	<div class="col-md-3 catalog" ng-hide="noTreeData">
 		<div class="catalog-header"></div>
 		<div class="catalog-content">
 			<div class="catalog-tip">
@@ -13,7 +13,11 @@
 		</div>
 	</div>
 	<!--右侧资源列表-->
-	<div class="col-md-9" data-ng-include="'/coms/layout/views/res/res-content.html'"></div>
+	<div class="col-md-9" data-ng-include="'/coms/layout/views/res/res-content.html'"  ng-hide="noTreeData"></div>
+	<!-- 无资源时显示-->
+	<div class="col-md-12 noTreeData" ng-show="noTreeData">
+		<img src="assets/img/notreedata.jpg"
+	</div>
 </div>
 
 <!-- 加入备课夹  -->

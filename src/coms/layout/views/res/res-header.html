@@ -33,8 +33,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="seperate-right" ng-show="VM.currentVersionShow || VM.currentVersionTmpShow"><i class="icon-angle-right"></i></div>
-	<div class="select-nav-item"  ng-show="VM.currentVersionShow || VM.currentVersionTmpShow">
+	<div class="seperate-right" ng-show="!VM.noTreeData && (VM.currentVersionShow || VM.currentVersionTmpShow)"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item"  ng-show="!VM.noTreeData && (VM.currentVersionShow || VM.currentVersionTmpShow)">
 		<div class="menu-drop">
 			<div class="trigger" ng-click="closeCurrentVersion()">
 				<span class="select-current" href="">{{VM.currentVersion.name}}</span>
@@ -42,8 +42,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="seperate-right" ng-show="VM.currentMaterialShow || VM.currentMaterialTmpShow"><i class="icon-angle-right"></i></div>
-	<div class="select-nav-item"  ng-show="VM.currentMaterialShow || VM.currentMaterialTmpShow">
+	<div class="seperate-right" ng-show="!VM.noTreeData && (VM.currentMaterialShow || VM.currentMaterialTmpShow)"><i class="icon-angle-right"></i></div>
+	<div class="select-nav-item"  ng-show="!VM.noTreeData && (VM.currentMaterialShow || VM.currentMaterialTmpShow)">
 		<div class="menu-drop">
 			<div class="trigger" ng-click="closeCurrentMaterial()">
 				<span class="select-current" href="">{{VM.currentMaterial.name}}</span>
@@ -80,7 +80,7 @@
 		</span>-->
 	</div>
 	<div class="clearfix"></div>
-	<div class="res-body-content res-material-version" ng-show="VM.isFirstLogin" ng-hide="VM.currentVersionShow || VM.version.length==0 || !VM.version || VM.currentVersionTmpShow">
+	<div class="res-body-content res-material-version" ng-show="VM.isFirstLogin" ng-hide="VM.noTreeData || VM.currentVersionShow || VM.version.length==0 || !VM.version || VM.currentVersionTmpShow">
 		<div class="res-content-left">版本:</div>
 		<div  class="res-version-wrapper">
 			<span ng-repeat="v in VM.version track by $index" class="select-item res-material-content" ng-class="VM.currentVersionSeclet[$index]?'selected':''"  ng-click="VM.selectVersion($index)">{{ v.name }}</span>
@@ -89,7 +89,7 @@
 	<div class="clearfix"></div>
 
 	<!--<div class="res-body-content res-material-version" ng-hide="VM.currentMaterialShow || !VM.currentVersionShow">-->
-	<div class="res-body-content res-material-version" ng-hide="!VM.material || VM.material.length==0 || VM.currentMaterialShow || VM.currentMaterialTmpShow">
+	<div class="res-body-content res-material-version" ng-hide="VM.noTreeData || !VM.material || VM.material.length==0 || VM.currentMaterialShow || VM.currentMaterialTmpShow">
 		<div class="res-content-left">教材:</div>
 		<div  class="res-material-wrapper">
 			<span ng-repeat="v in VM.material track by $index" class="select-item res-material-content" ng-class="VM.currentMaterialSeclet[$index]?'selected':''" ng-click="VM.selectMaterial($index)">{{ v.name }}</span>

@@ -22,13 +22,6 @@
                             if(localStorage.getItem('credentialsToken'))
                                 config.url = config.url + "?target="+ TomcatUrl + '&token=' + localStorage.getItem('credentialsToken')+'&noCache=' + new Date().getTime();
                         }
-            
-//                       config.headers['SM_USER'] = "frank";
-//                       if (angular.isDefined(config.headers)) {
-//					        config.headers['Request-Header'] = "frank";
-//					      }
-//					                        config.headers['aaaaaaa'] = "frank";
-
                         return config;
                     }
                 };

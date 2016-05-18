@@ -13,6 +13,11 @@
 				$scope.$on("currentTreeNode", function(e, d) {
 					$scope.$broadcast('currentTreeNodeChange', d);
 				})
+				
+				// 无资源时显示
+				$scope.$on("noTreeData", function(e, d) {
+					$scope.$broadcast('noTreeDataChange', d);
+				})
 			}
 		]);
 }());
