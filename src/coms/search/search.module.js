@@ -32,11 +32,11 @@
 				return $resource('', {}, {
 					searchResults: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resSearchResults"
+						url: TomcatUrl + "/resRestAPI/v1.0/resSearchResults"
 					},
 					resourceFormats:{
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resSearchResults/formats"
+						url: TomcatUrl + "/resRestAPI/v1.0/resSearchResults/formats"
 					}
 				})
 			}

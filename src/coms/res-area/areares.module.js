@@ -33,17 +33,17 @@
 					// 资源类型 
 					types: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/districtResource/types"
+						url: TomcatUrl + "/resRestAPI/v1.0/districtResource/types"
 					},
 					// 查询 资源格式 
 					formats: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/districtResource/formats"
+						url: TomcatUrl + "/resRestAPI/v1.0/districtResource/formats"
 					},
 					//资源列表
 					resList: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/districtResource"
+						url: TomcatUrl + "/resRestAPI/v1.0/districtResource"
 					}
 				})
 			}

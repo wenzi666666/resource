@@ -74,7 +74,7 @@ $(function(){
 			return;
 		}
 		$.ajax({
-			url: BackendUrl+ "/resRestAPI/v1.0/users/login",
+			url: TomcatUrl+ "/resRestAPI/v1.0/users/login",
 			data: { user_name: username, 
 				  	user_pwd: psssword,
 				  	target: TomcatUrl,
@@ -89,7 +89,10 @@ $(function(){
 					}
 					//初始化用户信息
 					$.ajax({
-						url: BackendUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?token=' + data.data.token + '&target=' + TomcatUrl,
+						url: TomcatUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?noCache=' + new Date().getTime(),
+						beforeSend: function(xhr){
+							xhr.setRequestHeader('Authorization', data.data.token);
+						},
 						success: function(data){
 							window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
 							setTimeout(function(){
@@ -132,23 +135,20 @@ $(function(){
 	}
  });
  
-function getVerification(BackendUrl)
-{
+function getVerification(BackendUrl) {
 	$.ajax({
-			url: BackendUrl+ "/resRestAPI/v1.0/verificationcode",
-			data: {
-			}, 
-			success: function(data){
-				if(data.code == "OK") {
-					$(".showCode").text(data.data);
-				}else{
-					alert("系统异常，请联系管理员");
-				}
-			},
-			error: function(data){
-				alert(data.error);
+		url: TomcatUrl+ "/resRestAPI/v1.0/verificationcode",
+		success: function(data){
+			if(data.code == "OK") {
+				$(".showCode").text(data.data);
+			}else{
+				alert("系统异常，请联系管理员");
 			}
-		});
+		},
+		error: function(data){
+			alert(data.error);
+		}
+	});
 }
 
 //忘记密码提示

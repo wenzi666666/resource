@@ -30,7 +30,7 @@
 		.factory('OnlineRes', ['$resource',
 			function($resource) {
 				return $resource('', {}, {
-					total: {method: "GET",url: window.BackendUrl + "/api/discuss/home/total"}
+					total: {method: "GET",url: window.TomcatUrl + "/api/discuss/home/total"}
 				})
 			}
 		])

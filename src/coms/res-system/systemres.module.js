@@ -33,17 +33,17 @@
 					// 系统资源类型 
 					types: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/sysResource/types"
+						url: TomcatUrl + "/resRestAPI/v1.0/sysResource/types"
 					},
 					// 查询 系统资源格式 
 					formats: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/sysResource/formats"
+						url: TomcatUrl + "/resRestAPI/v1.0/sysResource/formats"
 					},
 					//资源列表
 					resList: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/sysResource"
+						url: TomcatUrl + "/resRestAPI/v1.0/sysResource"
 					}
 				})
 			}

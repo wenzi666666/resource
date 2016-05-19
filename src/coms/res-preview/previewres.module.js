@@ -33,44 +33,44 @@
 					// 获取资源的所有版本目录
 					lists: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/preview/lists  "
+						url: TomcatUrl + "/resRestAPI/v1.0/preview/lists  "
 					},
 					listInfo: { //获取单个资源的详细信息
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resPreviewInfo"
+						url: TomcatUrl + "/resRestAPI/v1.0/resPreviewInfo"
 					},
 					myComment: { //查询自己评论
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/myComments"
+						url: TomcatUrl + "/resRestAPI/v1.0/myComments"
 					},
 					editComment: { ////删除，修改 新建评论
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/myComments"
+						url: TomcatUrl + "/resRestAPI/v1.0/myComments"
 					},
 
 					otherComment: { //查询他人评论
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/otherComments"
+						url: TomcatUrl + "/resRestAPI/v1.0/otherComments"
 					},
 					source: { //获取系统/区本/校本资源接口
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resRecommendation"
+						url: TomcatUrl + "/resRestAPI/v1.0/resRecommendation"
 					},
 					resViewUrl:{
 						method:"GET",
-						url:BackendUrl + "/resRestAPI/v1.0/resViewUrl"
+						url:TomcatUrl + "/resRestAPI/v1.0/resViewUrl"
 					},
 					systemTypes:{//获取系统资源类型
 						method:"GET",
-						url:BackendUrl + "/resRestAPI/v1.0/sysResource/types"
+						url:TomcatUrl + "/resRestAPI/v1.0/sysResource/types"
 					},
 					districtTypes:{//获取校本/区本系统资源类型
 						method:"GET",
-						url:BackendUrl + "/resRestAPI/v1.0/districtResource/types"
+						url:TomcatUrl + "/resRestAPI/v1.0/districtResource/types"
 					},
 					back:{//从当前页返回前一页接口
 						method:"GET",
-						url:BackendUrl + "/resRestAPI/v1.0/backCourseContent"
+						url:TomcatUrl + "/resRestAPI/v1.0/backCourseContent"
 					}
 					
 
@@ -736,7 +736,7 @@
 						})
 					}else{
 						Prepare.addResToPrepareId({
-							id: $scope.prepareDataList[0].id,
+							id: currentPrepareId,
 							resIds: $scope.VM.resourceId,
 							fromFlags: $scope.VM.fromFlag
 						}, function(data) {

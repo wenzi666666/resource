@@ -29,67 +29,67 @@
 		])
 		.factory('Prepare', ['$resource',
 			function($resource) {
-				return $resource(BackendUrl + "/resRestAPI/v1.0/prepare/:id", {
+				return $resource(TomcatUrl + "/resRestAPI/v1.0/prepare/:id", {
 					id: '@_id'
 				}, {
 					baseGetApi: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepare/"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepare/"
 					},
 					// 仅获取当前教材目录下的备课夹
 					GetSelfPrepare: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/selfPrepare/"
+						url: TomcatUrl + "/resRestAPI/v1.0/selfPrepare/"
 					},
 					basePostApi: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/prepare/"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepare/"
 					},
 					prepareContent: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareContent/:id",
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareContent/:id",
 						params: {
 							id: '@id'
 						}
 					},
 					addResToPrepareId: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareContent/:id",
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareContent/:id",
 						params: {
 							id: '@id'
 						}
 					},
 					prepareContentBaseApi: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareContent/"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareContent/"
 					},
 					zipPrepare: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareZip/"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareZip/"
 					},
 					zipStatus: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareZip_staus"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareZip_staus"
 					},
 					//获取当前学科 所有备课夹
 					prepare4book: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepare4book"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepare4book"
 					},
 					//获取最近三个备课夹，用于插入备课夹使用
 					latestPrepare: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/latestPrepare"
+						url: TomcatUrl + "/resRestAPI/v1.0/latestPrepare"
 					},
 					//移动备课夹
 					prepareMove: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareMove"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareMove"
 					},
 					//复制备课夹
 					prepareCopy: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareCopy"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareCopy"
 					}
 				})
 			}

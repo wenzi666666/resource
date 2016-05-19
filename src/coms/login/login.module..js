@@ -27,7 +27,7 @@
 				return $resource('', {}, {
 					total: {
 						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
+						url: TomcatUrl + "/api/discuss/home/total"
 					}
 				})
 			}

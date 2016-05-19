@@ -32,11 +32,11 @@
 				return $resource('', {}, {
 					total: {
 						method: "GET",
-						url: window.BackendUrl + "/api/discuss/home/total"
+						url: window.TomcatUrl + "/api/discuss/home/total"
 					},
 					resource:{
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/customizeRes"
+						url: TomcatUrl + "/resRestAPI/v1.0/customizeRes"
 					}
 				})
 			}

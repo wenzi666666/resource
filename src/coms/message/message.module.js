@@ -32,11 +32,11 @@
 				return $resource('', {}, {
 					total: {
 						method: "GET",
-						url: BackendUrl + "/api/discuss/home/total"
+						url: TomcatUrl + "/api/discuss/home/total"
 					},
 					userMessage: { //查询自己评论
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/message"
+						url: TomcatUrl + "/resRestAPI/v1.0/message"
 					}
 				})
 			}

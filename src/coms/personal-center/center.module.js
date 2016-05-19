@@ -33,35 +33,35 @@
 					// 备课统计
 					prepareStatis: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareStatis"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/prepareStatis"
 					},
 					prepareResource: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareResource"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/prepareResource"
 					},
 					getResType: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/personalTab/resType"
+						url: TomcatUrl + "/resRestAPI/v1.0/personalTab/resType"
 					},
 					getComment:{//获取评论列表
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/userReview"
 					},
 					getUnreview:{
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/unReview"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/unReview"
 					},
 					delCom:{//删除评论
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/userReview"
 					},
 					getDownloadRes: {//获取下载
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/myDownload"
 					},
 					getRecentView: {//获取最近浏览
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/userview"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/userview"
 					}
 					
 				})

@@ -28,24 +28,24 @@
 		])
 		.factory('User', ['$resource',
 			function($resource) {
-				return $resource(window.BackendUrl+"/resRestAPI/v1.0/users/:userid",{
+				return $resource(window.TomcatUrl+"/resRestAPI/v1.0/users/:userid",{
                     userid: '@_id'
                 },{
-					getUser: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/users/"},
-					getAllTerms: {method: "GET", url: window.BackendUrl + "/resRestAPI/v1.0/terms"},
-					getAllSubjects: {method: "GET", url: window.BackendUrl + "/resRestAPI/v1.0/subjects"},
-					setUserInfo: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/:userid", params: {userid: '@userid'}},
-					setNewPasswd: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/password/"},
-					setUserAvatar: {method: "POST", url: window.BackendUrl + "/resRestAPI/v1.0/users/userimage/:userid", params: {userid: '@userid'}},
+					getUser: {method: "GET",url: window.TomcatUrl + "/resRestAPI/v1.0/users/"},
+					getAllTerms: {method: "GET", url: window.TomcatUrl + "/resRestAPI/v1.0/terms"},
+					getAllSubjects: {method: "GET", url: window.TomcatUrl + "/resRestAPI/v1.0/subjects"},
+					setUserInfo: {method: "POST", url: window.TomcatUrl + "/resRestAPI/v1.0/users/:userid", params: {userid: '@userid'}},
+					setNewPasswd: {method: "POST", url: window.TomcatUrl + "/resRestAPI/v1.0/users/password/"},
+					setUserAvatar: {method: "POST", url: window.TomcatUrl + "/resRestAPI/v1.0/users/userimage/:userid", params: {userid: '@userid'}},
 					//获取头像的上传路径
 					userImageUploadUrl: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/users/userImageUploadUrl"
+						url: TomcatUrl + "/resRestAPI/v1.0/users/userImageUploadUrl"
 					},
 					// 修改头像
 					userimage: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/users/userimage/:userid",
+						url: TomcatUrl + "/resRestAPI/v1.0/users/userimage/:userid",
 						params: {
 							userid: '@userid'
 						}

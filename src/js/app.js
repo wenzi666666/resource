@@ -39,11 +39,6 @@
 //		delete $httpProvider.defaults.headers.common['X-Requested-With'];		
 //		$httpProvider.defaults.withCredentials = false;
 		
-
-//		$httpProvider.defaults.headers.put['SM_USER'] = 'testsss';
-//		$httpProvider.defaults.headers.post['SM_USER'] = 'testsss';
-//		$httpProvider.defaults.headers.common['sm_user'] = 'testsss';
-		
 		$httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 		$httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';
 		$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';

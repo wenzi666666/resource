@@ -12,7 +12,7 @@
 	.factory('Tree', ['$resource',
 			function($resource) {
 				return $resource('',{},{
-					getTree: {method: "GET",url: window.BackendUrl + "/resRestAPI/v1.0/contents"}
+					getTree: {method: "GET",url: window.TomcatUrl + "/resRestAPI/v1.0/contents"}
 				})
 			}
 		])

@@ -8,47 +8,47 @@
 	angular.module('webApp.coms.ResHeader')
 		.factory('Res', ['$resource',
 			function($resource) {
-				return $resource(window.BackendUrl + "/resRestAPI/v1.0/users/:userid", {
+				return $resource(window.TomcatUrl + "/resRestAPI/v1.0/users/:userid", {
 					userid: '@_id'
 				}, {
 					// 查询学段
 					getTerms: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/terms/"
+						url: TomcatUrl + "/resRestAPI/v1.0/terms/"
 					},
 					// 查询学科
 					getSubjects: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/subjects/"
+						url: TomcatUrl + "/resRestAPI/v1.0/subjects/"
 					},
 					// 查询教材版本
 					getEditions: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/editions/"
+						url: TomcatUrl + "/resRestAPI/v1.0/editions/"
 					},
 					// 查询教材
 					getBooks: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/books/"
+						url: TomcatUrl + "/resRestAPI/v1.0/books/"
 					},
 					// 资源上传 删除 
 					resCtrl: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/asset/"
 					},
 					// 获取资源 
 					getUploadRes: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/asset/"
 					},
 					//删除资源
 					deleteUploadRes: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/asset/"
 					},
 					editUploadRes: {
 						method: "POST",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/:id",
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/asset/:id",
 						params: {
 							id: '@id'
 						}
@@ -56,62 +56,62 @@
 					// 上传资源 服务 url
 					getUploadUrl: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/upload"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/upload"
 					},
 					// 我的备课资源
 					getPrepareResource: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/prepareResource"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/prepareResource"
 					},
 					// 我的下载
 					getMyDownload: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/myDownload"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/myDownload"
 					},
 					// 查询下载状态
 					getMyDownloadStatus: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareZip_staus"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareZip_staus"
 					},
 					// 我的评论
 					getMyComment : {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/userReviewComment"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/userReviewComment"
 					},
 					// 我的浏览
 					getMyRecent: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/userReview"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/userReview"
 					},
 					// 获取统一资源类型
 					unifyType: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/unifyType"
 					},
 					//获取资源类型(根据文件的后缀)
 					unifyType4ext: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/unifyType4ext"
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/unifyType4ext"
 					},
 					// 查询资源库
 					pools: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/pools"
+						url: TomcatUrl + "/resRestAPI/v1.0/pools"
 					},
 					// 点击下载
 					resDownload: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/res_down"
+						url: TomcatUrl + "/resRestAPI/v1.0/res_down"
 					},
 					//打包下载
 					resZIpDownload: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/prepareZip"
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareZip"
 					},
 					//获取单个资源信息(准备编辑)
 					getResDetails: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/resource/asset/:id", 
+						url: TomcatUrl + "/resRestAPI/v1.0/resource/asset/:id", 
 					    params:{ 
 					        id:'@id'
 					    }
