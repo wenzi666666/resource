@@ -736,7 +736,7 @@
 						})
 					}else{
 						Prepare.addResToPrepareId({
-							id: currentPrepareId,
+							id: $scope.prepareDataList[0].id,
 							resIds: $scope.VM.resourceId,
 							fromFlags: $scope.VM.fromFlag
 						}, function(data) {
