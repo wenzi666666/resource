@@ -186,10 +186,10 @@
 				
 				// 全选 或 多选 加入 
 				// 将选择资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
-				$scope.addAllToPrepare = function($event,prepareIndex) {
+				$scope.addAllToPrepare = function($event) {
 					$event.stopPropagation();
 					console.log($scope.resList.select)
-					if(!$scope.resList.select){
+					if(!$scope.resList.select || $scope.resList.select.length == 0){
 						ModalMsg.logger("您还没有选择资源哦");
 						return;
 					}
@@ -210,14 +210,19 @@
 								resIds: $scope.resList.select.toString(),
 								fromFlags: flags.toString()
 							}, function(data) {
-								// 获取最近三个备课夹
-								getLatesPrepare(true);
-								// 获取当前节点备课夹
-								getPrepare($localStorage.currentTreeNode.tfcode);
-								//加$scope.shopCount.length
-//								$scope.shopCount += $scope.resList.select.length;
-								// 动画显示
-								addPrepareAnimation();
+								if(data.code == 'OK' || data.code == 'ok') {
+									// 获取最近三个备课夹
+									getLatesPrepare();
+									// 获取当前节点备课夹
+									getPrepare($localStorage.currentTreeNode.tfcode);
+									//加$scope.shopCount.length
+	//								$scope.shopCount += $scope.resList.select.length;
+									ModalMsg.logger("批量加入成功");
+									// 动画显示
+									addPrepareAnimation();
+								} else {
+									ModalMsg.error(data);
+								}
 							})
 						})
 					}else{
@@ -227,17 +232,15 @@
 							flags[i] = $localStorage.fromFlag
 						})
 						Prepare.addResToPrepareId({
-							id: prepareIndex?prepareIndex:currentPrepareId,
+							id: $scope.prepareDataList[0].id,
 							resIds: $scope.resList.select.toString(),
 							fromFlags: flags.toString()
 						}, function(data) {
 							if(data.code == 'OK' || data.code == 'ok') {
-								//加$scope.shopCount.length
-//								$scope.shopCount += $scope.resList.select.length;
 								// 动画显示
 								addPrepareAnimation();
 								// 获取最近三个备课夹
-								getLatesPrepare(true);
+								getLatesPrepare();
 								
 								ModalMsg.logger("批量加入成功");
 							} else {
@@ -245,6 +248,38 @@
 							}
 						})
 					}
+				}
+				
+				// 全选 加入最近备课夹
+				$scope.addAllToLatestPrepare = function($event,prepareIndex) {
+					$event.stopPropagation();
+					console.log($scope.resList.select)
+					if(!$scope.resList.select){
+						ModalMsg.logger("您还没有选择资源哦");
+						return;
+					}
+					//生成flags
+					var flags = new Array($scope.resList.select.length);
+					_.each(flags,function(v,i) {
+						flags[i] = $localStorage.fromFlag
+					})
+					Prepare.addResToPrepareId({
+						id: $scope.prepareList[prepareIndex].id,
+						resIds: $scope.resList.select.toString(),
+						fromFlags: flags.toString()
+					}, function(data) {
+						if(data.code == 'OK' || data.code == 'ok') {
+							currentPrepareId = $scope.prepareList[prepareIndex].id;
+							// 动画显示
+							addPrepareAnimation();
+							// 获取最近三个备课夹
+							getLatesPrepare();
+								
+							ModalMsg.logger("批量加入成功");
+						} else {
+							ModalMsg.error(data);
+						}
+					})
 				}
 				 
 				// 选择备课夹
@@ -331,10 +366,8 @@
 						$scope.resList = data.data;
 						$scope.isLoading = false;
 						$scope.isLoadingFinish = true;
-						if(!$scope.resList || !$scope.resList.totalLines){
-							$timeout(function(){
-								$scope.noDataCtrl = true;
-							},1500)
+						if($scope.resList.totalLines == 0){
+							$scope.noDataCtrl = true;
 						}
 						
 						if(!!$scope.resList){

@@ -22,8 +22,8 @@
 
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
-			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="animated slideInUp res-input res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
+			<div class="loading res-loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
+			<li class="res-input res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
 				<div title="{{list.title}}">
 					<input id="page{{VM.currentPageCtrl}}_{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
 					<label for="page{{VM.currentPageCtrl}}_{{$index}}"></label>
@@ -68,8 +68,8 @@
 			</li>
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
-			<div class="loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="animated slideInUp res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
+			<div class="loading res-loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
+			<li class="res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<div title="{{list.title}}">
 					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
 					<label for="{{$index}}"></label>
@@ -125,7 +125,7 @@
 			<div class="addPrepareAll-list addAllLatestPrepare">
 				<i class="icon-sort-down"></i>
 				<div class="res-prepare-all addPrepareAllInner">
-					<div class="res-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addAllToPrepare($event, $index)" title="{{item.title}}">{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
+					<div class="res-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addAllToLatestPrepare($event, $index)" title="{{item.title}}">{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
 					<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
 					<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 				</div>
