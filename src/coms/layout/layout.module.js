@@ -11,12 +11,12 @@
 					// 学习空间
 					autoLearning: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/autoLearning"
+						url: TomcatUrl + "/resRestAPI/v1.0/autoLearning"
 					},
 					// 获取用户信息
 					getUserInfo: {
 						method: "GET",
-						url: BackendUrl + "/resRestAPI/v1.0/users/:id",
+						url: TomcatUrl + "/resRestAPI/v1.0/users/:id",
 						params: {
 							id: '@id'
 						}

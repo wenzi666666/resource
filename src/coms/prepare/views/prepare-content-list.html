@@ -10,7 +10,7 @@
 	<div class="prepare-all-list" ng-hide="showSearchResults || withinWeekPrepare.list.length == 0">
 		<div class="prepare-all-header">
 			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
-			<span>一周内</span>
+			<span>本周({{ withinWeekPrepare.totalLines}})</span>
 		</div>
 		<div class="prepare-gallery" >
 			<div class="list-box row">
@@ -21,7 +21,7 @@
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
 						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
-						<i class="icon-trash" ng-click="deletePrepare2(listAllData, $index,$event)"></i>
+						<i class="icon-trash" ng-click="deletePrepare2(list,$event)"></i>
 						<br>
 					</div>
 				</div>
@@ -37,7 +37,7 @@
 	<div class="prepare-all-list" ng-hide="showSearchResults || withinMonthPrepare.list.length == 0">
 		<div class="prepare-all-header">
 			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
-			<span>一月内</span>
+			<span>这个月的早些时候({{ withinMonthPrepare.totalLines}})</span>
 		</div>
 		<div class="prepare-gallery" >
 			<div class="list-box row">
@@ -48,7 +48,7 @@
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
 						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
-						<i class="icon-trash" ng-click="deletePrepare2(listAllData, $index,$event)"></i>
+						<span ng-click="deletePrepare2(list,$event)"><i class="icon-trash"></i></span>
 						<br>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 	<div class="prepare-all-list" ng-hide="showSearchResults || moreEarlyPrepare.list.length == 0">
 		<div class="prepare-all-header">
 			<img class="prepare-all-header-img" src="assets/img/prepare/prepare-list.png" />
-			<span>更早{{moreEarlyPrepare.list.length}}</span>
+			<span>更早{{moreEarlyPrepare.totalLines}}}</span>
 		</div>
 		<div class="prepare-gallery" >
 			<div class="list-box row">
@@ -75,7 +75,7 @@
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
 						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
-						<i class="icon-trash" ng-click="deletePrepare2(listAllData, $index,$event)"></i>
+						<i class="icon-trash" ng-click="deletePrepare2(list,$event)"></i>
 						<br>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 						<img class="prepare-all-item-img" ng-src="{{list.imgPath?list.imgPath:'null'}}" fallback-src="prepare" ng-click="turnToPrepare(list.id)"/>
 						<span class="zip-download" ng-click="zipPrepareList(list.id,list.title)"><i class="icon-cloud-download"></i> 打包下载</span>
 						<span class="online-course"  ui-sref="onlineres({prepareId: list.id})"><i class="icon-play-circle"></i></span>
-						<i class="icon-trash" ng-click="deletePrepare2($index,$event)"></i>
+						<i class="icon-trash" ng-click="deletePrepare2(list,$event)"></i>
 						<br>
 					</div>
 				</div>

@@ -308,13 +308,13 @@
 				}
 
 				// 删除备课夹
-				$scope.deletePrepare2 = function(data,index, e) {
+				$scope.deletePrepare2 = function(list, e) {
 					e.stopPropagation();
-					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + data.list[index].title);
+					var deleteModal = ModalMsg.confirm("确定删除备课夹：" + list.title);
 
 					deleteModal.result.then(function(data) {
 						Prepare.basePostApi({
-							id: data.list[index].id,
+							id: list.id,
 							_method: "DELETE"
 						}, function(data) {
 							getAllPrepare();
@@ -703,7 +703,7 @@
 							prepareId: list.id
 						});
 					} else {
-						ModalMsg.alert("当前备课夹下没有资源哦,请先添加备课资源~");
+						ModalMsg.logger("当前备课夹下没有资源哦,请先添加备课资源~");
 					}
 				}
 

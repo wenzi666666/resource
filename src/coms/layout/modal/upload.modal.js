@@ -150,6 +150,7 @@
 						tmp.name = $scope.uploadWebUrl;
 						tmp.responseName = $scope.uploadWebUrl;
 						tmp.size = 0;
+						tmp.isWeb = true;
 						files = files.concat(tmp);
 					}
 					
@@ -157,7 +158,19 @@
 					console.log("file:", $scope.files[0])
 					// 打开资源信息编辑
 					var openModal = function() {
-						if (!$scope.files[0].responseName) {
+						// 网络资源
+						if(isWeb){
+							if(!$scope.uploadWebUrl){
+								ModalMsg.logger("不能 为空，请重新上传！");
+								return;
+							}
+							var reg =  /^((https?|ftp|news):\/\/)?([a-z]([a-z0-9\-]*[\.。])+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)|(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&]*)?)?(#[a-z][a-z0-9_]*)?$/
+							if(!$scope.uploadWebUrl.match(reg)){
+								ModalMsg.logger("请输入正确的网络地址, 以http打头哦~");
+								return;
+							}
+						}
+						else if (!$scope.files[0].responseName) {
 							ModalMsg.logger("文件上传失败，请重新上传！");
 							return
 						}
@@ -189,9 +202,9 @@
 					} else {
 						// 默认
 						$localStorage.unifyType = [{
-							"id": 2,
-							"mtype": "文本素材",
-							"code": "FL0101"
+							"id": 44,
+							"mtype": "索引目录",
+							"code": "FL1001"
 						}];
 						openModal();
 					}
@@ -251,7 +264,13 @@
 
 				// 数据初始化
 				$scope.res = {};
-				$scope.res.title = $scope.uploadFilesData[0].name.split('.')[0];
+				// 标题
+				if($scope.uploadFilesData[0].isWeb){
+					$scope.res.title = $scope.uploadFilesData[0].name;
+				} else{
+					$scope.res.title = $scope.uploadFilesData[0].name.split('.')[0];
+				}
+				
 				$scope.res.keywords = '';
 				$scope.res.description = '';
 				$scope.res.paths = !!$localStorage.isWeb ? $scope.uploadFilesData[0].responseName : $scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName;
