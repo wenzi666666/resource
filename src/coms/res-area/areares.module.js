@@ -165,7 +165,7 @@
 						})
 					}else{
 						Prepare.addResToPrepareId({
-							id: currentPrepareId,
+							id: $scope.prepareDataList[0].id,
 							resIds: $scope.resList.list[listIndex].id,
 							fromFlags: $localStorage.fromFlag
 						}, function(data) {
