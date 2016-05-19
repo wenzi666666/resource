@@ -37,6 +37,7 @@
 						console.log("downloadList:", data.data)
 						$scope.VM.downloadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
+						$scope.total = data.data.total;
 					})
 				}
 
@@ -58,14 +59,19 @@
 				//分页
 				$scope.pageTo = 1;
 				$scope.pageChanged = function(pagenum) {
-					console.log($scope.VM.currentPage);
+					if(!!pagenum &&pagenum.split('.').length > 1){
+						ModalMsg.logger("请输入正整数");
+						return;
+					}
 					if(pagenum == undefined) {
 						$scope.getDownload();
 					}
-					else {
+					else if(pagenum > 0 && pagenum <= $scope.total){
 						$scope.VM.currentPage = pagenum;
 						$scope.getDownload();
-					}
+					}else {
+						ModalMsg.logger("请输入大于0，小于页码总数的正整数~");
+					} 
 				}
 				
 			}

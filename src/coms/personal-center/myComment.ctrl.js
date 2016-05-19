@@ -90,6 +90,7 @@
 						console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;
 						$scope.VM.commentList = data.data.list;
+						$scope.total = data.data.total;
 						$scope.VM.stateNum[0] = "(" + $scope.bigTotalItems + ")";
 					});
 				}
@@ -107,7 +108,8 @@
 						console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;
 						$scope.VM.commentList = data.data.list;
-						 $scope.VM.stateNum[1] = "(" + $scope.bigTotalItems + ")";
+						$scope.total = data.data.total;
+						$scope.VM.stateNum[1] = "(" + $scope.bigTotalItems + ")";
 					});
 				}
 				
@@ -124,15 +126,20 @@
 					//转到
 				$scope.pageTo = $scope.bigCurrentPage;
 				$scope.pageChanged = function(pagenum) {
+					if(!!pagenum &&pagenum.split('.').length > 1){
+						ModalMsg.logger("请输入正整数");
+						return;
+					}
 					$scope.VM.bigCurrentPage = pagenum;
-					console.log('Page changed to: ' + $scope.bigCurrentPage);
 					if($scope.VM.stateId=="1")
 					{
 						getComList();
-					}else
+					}else if(pagenum > 0 && pagenum <= $scope.total)
 					{
 						getUnreview();
-					}
+					}else {
+						ModalMsg.logger("请输入大于0，小于页码总数的正整数~");
+					} 
 					
 				};
 

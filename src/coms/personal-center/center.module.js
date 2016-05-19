@@ -102,13 +102,16 @@
 						$scope.switchItemCtrl[i] = false;
 					})
 					$scope.switchItemCtrl[index] = true;
+					$localStorage.switchItemCtrl = index;
 				}
 
 
 				if(!!$stateParams.back) {
 					$scope.switchItem($stateParams.back);
 				}
-				else $scope.switchItem(0);
+				else {
+					$scope.switchItem($localStorage.switchItemCtrl?$localStorage.switchItemCtrl:0);
+				}
 
 				//备课统计
 				// 备课数据初始化

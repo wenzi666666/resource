@@ -32,6 +32,7 @@
 						console.log("uploadList:", data.data)
 						$scope.VM.uploadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
+						$scope.total = data.data.total;
 					})
 				}
 
@@ -152,14 +153,20 @@
 				//分页
 				$scope.pageTo = 1;
 				$scope.pageChanged = function(pagenum) {
-					console.log($scope.VM.currentPage);
+					if(!!pagenum &&pagenum.split('.').length > 1){
+						ModalMsg.logger("请输入正整数");
+						return;
+					}
 					if(pagenum == undefined) {
 						$scope.getResList();
 					}
-					else {
+					else if(pagenum > 0 && pagenum <= $scope.total){
 						$scope.VM.currentPage = pagenum;
 						$scope.getResList();
 					}
+					else {
+						ModalMsg.logger("请输入大于0，小于页码总数的正整数~");
+					} 
 				}
 
 				$scope.changPerPage = function() {

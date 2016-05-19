@@ -611,6 +611,8 @@
 													ModalMsg.logger("从备课夹删除资源失败，请重试！");
 												}
 											})
+										}else{
+											getPrepare($localStorage.currentTreeNode.tfcode);
 										}
 										
 									} else {
