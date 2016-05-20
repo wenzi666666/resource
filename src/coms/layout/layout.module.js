@@ -46,7 +46,10 @@
 				$scope.goToSpace = function(){
 					openwin(spaceNavUrl)
 				}
-				
+				// 跳转到备课夹，用click事件，去以清除 hover返回时还选中
+				$scope.goToPrepare = function(){
+					openwin('/prepare')
+				}
 				//退出
 				$scope.logout = function() {
 					localStorage.removeItem("ngStorage-authUser");

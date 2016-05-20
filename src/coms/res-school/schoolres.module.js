@@ -77,7 +77,7 @@
 			    	$scope.isList = list;
 			    }
 			    // 设置 系统资源为0  校本是3 区本是4;
-			    $localStorage.fromFlag = 0;
+			    $localStorage.fromFlag = 3;
 				$scope.fromFlag =  $localStorage.fromFlag;
 				// 加入备课夹 计数
 //				$scope.shopCount = 0;
