@@ -23,6 +23,7 @@
 					$scope.treedata = [];
 					$scope.expandedNodes = [];
 					$scope.selected = [];
+					window.allNodes = [];
 					Tree.getTree({
 						pnodeId: d
 					}, function(data) {
@@ -36,6 +37,7 @@
 							$localStorage.currentTreeNode =  currentTreeNode;
 						}
 						//记住上次选择处理
+						
 						var getLastTreeSelect = function(){
 							if(!!$localStorage.selectChange) {
 								var nodes = currentTreeNode.i.split('.');
@@ -62,17 +64,14 @@
 								//展开第一个节点
 	//							$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
 							}
-							
-							console.log($scope.selected)
 						}
 
 						// 目录树全展开
-						window.allNodes = [];
 						window.addToAllNodes($scope.treedata);
 						$timeout(function(){
-							$scope.expandedNodes = window.allNodes;
+							$scope.expandedNodes = window.allNodes.slice(0, 100);
 							getLastTreeSelect();
-						},900)
+						})
 						
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode);
