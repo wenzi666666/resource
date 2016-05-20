@@ -104,8 +104,23 @@
 					  break;
 					case "search":
 					  $scope.pageTitle = "搜索结果";
+					   break;
+					case "systemres":
+					  $scope.pageTitle = "系统资源";
+					   break;
+					case "schoolres":
+					  $scope.pageTitle = "校本资源";
+					   break;
+					case "areares":
+					  $scope.pageTitle = "区本资源";
+					   break;
+					case "personalcenter":
+					  $scope.pageTitle = "个人中心";
 					  break;	
+					default:
+						$scope.pageTitle = "资源中心";
 				}
+				 document.title = $scope.pageTitle;
 				
 				// 返回顶部
 				$scope.goToTop = function() {
