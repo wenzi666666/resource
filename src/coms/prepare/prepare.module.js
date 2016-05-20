@@ -696,12 +696,21 @@
 					});
 				}
 
-				//在线授课
-				$scope.turnToClass = function(list) {
-					if (list && list.children && list.children.length > 0) {
-						$state.go('onlineres', {
-							prepareId: list.id
-						});
+				//在线授课 isGet判断是否从整体书备课夹中来
+				$scope.turnToClass = function(list, isGet) {
+					if(isGet){
+						// 获取备课夹内容，看是否为空
+						Prepare.prepareContent({
+							id: list.id
+						}, function(data) {
+							if(data.data.length > 0){
+								openwin('onlineres/'+list.id);
+							} else {
+								ModalMsg.logger("当前备课夹下没有资源哦,请先添加备课资源~");
+							}
+						})
+					} else if (list && list.children && list.children.length > 0) {
+						openwin('onlineres/'+list.id);
 					} else {
 						ModalMsg.logger("当前备课夹下没有资源哦,请先添加备课资源~");
 					}
@@ -774,7 +783,6 @@
 				} else
 					$scope.selected = $scope.treedata[0];
 			}
-			
 
 			// 目录树 控制
 			$scope.showTree = false;

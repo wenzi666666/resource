@@ -16,56 +16,63 @@
 				})
 			}
 		])
-		.controller("TreeController", ['$scope', '$stateParams', '$state', '$location', 'Tree','$localStorage',
-			function($scope, $stateParams, $state, $location, Tree, $localStorage) {
+		.controller("TreeController", ['$scope', '$stateParams', '$state', '$location', 'Tree','$localStorage','$timeout',
+			function($scope, $stateParams, $state, $location, Tree, $localStorage,$timeout) {
 				// 监听目录树变化
 				$scope.$on("currentTreeIdUpdate",function(e, d) {
+					$scope.treedata = [];
+					$scope.expandedNodes = [];
+					$scope.selected = [];
 					Tree.getTree({
 						pnodeId: d
 					}, function(data) {
-						 $scope.treedata = data.data;
-						 // 目录树默认选择 当前选择 > 默认第一个节点选择 
-						 if(!!$localStorage.currentTreeNode && !!$localStorage.selectChange) {
+						$scope.treedata = data.data;
+//						// 目录树默认选择 当前选择 > 默认第一个节点选择 
+						if(!!$localStorage.currentTreeNode && !!$localStorage.selectChange) {
 							var currentTreeNode = $localStorage.currentTreeNode;
 						}else {
 							var currentTreeNode = data.data[0];
-							//缓存用户当前 版本
+//							//缓存用户当前 版本
 							$localStorage.currentTreeNode =  currentTreeNode;
 						}
-						// 选择
-//						$scope.expandedNodes = [];
-						// 记住上次选择处理
-						if(!!$localStorage.selectChange) {
-							var nodes = currentTreeNode.i.split('.');
-							if(nodes.length == 1) {
-								$scope.selected = $scope.treedata[nodes[0]-1];
-//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[0],$scope.treedata[nodes[0]-1].children[1],$scope.treedata[nodes[0]-1].children[2],$scope.treedata[nodes[0]-1].children[3]]);
-							}else if(nodes.length == 2){
-								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1];
-//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.selected]);
-							} else if(nodes.length == 3) {
-								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1];
-//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.selected]);
-							} else if(nodes.length == 4) {
-								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1];
-//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1],$scope.selected]);
-							}else if(nodes.length == 5) {
-								$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1].children[nodes[4]-1];
-//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1], $scope.selected]);
-							}else
+						//记住上次选择处理
+						var getLastTreeSelect = function(){
+							if(!!$localStorage.selectChange) {
+								var nodes = currentTreeNode.i.split('.');
+								console.log(nodes.length)
+								if(nodes.length == 1) {
+									$scope.selected = $scope.treedata[nodes[0]-1];
+	//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[0],$scope.treedata[nodes[0]-1].children[1],$scope.treedata[nodes[0]-1].children[2],$scope.treedata[nodes[0]-1].children[3]]);
+								}else if(nodes.length == 2){
+									$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1];
+	//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.selected]);
+								} else if(nodes.length == 3) {
+									$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1];
+	//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.selected]);
+								} else if(nodes.length == 4) {
+									$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1];
+	//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1],$scope.selected]);
+								}else if(nodes.length == 5) {
+									$scope.selected = $scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1].children[nodes[4]-1];
+	//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1],$scope.treedata[nodes[0]-1].children[nodes[1]-1].children[nodes[2]-1].children[nodes[3]-1], $scope.selected]);
+								}else
+									$scope.selected = $scope.treedata[0];
+							}else{
 								$scope.selected = $scope.treedata[0];
-						}else{
-							$scope.selected = $scope.treedata[0];
-							//展开第一个节点
-//							$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
+								//展开第一个节点
+	//							$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[0],$scope.treedata[0].children[0],$scope.treedata[0].children[1],$scope.treedata[0].children[2],$scope.treedata[0].children[3]]);
+							}
+							
+							console.log($scope.selected)
 						}
 
 						// 目录树全展开
 						window.allNodes = [];
 						window.addToAllNodes($scope.treedata);
-						setTimeout(function(){
+						$timeout(function(){
 							$scope.expandedNodes = window.allNodes;
-						},300)
+							getLastTreeSelect();
+						},900)
 						
 						// 广播当前节点选择
 					    $scope.$emit("currentTreeNode", currentTreeNode);
