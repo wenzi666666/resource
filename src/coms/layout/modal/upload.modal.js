@@ -234,14 +234,18 @@
 
 				// 获取目录树
 				var getTreeData = function() {
+					window.allNodes = [];
 					Tree.getTree({
 						pnodeId: $localStorage.currentMaterial.id,
 					}, function(data) {
 						$scope.treedataSelect = data.data;
 
 //						$scope.currentNode = data.data[0];
-						//展开第一个节点
-						$scope.expandedNodes = [$scope.treedataSelect[0]];
+						//展开 所有节点
+						window.addToAllNodes($scope.treedataSelect);
+						$timeout(function(){
+							$scope.expandedNodes = window.allNodes.slice(0, 100);
+						})
 					})
 				}
 
@@ -768,15 +772,18 @@
 
 			// 监听目录树变化
 			var getTreeData = function() {
+				window.allNodes = [];
 				Tree.getTree({
 					pnodeId: $localStorage.currentMaterial.id,
 				}, function(data) {
 					$scope.treedataSelect = data.data;
 
 					$scope.currentNode = data.data[0];
-					//展开第一个节点
-					$scope.expandedNodes = [$scope.treedataSelect[0]];
-					// console.log("tree data:", data.data);
+					//展开 所有节点
+					window.addToAllNodes($scope.treedataSelect);
+					$timeout(function(){
+						$scope.expandedNodes = window.allNodes.slice(0, 100);
+					})
 				})
 			}
 

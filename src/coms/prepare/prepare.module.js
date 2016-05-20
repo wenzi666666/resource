@@ -107,6 +107,7 @@
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
 					$scope.VM.currentVersionTmpShow = false;
+					$scope.VM.currentMaterialTmpShow = false;
 					$scope.VM.isList = true;
 					// 获取所有备课夹
 					getAllPrepare();
@@ -710,6 +711,7 @@
 							}
 						})
 					} else if (list && list.children && list.children.length > 0) {
+						$localStorage.currentPrepare = list;
 						openwin('onlineres/'+list.id);
 					} else {
 						ModalMsg.logger("当前备课夹下没有资源哦,请先添加备课资源~");

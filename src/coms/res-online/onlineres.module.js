@@ -43,12 +43,13 @@
 				//slide下方导航默认不显示
 				$scope.VM.slideTools = false;
 				$scope.currentTreeNode = $localStorage.currentTreeNode;
-				Prepare.baseGetApi({
-					tfcode: $localStorage.currentTreeNode.tfcode
-				}, function(data) {
-					$scope.prepare = data.data[0];
-					console.log("prepare:", $scope.prepare)
-				})
+				$scope.currentPrepare = $localStorage.currentPrepare;
+//				Prepare.baseGetApi({
+//					tfcode: $localStorage.currentTreeNode.tfcode
+//				}, function(data) {
+//					$scope.prepare = data.data[0];
+//					console.log("prepare:", $scope.prepare)
+//				})
 				// 读取 单个备课夹详细内容
 				var getPrepareDetails = function(id,index) {
 					Prepare.prepareContent({

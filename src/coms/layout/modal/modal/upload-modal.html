@@ -153,13 +153,13 @@
 						<div class="select-loc-box">
 							<div class="select-nav-item">
 								<div class="menu-drop">
-									<div class="trigger">
+									<div class="trigger edit-res-trigger">
 										<span class="select-current" href="" ng-bind="VM.currentGrade"></span>
 										<i class="icon-angle-down"></i>
 										<i class="icon-angle-up"></i>
 									</div>
 
-									<div class="menu-drop-main">
+									<div class="menu-drop-main ">
 										<ul class="menu-drop-list">
 											<li ng-repeat="grade in VM.grade track by $index" ng-class="VM.currentGradeSeclet[$index]?'selected':''" ng-click="VM.selectGrade($index)"><span ng-bind="grade.name"></span></li>
 										</ul>
@@ -168,7 +168,7 @@
 							</div>
 							<div class="select-nav-item">
 								<div class="menu-drop">
-									<div class="trigger">
+									<div class="trigger edit-res-trigger">
 										<span class="select-current">{{VM.currentSubject.name}}</span>
 										<i class="icon-angle-down"></i>
 										<i class="icon-angle-up"></i>
@@ -183,7 +183,7 @@
 							</div>
 							<div class="select-nav-item">
 								<div class="menu-drop">
-									<div class="trigger" ng-click="closeCurrentVersion()">
+									<div class="trigger edit-res-trigger" ng-click="closeCurrentVersion()">
 										<span class="select-current" href="">{{VM.currentVersion.name}}</span>
 										<i class="icon-angle-down"></i>
 										<i class="icon-angle-up"></i>
@@ -197,7 +197,7 @@
 							</div>
 							<div class="select-nav-item">
 								<div class="menu-drop">
-									<div class="trigger" ng-click="closeCurrentMaterial()">
+									<div class="trigger edit-res-trigger" ng-click="closeCurrentMaterial()">
 										<span class="select-current" href="">{{VM.currentMaterial.name}}</span>
 										<i class="icon-angle-down"></i>
 										<i class="icon-angle-up"></i>
@@ -212,8 +212,8 @@
 							
 							<div class="select-nav-item" id="catogry-trigger" ng-click="treeTrigger()" >
 								<div class="menu-drop">
-									<div class="trigger">
-										<span class="select-current" href="">{{ currentNode.label }}</span>
+									<div class="trigger edit-res-trigger">
+										<span class="select-current select-current-node" href="">{{ currentNode.label }}</span>
 										<i class="icon-angle-down"></i>
 										<i class="icon-angle-up"></i>
 									</div>

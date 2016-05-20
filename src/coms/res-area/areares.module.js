@@ -64,6 +64,7 @@
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
 					$scope.VM.currentVersionTmpShow = false;
+					$scope.VM.currentMaterialTmpShow = false;
 				}
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {

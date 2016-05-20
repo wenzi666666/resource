@@ -114,6 +114,15 @@
 					case "areares":
 					  $scope.pageTitle = "区本资源";
 					   break;
+					case "customres":
+					  $scope.pageTitle = "资源定制";
+					  break;
+					case "previewres":
+					  $scope.pageTitle = "资源预览";
+					  break;
+					case "onlineres":
+					  $scope.pageTitle = "在线授课";
+					  break;
 					case "personalcenter":
 					  $scope.pageTitle = "个人中心";
 					  break;	

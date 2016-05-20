@@ -37,9 +37,10 @@
 	<div class="subject_box">
 		<div class="loading" ng-show="VM.load"><i class="icon-spinner icon-spin icon-3x"></i></div>
 
-		<div class="prepare-all-list" ng-repeat="subject in VM.resource">
+		<div class="prepare-all-list" ng-repeat="subject in VM.resource track by $index">
 			<div class="prepare-all-header">
-				<img class="res-custom-header-img" src="../../../assets/img/custom/head.png" />
+				<img class="res-custom-header-img" src="assets/img/custom/head.png" />
+				<img class="res-custom-header-subject" ng-src="assets/img/custom/{{$index+1}}.png" />
 				<span class="subject">{{subject.subject.name}}</span>
 				<!--<div class="coms-pagination">
 					<uib-pagination total-items="VM.bigTotalItems[$index]" ng-model="VM.bigCurrentPage[$index]" max-size="maxSize" boundary-link-numbers="true" previous-text="&lsaquo;" next-text="&rsaquo;" ng-change="pageChanged($index)"></uib-pagination>

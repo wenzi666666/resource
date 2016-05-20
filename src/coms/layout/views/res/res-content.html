@@ -76,6 +76,7 @@
 					<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
 					<a class="img-thumb2-list" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
 						<img class="prepare-shop" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+						<span class="res-author" ng-show="fromFlag==0 && list.speaker">主讲人：{{ list.speaker }}</span>
 					</a>
 					<div class="res-thubmlist-info">
 						<div><a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
@@ -102,7 +103,7 @@
 							<div class="res-prepare-list-item res-prepare-list-more res-prepare-list-item" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
 						</div>
 					</div>
-					<div class="add-prepare-thumb" ng-click="addToCurrentPrepare(parentIndex)">
+					<div class="add-prepare-thumb addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
 						  加入备课夹
 					</div>
 					
