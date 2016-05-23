@@ -89,7 +89,9 @@
 	width: 400px;
 	margin: 5px;
 }
-
+#logoLeft img{
+	height: 85px;
+}
 .nr{
 	width:1200px;
 	height:364px;

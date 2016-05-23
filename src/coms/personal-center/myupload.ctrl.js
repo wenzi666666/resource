@@ -43,7 +43,6 @@
 					$scope.getResList();
 				})
 				
-
 				//获取资源类型
 				Personal.getResType({
 					tabCode: "myUpload"

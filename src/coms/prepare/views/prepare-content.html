@@ -60,7 +60,7 @@
 						<span ng-click="deleteItem(item.id,item.title,parentIndex)"><img class="op-img" src="assets/img/prepare/delete_icon.png" default-src="assets/img/prepare/delete_icon.png" active-src="assets/img/prepare/delete_icon_active.png" title="删除"></span>
 					</div>
 				</div>
-			</div>
+			</div> 
 			<div class="list-item list-no-res" ng-show="list.children.length == 0">
 				<img src="assets/img/prepare/add_res.png" />
 				<i ui-sref="systemres">系统资源</i>
@@ -69,6 +69,10 @@
 				<div data-ng-include="'/coms/layout/modal/modal/upload-modal.html'"></div>
 			</div>
 		</div>
+		
+	</div>
+	<div class="coms-pagination prepare-list-pagination" ng-show="prepareData.totalLines > 10">
+		<uib-pagination total-items="bigPrepareTotalItems" ng-model="VM.preparePageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="preparePerPage" ng-change="pagePrepareChanged()"></uib-pagination>
 	</div>
 	<div class="noPrepare" ng-show="noPrepare">
 		<p>亲，<br>该节点下没有备课夹，<br>快点击右上角新建吧！</p>

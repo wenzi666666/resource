@@ -36,6 +36,11 @@
 						method: "GET",
 						url: TomcatUrl + "/resRestAPI/v1.0/prepare/"
 					},
+					//分页获取备课夹
+					prepare_page: {
+						method: "GET",
+						url: TomcatUrl + "/resRestAPI/v1.0/prepare_page/"
+					},
 					// 仅获取当前教材目录下的备课夹
 					GetSelfPrepare: {
 						method: "GET",
@@ -94,8 +99,8 @@
 				})
 			}
 		])
-		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree', 'Res', '$localStorage',
-			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, Res, $localStorage) {
+		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree', 'Res', '$localStorage','$timeout',
+			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, Res, $localStorage,$timeout) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -109,9 +114,20 @@
 					$scope.VM.currentVersionTmpShow = false;
 					$scope.VM.currentMaterialTmpShow = false;
 					$scope.VM.isList = true;
+					
+					$localStorage.isPrepareList = $scope.VM.isList;
 					// 获取所有备课夹
 					getAllPrepare();
 				}
+				
+				// 处理页面刷新 
+				$scope.VM.isList = $localStorage.isPrepareList;
+				if($scope.VM.isList) {
+					$timeout(function(){
+						$scope.closeCurrentVersion();
+					})
+				}
+					
 				
 				// 关闭教材筛选
 				$scope.closeCurrentMaterial = function() {
@@ -140,12 +156,26 @@
 				})
 
 				// 读取备课夹 列表
+				var preparePage = 1;
+				$scope.preparePerPage = 10;
+				$scope.VM.preparePageCtrl = 1;
+				$scope.VM.preparePerPage = $scope.preparePerPage;
+				// 分页触发
+				$scope.pagePrepareChanged = function(pagenum) {
+					preparePage = $scope.VM.preparePageCtrl;
+					getPrepare($localStorage.currentTreeNode.tfcode);
+				};
+				
 				var getPrepare = function(id) {
-					Prepare.baseGetApi({
-						tfcode: id
+					Prepare.prepare_page({
+						tfcode: id,
+						page: preparePage,
+						perPage: $scope.preparePerPage
 					}, function(data) {
-						$scope.listData = data.data;
-						if (data.data && data.data.length > 0) {
+						$scope.listData = data.data.list;
+						$scope.prepareData = data.data;
+						$scope.bigPrepareTotalItems = data.data.totalLines;
+						if (data.data && data.data.list.length > 0) {
 							$scope.noPrepare = false;
 							var paramsId = $stateParams.prepareId;
 							if (paramsId) {
@@ -155,7 +185,7 @@
 								})
 							} else $scope.listData[0].active = true;
 							//获取备课夹详细内容
-							_.each(data.data, function(v, i) {
+							_.each($scope.listData, function(v, i) {
 								getPrepareDetails(v.id, i);
 								v.editPrepareTitle = false;
 							})

@@ -236,11 +236,11 @@
 				var getTreeData = function() {
 					window.allNodes = [];
 					Tree.getTree({
-						pnodeId: $localStorage.currentMaterial.id,
+						pnodeId: $scope.VM.currentMaterial.id,
 					}, function(data) {
 						$scope.treedataSelect = data.data;
 
-//						$scope.currentNode = data.data[0];
+						$scope.currentNode = data.data[0];
 						//展开 所有节点
 						window.addToAllNodes($scope.treedataSelect);
 						$timeout(function(){
@@ -403,11 +403,6 @@
 							} else {
 								$scope.VM.currentGrade = $scope.user.termName;
 								$scope.VM.currentGradeId = _.indexOf(['小学', '初中', '高中'], $scope.user.termName) + 1;
-								//缓存用户当前 学段
-								$localStorage.currentGrade = {
-									name: $scope.user.termName,
-									id: $scope.VM.currentGradeId
-								}
 							}
 							// 选中当前
 							$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $localStorage.currentGrade.name)] = true;
@@ -428,11 +423,6 @@
 							} else {
 								$scope.VM.currentSubject = $scope.user.subjectNames.split(',')[0];
 								var currentSubjectId = $scope.user.subjectIds.split(',')[0];
-								//缓存用户当前 学科
-								$localStorage.currentSubject = {
-									name: $scope.VM.currentSubject,
-									id: currentSubjectId
-								}
 							}
 							// 选中当前
 							_.each($scope.VM.subject, function(v, i) {
@@ -457,8 +447,6 @@
 									$scope.VM.currentVersion = $localStorage.currentVersion;
 								} else {
 									$scope.VM.currentVersion = $scope.VM.version[0];
-									//缓存用户当前 版本
-									$localStorage.currentVersion = $scope.VM.version[0];
 								}
 								// 选中当前
 								_.each($scope.VM.version, function(v, i) {
@@ -481,17 +469,13 @@
 								$scope.VM.material = data.data;
 								if ($localStorage.currentMaterial) {
 									$scope.VM.currentMaterial = $localStorage.currentMaterial;
-								} else {
-									$scope.VM.currentMaterial = $scope.VM.material[0];
-									//缓存用户当前 教材
-									$localStorage.currentMaterial = $scope.VM.material[0];
 								}
 								// 选中当前
 								_.each($scope.VM.material, function(v, i) {
-										if (v.id == $localStorage.currentMaterial.id)
-											$scope.VM.currentMaterialSeclet[i] = true;
-									})
-									// 触发 目录树更新
+								if (v.id == $localStorage.currentMaterial.id)
+									$scope.VM.currentMaterialSeclet[i] = true;
+								})
+								// 触发 目录树更新
 								getTreeData();
 
 							}).$promise;
@@ -534,8 +518,6 @@
 						termId: $scope.VM.grade[i].id
 					}, function(data) {
 						$scope.VM.subject = data.data;
-						//缓存用户当前 学科
-						$localStorage.currentSubject = $scope.VM.subject[0];
 						//回归第一个
 						_.each($scope.VM.subject, function(v, i) {
 							$scope.VM.currentSubjectSeclet[i] = false;
@@ -549,9 +531,6 @@
 							subjectId: $scope.VM.subject[0].id
 						}, function(data) {
 							$scope.VM.version = data.data;
-							//缓存用户当前 版本
-							$localStorage.currentVersion = $scope.VM.version[0];
-
 							//回归第一个
 							_.each($scope.VM.version, function(v, i) {
 								$scope.VM.currentVersionSeclet[i] = false;
@@ -565,8 +544,6 @@
 						}, function(data) {
 							// console.log("books：", data.data);
 							$scope.VM.material = data.data;
-							//缓存用户当前 教材
-							$localStorage.currentMaterial = $scope.VM.material[0];
 							//回归第一个
 							_.each($scope.VM.material, function(v, i) {
 								$scope.VM.currentMaterialSeclet[i] = false;
@@ -582,8 +559,6 @@
 				//学科控制
 				$scope.VM.selectSubject = function(index) {
 					$scope.VM.currentSubject = $scope.VM.subject[index];
-					//缓存用户当前 学科
-					$localStorage.currentSubject = $scope.VM.subject[index];
 					//选中
 					_.each($scope.VM.subject, function(v, i) {
 						$scope.VM.currentSubjectSeclet[i] = false;
@@ -601,8 +576,6 @@
 						subjectId: $scope.VM.subject[index].id
 					}, function(data) {
 						$scope.VM.version = data.data;
-						//缓存用户当前 版本
-						$localStorage.currentVersion = $scope.VM.version[0];
 						//回归第一个
 						_.each($scope.VM.version, function(v, i) {
 							$scope.VM.currentVersionSeclet[i] = false;
@@ -616,8 +589,7 @@
 						}, function(data) {
 							// console.log("books：", data.data);
 							$scope.VM.material = data.data;
-							//缓存用户当前 教材
-							$localStorage.currentMaterial = $scope.VM.material[0];
+							
 							//回归第一个
 							_.each($scope.VM.material, function(v, i) {
 								$scope.VM.currentMaterialSeclet[i] = false;
@@ -635,14 +607,19 @@
 				$scope.VM.selectVersion = function(index) {
 					$scope.VM.currentVersion = $scope.VM.version[index];
 					$scope.VM.currentVersionShow = true;
-					//缓存用户当前 版本
-					$localStorage.currentVersion = $scope.VM.currentVersion;
+					
 					//隐藏学科学段
 					$scope.VM.currentHeader = true;
 					$scope.VM.currentVersionTmpShow = false;
 
 					//备课夹 视图切换 临时
 					$scope.VM.isList = false;
+					
+					//选中
+					_.each($scope.VM.version, function(v, i) {
+						$scope.VM.currentVersionSeclet[i] = false;
+					})
+					$scope.VM.currentVersionSeclet[index] = true;
 
 					Res.getBooks({
 						pnodeId: $scope.VM.version[index].id
@@ -650,15 +627,14 @@
 						// console.log("books：", data.data);
 						$scope.VM.material = data.data;
 						if ($scope.VM.material && $scope.VM.material.length > 0)
-						//缓存用户当前 教材
-							$localStorage.currentMaterial = $scope.VM.material[0];
-						//						$scope.$emit("currentTreeId", $scope.VM.material[0].id);
 						//回归第一个
 						_.each($scope.VM.material, function(v, i) {
 							$scope.VM.currentMaterialSeclet[i] = false;
 						})
 						$scope.VM.currentMaterial = $scope.VM.material[0];
 						$scope.VM.currentMaterialSeclet[0] = true;
+						
+						getTreeData();
 					})
 				}
 
@@ -668,8 +644,6 @@
 					$scope.VM.currentMaterial = $scope.VM.material[index];
 					$scope.VM.currentMaterialShow = true;
 					$scope.VM.currentMaterialTmpShow = false;
-					//缓存用户当前 教材
-					$localStorage.currentMaterial = $scope.VM.currentMaterial;
 					//选中
 					_.each($scope.VM.material, function(v, i) {
 						$scope.VM.currentMaterialSeclet[i] = false;
@@ -779,6 +753,8 @@
 					$scope.treedataSelect = data.data;
 
 					$scope.currentNode = data.data[0];
+					
+					console.log($scope.currentNode)
 					//展开 所有节点
 					window.addToAllNodes($scope.treedataSelect);
 					$timeout(function(){
@@ -803,7 +779,7 @@
 				$scope.currentNode = sel;
 				//获取当前节点下的所有备课夹
 			};
-
+			
 			$scope.uploadEditResInfo = function() {
 				if (!$scope.res.title) {
 					ModalMsg.logger("资源名称不能为空");
@@ -852,57 +828,61 @@
 			$scope.VM.currentVersionSeclet = [];
 			$scope.VM.currentMaterialSeclet = [];
 
-			//学段、学科、版本和课本级联
-
+			//通过tfcode查询   和节点 index
+			// 获取 版本 id
+			var getVersionIndex = function(tfcode){
+				var id = parseInt(tfcode.substr(6,2));
+				console.log("versionId", id);
+				return id;
+			}
+			// 获取教材 id
+			var getMaterialtIndex = function(tfcode){
+				var id = parseInt(tfcode.substr(8,2));
+				console.log("materialId", id);
+				return id;
+			}
+			
+			getVersionIndex($scope.resDetails.tfcode);
+			getMaterialtIndex($scope.resDetails.tfcode);
 			//读取 学段 学科 版本 和教材
 			Res.getTerms({}, function(data) {
-					// console.log(data);
 					if (data.code == "OK") {
 						$scope.VM.grade = data.data;
-						// 根据用户当前选择>当前信息选择
-						if ($localStorage.currentGrade) {
-							$scope.VM.currentGrade = $localStorage.currentGrade.name;
-							$scope.VM.currentGradeId = $localStorage.currentGrade.id;
-						} else {
-							$scope.VM.currentGrade = $scope.user.termName;
-							$scope.VM.currentGradeId = _.indexOf(['小学', '初中', '高中'], $scope.user.termName) + 1;
-							//缓存用户当前 学段
-							$localStorage.currentGrade = {
-								name: $scope.user.termName,
-								id: $scope.VM.currentGradeId
+						// 当前信息选择
+						_.each($scope.VM.grade, function(v,i) {
+							if($scope.resDetails.termId == v.id) {
+								$scope.VM.currentGrade = v.name;
+								$scope.VM.currentGradeId = v.id
 							}
-						}
+						})
 						// 选中当前
-						$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $localStorage.currentGrade.name)] = true;
+						$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $scope.VM.currentGrade)] = true;
 					} else {
-						ModalMsg.logger("token失效啦，请重新登录");
 						window.location.href = "login.html";
 					}
 				})
 				.$promise.then(function(data) {
 					return Res.getSubjects({
-						termId: $localStorage.currentGrade.id
+						termId: $scope.VM.currentGradeId
 					}, function(data) {
 						$scope.VM.subject = data.data;
-						// 当前用户学科： 当前选择>用户选择		
-						if ($localStorage.currentSubject) {
-							$scope.VM.currentSubject = $localStorage.currentSubject;
-							$scope.VM.currentSubjectId = $localStorage.currentSubject.id;
-						} else {
-							$scope.VM.currentSubject = $scope.user.subjectNames.split(',')[0];
-							var currentSubjectId = $scope.user.subjectIds.split(',')[0];
-							//缓存用户当前 学科
-							$localStorage.currentSubject = {
-								name: $scope.VM.currentSubject,
-								id: currentSubjectId
+						// 当前用户学科
+						_.each($scope.VM.subject, function(v,i) {
+							if($scope.resDetails.subjectId == v.id) {
+								
+								$scope.VM.currentSubjectId = v.id
+								
+								$scope.VM.currentSubject = {
+									name: v.name,
+									id: v.id
+								};
 							}
-						}
+						})
 						// 选中当前
 						_.each($scope.VM.subject, function(v, i) {
-								if (v.id == $localStorage.currentSubject.id)
-									$scope.VM.currentSubjectSeclet[i] = true;
-							})
-							// console.log("学科：", data.data)
+							if (v.id == $scope.VM.currentSubjectId)
+								$scope.VM.currentSubjectSeclet[i] = true;
+						})
 					}).$promise;
 				})
 				.then(function(data) {
