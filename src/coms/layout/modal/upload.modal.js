@@ -828,7 +828,7 @@
 			$scope.VM.currentVersionSeclet = [];
 			$scope.VM.currentMaterialSeclet = [];
 
-			//通过tfcode查询   和节点 index
+			// 通过tfcode查询   和节点 index
 			// 获取 版本 id
 			var getVersionIndex = function(tfcode){
 				var id = parseInt(tfcode.substr(6,2));
@@ -842,8 +842,6 @@
 				return id;
 			}
 			
-			getVersionIndex($scope.resDetails.tfcode);
-			getMaterialtIndex($scope.resDetails.tfcode);
 			//读取 学段 学科 版本 和教材
 			Res.getTerms({}, function(data) {
 					if (data.code == "OK") {
@@ -887,8 +885,8 @@
 				})
 				.then(function(data) {
 					return Res.getEditions({
-						termId: $localStorage.currentGrade.id,
-						subjectId: $localStorage.currentSubject.id
+						termId: $scope.VM.currentGradeId,
+						subjectId: $scope.VM.currentSubjectId
 					}, function(data) {
 						// console.log("版本：", data.data);
 						$scope.VM.version = data.data;
@@ -933,8 +931,8 @@
 							_.each($scope.VM.material, function(v, i) {
 									if (v.id == $localStorage.currentMaterial.id)
 										$scope.VM.currentMaterialSeclet[i] = true;
-								})
-								// 触发 目录树更新
+							})
+							// 触发 目录树更新
 							getTreeData();
 
 						}).$promise;
@@ -1083,6 +1081,12 @@
 				//隐藏学科学段
 				$scope.VM.currentHeader = true;
 				$scope.VM.currentVersionTmpShow = false;
+				
+				//选中
+				_.each($scope.VM.version, function(v, i) {
+					$scope.VM.currentVersionSeclet[i] = false;
+				})
+				$scope.VM.currentVersionSeclet[index] = true;
 
 				//备课夹 视图切换 临时
 				$scope.VM.isList = false;
