@@ -345,8 +345,9 @@
 					$scope.VM.currentSubjectSeclet[index] = true;
 
 
-					//备课夹 视图切换 临时
+					//备课夹 视图切换 
 					$scope.VM.isList = false;
+					$localStorage.isPrepareList = $scope.VM.isList;
 
 					$scope.VM.currentVersionShow = false;
 					$scope.VM.currentMaterialShow = false;
@@ -411,9 +412,9 @@
 					$scope.VM.currentVersionTmpShow = false;
 					// 目录树改变
 					$localStorage.selectChange = false;
-
-					//备课夹 视图切换 临时
+					//备课夹 视图切换 
 					$scope.VM.isList = false;
+					$localStorage.isPrepareList = $scope.VM.isList;
 					
 					Res.getBooks({
 						pnodeId: $scope.VM.version[index].id
