@@ -715,7 +715,7 @@
 					{
 						currentPrepareId=preId;
 					}
-					if($scope.prepareDataList.length == 0) {
+					if($scope.prepareDataList.length == 0 && !preId) {
 						Prepare.basePostApi({
 							tfcode: $scope.VM.tfCode,
 							title: $scope.VM.name
