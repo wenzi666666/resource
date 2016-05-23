@@ -72,9 +72,6 @@
 					{
 						console.log(data.data);
 						$scope.VM.resource = data.data;
-					}else
-					{
-						alert(data.message);
 					}
 				});
 				
