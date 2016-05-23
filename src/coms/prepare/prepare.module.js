@@ -95,6 +95,10 @@
 					prepareCopy: {
 						method: "POST",
 						url: TomcatUrl + "/resRestAPI/v1.0/prepareCopy"
+					},
+					referToBook: {
+						method: "GET",
+						url: TomcatUrl + "/resRestAPI/v1.0/prepareNodeInfo"
 					}
 				})
 			}
@@ -300,10 +304,37 @@
 						$scope.listData[parentIndex].children[index].active = true;
 					}
 				}
+				
+				var getVersionIndex = function(tfcode){
+					var id = parseInt(tfcode.substr(8,2));
+					console.log("versionId", id);
+					return id;
+				}
+				// 获取教材 id
+				var getMaterialtIndex = function(tfcode){
+					var id = parseInt(tfcode.substr(10,2));
+					console.log("materialId", id);
+					return id;
+				}
+
 
 				// 备课夹列表页跳转
 				$scope.turnToPrepare = function(id) {
-					$state.reload();
+					//反向查找备课夹对应教材节点
+					Prepare.referToBook({
+						prepareId: id,
+						perPage: 10
+					}, function(data) {
+						console.log(data);
+						var info = data.data;
+						var tfcode = info.tfcode;
+						console.log(tfcode);
+						var bookid = info.bookid;
+						var editionid = info.editionid;
+						var page = info.page;
+						
+					})
+					
 				}
 
 				//编辑备课夹标题
