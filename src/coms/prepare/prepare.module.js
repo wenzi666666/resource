@@ -153,12 +153,7 @@
 					})
 					$scope.listData[index].active = true;
 				}
-
-				// 监听 目录树 选择
-				$scope.$on("currentTreeNodeChange", function(e, d) {
-					getPrepare(d.tfcode);
-				})
-
+				
 				// 读取备课夹 列表
 				var preparePage = 1;
 				$scope.preparePerPage = 10;
@@ -166,9 +161,20 @@
 				$scope.VM.preparePerPage = $scope.preparePerPage;
 				// 分页触发
 				$scope.pagePrepareChanged = function(pagenum) {
+					if(pagenum) {
+						$scope.VM.preparePageCtrl = pagenum;
+						$localStorage.reloadFrom.page = 0;
+					}
 					preparePage = $scope.VM.preparePageCtrl;
 					getPrepare($localStorage.currentTreeNode.tfcode);
 				};
+
+				// 监听 目录树 选择
+				$scope.$on("currentTreeNodeChange", function(e, d) {
+					getPrepare(d.tfcode);	
+				})
+
+				
 				
 				var getPrepare = function(id) {
 					Prepare.prepare_page({
@@ -181,18 +187,36 @@
 						$scope.bigPrepareTotalItems = data.data.totalLines;
 						if (data.data && data.data.list.length > 0) {
 							$scope.noPrepare = false;
-							var paramsId = $stateParams.prepareId;
-							if (paramsId) {
+							
+							//判断是否是备课夹列表页刷新操作
+							if ($localStorage.reloadFrom) {
+								var paramsId = $localStorage.reloadFrom.prepareId;
+//								console.log(paramsId);
 								_.each($scope.listData, function(v, i) {
 									if (v.id == paramsId) v.active = true;
 									else v.active = false;
 								})
-							} else $scope.listData[0].active = true;
+							} 
+							else $scope.listData[0].active = true;
+//							console.log("listdata", $scope.listData.length);
 							//获取备课夹详细内容
 							_.each($scope.listData, function(v, i) {
 								getPrepareDetails(v.id, i);
 								v.editPrepareTitle = false;
 							})
+							//timeout减小异步带来的加载顺序问题
+							$timeout(function() {
+								if($localStorage.reloadFrom) {
+									var pagenum = $localStorage.reloadFrom.page;
+									//第二次加载，删除对应localstorage
+									if(pagenum == 0) delete $localStorage.reloadFrom;
+									//第一次加载，修改pagenum确定已经加载了一次
+									else {
+										$scope.pagePrepareChanged(pagenum);
+										$localStorage.reloadFrom.page = 0;
+									}
+								}
+							}, 500);
 						}
 						else {
 							$scope.noPrepare = true;
@@ -284,7 +308,8 @@
 					Prepare.prepareContent({
 						id: id
 					}, function(data) {
-						$scope.listData[index].children = data.data;
+						console.log(index);
+						if($scope.listData[index]) $scope.listData[index].children = data.data;
 						_.each(data.data, function(v, i) {
 							v.isSelected = true;
 							v.active = false;
@@ -304,20 +329,7 @@
 						$scope.listData[parentIndex].children[index].active = true;
 					}
 				}
-				
-				var getVersionIndex = function(tfcode){
-					var id = parseInt(tfcode.substr(8,2));
-					console.log("versionId", id);
-					return id;
-				}
-				// 获取教材 id
-				var getMaterialtIndex = function(tfcode){
-					var id = parseInt(tfcode.substr(10,2));
-					console.log("materialId", id);
-					return id;
-				}
-
-
+			
 				// 备课夹列表页跳转
 				$scope.turnToPrepare = function(id) {
 					//反向查找备课夹对应教材节点
@@ -325,17 +337,78 @@
 						prepareId: id,
 						perPage: 10
 					}, function(data) {
-						console.log(data);
 						var info = data.data;
 						var tfcode = info.tfcode;
-						console.log(tfcode);
 						var bookid = info.bookid;
 						var editionid = info.editionid;
-						var page = info.page;
+						var preparePage = info.page;
+						
+						//根据当前学段和学科获取版本列表
+						Res.getEditions({
+							termId: $localStorage.currentGrade.id,
+							subjectId: $localStorage.currentSubject.id
+						}, function(data) {
+							//获取当前版本列表
+//							console.log("versions",data);
+							var versions = data.data;
+							if(versions && version.length > 0) {
+								for(var i = 0; i < versions.length; i ++) {
+									//设定当前版本为备课夹对应的版本
+									if(versions[i].id == editionid) {
+										$localStorage.currentVersion.id = editionid;
+										$localStorage.currentVersion.tfcode = versions[i].tfcode;
+										$localStorage.currentVersion.name = versions[i].name;
+										break;
+									}
+								}
+								//获取获取当前版本下的教材
+								Res.getBooks({
+									pnodeId: editionid
+								}, function(data) {
+//									console.log("books", data);
+									var books = data.data;
+									if(books && books.length > 0) {
+										for(var j = 0; j < books.length; j ++) {
+											if(books[j].id == bookid) {
+												$localStorage.currentMaterial.id = bookid;
+												$localStorage.currentMaterial.tfcode = books[j].tfcode;
+												$localStorage.currentMaterial.name = books[j].name;
+												//根据教材获取当前目录
+												Tree.getTree({
+													pnodeId: bookid
+												}, function(data) {
+//													console.log(data.data, tfcode);
+//													console.log("1", $localStorage.currentTreeNode);
+													
+													var treenode = window.getTreeNodeLoc(data.data[0], tfcode);
+													//根据目录节点索引修改localStorage
+													$localStorage.currentTreeNode = treenode;
+													$localStorage.selectChange = true;
+													// 触发 目录树更新
+//													console.log("2", treenode);
+													$scope.$emit("currentTreeId", bookid);
+													$localStorage.isPrepareList = false;
+													$timeout(function() {
+														$localStorage.reloadFrom = {
+															from: "list",
+															page: preparePage,
+															prepareId: id
+														}
+														window.location.reload();
+													}, 500);
+												})
+											}
+										}
+									}
+								})
+							}
+						})
 						
 					})
 					
 				}
+				
+				
 
 				//编辑备课夹标题
 				$scope.editPrepare = function(index) {
