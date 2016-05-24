@@ -53,6 +53,7 @@
 
 				//按类型筛选资源
 				$scope.selectResType = function(type) {
+					$scope.VM.resType = type.mtype;
 					Res.getUploadRes({
 						unifyTypeId: type.id,
 						fileFormat: '全部',

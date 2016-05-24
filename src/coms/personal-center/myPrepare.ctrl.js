@@ -61,8 +61,7 @@
 				};
 							//按type筛选资源
 				$scope.selectResType = function(type) {
-					// var typeObj = JSON.parse(type);
-					//console.log(typeObj.id);
+					$scope.VM.resType = type.mtype;
 					Res.getPrepareResource({
 						unifyTypeId: type.id,
 						fileFormat: '全部',

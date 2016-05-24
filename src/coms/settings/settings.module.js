@@ -77,6 +77,7 @@
 						$scope.trueName = info.trueName;
 						$scope.sexSelected = info.male;
 						$scope.currentAvatar = info.userImage;
+						$localStorage.authUser = info;
 						//获取学段信息
 						User.getAllTerms({
 							

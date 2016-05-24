@@ -46,7 +46,7 @@
 
 				//按资源类型选择
 				$scope.selectResType = function(type) {
-					console.log(type.id);
+					$scope.VM.resType = type.mtype;
 					$scope.VM.currentPage = 1;
 					$scope.getDownload(type);
 				}

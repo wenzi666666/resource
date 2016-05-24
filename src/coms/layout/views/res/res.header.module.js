@@ -412,6 +412,11 @@
 					$scope.VM.currentVersionTmpShow = false;
 					// 目录树改变
 					$localStorage.selectChange = false;
+					//选中
+					_.each($scope.VM.version, function(v, i) {
+						$scope.VM.currentVersionSeclet[i] = false;
+					})
+					$scope.VM.currentVersionSeclet[index] = true;
 					//备课夹 视图切换 
 					$scope.VM.isList = false;
 					$localStorage.isPrepareList = $scope.VM.isList;

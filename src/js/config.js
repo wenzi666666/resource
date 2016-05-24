@@ -1,6 +1,4 @@
 // 全局配置文件
-// 后端tomcat服务
-window.TomcatUrl = "http://192.168.111.204:8880";
 // 文件服务
 window.FileServer =  "http://192.168.111.22/";
 // 缩略图回滚服务

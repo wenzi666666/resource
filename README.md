@@ -5,6 +5,7 @@
 - fontawesome
 
 ## 研发环境运行
+> 复制config/webconfig_example.js为webconfig.js,并修改对应的 TomcatUrl后端地址
 > npm install
 > gulp
 
@@ -14,7 +15,7 @@
 > gulp //测试是否能启动
 > gulp dist  //打包压缩
 > node server   //后台启动用 nohup node server &
-启动在6060端口（可修改server.js中的port值）
+启动在12306端口（可修改resweb.js中的port值）
 
 
 - 1.更新升级
