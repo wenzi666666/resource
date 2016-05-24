@@ -164,7 +164,7 @@
 								ModalMsg.logger("不能 为空，请重新上传！");
 								return;
 							}
-							var reg =  /(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+							var reg =  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
 							if(!$scope.uploadWebUrl.match(reg)){
 								ModalMsg.logger("请输入正确的网络地址, 如：http://www.tfedu.net");
 								return;

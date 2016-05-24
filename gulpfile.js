@@ -132,7 +132,7 @@ gulp.task('watch', ['html'], function () {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-        baseDir:['dist', 'src','config',  "modules/login"],
+        baseDir:['dist', 'src','config',  "modules/login", "modules"],
         index: "index.html",
         middleware: [ historyApiFallback()]
     }
