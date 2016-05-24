@@ -29,9 +29,9 @@
 	            	<div role="tabpanel" class="tab-pane" id="self-avatar">
 	            		<div class="self-avatar-panel panel-one"  ng-show="panelOneShow">
 	            			<ul>
-	            				<li class="btn-choose-avatar"><img ng-model="VM.picFile" accept="image/*" ngf-select="VM.uploadFiles(2, $files, $invalidFiles)" src="assets/img/settings/choose_avatar.png" ngf-max-size="3MB"></li>
+	            				<li class="btn-choose-avatar"><img ng-model="VM.picFile" accept=".jpg, .png, .gif" ngf-select="VM.uploadFiles(2, $files, $invalidFiles)" src="assets/img/settings/choose_avatar.png" ngf-max-size="3MB"></li>
 	            				<!--<li class="btn-photo-avatar"><img src="assets/img/settings/photo_avatar.png" ng-click="showPanel(2)"></li>-->
-	            					            			</ul>
+	            			</ul>
 	            		</div>
 	            		<div class="self-avatar-panel panel-two"  ng-show="panelTwoShow">
 	            			<div class="panel-two-left">

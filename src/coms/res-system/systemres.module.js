@@ -533,7 +533,7 @@
 						page = 1;
 						getResList();
 					}else{
-						ModalMsg.logger("请输入0-100之间的正整数");
+						ModalMsg.logger("请输入0-最大页数之间的正整数");
 					}
 				}
 				// 选择 资源，用于加入备课夹

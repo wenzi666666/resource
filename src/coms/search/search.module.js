@@ -234,10 +234,16 @@
 				
 				//转到
 				$scope.pageChanged = function(pagenum) {
-					
+					if(!!pagenum &&pagenum.split('.').length > 1){
+						ModalMsg.logger("请输入正整数");
+						return;
+					}
+					if(pagenum>0 && pagenum<100) {
 						$scope.bigCurrentPage = pagenum;
-						console.log('Page changed to: ' + $scope.bigCurrentPage );
-					    getSourceList();
+						getSourceList();
+					}else{
+						ModalMsg.logger("请输入0-100之间的正整数");
+					}
 				};
 				
 				$scope.pageTo = $scope.bigCurrentPage;
