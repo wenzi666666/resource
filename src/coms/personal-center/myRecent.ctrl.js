@@ -46,6 +46,7 @@
 
 				//按资源类型筛选
 				$scope.selectResType = function(type) {
+					$scope.VM.resType = type.mtype;
 					$scope.VM.currentPage = 1;
 					$scope.getRecent(type);
 				}

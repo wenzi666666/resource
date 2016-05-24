@@ -21,11 +21,11 @@ var historyApiFallback = require('connect-history-api-fallback');
 
 var settings;
 // Try to read frontend configuration file, fallback to default file
-try {
-    settings = JSON.parse(fs.readFileSync('./config/config.json', 'utf8'));
-} catch (error) {
-    settings = JSON.parse(fs.readFileSync('./config/config_example.json', 'utf8'));
-}
+//try {
+//  settings = JSON.parse(fs.readFileSync('./config/config.json', 'utf8'));
+//} catch (error) {
+//  settings = JSON.parse(fs.readFileSync('./config/config_example.json', 'utf8'));
+//}
 
 var config = {
     paths: {
@@ -132,7 +132,7 @@ gulp.task('watch', ['html'], function () {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-        baseDir:['dist', 'src', "modules/login"],
+        baseDir:['dist', 'src','config',  "modules/login"],
         index: "index.html",
         middleware: [ historyApiFallback()]
     }
@@ -161,30 +161,14 @@ gulp.task('less', function () {
 // 转移index.html到dsit目录下 inject config
 gulp.task('html', [ 'templates'], function() {
     gulp.src('./src/index.html')
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'BackendUrl',
-                    replacement: settings.BackendUrl
-                }
-            ]
-        }))
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'ImageServer',
-                    replacement: settings.ImageServer
-                }
-            ]
-        }))
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'FileServer',
-                    replacement: settings.FileServer
-                }
-            ]
-        }))
+//      .pipe(replace({
+//          patterns: [
+//              {
+//                  match: 'TomcatUrl',
+//                  replacement: settings.TomcatUrl
+//              }
+//          ]
+//      }))
          //inject lib
         .pipe(inject(gulp.src(config.paths.libjs.src,  {read: false}), {starttag: '<!-- inject:lib:{{ext}} -->',ignorePath: 'src'}))
         .pipe(inject(gulp.src(config.paths.libcss.src, {read: false}), {starttag: '<!-- inject:lib:{{ext}} -->',ignorePath: 'src'}))
@@ -197,30 +181,14 @@ gulp.task('html', [ 'templates'], function() {
 
 gulp.task('disthtml', function() {
      gulp.src('./src/dist.html')
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'BackendUrl',
-                    replacement: settings.BackendUrl
-                }
-            ]
-        }))
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'ImageServer',
-                    replacement: settings.ImageServer
-                }
-            ]
-        }))
-        .pipe(replace({
-            patterns: [
-                {
-                    match: 'FileServer',
-                    replacement: settings.FileServer
-                }
-            ]
-        }))
+//      .pipe(replace({
+//          patterns: [
+//              {
+//                  match: 'TomcatUrl',
+//                  replacement: settings.TomcatUrl
+//              }
+//          ]
+//      }))
         .pipe(g.rename('index.html'))
         .pipe(gulp.dest('./dist'));
 });

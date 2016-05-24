@@ -10,5 +10,6 @@ dist/assets
 dist/fonts
 dist/favicon.ico
 test/
+config/webconfig.js
 config/config.json
 src/less/*.css
