@@ -139,5 +139,26 @@
 		var r = window.location.search.substr(1).match(reg); 
 		if (r!=null) return (r[2]); return null; 
 	}
+	
+	//根据tfcode确定tree node节点
+	window.getTreeNodeLoc = function(node, tfcode) {
+		var currentNode = node;
+		var rootCode = currentNode.tfcode;
+		//获取当前目录节点相对于目录树根节点的位置索引
+		var index = tfcode.substr(rootCode.length);
+		if(index.length == 0) {
+			return currentNode;
+		}
+		else {
+			var firstIndex = rootCode + index.substr(0, 2);
+			for(var i = 0; i < currentNode.children.length; i ++) {
+				if(currentNode.children[i].tfcode == firstIndex) {
+					currentNode = currentNode.children[i];
+					break;
+				}
+			}
+			return getTreeNodeLoc(currentNode, tfcode);
+		}
+	}
 
 }());
