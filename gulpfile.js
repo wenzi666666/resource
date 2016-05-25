@@ -16,7 +16,6 @@ var replace = require('gulp-replace-task');
 var inject = require('gulp-inject');
 var browserSync = require('browser-sync');
 var html2js = require('gulp-ng-html2js');
-var autoprefixer = require('gulp-autoprefixer');
 var reload = browserSync.reload;
 var historyApiFallback = require('connect-history-api-fallback');
 
