@@ -101,14 +101,14 @@
 #logoRight .client{
 	width: 149px;
 	height: 37px;
-	background: url('../image/client.jpg');
+	background: url('../image/client.png');
 	cursor: pointer;
 	display: block;
 }
 #logoRight:hover .client{
 	width: 149px;
 	height: 37px;
-	background: url('../image/client2.jpg');
+	background: url('../image/client2.png');
 }
 .nr{
 	width:1200px;

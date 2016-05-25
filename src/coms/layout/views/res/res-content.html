@@ -62,7 +62,7 @@
 						加入备课夹&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<br>
-					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例" || list.mtype=="索引目录"'><i class="icon-download-alt"></i>点击下载</label>
 				</span>
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 			</li>
@@ -71,7 +71,7 @@
 			<div class="loading res-loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
 			<li class="res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
 				<div title="{{list.title}}">
-					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id">
+					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id" ng-click="addItemSelect(list.id)">
 					<label for="{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
 					<a class="img-thumb2-list" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
