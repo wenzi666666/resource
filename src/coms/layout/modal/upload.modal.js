@@ -334,7 +334,7 @@
 							paths.push($scope.uploadData.uploadPath + $scope.uploadFilesData[0].responseName);
 							sizes.push(v.size);
 							iscoursewares.push(0);
-							islocals.push(0);
+//							islocals.push(0);
 						})
 
 						$scope.res.title = names.toString();
@@ -346,7 +346,7 @@
 						$scope.res.paths = paths.toString();
 						$scope.res.sizes = sizes.toString();
 						$scope.res.iscoursewares = iscoursewares.toString();
-						$scope.res.islocals = islocals.toString();
+//						$scope.res.islocals = islocals.toString();
 					}
 
 					Res.resCtrl({
