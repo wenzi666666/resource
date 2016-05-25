@@ -34,8 +34,8 @@
 				})
 			}
 		])
-		.controller("OnlineResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http','Prepare','Preview','$localStorage','ModalMsg',
-			function($scope, $stateParams, $state, $location,SystemRes,$http, Prepare,Preview,$localStorage,ModalMsg) {
+		.controller("OnlineResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','$http','Prepare','Preview','$localStorage','ModalMsg','$sessionStorage',
+			function($scope, $stateParams, $state, $location,SystemRes,$http, Prepare,Preview,$localStorage,ModalMsg,$sessionStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};	
@@ -43,7 +43,7 @@
 				//slide下方导航默认不显示
 				$scope.VM.slideTools = false;
 				$scope.currentTreeNode = $localStorage.currentTreeNode;
-				$scope.currentPrepare = $localStorage.currentPrepare;
+				$scope.currentPrepare =$sessionStorage.currentPrepare;
 //				Prepare.baseGetApi({
 //					tfcode: $localStorage.currentTreeNode.tfcode
 //				}, function(data) {

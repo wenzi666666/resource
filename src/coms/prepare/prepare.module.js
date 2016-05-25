@@ -103,8 +103,8 @@
 				})
 			}
 		])
-		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree', 'Res', '$localStorage','$timeout',
-			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, Res, $localStorage,$timeout) {
+		.controller("PrepareController", ['$scope', '$stateParams', '$state', '$location', '$uibModal', 'Prepare', 'ModalMsg', 'Tree', 'Res', '$localStorage','$timeout','$sessionStorage',
+			function($scope, $stateParams, $state, $location, $uibModal, Prepare, ModalMsg, Tree, Res, $localStorage,$timeout,$sessionStorage) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -845,8 +845,11 @@
 							}
 						})
 					} else if (list && list.children && list.children.length > 0) {
-						$localStorage.currentPrepare = list;
-						openwin('onlineres/'+list.id);
+						$sessionStorage.currentPrepare = list;
+						// 延迟处理
+						$timeout(function(){
+							openwin('onlineres/'+list.id);
+						},110) 
 					} else {
 						ModalMsg.logger("当前备课夹下没有资源哦,请先添加备课资源~");
 					}

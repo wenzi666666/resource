@@ -84,13 +84,31 @@
 	border:0px solid black;
 	background:#ffffff;
 	text-align: left;
-	}
+	position: relative;
+}
 #logoLeft{
 	width: 400px;
 	margin: 5px;
 }
 #logoLeft img{
 	height: 85px;
+}
+#logoRight{
+	position: absolute;
+	right: 35px;
+	top: 30px
+}
+#logoRight .client{
+	width: 149px;
+	height: 37px;
+	background: url('../image/client.jpg');
+	cursor: pointer;
+	display: block;
+}
+#logoRight:hover .client{
+	width: 149px;
+	height: 37px;
+	background: url('../image/client2.jpg');
 }
 .nr{
 	width:1200px;
