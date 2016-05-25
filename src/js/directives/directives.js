@@ -12,7 +12,6 @@
 						var src = iAttrs.fallbackSrc;
 						var format = '.' + src.split('.')[src.split('.').length-1];
 						var fallbacksrc = "assets/img/sample.png";
-						console.log(src)
 						//备课夹默认图片
 						if(src == "prepare") {
 							angular.element(this).attr("src", "assets/img/prepare_default.png");
