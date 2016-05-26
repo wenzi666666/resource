@@ -776,6 +776,7 @@
 					})
 
 					movePrepareModal.result.then(function(data) {
+						console.log(data);
 						//移动 复制
 						if (flag == 1) {
 							//移动 
@@ -784,19 +785,87 @@
 								tfcode: data.tfcode,
 							}, function(d) {
 								if (d.code == "OK") {
-									ModalMsg.logger("移动备课夹成功！")
-								} else {
+									ModalMsg.logger("移动备课夹成功！");
+									//反向查找备课夹对应教材节点
+									Prepare.referToBook({
+										prepareId: list.id,
+										perPage: 10
+									}, function(data) {
+										var info = data.data;
+										var tfcode = info.tfcode;
+										var bookid = info.bookid;
+										var editionid = info.editionid;
+										var preparePage = info.page;
+										
+										//根据教材获取当前目录
+										Tree.getTree({
+											pnodeId: bookid
+										}, function(data) {
+											var treenode = window.getTreeNodeLoc(data.data[0], tfcode);
+											//根据目录节点索引修改localStorage
+											$localStorage.currentTreeNode = treenode;
+											$localStorage.selectChange = true;
+											// 触发 目录树更新
+											$scope.$emit("currentTreeId", bookid);
+											$localStorage.isPrepareList = false;
+											$timeout(function() {
+												$localStorage.reloadFrom = {
+													from: "list",
+													page: preparePage,
+													prepareId: list.id
+												}
+												window.location.reload();
+											}, 500);
+										})
+									})
+								} 
+								else {
 									ModalMsg.logger("移动备课夹失败，请重试！")
 								}
 							})
-						}else{
-							// 复制
+						}
+						else{
+						// 复制
+							
 							Prepare.prepareCopy({
 								prepareId: list.id,
 								tfcode: data.tfcode,
 							}, function(d) {
+								console.log("movePrepare", d);
 								if (d.code == "OK") {
 									ModalMsg.logger("复制备课夹成功！")
+									//反向查找备课夹对应教材节点
+									Prepare.referToBook({
+										prepareId: list.id,
+										perPage: 10
+									}, function(data) {
+										var info = data.data;
+										var tfcode = info.tfcode;
+										var bookid = info.bookid;
+										var editionid = info.editionid;
+										var preparePage = info.page;
+										
+										//根据教材获取当前目录
+										Tree.getTree({
+											pnodeId: bookid
+										}, function(data) {
+											var treenode = window.getTreeNodeLoc(data.data[0], tfcode);
+											//根据目录节点索引修改localStorage
+											$localStorage.currentTreeNode = treenode;
+											$localStorage.selectChange = true;
+											// 触发 目录树更新
+											$scope.$emit("currentTreeId", bookid);
+											$localStorage.isPrepareList = false;
+											$timeout(function() {
+												$localStorage.reloadFrom = {
+													from: "list",
+													page: preparePage,
+													prepareId: list.id
+												}
+	//											window.location.reload();
+											}, 500);
+										})
+									})
 								} else {
 									ModalMsg.logger("复制备课夹失败，请重试！")
 								}
@@ -1016,7 +1085,7 @@
 					return;
 				}
 				var tmpVal = {
-					'tfcode': $scope.currentNode.tfcode,
+					'tfcode': $scope.currentNode.tfcode
 				}
 				$uibModalInstance.close(tmpVal);
 			};
