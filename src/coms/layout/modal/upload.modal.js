@@ -693,7 +693,7 @@
 			// 关键词 
 			$scope.res.keywords = $scope.resDetails.keyword;
 			$scope.res.description = $scope.resDetails.assetdesc;
-			console.log("resitem", resitem, resDetails);
+//			console.log("resitem", resitem, resDetails);
 
 			// 获取并定位资源类型
 			Res.unifyType4ext({

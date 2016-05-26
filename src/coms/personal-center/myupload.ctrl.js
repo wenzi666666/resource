@@ -116,6 +116,7 @@
 						id: res.resId
 					}, function(data){
 						var resDetails = data.data;
+						console.log(resDetails);
 						var editResModal = $uibModal.open({
 							templateUrl: "eiditResModal.html",
 							windowClass: "upload-modal",

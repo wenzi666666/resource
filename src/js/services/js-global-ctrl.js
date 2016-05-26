@@ -69,11 +69,11 @@
 
 		$list.eq(0).addClass('prepare-add');
 
-		$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
+//		$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
 
 		setTimeout(function() {
 			$list.eq(0).removeClass('prepare-add');
-			$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
+//			$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
 		}, 3000)
 	}
 
