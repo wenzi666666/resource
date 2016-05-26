@@ -126,7 +126,8 @@
 							//加1
 //							$scope.shopCount++;
 							// 动画显示
-							addPrepareAnimation();
+							ModalMsg.logger("成功加入备课夹：" +  $scope.prepareList[prepareIndex].title);
+//							addPrepareAnimation();
 							
 							currentPrepareId = $scope.prepareList[prepareIndex].id;
 							
