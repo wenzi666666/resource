@@ -21,7 +21,7 @@
 					<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
 				</div>
 				<div ng-show="contentShow[$index]">
-					<div class="item-content">{{comment.acontent}}</div>
+					<div class="item-content" compile="comment.acontent | replaceWithEnter"></div>
 					<div class="editBox">
 						<button class="btn btn-danger" ng-click="editCom(comment.id,$index)">编辑</button>
 						<button class="btn btn-danger" ng-click="deleteCom(comment.id,$index)">删除</button>
@@ -42,7 +42,7 @@
 					<span item-user>{{comment.userName}}</span>
 					<show-time item-date data-value="{{comment.atime | date:'yyyy-MM-dd HH:mm:ss'}}"></show-time>
 				</div>
-				<div class="item-content">{{comment.acontent}}</div>
+				<div class="item-content" compile="comment.acontent | replaceWithEnter"></div>
 
 			</div>
 		</div>

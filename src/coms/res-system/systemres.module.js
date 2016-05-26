@@ -149,7 +149,6 @@
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
 							// 加入备课夹
-							console.log("aaaaaaaaaaaaaaaa:", $localStorage.currentTreeNode,d.data.id)
 							Prepare.addResToPrepareId({
 								id: d.data.id,
 								resIds: $scope.resList.list[listIndex].id,
@@ -311,6 +310,7 @@
 								// 获取当前节点备课夹
 								getPrepare($localStorage.currentTreeNode.tfcode);
 								// 动画显示
+								ModalMsg.logger("成功加入备课夹：" +  data.name);
 								addPrepareAnimation();
 							}
 							else {
@@ -356,10 +356,13 @@
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
+					$scope.poolId = !!poolContent? poolContent: $scope.poolId;
+					mTypeId = !!typeContent? typeContent : mTypeId;
+					format = !!formatContent? '全部' : format;
 					SystemRes.resList({
-						poolId: poolContent == 0? poolContent: $scope.poolId,
-						mTypeId: typeContent==0 ? typeContent : mTypeId,
-						fileFormat: formatContent==0 ? '全部' : format,
+						poolId: $scope.poolId,
+						mTypeId: mTypeId,
+						fileFormat: format,
 						fromFlag: $scope.fromFlag,
 						tfcode: tree?tree.tfcode:$localStorage.currentTreeNode.tfcode,
 						orderBy:$scope.orderBy,

@@ -65,16 +65,16 @@
 
 	//加入备课夹后，动画显示 加入的备课夹
 	window.addPrepareAnimation = function() {
-//		var $list = $('.prepare-ctrls');
+		var $list = $('.prepare-ctrls');
 
-//		$list.eq(0).addClass('prepare-add');
+		$list.eq(0).addClass('prepare-add');
 
-//		$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
+		$list.find('.ctrls-prepare-list-item').eq(0).addClass('prepare-add-item');
 
-//		setTimeout(function() {
-//			$list.eq(0).removeClass('prepare-add');
-//			$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
-//		}, 3000)
+		setTimeout(function() {
+			$list.eq(0).removeClass('prepare-add');
+			$list.find('.ctrls-prepare-list-item').eq(0).removeClass('prepare-add-item');
+		}, 3000)
 	}
 
 	/**

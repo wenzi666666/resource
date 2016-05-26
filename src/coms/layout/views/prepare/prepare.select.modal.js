@@ -15,6 +15,7 @@
 					}
 					var tmpVal = {
 						'prepareId': $scope.selectedPrepareId,
+						'name':prepareName
 					}
 					$uibModalInstance.close(tmpVal);
 				};
@@ -84,9 +85,11 @@
 				};
 				
 				$scope.selectedPrepareId = '';
+				var prepareName = '';
 				$scope.selectPrepare = function(index) {
 					$scope.listSelected = index;
 					$scope.selectedPrepareId = $scope.prepares[index].id;
+					prepareName = $scope.prepares[index].title;
 				}
 			}
 		])	
