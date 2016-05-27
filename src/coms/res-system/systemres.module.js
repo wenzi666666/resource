@@ -356,9 +356,9 @@
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
-					$scope.poolId = !!poolContent? poolContent: $scope.poolId;
-					mTypeId = !!typeContent? typeContent : mTypeId;
-					format = !!formatContent? '全部' : format;
+					$scope.poolId = poolContent==0? poolContent: $scope.poolId;
+					mTypeId = typeContent==0? typeContent : mTypeId;
+					format = formatContent==0? '全部' : format;
 					SystemRes.resList({
 						poolId: $scope.poolId,
 						mTypeId: mTypeId,
