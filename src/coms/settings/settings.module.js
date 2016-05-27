@@ -238,33 +238,43 @@
 						$scope.oldPsw = "";
 						$scope.newPsw = "";
 						$scope.confirmNewPsw = "";
+						return ;
 					}
 					else if($scope.newPsw == "") {
 						$scope.newPswError = true;
 						$scope.oldPsw = "";
 						$scope.newPsw = "";
 						$scope.confirmNewPsw = "";
+						return;
 					}
-					else {
-						User.setNewPasswd({
-							oldPassword: $scope.oldPsw,
-							newPassword: $scope.newPsw,
-							_method: "PATCH"
-						}, function(data) {
-							//修改成功
-							if(data.code == "OK") {
-								var saveSuccess = "密码修改成功，下次请用新密码登录！";
-								ModalMsg.logger(saveSuccess);
-							} else{
-								if(data.code == "InvalidPassword") {
-									$scope.oldPswError = true;
-									$scope.oldPsw = "";
-									$scope.newPsw = "";
-									$scope.confirmNewPsw = "";
-								}
+					// 匹配密码合法程度
+					var reg = /[0-9a-zA-Z$#@^&]+$/ig;
+					
+					if(reg.test($scope.newPsw) === false){
+						console.log(reg.test($scope.newPsw))
+						ModalMsg.logger('新密码中包含不合法字符，如空格等，请重新输入');
+						$scope.newPsw = "";
+						$scope.confirmNewPsw = "";
+						return;
+					}
+					User.setNewPasswd({
+						oldPassword: $scope.oldPsw,
+						newPassword: $scope.newPsw,
+						_method: "PATCH"
+					}, function(data) {
+						//修改成功
+						if(data.code == "OK") {
+							var saveSuccess = "密码修改成功，下次请用新密码登录！";
+							ModalMsg.logger(saveSuccess);
+						} else{
+							if(data.code == "InvalidPassword") {
+								$scope.oldPswError = true;
+								$scope.oldPsw = "";
+								$scope.newPsw = "";
+								$scope.confirmNewPsw = "";
 							}
-						})
-					}
+						}
+					})
 				}
 				
 				//清空提示信息
