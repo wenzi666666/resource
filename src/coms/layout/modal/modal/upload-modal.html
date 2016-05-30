@@ -113,7 +113,7 @@
 					</tr>
 					<tr ng-repeat="v in uploadFilesData track by $index">
 						<td>{{ $index +1 }}</td>
-						<td>{{ v.name}}</td>
+						<td class="text-ellipsis">{{ v.name | limitTo: 40}}{{ v.name.length>40?'...':''}}</td>
 					</tr>
 				</table>
 			</div>

@@ -337,7 +337,7 @@
 //							islocals.push(0);
 						})
 
-						$scope.res.title = names.toString();
+						$scope.res.title = names.toString().substr(0,20);
 						$scope.currentNode.tfcode = tfCodes.toString();
 						$scope.unifyType[$scope.currentTypeIndexSeclet].id = unifTypeIds.toString();
 						$scope.currentScopeIndexSeclet = scopes.toString();
@@ -347,6 +347,11 @@
 						$scope.res.sizes = sizes.toString();
 						$scope.res.iscoursewares = iscoursewares.toString();
 //						$scope.res.islocals = islocals.toString();
+					}
+					
+					if($scope.res.paths.length > 250){
+						ModalMsg.logger("太长的url不支持，请修改！");
+						return;
 					}
 
 					Res.resCtrl({
