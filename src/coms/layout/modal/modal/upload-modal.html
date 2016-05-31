@@ -219,7 +219,7 @@
 									</div>
 									<div class="menu-drop-main">
 										<ul class="menu-drop-list tree-embed" ng-show="showTree">
-											<treecontrol id="tree-embed" click-outside="closeThis()" outside-if-not="tree-embed,catogry-trigger" class="tree-light" tree-model="treedataSelect" on-selection="showSelected(node)" expanded-nodes="expandedNodes" options="opts">
+											<treecontrol id="tree-embed" click-outside="closeThis()" selected-node="selected" outside-if-not="tree-embed,catogry-trigger" class="tree-light" tree-model="treedataSelect" on-selection="showSelected(node)" expanded-nodes="expandedNodes" options="opts">
 										     	{{node.label}}
 										 	</treecontrol>
 										</ul>

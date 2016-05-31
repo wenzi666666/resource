@@ -218,7 +218,6 @@
 							if (data.code == "OK") {
 								getComment($scope.VM.resourceId); //获取我的评论
 								$scope.VM.inputComment = "";
-
 							} else {
 								alert(data.message);
 							}
@@ -242,6 +241,8 @@
 							}
 							$scope.VM.info.userNum++;
 							$scope.VM.info.avgScore = index;
+							
+							ModalMsg.chromeLogger("评分成功！");
 							
 							
 						} else {

@@ -56,7 +56,7 @@
 		</div>
 		<div class="pagination-box">
 			<div class="coms-pagination">
-				<uib-pagination total-items="totalItems" ng-model="VM.currentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage" ng-change="pageChanged()"></uib-pagination>
+				<uib-pagination total-items="totalItems" ng-model="VM.currentPage" max-size="maxSize" boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="VM.perPage" ng-change="pageChanged()"></uib-pagination>
 				<div class="page-go">
 					<span class="page-text">转到</span>
 					<input class="page-input" ng-model="pageTo"/>
