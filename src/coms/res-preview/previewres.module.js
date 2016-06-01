@@ -758,9 +758,15 @@
 				 // 选择备课夹
 				$scope.selectPrepare = function(e,listIndex) {
 					e.stopPropagation();
+					var optypeText = '选择备课夹';
 					var selectPrepareModal = $uibModal.open({
 						templateUrl: "select-prepare.html",
 						controller: 'selectPrepareCtrl',
+						resolve: {
+							optypeText: function() {
+								return optypeText;
+							}
+						},
 						windowClass: "prepare-select-modal"
 					})
 
