@@ -4,10 +4,11 @@
 (function() {
 	'use strict';
 	angular.module('webApp.coms.modal')
-		.controller("selectPrepareCtrl", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage', 
-			function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage) {
+		.controller("selectPrepareCtrl", ['$scope', '$stateParams', '$state', '$location', '$uibModalInstance', 'Prepare', 'ModalMsg', 'Tree','$localStorage', 'optypeText',
+			function($scope, $stateParams, $state, $location, $uibModalInstance, Prepare, ModalMsg, Tree,$localStorage,optypeText) {
 				// 变量共享
 				$scope.VM = {};
+				$scope.optypeText = optypeText;
 				$scope.moveOk = function() {
 					if(!$scope.selectedPrepareId){
 						ModalMsg.logger("请选择备课夹");

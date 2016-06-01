@@ -700,12 +700,18 @@
 
 				//移动文件 到-1 复制到-2
 				$scope.opResTo = function(res, optype) {
-//					if (optype == 2)
-//						optype = "复制资源到备课夹";
+					var optypeText = "移动到备课夹";
+					if (optype == 2)
+						optypeText = "复制到备课夹";
 					var movePrepareModal = $uibModal.open({
 						templateUrl: "move-prepare.html",
 						controller: 'selectPrepareCtrl',
 						size: 'new-prepare',
+						resolve: {
+							optypeText: function() {
+								return optypeText;
+							}
+						},
 						windowClass: "prepare-select-modal"
 					})
 
@@ -762,8 +768,8 @@
 
 				// 备课夹移动到-1，复制到-2
 				$scope.opPrepareTo = function(list, flag) {
-					var opName = "复制到备课夹"
-					if (flag == 1) opName = "移动到备课夹";
+					var opName = "备课夹复制到"
+					if (flag == 1) opName = "备课夹移动到";
 
 					var movePrepareModal = $uibModal.open({
 						templateUrl: "modal-prepare-op.html",

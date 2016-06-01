@@ -451,6 +451,10 @@
 					$uibModalInstance.close($scope.newAvatar);
 				}
 				
+				$scope.cancel = function() {
+					$uibModalInstance.dismiss('cancel');
+				}
+				
 				$scope.close = function() {
 					window.location.reload();
 				}
