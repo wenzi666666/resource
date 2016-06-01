@@ -89,7 +89,8 @@ $(function(){
 					}
 					//初始化用户信息
 					$.ajax({
-						url: TomcatUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?noCache=' + new Date().getTime(),
+						url: TomcatUrl+ "/resRestAPI/v1.0/users/" + data.data.userId,
+//						+ '?noCache=' + new Date().getTime(),
 						beforeSend: function(xhr){
 							xhr.setRequestHeader('Authorization', data.data.token);
 						},

@@ -19,7 +19,7 @@
                             //让所有api带上 user请求头
                             if(localStorage.getItem('credentialsToken'))
                                 config.headers["Authorization"] = localStorage.getItem('credentialsToken');
-                            config.url = config.url + '?noCache=' + new Date().getTime();
+//                          config.url = config.url + '?noCache=' + new Date().getTime();
                         }
                         return config;
                     }
