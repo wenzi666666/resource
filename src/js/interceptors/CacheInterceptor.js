@@ -15,7 +15,7 @@
                     request: function requestCallback(config) {
                     	
 						// api打头的都加user做处理
-                        if(/\/resRestAPI\//.test(config.url)){
+                        if(/\/resRestAPI\/|\/additional\//.test(config.url)){
                             //让所有api带上 user请求头
                             if(localStorage.getItem('credentialsToken'))
                                 config.headers["Authorization"] = localStorage.getItem('credentialsToken');

@@ -21,6 +21,16 @@
 							id: '@id'
 						}
 					},
+					// 情景英语
+					sceneEnglish: {
+						method: "GET",
+						url: TomcatUrl + "/resRestAPI/additional/sceneEnglish"
+					},
+					// 题库
+					questionLibrary: {
+						method: "GET",
+						url: TomcatUrl + "/resRestAPI/additional/questionLibrary"
+					}
 				})
 			}
 		])
@@ -49,6 +59,18 @@
 				// 跳转到备课夹，用click事件，去以清除 hover返回时还选中
 				$scope.goToPrepare = function(){
 					openwin('/prepare')
+				}
+				// 情景英语
+				$scope.goToSceneEnglish = function(){
+					Layout.sceneEnglish({},function(data) {
+						openwin(data.data)
+					})
+				}
+				// 题库
+				$scope.goToQuestionLibrary = function(){
+					Layout.questionLibrary({},function(data) {
+						openwin(data.data)
+					})
 				}
 				//退出
 				$scope.logout = function() {
