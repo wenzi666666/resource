@@ -82,25 +82,20 @@ $(function(){
 			}, 
 			success: function(data){
 				if(data.code == "OK") {
-					window.localStorage.setItem("credentialsToken", data.data.token);
+					var tocken = data.data.token;
+					window.localStorage.setItem("credentialsToken", tocken);
+					//初始化用户信息
+					window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
+					
+//					alert(window.localStorage.getItem("ngStorage-authUser"))
 					// 是否记住密码
 					if($('#checkFlag').prop("checked")) {
 						keep_select(true)
 					}
-					//初始化用户信息
-					$.ajax({
-						url: TomcatUrl+ "/resRestAPI/v1.0/users/" + data.data.userId + '?noCache=' + new Date().getTime(),
-						beforeSend: function(xhr){
-							xhr.setRequestHeader('Authorization', data.data.token);
-						},
-						success: function(data){
-							window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
-							setTimeout(function(){
-								window.location.href = '/';
-							},300)
-							
-						}
-					})
+					
+					setTimeout(function(){
+						window.location.href = '/';
+					},300)
 				}else{
 					alert("用户名或密码不正确");
 					clickNum++;

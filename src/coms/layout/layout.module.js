@@ -30,7 +30,8 @@
 					questionLibrary: {
 						method: "GET",
 						url: TomcatUrl + "/resRestAPI/additional/questionLibrary"
-					}
+					},
+					getUser: {method: "GET",url: window.TomcatUrl + "/resRestAPI/v1.0/users/"},
 				})
 			}
 		])
@@ -159,6 +160,7 @@
 					$("html, body").animate({scrollTop:0},"slow");
 				}
 				// header隐藏
+				if(!window.isIENine()) {
 				setTimeout(function() {
 					var header = document.querySelector("#banner");
 					var headerTop = document.querySelector("#header-top");
@@ -220,6 +222,7 @@
 					    }).init();
 					}
 				},500)
+				}
 			}
 		])
 }());

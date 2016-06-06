@@ -119,6 +119,23 @@
 	}
 	
 	/**
+	 * ie9判断
+	 */
+	window.isIENine = function(url) {
+		var browser=navigator.appName 
+		var b_version=navigator.appVersion 
+		var version=b_version.split(";"); 
+		var trim_Version=version[1].replace(/[ ]/g,""); 
+		if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE9.0") 
+		{ 
+//			alert("IE 9.0"); 
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
+	/**
 	 * 目录树全展开处理
 	 */
 	window.allNodes = [];
