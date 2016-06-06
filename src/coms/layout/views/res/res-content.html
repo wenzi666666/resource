@@ -64,6 +64,7 @@
 					<br>
 					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例" || list.mtype=="索引目录"'><i class="icon-download-alt"></i>点击下载</label>
 				</span>
+				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status!=6">【未审核】</span>
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 			</li>
 		</ul>
@@ -80,6 +81,7 @@
 					</a>
 					<div class="res-thubmlist-info">
 						<div><a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
+							<span class="res-status-thumb" ng-show="(fromFlag==3 || fromFlag==4) && list.status!=6">【未审核】</span>
 							<span class="res-status-thumb" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
 							{{ list.title }}
 							</a>
