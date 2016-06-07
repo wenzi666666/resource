@@ -210,6 +210,8 @@
 							if (data.code == "OK") {
 								getComment($scope.VM.resourceId); //获取我的评论
 								$scope.VM.inputComment = "";
+								$scope.commentNum = 200;
+								ModalMsg.chromeLogger("评论成功！");
 							} else {
 								alert(data.message);
 							}

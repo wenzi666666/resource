@@ -719,17 +719,28 @@
 			// 关键词 
 			$scope.res.keywords = $scope.resDetails.keyword;
 			$scope.res.description = $scope.resDetails.assetdesc;
-			//			console.log("resitem", resitem, resDetails);
+			console.log("resitem", resitem, resDetails);
 
 			// 获取并定位资源类型
-			Res.unifyType4ext({
-				ext: '.' + $scope.res.fileSuffix
-			}, function(data) {
-				$scope.unifyType = data.data;
-				var index = typeIndex();
-				$scope.currentTypeSeclet[index] = true;
-				$scope.currentTypeIndexSeclet = index;
-			})
+			$scope.currentTypeSeclet = [];
+			if($scope.res.fileSuffix && $scope.res.fileSuffix == 'html'){
+				$scope.unifyType = [{
+					"id": 44,
+					"mtype": "索引目录",
+					"code": "FL1001"
+				}];;
+				$scope.currentTypeSeclet[0] = true;
+				$scope.currentTypeIndexSeclet = 0;
+			} else{
+				Res.unifyType4ext({
+					ext: '.' + $scope.res.fileSuffix
+				}, function(data) {
+					$scope.unifyType = data.data;
+					var index = typeIndex();
+					$scope.currentTypeSeclet[index] = true;
+					$scope.currentTypeIndexSeclet = index;
+				})
+			}
 
 			// 定位资源类型 当前选择
 			var typeIndex = function() {
@@ -745,7 +756,7 @@
 			}
 
 			// 资源类型选择
-			$scope.currentTypeSeclet = [];
+			
 			$scope.selectType = function(index) {
 				//选中
 				console.log(index)

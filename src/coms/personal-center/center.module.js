@@ -147,8 +147,14 @@
 				// 获取备课数据
 				Personal.prepareStatis({}, function(data) {
 					$scope.prepare = data.data;
-					// init data
-					initCharData(0);
+					
+					if(data.data.length > 0){
+						// init data
+						initCharData(0);
+					} else{
+						$scope.noPrepareData = true;
+					}
+					
 					
 				})
 				

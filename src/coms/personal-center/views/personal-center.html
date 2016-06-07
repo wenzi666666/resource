@@ -30,19 +30,24 @@
 			<div class="col-md-9 col-sm-12 cen-right">
 				<div class="cen-right-up">
 					<h3 class="cen-h2">备课统计</h3>
-					<div class="left-arrow">
-						<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
-					</div>
-					<div class="statistic-content">
-						<p>需要备课的课程总数：{{currentPrepare.nodeOmitNums}}，有备课夹章节：{{currentPrepare.nodeFinishedNums}}，备课夹：{{currentPrepare.prepareNums}}，使用资源：{{currentPrepare.resourceNums}}</p>
-						<div class="statistic-box">
-							<highchart config="chartConfig"></highchart>
+					<div  ng-hide="noPrepareData">
+						<div class="left-arrow">
+							<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
 						</div>
-						<p>{{currentPrepare.title}}</p>
+						<div class="statistic-content">
+							<p>需要备课的课程总数：{{currentPrepare.nodeOmitNums}}，有备课夹章节：{{currentPrepare.nodeFinishedNums}}，备课夹：{{currentPrepare.prepareNums}}，使用资源：{{currentPrepare.resourceNums}}</p>
+							<div class="statistic-box">
+								<highchart config="chartConfig"></highchart>
+							</div>
+							<p>{{currentPrepare.title}}</p>
+						</div>
+						<div class="right-arrow">
+							<span></span>
+							<i ng-click="next()" class="icon-chevron-right"></i>
+						</div>
 					</div>
-					<div class="right-arrow">
-						<span></span>
-						<i ng-click="next()" class="icon-chevron-right"></i>
+					<div class="no-prepare-statistic" ng-show="noPrepareData">
+						<i class="icon-comment-alt"></i>您还没有在任何教材下进行备课，暂无统计数据。 可以选择资源加入备课夹，进行在线备课。
 					</div>
 				</div>
 
