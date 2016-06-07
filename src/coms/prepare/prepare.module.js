@@ -308,7 +308,7 @@
 					Prepare.prepareContent({
 						id: id
 					}, function(data) {
-						console.log(index);
+						// console.log(index);
 						if($scope.listData[index]) $scope.listData[index].children = data.data;
 						_.each(data.data, function(v, i) {
 							v.isSelected = true;
@@ -691,7 +691,7 @@
 							})
 
 							editResModal.result.then(function(data) {
-								console.log(data);
+								// console.log(data);
 							})
 						})
 					}
@@ -782,7 +782,7 @@
 					})
 
 					movePrepareModal.result.then(function(data) {
-						console.log(data);
+						// console.log(data);
 						//移动 复制
 						if (flag == 1) {
 							//移动 
@@ -837,7 +837,7 @@
 								prepareId: list.id,
 								tfcode: data.tfcode,
 							}, function(d) {
-								console.log("movePrepare", d);
+								// console.log("movePrepare", d);
 								if (d.code == "OK") {
 									ModalMsg.logger("复制备课夹成功！")
 									//反向查找备课夹对应教材节点

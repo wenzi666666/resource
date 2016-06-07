@@ -58,21 +58,18 @@
 						$scope.slides = data.data;
 						$scope.getResPlayUrl(0,$scope.slides[0].resId,$scope.slides[0].fromFlag)
 						slideToolsInit();
-						console.log(data.data)
 					})
 				}
 				getPrepareDetails($stateParams.prepareId);
 				
 				// 获取 播放链接
 				$scope.getResPlayUrl = function(index,id, flag) {
-					console.log(index,id)
 					Preview.resViewUrl({
 						resIds: id,
 						fromFlags:flag
 					}, function(data){
 						$scope.slides[index].src = data.data[0].path;
 						$scope.selectRes(index);
-						console.log(data.data);
 						currentSlideIndex = index;
 					})
 				}
@@ -142,7 +139,6 @@
 				}
 				// 向后
 				$scope.slideNextCustom = function() {
-					console.log("next:",slideIndex, slidePerpage,$scope.slides.length)
 					if(slideIndex + slidePerpage < $scope.slides.length) {
 						slideIndex += slidePerpage;
 						$scope.slidesCustom = $scope.slides.slice(slideIndex, slideIndex+slidePerpage);

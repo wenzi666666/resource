@@ -195,7 +195,7 @@
 						termId: $localStorage.currentGrade.id,
 						subjectId: $localStorage.currentSubject.id
 					}, function(data) {
-						console.log("版本：", data.data)
+						// console.log("版本：", data.data)
 						if(data.data.length > 0){
 							$scope.VM.version = data.data;
 							// 当前用户版本： 当前选择>用户选择		
@@ -224,7 +224,7 @@
 					return Res.getBooks({
 						pnodeId: $scope.VM.currentVersion?$scope.VM.currentVersion.id:''
 					}, function(data) {
-						console.log("books：", data.data);
+						// console.log("books：", data.data);
 						if(data.data.length > 0){
 							$scope.VM.material = data.data;
 							if($localStorage.currentMaterial) {

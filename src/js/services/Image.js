@@ -309,7 +309,7 @@
                 
                 // 过滤特殊表情符号
                 'replaceSpecialSymbol': function replaceSpecialSymbol(content){
-                	  console.log(content.toString())
+                	  // console.log(content.toString())
 //              	 content = content.replace(/&#\w+;/g,'');
 //              	 content = $compile(content);
                 	 return content;

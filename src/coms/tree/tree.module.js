@@ -41,7 +41,7 @@
 						var getLastTreeSelect = function(){
 							if(!!$localStorage.selectChange) {
 								var nodes = currentTreeNode.i.split('.');
-								console.log(nodes.length)
+								// console.log(nodes.length)
 								if(nodes.length == 1) {
 									$scope.selected = $scope.treedata[nodes[0]-1];
 	//								$scope.expandedNodes = $scope.expandedNodes.concat([$scope.treedata[nodes[0]-1],$scope.treedata[nodes[0]-1].children[0],$scope.treedata[nodes[0]-1].children[1],$scope.treedata[nodes[0]-1].children[2],$scope.treedata[nodes[0]-1].children[3]]);

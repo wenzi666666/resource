@@ -93,7 +93,6 @@
 					Prepare.GetSelfPrepare({
 						tfcode: id
 					}, function(data){
-						console.log("prepareTree:",data.data);
 						$scope.prepareDataList = data.data;
 						currentPrepareId = !!$scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
 					})
@@ -102,7 +101,7 @@
 				//获取 最近三个备课夹
 				var getLatesPrepare = function(showModal) {
 					Prepare.latestPrepare({}, function(data) {
-						console.log("prepare:",data.data);
+						// console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
 					})
 				}
@@ -116,7 +115,7 @@
 				//将资源加入备课夹
 				$scope.addToPrepare = function($event,listIndex, prepareIndex) {
 					$event.stopPropagation();
-					console.log(listIndex, prepareIndex)
+					// console.log(listIndex, prepareIndex)
 					Prepare.addResToPrepareId({
 						id: $scope.prepareList[prepareIndex].id,
 						resIds: $scope.resList.list[listIndex].id,
@@ -149,7 +148,6 @@
 							title: $localStorage.currentTreeNode.label
 						}, function(d) {
 							// 加入备课夹
-							console.log("aaaaaaaaaaaaaaaa:", $localStorage.currentTreeNode,d.data.id)
 							Prepare.addResToPrepareId({
 								id: d.data.id,
 								resIds: $scope.resList.list[listIndex].id,
@@ -195,7 +193,6 @@
 				// 将选择资源加入当前备课夹，如果没有当前备课夹，创建节点同名备课夹
 				$scope.addAllToPrepare = function($event) {
 					$event.stopPropagation();
-					console.log($scope.resList.select)
 					if(!$scope.resList.select || $scope.resList.select.length == 0){
 						ModalMsg.logger("您还没有选择资源哦");
 						return;
@@ -260,7 +257,6 @@
 				// 全选 加入最近备课夹
 				$scope.addAllToLatestPrepare = function($event,prepareIndex) {
 					$event.stopPropagation();
-					console.log($scope.resList.select)
 					if(!$scope.resList.select){
 						ModalMsg.logger("您还没有选择资源哦");
 						return;
@@ -330,7 +326,6 @@
 				
 				// 监听 目录树 选择
 				$scope.$on("currentTreeNodeChange", function(e, d) {
-					console.log("received:",d)
 					// 列出资源
 					tmpCtrl = true;
 					page = 1;
@@ -348,7 +343,6 @@
 				
 				// 无资源时显示
 				$scope.$on("noTreeDataChange", function(e, d) {
-					console.log("noTreeDataChange")
 					$scope.noTreeData = true;
 				})
 				
@@ -359,7 +353,6 @@
 				$scope.maxSize = 3;
 				$scope.currentPage = 1;
 				var getResList = function(poolContent, typeContent, formatContent,tree) {
-					console.log(tree,typeContent, formatContent)
 					$scope.isLoading = true;
 					$scope.resList = [];
 					$scope.noDataCtrl = false;
@@ -417,7 +410,6 @@
 				$scope.typeAndFormat = function(poolId, typeId, tree){
 					// 设值
 					$scope.poolId = poolId;
-					console.log("typeAndFormat:", poolId, tmpCtrl)
 					format = "全部";
 					// 设置当前选择
 					$scope.poolsSelected = poolId;
@@ -439,7 +431,6 @@
 						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
-						console.log("types:",data.data);
 						SchoolRes.formats({
 							poolId: $scope.poolId,
 							pTfcode: tree ? tree.tfcode : currentTfcode,
@@ -450,7 +441,7 @@
 							$scope.formats =data.data;
 						})
 					}, function(error) {
-						console.log(error)
+						// console.log(error)
 					})
 				}
 				// 当前资源库 选择

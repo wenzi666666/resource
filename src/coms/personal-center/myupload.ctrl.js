@@ -29,7 +29,6 @@
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
-						console.log("uploadList:", data.data)
 						$scope.VM.uploadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
 						$scope.total = data.data.total;
@@ -60,7 +59,6 @@
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
-						console.log("uploadList:", data.data)
 						$scope.VM.uploadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
 					})
@@ -110,13 +108,12 @@
 
 				//编辑资源
 				$scope.editRes = function(res) {
-					console.log(res)
 					// 获取资源详细信息
 					Res.getResDetails({
 						id: res.resId
 					}, function(data){
 						var resDetails = data.data;
-						console.log(resDetails);
+						// console.log(resDetails);
 						var editResModal = $uibModal.open({
 							templateUrl: "eiditResModal.html",
 							windowClass: "upload-modal",
@@ -141,7 +138,6 @@
 				//预览自建资源
 				$scope.previewRes = function(res) {
 					//已转换为可预览格式
-					console.log(res);
 					if(res.isFinished == 0) {
 						var url = $state.href('previewres', {resId:res.resId,curTfcode:'',fromFlag:1,search:'person',type:'1',back: 'upload'});
 						openwin(url);

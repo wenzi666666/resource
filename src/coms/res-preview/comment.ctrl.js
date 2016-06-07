@@ -66,8 +66,6 @@
 					}, function(data) {
 						if (data.code == "OK") {
 							$scope.VM.load=false;
-							console.log("单个资源信息")
-							console.log(data.data)
 							$scope.VM.info = data.data;
 							_.each($scope.showStar, function(v, i) {
 								$scope.curStar[i] = false;
@@ -109,8 +107,6 @@
 
 					}, function(data) {
 						if (data.code == "OK") {
-							console.log("链接"+data);
-							console.log(data);
 							var tpl = "";
 							tpl = "<iframe width='100%' height='700px' src='" + data.data[0].path + "' style='border:0'></iframe>"
 							$('#res-slide-content').html(tpl);
@@ -140,8 +136,6 @@
 								$scope.contentShow[i]=true;
 								
 							});
-							console.log("我的评论")
-							console.log(data)
 						} else {
 							alert(data.message);
 						}
@@ -154,8 +148,6 @@
 					}, function(data) {
 						if (data.code == "OK") {
 							$scope.otherCommentList = data.data;
-							console.log("别人的评论")
-							console.log(data)
 						} else {
 							alert(data.message);
 						}
@@ -225,8 +217,6 @@
 					}
 				//发布评分
 				function publishScore(index) {
-					console.log("发布评分")
-					console.log(index,$scope.VM.resourceId,$scope.VM.fromFlag)
 					Preview.editComment({
 						resId: $scope.VM.resourceId,
 						displayContent: " ",
@@ -257,7 +247,6 @@
 							commentId: id,
 							_method: "DELETE"
 						}, function(data) {
-							console.log(data)
 							if (data.code == "OK") {
 								$scope.myCommentList.splice(index,1);
 							} else {

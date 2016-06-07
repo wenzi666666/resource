@@ -23,7 +23,6 @@
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
-						console.log("preparelist", data.data);
 						$scope.prepareList = data.data.list;
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
@@ -69,7 +68,6 @@
 						perPage: $scope.VM.perPage
 					}, function(data) {
 						$scope.prepareList = data.data.list;
-						//console.log(data);
 						lastActive = 0;
 						if($scope.prepareList && $scope.prepareList.length > 0) {
 							_.each($scope.prepareList, function(v, i) {

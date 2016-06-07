@@ -93,30 +93,25 @@
 				$scope.VM.name=$localStorage.currentTreeNode.label;
 				$scope.VM.search="html";
 				$scope.searchKeyWord=$localStorage.searchKeyWord;
-				console.log("关键字"+$scope.searchKeyWord);
+				// console.log("关键字"+$scope.searchKeyWord);
 				$scope.VM.load=true;//加载
 				
 				if($stateParams.search=="search")
 				{//如果是搜索页则使用该fromFlag
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					$scope.VM.search="search";
-					console.log("搜索页跳转");
-					console.log($scope.VM.fromFlag);
+					// console.log("搜索页跳转");
+					// console.log($scope.VM.fromFlag);
 				}else if($stateParams.search=="person")
 				{
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					$scope.VM.personType=$stateParams.type;
 					$scope.VM.search="person";
-					console.log("个人中心页面/定制页");
-					console.log($scope.VM.fromFlag,$scope.VM.personType);
 				}else if($stateParams.search=="prepare")
 				{
 					$scope.VM.fromFlag=$stateParams.fromFlag;
 					$scope.VM.search="prepare";
-					console.log("备课夹页面跳转");
 				}
-				
-				console.log($stateParams);
 
 				//资源格式下拉显示问题
 				$scope.VM.preShow=false;
@@ -145,7 +140,6 @@
 					$scope.currentNav = [{"name":"”"+$localStorage.searchKeyWord+"“ 搜索结果"}];
 					$scope.links[0]=true;
 					$scope.VM.preShow=true;
-					console.log("搜索页tfcode,name"+	$scope.VM.tfCode+$scope.VM.name)
 				}
 				else if($scope.VM.search=="person" && $scope.VM.personType=="0")
 				{//个人中心页面 非上传 没有推荐资源  资源定制页情况一样
@@ -158,7 +152,6 @@
 					$scope.VM.slide=true;
 					$scope.VM.preShow=true;
 					//获取单个资源信息
-					console.log("个人中心  单个资源信息"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
 						$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 					},300);
@@ -187,14 +180,12 @@
 					$scope.VM.prepareShow=true;
 					$scope.currentNav = [{"name":"备课夹"}];
 					$scope.links[0]=true;
-					console.log("备课夹"+$scope.VM.resourceId+","+$scope.VM.fromFlag);
 					setTimeout(function(){					
 						$scope.VM.listInfoCom($scope.VM.resourceId,$scope.VM.fromFlag);
 					},300);
 				}
 				else
 				{//系统/区本/校本 资源nav数据
-					console.log("系统/区本/校本"+$scope.VM.tfCode,$scope.VM.resourceId,$scope.VM.fromFlag)
 					Preview.lists({
 						resId: $scope.VM.resourceId,
 						curTfcode: $scope.VM.tfCode,
@@ -206,7 +197,6 @@
 						$scope.VM.name=$scope.navList[0][$scope.navList[0].length-1].name;
 						$scope.links[2]=true;
 						getTypes();//获取资源类型
-						console.log("获取的最新tfcode"+$scope.VM.tfCode)
 					});	
 					
 				}
@@ -297,8 +287,6 @@
 							poolId:0,
 							pTfcode:$scope.VM.tfCode,
 						},function(data){
-							console.log("类型")
-							console.log(data);
 							if(data.code=="OK")
 							{
 								$scope.sourceType=data.data;
@@ -320,8 +308,6 @@
 							fromFlag: $localStorage.fromFlag,
 							tfcode:$scope.VM.tfCode
 						},function(data){
-							console.log("类型")
-							console.log(data);
 							if(data.code=="OK")
 							{
 								$scope.sourceType=data.data;
@@ -354,7 +340,6 @@
 				 		ModalMsg.logger("没有更多啦")
 				 		return false;
 				 	}
-				 	console.log($scope.sourceTypeId);
 				 	getAllSource($scope.sourceTypeId);
 				 }
 				 
@@ -376,11 +361,8 @@
 							orderBy:$localStorage.orderBy
 						}, function(data) {
 							$scope.VM.load=false;
-							console.log($scope.VM.resourceId,$scope.VM.tfCode,current,typeId)
-							console.log(data)
 							if(data.code=="OK")
-							{	console.log("系统跳转")
-								console.log(data.data)
+							{
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								
@@ -396,7 +378,7 @@
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
 										$scope.VM.resName=$scope.VM.allSourceList[i].title;
-										console.log($scope.VM.fromFlag)
+					
 										break;
 										
 									}else{
@@ -432,8 +414,6 @@
 							$scope.VM.load=false;
 							if(data.code=="OK")
 							{	
-								console.log("校本/区本跳转");
-								console.log(data.data)
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								
@@ -471,7 +451,6 @@
 					}else if($scope.VM.search=="search")
 					{
 						//搜索页面资源 跳转
-						console.log(current+"搜索页")
 						Preview.source({
 							resId: $scope.VM.resourceId,
 							searchKeyword: $scope.searchKeyWord,
@@ -481,10 +460,9 @@
 							perPage: 20
 						}, function(data) {
 							$scope.VM.load=false;
-							console.log(data)
+					
 							if(data.code=="OK")
-							{	console.log("搜索页面跳转");
-								console.log(data.data)
+							{
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								_.each(data.data.list, function(v, i) {
@@ -499,7 +477,6 @@
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
 										$scope.VM.resName=$scope.VM.allSourceList[i].title;
-										console.log($scope.VM.fromFlag)
 										break;
 										
 									}else{
@@ -524,7 +501,6 @@
 					}else if($scope.VM.search=="person" && $scope.VM.personType=="1")
 					{
 						//个人中心页面上传推荐资源 
-						console.log(current+"个人中心")
 						Preview.source({
 							resId:$scope.VM.resourceId,
 							fromFlag:$scope.VM.fromFlag,
@@ -532,10 +508,8 @@
 							perPage: 20
 						}, function(data) {
 							$scope.VM.load=false;
-							console.log(data)
 							if(data.code=="OK")
-							{	console.log("个人中心上传跳转");
-								console.log(data.data)
+							{	
 								pageSize=data.data.total;
 								$scope.localIndex=0;
 								_.each(data.data.list, function(v, i) {
@@ -550,7 +524,6 @@
 										$scope.curImg[i]=true;
 										$scope.VM.fromFlag=$scope.VM.allSourceList[i].fromFlag;
 										$scope.VM.resName=$scope.VM.allSourceList[i].title;
-										console.log($scope.VM.fromFlag)
 										break;
 										
 									}else{
@@ -578,7 +551,6 @@
 				 
 				 //点击资源切换
 				$scope.slideChange = function(id,index,fromFlag){
-					console.log(id, fromFlag)
 					_.each($scope.showStar, function(v, i) {
 						$scope.curStar[i]=false;
 					});
@@ -664,7 +636,6 @@
 				
 				//下载资源
 				$scope.resDownload = function(id){
-					console.log(id,$scope.VM.fromFlag)
 					Res.resDownload({
 						resIds:id,
 						fromFlags: $scope.VM.fromFlag
@@ -687,7 +658,6 @@
 						
 						$scope.prepareDataList = data.data;
 						currentPrepareId = $scope.prepareDataList[0]?$scope.prepareDataList[0].id:'';
-						console.log("prepare:",$scope.prepareDataList,currentPrepareId);
 						
 					});
 				}
@@ -695,7 +665,6 @@
 				//获取 最近三个备课夹
 				var getLatesPrepare = function(showModal) {
 					Prepare.latestPrepare({}, function(data) {
-						console.log("prepare:",data.data);
 						$scope.prepareList = data.data;
 						if(showModal){
 							ModalMsg.chromeLogger("成功加入备课夹：" + $scope.prepareList[0].title);
@@ -772,7 +741,6 @@
 
 					//到备课夹
 					selectPrepareModal.result.then(function(data) {
-						console.log("flag:", $scope.VM.fromFlag)
 						Prepare.addResToPrepareId({
 							id: data.prepareId,
 							resIds: $scope.VM.resourceId,

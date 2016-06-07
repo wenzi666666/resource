@@ -29,7 +29,7 @@
 				Tree.getTree({
 					pnodeId: $localStorage.currentMaterial.id,
 				}, function(data) {
-					console.log("tree data:", data.data);
+					// console.log("tree data:", data.data);
 					$scope.treedataSelect = data.data;
 					// 目录树全展开
 					window.addToAllNodes($scope.treedataSelect);
@@ -37,7 +37,7 @@
 					
 					$scope.selected = $scope.treedataSelect[0];
 					$localStorage.tmpCurrentNode = $scope.selected;
-					console.log("tree data:", data.data);
+					// console.log("tree data:", data.data);
 					// 目录树节点选择
 					$scope.currentNode = $scope.treedataSelect[0];
 					getPrepare();
@@ -49,7 +49,7 @@
 				
 				//获取当前节点下的所有备课夹
 				var getPrepare = function(){
-					console.log($scope.currentNode.tfcode)
+					// console.log($scope.currentNode.tfcode)
 					Prepare.baseGetApi({
 						tfcode: $scope.currentNode.tfcode
 					}, function(data) {
@@ -63,9 +63,9 @@
 				
 				setTimeout(function(){
 					$scope.$watch('VM.newPrepare', function(newVal, oldVal) {
-						console.log(newVal,oldVal)
+						// console.log(newVal,oldVal)
 					    if (newVal !== oldVal && newVal != "新建备课夹") {
-					    	console.log(newVal,oldVal)
+					    	// console.log(newVal,oldVal)
 							Prepare.basePostApi({
 								tfcode: $scope.currentNode.tfcode,
 								title: $scope.VM.newPrepare

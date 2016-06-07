@@ -110,7 +110,6 @@
 					clearPage();
 					$scope.VM.typeNums=[];
 					$scope.sourceList=""; 
-					console.log($scope.VM.currentFromFlag,$scope.searchKeyWord);
 					if($scope.searchKeyWord=="")
 				 	{
 				 		 ModalMsg.logger("请输入搜索关键字");
@@ -122,12 +121,8 @@
 						fromFlag:$scope.VM.currentFromFlag,
 						searchKeyword:$scope.searchKeyWord
 					},function(data){
-						console.log("格式");
-						console.log($scope.VM.currentFromFlag,$scope.searchKeyWord)
-					
 						if(data.code=="OK")
 						{
-							console.log(data);
 							$scope.VM.typeNums=data.data;
 							$scope.VM.currentTypeNum = [];
 							$scope.VM.currentTypeNum[0] = true;
@@ -190,11 +185,9 @@
 									}
 								});
 								$scope.sourceList = data.data.list;
-								console.log(data);
 								$scope.listLength = data.data.totalLines;
 								$scope.bigTotalItems = $scope.listLength;
 								$scope.pageSize=data.data.total;
-								console.log("范围："+$scope.VM.currentFromFlag+"==关键字"+$scope.searchKeyWord+"===类型"+$scope.VM.currentFormat+"==当前页"+$scope.bigCurrentPage+"==每页显示"+$scope.perPage+"页数"+$scope.pageSize)
 							}else
 							{
 								$scope.showNoInfo=true;
@@ -263,8 +256,6 @@
 						{
 							$scope.resList.loadIndex.push(i);
 						}
-						console.log($scope.resList.select);
-						console.log($scope.resList.fromFlag);
 					}else{
 						$scope.resList.select = [];
 						$scope.resList.fromFlag=[];
@@ -274,9 +265,6 @@
 				
 				//下载资源 
 				$scope.resDownload = function(id,flag,index){
-					console.log(id);
-					console.log(flag);
-					console.log(index)
 					if((typeof index)=="number")
 					{
 						$scope.sourceList[index].dloadTimes=parseInt($scope.sourceList[index].dloadTimes)+1;
@@ -292,7 +280,7 @@
 						resIds:id,
 						fromFlags:flag
 					}, function(data){
-						console.log(data.data)
+						// console.log(data.data)
 
 						for(var i=0;i<data.data.length;i++)
 						{
@@ -330,9 +318,6 @@
 				
 				//多个下载,在搜索页面，fromFlag不一样  
 				$scope.addItemSelect = function(flag,index) {
-					
-						console.log($scope.resList.fromFlag.length);
-						console.log($scope.resList.select.length);
 						if(($scope.resList.fromFlag.length-1)==$scope.resList.select.length)
 						{
 							$scope.resList.fromFlag.pop(flag);

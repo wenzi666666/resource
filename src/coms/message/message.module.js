@@ -80,10 +80,10 @@
 				$scope.pageChanged = function(pagenum) {
 					console.log(pagenum);
 					if(pagenum == undefined) {
-						console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
+						// console.log('Page changed to: ' + $scope.VM.currentPageCtrl);
 					}
 					else {
-						console.log('Page changed to: ' + page);
+						// console.log('Page changed to: ' + page);
 						$scope.bigCurrentPage = pagenum;
 					   
 					} 

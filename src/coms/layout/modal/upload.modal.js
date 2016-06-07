@@ -43,7 +43,7 @@
 				$scope.uploadFiles = function(files, errFiles) {
 
 					if (errFiles.length > 0) {
-						console.log(errFiles)
+						// console.log(errFiles)
 						ModalMsg.logger("文件最大支持150M 或 文件格式不正确！");
 						return;
 					}
@@ -114,10 +114,10 @@
 							file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
 							$scope.progress = file.progress;
 							// 上传完成
-							console.log($scope.progress)
+							// console.log($scope.progress)
 							if ($scope.progress > 96) {
 								$timeout(function() {
-									console.log($scope.progress)
+									// console.log($scope.progress)
 									$scope.uploadFinish = false;
 								}, 1000)
 							}
@@ -155,7 +155,7 @@
 					}
 
 					$scope.files = files;
-					console.log("file:", $scope.files[0])
+					// console.log("file:", $scope.files[0])
 						// 打开资源信息编辑
 					var openModal = function() {
 							// 网络资源
@@ -185,7 +185,7 @@
 								})
 								//上传返回处理
 							modalNewUploadInfo.result.then(function(data) {
-								console.log("receive", data)
+								// console.log("receive", data)
 								$uibModalInstance.close(data);
 							});
 						}
@@ -235,7 +235,7 @@
 				var getLastTreeSelect = function(treedata) {
 					
 					var nodes = $localStorage.currentTreeNode.i.split('.');
-					console.log(nodes.length)
+					// console.log(nodes.length)
 					if (nodes.length == 1) {
 						$scope.selected = treedata[nodes[0] - 1];
 					} else if (nodes.length == 2) {
@@ -389,7 +389,7 @@
 					}, function(data) {
 						if (data.code == "OK") {
 							// $uibModalInstance.dismiss('cancel');
-							console.log(data.data);
+							// console.log(data.data);
 							$uibModalInstance.close(data.data);
 							// ModalMsg.logger("上传成功啦");
 							// 上传资源 列表
@@ -735,7 +735,7 @@
 			var typeIndex = function() {
 				var index = 0;
 				_.each($scope.unifyType, function(v, i) {
-					console.log(v.mtype, $scope.res.unifyType);
+					// console.log(v.mtype, $scope.res.unifyType);
 
 					if (v.mtype == $scope.res.unifyType) {
 						index = i;
@@ -834,7 +834,7 @@
 				}, function(data) {
 					if (data.code == "OK") {
 						// $uibModalInstance.dismiss('cancel');
-						console.log(data.data);
+						// console.log(data.data);
 						$uibModalInstance.close(data.data);
 					} else {
 						ModalMsg.logger("内容填写不正确，请修改");
@@ -858,13 +858,13 @@
 			// 获取 版本 id
 			var getVersionIndex = function(tfcode) {
 					var id = parseInt(tfcode.substr(6, 2));
-					console.log("versionId", id);
+					// console.log("versionId", id);
 					return id;
 				}
 				// 获取教材 id
 			var getMaterialtIndex = function(tfcode) {
 				var id = parseInt(tfcode.substr(8, 2));
-				console.log("materialId", id);
+				// console.log("materialId", id);
 				return id;
 			}
 
@@ -939,7 +939,7 @@
 						$scope.VM.material = data.data;
 						// 选中当前
 						_.each($scope.VM.material, function(v, i) {
-								console.log(v.tfcode, $scope.resDetails.tfcode, $scope.resDetails.tfcode.indexOf(v.tfcode))
+								// console.log(v.tfcode, $scope.resDetails.tfcode, $scope.resDetails.tfcode.indexOf(v.tfcode))
 								if ($scope.resDetails.tfcode.indexOf(v.tfcode) > -1) {
 									$scope.VM.currentMaterialSeclet[i] = true;
 									$scope.VM.currentMaterial = v;

@@ -20,7 +20,6 @@
 					tabCode: "myView"
 				}, function(data) {
 					$scope.resTypes = data.data;
-					console.log($scope.resTypes);	
 					$scope.VM.resType = $scope.resTypes[0].mtype; 			
 				})
 				
@@ -35,7 +34,6 @@
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
-						console.log("recentList:", data.data)
 						$scope.VM.recentFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
 						$scope.total = data.data.total;

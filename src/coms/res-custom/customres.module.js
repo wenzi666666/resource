@@ -67,18 +67,13 @@
 					
 				},function(data){
 					$scope.VM.load=false;
-					console.log("定制资源列表")
+					// console.log("定制资源列表")
 					if(data.code=="OK")
 					{
-						console.log(data.data);
+						// console.log(data.data);
 						$scope.VM.resource = data.data;
 					}
 				});
-				
-				
-
-				console.log($scope.VM.resource);
-				
 				
 				//分页
 //				$scope.VM.perPage = 4;

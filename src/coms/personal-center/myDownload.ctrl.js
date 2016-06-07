@@ -34,7 +34,6 @@
 						page: $scope.VM.currentPage,
 						perPage: $scope.VM.perPage
 					}, function(data) {
-						console.log("downloadList:", data.data)
 						$scope.VM.downloadFileList = data.data;
 						$scope.totalItems = data.data.totalLines;
 						$scope.total = data.data.total;

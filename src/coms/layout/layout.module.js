@@ -96,7 +96,7 @@
 					Layout.getUserInfo({
 						id:window.getSeachByName('userId')
 					}, function(data){
-						console.log(data);
+						// console.log(data);
 						$localStorage.authUser = data.data;
 						$scope.userTrueName = $localStorage.authUser.trueName;
 					})
@@ -156,7 +156,7 @@
 				
 				// 返回顶部
 				$scope.goToTop = function() {
-					console.log("top")
+					// console.log("top")
 					$("html, body").animate({scrollTop:0},"slow");
 				}
 				// header隐藏

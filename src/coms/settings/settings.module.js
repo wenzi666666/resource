@@ -94,7 +94,6 @@
 								User.getAllSubjects({
 									termId: $scope.selectedTerm.id
 								}, function(data) {
-									console.log(data.data);
 									$scope.subjects = data.data;
 									if($scope.subjects && $scope.subjects.length > 0) {
 										if(info.subjectNames) {
@@ -139,7 +138,6 @@
 					User.getAllSubjects({
 						termId: $scope.selectedTerm.id
 					}, function(data) {
-						console.log(data.data);
 						$scope.subjects = data.data;
 						if($scope.subjects && $scope.subjects.length > 0) {
 							$scope.subjects[0].active = true;
@@ -198,13 +196,11 @@
 
 
 	    			$scope.VM.avatarModal.result.then(function(newpath){
-	    				console.log(newpath);
 		  				if(newpath.length > 0) {
 				  			User.setUserAvatar({
 				  				userid: $localStorage.authUser.userId,
 				  				userImage: newpath
 				  			}, function(data) {
-				  				console.log(data);
 				  				if(data.code == "OK") {
 				  					$scope.currentAvatar = newpath;
 				  					$localStorage.authUser.userImage = newpath;
@@ -251,7 +247,6 @@
 					var reg = /[0-9a-zA-Z$#@^&]+$/ig;
 					
 					if(reg.test($scope.newPsw) === false){
-						console.log(reg.test($scope.newPsw))
 						ModalMsg.logger('新密码中包含不合法字符，如空格等，请重新输入');
 						$scope.newPsw = "";
 						$scope.confirmNewPsw = "";
@@ -377,7 +372,6 @@
 				// 上传文件
 				$scope.VM.uploadFiles = function(index, files, errFiles) {
 					if (errFiles && errFiles.length > 0) {
-						console.log(errFiles)
 						ModalMsg.logger("图片最大支持3M 或 文件格式不正确！");
 						return;
 					}
@@ -422,7 +416,6 @@
 			                	userid: $localStorage.authUser.userId,
 			                	userImage: $scope.uploadData.uploadPath + response.data
 			                }, function(data) {
-			                	console.log(data.data)
 			                	$scope.userNewAvatar = data.data;
 			                	$scope.panelOneShow = false;
 								$scope.panelTwoShow = false;

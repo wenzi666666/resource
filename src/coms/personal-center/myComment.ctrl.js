@@ -62,7 +62,7 @@
 				//切换等级
 				$scope.selectGrade = function(type) {
 					$scope.isLoading=true;
-					console.log( type)
+					// console.log( type)
 					$scope.VM.curChecked = type;
 					$scope.VM.bigCurrentPage = 1;
 					
@@ -79,15 +79,15 @@
 				$scope.VM.bigCurrentPage = 1;
 
 				var getComList = function () {
-					console.log( $scope.VM.curChecked)
+					// console.log( $scope.VM.curChecked)
 					Personal.getComment({
 						reviewType: $scope.VM.curChecked,
 						page: $scope.VM.bigCurrentPage,
 						perPage: 10
 					}, function(data) {
 						$scope.isLoading=false;
-						console.log("我的评论")
-						console.log(data.data)
+						// console.log("我的评论")
+						// console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;
 						$scope.VM.commentList = data.data.list;
 						$scope.total = data.data.total;
@@ -104,8 +104,6 @@
 						perPage: 10
 					}, function(data) {
 						$scope.isLoading=false;
-						console.log("未评价的")
-						console.log(data.data)
 						$scope.bigTotalItems = data.data.totalLines;
 						$scope.VM.commentList = data.data.list;
 						$scope.total = data.data.total;
@@ -146,7 +144,6 @@
 				//删除评论
 				$scope.deleteCom = function($event,list, index) {
 					$event.stopPropagation();
-					console.log(list)
 					var deleteModal = ModalMsg.confirm("确定删除评论：" +list.content);
 
 					deleteModal.result.then(function(data) {
