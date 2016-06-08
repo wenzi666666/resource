@@ -115,7 +115,17 @@
 					    params:{ 
 					        id:'@id'
 					    }
-					}
+					},
+					//查询用户历史选择
+					getHistory: {
+						method: "GET",
+						url: TomcatUrl + "/resRestAPI/v1.0/history"
+					},
+					// 修改 用户历史选择
+					postHistory: {
+						method: "POST",
+						url: TomcatUrl + "/resRestAPI/v1.0/history"
+					},
 				})
 			}
 		])
@@ -141,48 +151,74 @@
 				
 				// 是否有数据 控制
 				$scope.VM.noTreeData = false;
-				//第一次进入 链式调用 
-				//读取 学段 学科 版本 和教材
-				Res.getTerms({}, function(data) {
-					if (data.code == "OK") {
-//						console.log("学段：", data)
-						$scope.VM.grade = data.data;
-						// 根据用户当前选择>当前信息选择
-						if($localStorage.currentGrade) {
-							$scope.VM.currentGrade = $localStorage.currentGrade.name;
-							$scope.VM.currentGradeId = $localStorage.currentGrade.id;
-							
-						}else {
-							$scope.VM.currentGrade = $scope.user.termName;
-							$scope.VM.currentGradeId = _.indexOf(['小学', '初中', '高中'], $scope.user.termName) + 1;
+				//链式调用 
+				
+				// 查询历史记录
+				// 有本地缓存时 读取本地缓存，无本地缓存时读取历史记录，无历史记录时读取用户设置
+				var history = {};
+				Res.getHistory({}, function(data){
+					history = data.data;
+				}).$promise.then(function(data) {
+					//读取 学段 学科 版本 和教材
+					return Res.getTerms({}, function(data) {
+						if (data.code == "OK") {
+	//						console.log("学段：", data)
+							$scope.VM.grade = data.data;
+							// 根据用户当前选择>当前信息选择
+							if($localStorage.currentGrade) {
+								$scope.VM.currentGrade = $localStorage.currentGrade.name;
+								$scope.VM.currentGradeId = $localStorage.currentGrade.id;
+							}else if(!!history){
+								// 查询 name
+								_.each(data.data, function(v,i) {
+									if(v.id ==  history.termId) {
+										$scope.VM.currentGrade = v.name;
+									}
+								})
+								$scope.VM.currentGradeId = history.termId;
+							}else {
+								$scope.VM.currentGrade = $scope.user.termName;
+								$scope.VM.currentGradeId = _.indexOf(['小学', '初中', '高中'], $scope.user.termName) + 1;
+							}
 							//缓存用户当前 学段
 							$localStorage.currentGrade = {
-								name: $scope.user.termName,
+								name: $scope.VM.currentGrade,
 								id: $scope.VM.currentGradeId
 							}
+							// 选中当前
+							$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $localStorage.currentGrade.name)] = true;
 						}
-						// 选中当前
-						$scope.VM.currentGradeSeclet[_.indexOf(['小学', '初中', '高中'], $localStorage.currentGrade.name)] = true;
-					}
-				}).$promise.then(function(data) {
+					}).$promise;
+				}).then(function(data) {
 					return Res.getSubjects({
 						termId: $localStorage.currentGrade.id
 					}, function(data) {
 						$scope.VM.subject = data.data;
-						// 当前用户学科： 当前选择>用户选择		
+						// 当前用户学科： 当前选择>用户选择
+						var currentSubjectName = '';
 						if($localStorage.currentSubject) {
 							$scope.VM.currentSubject = $localStorage.currentSubject;
 							$scope.VM.currentSubjectId = $localStorage.currentSubject.id;
+							currentSubjectName = $localStorage.currentSubject.name;
+						}else if(!!history){
+								// 查询 name
+								_.each(data.data, function(v,i) {
+									if(v.id ==  history.subjectId) {
+										currentSubjectName = v.name;
+									}
+								})
+								$scope.VM.currentSubjectId = history.subjectId;
 						}else {
-							$scope.VM.currentSubject = $scope.user.subjectNames.split(',')[0];
+							currentSubjectName = $scope.user.subjectNames.split(',')[0];
 							
-							var currentSubjectId = $scope.user.subjectIds.split(',')[0];
-							//缓存用户当前 学科
-							$localStorage.currentSubject = {
-								name: $scope.VM.currentSubject,
-								id: currentSubjectId
-							}
+							$scope.VM.currentSubjectId = $scope.user.subjectIds.split(',')[0];
 						}
+						//缓存用户当前 学科
+						$localStorage.currentSubject = {
+							name: currentSubjectName,
+							id: $scope.VM.currentSubjectId
+						}
+						$scope.VM.currentSubject = $localStorage.currentSubject;
 						// 选中当前
 						_.each($scope.VM.subject, function(v, i) {
 							if( v.id == $localStorage.currentSubject.id)
@@ -201,11 +237,24 @@
 							// 当前用户版本： 当前选择>用户选择		
 							if($localStorage.currentVersion) {
 								$scope.VM.currentVersion = $localStorage.currentVersion;
+							}else if(!!history){
+								// 查询 name
+								var eidtionName = '';
+								_.each(data.data, function(v,i) {
+									if(v.id ==  history.editionId) {
+										eidtionName = v.name;
+									}
+								})
+								$scope.VM.currentVersion = {
+									name: eidtionName,
+									id: history.editionId
+								}
 							}else {
 								$scope.VM.currentVersion = $scope.VM.version[0];	
-								//缓存用户当前 版本
-								$localStorage.currentVersion =  $scope.VM.version[0];
+								
 							}
+							//缓存用户当前 版本
+							$localStorage.currentVersion =  $scope.VM.currentVersion;
 							// 选中当前
 							_.each($scope.VM.version, function(v, i) {
 								if( v.id == $localStorage.currentVersion.id)
@@ -229,18 +278,31 @@
 							$scope.VM.material = data.data;
 							if($localStorage.currentMaterial) {
 								$scope.VM.currentMaterial = $localStorage.currentMaterial;
+							}else if(!!history){
+								// 查询 name
+								var bookName = '';
+								_.each(data.data, function(v,i) {
+									if(v.id ==  history.bookId) {
+										bookName = v.name;
+									}
+								})
+								$scope.VM.currentMaterial = {
+									name: bookName,
+									id: history.bookId
+								}
 							}else {
 								$scope.VM.currentMaterial = $scope.VM.material[0];	
-								//缓存用户当前 教材
-								$localStorage.currentMaterial =  $scope.VM.material[0];
 							}
+							//缓存用户当前 教材
+							$localStorage.currentMaterial =  $scope.VM.currentMaterial;
 							// 选中当前
 							_.each($scope.VM.material, function(v, i) {
 								if( v.id == $localStorage.currentMaterial.id)
 									$scope.VM.currentMaterialSeclet[i] = true;
 							})
 							// 触发 目录树更新
-							$scope.$emit("currentTreeId", $localStorage.currentMaterial.id)
+							$scope.$emit("currentTreeId", $localStorage.currentMaterial.id);
+							// 更改历史选择
 						}
 						
 					}).$promise;
@@ -324,7 +386,7 @@
 							})
 							$scope.VM.currentMaterial = $scope.VM.material[0];
 							$scope.VM.currentMaterialSeclet[0] = true;
-							$scope.$emit("currentTreeId", $scope.VM.material[0].id)
+							$scope.$emit("currentTreeId", $scope.VM.material[0].id);
 						}).$promise;
 					})
 				}
