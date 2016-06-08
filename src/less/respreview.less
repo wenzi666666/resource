@@ -1,47 +1,44 @@
-/*评论样式*/
-#preview-container .editReplace
-{
+﻿.bottom-fixed{
+    position: fixed;
+    height: 80px;
+    background: rgba(10,10,10,0.7);
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+}
+#preview-container .editReplace{
     padding-right: 5px;
     margin-top: 8px;
 }
-#preview-container .editReplace textarea
-{
+#preview-container .editReplace textarea{
     width: 100%;
     height: 50px;
 }
-#preview-container .edit-btn-select
-{
+#preview-container .edit-btn-select{
     text-align: right;
 }
-#preview-container .editReplace .btn-primary
-{
+#preview-container .editReplace .btn-primary{
     background: @color5;
 }
 
-#preview-container .slide-list-item:hover .text-ellipsis
-{
+#preview-container .slide-list-item:hover .text-ellipsis{
   white-space: normal;  
 }
 
-
-#preview-container .slide-container .slide-arrow
-{
+#preview-container .slide-container .slide-arrow{
     z-index: 10;
 }
 
 #preview-container{
     margin-top: -30px;
 }
-#preview-container .header-nav-tips
-{
+#preview-container .header-nav-tips{
     color: #fff;
 }
-#preview-container .header-nav-tips .icon-angle-right
-{
+#preview-container .header-nav-tips .icon-angle-right{
     margin:0px 5px;
 }
-#preview-container .header-nav-tips .nav_left
-{
+#preview-container .header-nav-tips .nav_left{
     float: left;
     width: 100%;
     overflow: hidden;
@@ -49,57 +46,15 @@
     white-space: nowrap;
     height: 24px;
 }
-#preview-container .links
-{
+#preview-container .links{
     text-decoration: underline;
     cursor: pointer;
     font-weight: bold;
 }
-//#preview-container .mulu
-//{
-//  cursor: pointer;
-//  position: relative;
-//}
 
-//#preview-container .mulu .popBox
-//{
-// 
-//  width: 300px;
-//  border: 2px solid @color5;
-//  background: @color6;
-//  position: absolute;
-//  z-index: 20;
-//  left: -200px;
-//  top:20px;
-//  color: @color12;
-//  padding: 10px;
-//  box-shadow: 0px 0px 5px @color5;
-//  display: none;
-//  max-height: 630px;
-//  overflow-y: auto;
-//}
-//#preview-container .mulu:hover{
-//  text-decoration: underline;
-//}
-//#preview-container .mulu:hover .popBox
-//{
-//  display: block;
-//}
-//#preview-container .popBox ul{
-//  padding-left: 0px;
-//}
-//#preview-container .popBox li{
-//  margin-bottom: 20px;
-//}
 #preview-container .selected{
     color: @color1;
 }
-//#preview-container .header-nav-tips .nav_right
-//{
-//  float: right;
-//  width: 30%;
-//  margin-left: 5%;
-//}
 .preview-content{
     background: #fff;
     padding: 15px;
@@ -109,7 +64,6 @@
     border: 1px dashed #666;
     padding: 10px;
     font-size: 16px;
-    
 }
 .res-intro .intro-banner{
     font-weight: bold;
@@ -123,14 +77,9 @@
 .res-conmment{
     margin: 25px 0;
 }
-.create-comment{
-    
-}
 .comment-info span{
     margin-right: 15px;
 }
- 
-
 .create-comment textarea{
     width: 99%;
     height: 100px;
@@ -162,37 +111,30 @@
     margin-top: 10px;
     word-break: break-all;
 }
-#preview-container .editBox
-{
+#preview-container .editBox{
     text-align: right;
     padding-right: 5px;
 }
 
-#preview-container .publish
-{
+#preview-container .publish{
     float: right;
     margin-right: 10px;
     width: 120px;
     background: @color5;
 }
-#preview-container .shen
-{
+#preview-container .shen{
     color: #E23C6C;
 }
 #preview-container .line{
     border: 5px solid @color1;
 }
-#preview-container .more
-{
+#preview-container .more{
     background: @color1;
     cursor: pointer;
-    line-height: 32px;
-    
+    line-height: 32px; 
 }
 
-/*切换资源类型*/
-#preview-container .slide_head
-{
+#preview-container .slide_head{
     height: 30px;
     line-height: 28px;
     cursor: pointer;
@@ -223,16 +165,11 @@
     text-align: center;
     position: relative;
 }
-@media  screen and  (max-width: 1200px) {
-  #preview-container .slide_head .type_box{
-   width: 50%;
-}  
-}
+
 #preview-container .slide_head i{
     margin-left: 5px;
 }
-#preview-container .pop-type-box
-{
+#preview-container .pop-type-box{
     width: 60%;
     position: absolute;
     z-index: 20;
@@ -241,17 +178,12 @@
     display: none;
     padding-top: 20px;
 }
-#preview-container .pop-type
-{
-   
+#preview-container .pop-type{
     border: 2px solid @color5;
-    background: @fff;
+    background: #fff;
     color: @color12;
-   
-   
 }
-#preview-container .slide_head:hover .pop-type-box
-{
+#preview-container .slide_head:hover .pop-type-box{
     display: block;
 }
 
@@ -269,22 +201,12 @@
     overflow: hidden;
 }
 
-/*固定到底部*/
-.bottom-fixed{
-    height: 80px;
-    background: rgba(10,10,10,0.7);
-    position: fixed;
-    width: 100%;
-    bottom: 0px;
-    left: 0px;
-}
-#preview-container .fix-inner
-{
+#preview-container .fix-inner{
     margin: 0 auto;
     height: 100%;
     color: #fff;
     text-align: center;
-    font-size: @leftTabSize;
+    font-size: 17px;
     line-height: 75px;
     font-size: 18px;
     position: relative;
@@ -292,24 +214,21 @@
 #preview-container .fix-inner span{
     margin:0px 10px;
 }
-#preview-container .fix-inner .down-orign
-{
+#preview-container .fix-inner .down-orign{
     text-decoration: underline;
     float: right;
     cursor: pointer;
 }
-.comment-star, .comment-count,{
+.comment-star, .comment-count{
     float: left;
 }
 
-#preview-container .fix-inner .btn-danger
-{
+#preview-container .fix-inner .btn-danger{
     float: right;
     margin: 20px;
     font-size: 18px;
 }
-#preview-container .fix-inner .prepareList
-{
+#preview-container .fix-inner .prepareList{
     position: absolute;
     right: 20px;
     top:-130px;
@@ -323,8 +242,7 @@
     height: 150px;
     overflow-y: auto;
     border: 2px solid @color5;
-    width:190px ;
-    
+    width:190px;
 }
 #preview-container .fix-inner .prepareList li{
     cursor: pointer;
@@ -333,8 +251,7 @@
 #preview-container .fix-inner .prepareList li:hover{
     background: @color6;
 }
-#preview-container .curPre
-{
+#preview-container .curPre{
     color: @color5 !important;
 }
 .comment-star i{
@@ -343,16 +260,13 @@
 
 .starLight{
     color: #DFA515;
-   
 }
 .starHover{
     color: #DFA515;
     cursor: pointer;
 }
 
-
-#preview-container .loading
-{
+#preview-container .loading{
     position: fixed;
     left: 42%;
     top:25%;
@@ -366,12 +280,10 @@
     background: #ccc;
     overflow: hidden;
 }
-#preview-container .img-box:hover
-{
+#preview-container .img-box:hover{
     border: 5px solid @color1;
 }
-#preview-container .img-box:hover img
-{
+#preview-container .img-box:hover img{
     transform: scale(1.1);
     transition: 0.5s ease;
     -webkit-transition:0.5s ease;
@@ -379,18 +291,20 @@
     -o-transition:0.5s ease;
 }
 
-#preview-container .img-box img
-{
+#preview-container .img-box img{
     max-width: 90%;
     max-height: 100px;
     width: auto;
 }
-#preview-container .img-box img:hover
-{
+#preview-container .img-box img:hover{
     border: none !important;
 }
-#preview-container .res-prepare-list-more
-{
+#preview-container .res-prepare-list-more{
     text-align: left;
     cursor: pointer;
+}
+@media screen and  (max-width: 1200px) {
+    #preview-container .slide_head .type_box{
+        width: 50%;
+    }  
 }

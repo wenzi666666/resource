@@ -88,9 +88,13 @@ gulp.task('appjs',['templates'], function() {
 });
 // 合并，压缩css文件
 gulp.task('mincss', function() {
-	var mincss = config.paths.libcss.src.concat( config.paths.appcss.src);
-	console.log(mincss)
-    gulp.src(mincss)
+    gulp.src(config.paths.libcss.src)
+        .pipe(g.concat('lib.css'))
+        .pipe(gulp.dest('./dist'))
+        .pipe(g.rename('lib.min.css'))
+        .pipe(g.cssmin())
+        .pipe(gulp.dest('./dist'));
+    gulp.src(config.paths.appcss.src)
         .pipe(g.concat('app.css'))
         .pipe(gulp.dest('./dist'))
         .pipe(g.rename('app.min.css'))
