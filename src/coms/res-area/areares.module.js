@@ -127,7 +127,7 @@
 //							$scope.shopCount++;
 							// 动画显示
 							ModalMsg.logger("成功加入备课夹：" +  $scope.prepareList[prepareIndex].title);
-//							addPrepareAnimation();
+							addPrepareAnimation();
 							
 							currentPrepareId = $scope.prepareList[prepareIndex].id;
 							
@@ -287,8 +287,14 @@
 				}
 				 
 				// 选择备课夹
-				$scope.selectPrepare = function(e,listIndex) {
+				$scope.selectPrepare = function(e,listIndex, all) {
 					e.stopPropagation();
+					if(!!all) {
+						if(!$scope.resList.select){
+							ModalMsg.logger("您还没有选择资源哦");
+							return;
+						}
+					}
 					var optypeText = '选择备课夹';
 					var selectPrepareModal = $uibModal.open({
 						templateUrl: "select-prepare.html",
@@ -303,24 +309,49 @@
 
 					//到备课夹
 					selectPrepareModal.result.then(function(data) {
-						Prepare.addResToPrepareId({
-							id: data.prepareId,
-							resIds: $scope.resList.list[listIndex].id,
-							fromFlags: $localStorage.fromFlag
-						}, function(d) {
-							if(d.code == "OK") {
-								// 获取最近三个备课夹
-								getLatesPrepare(true);
-								// 获取当前节点备课夹
-								getPrepare($localStorage.currentTreeNode.tfcode);
-								// 动画显示
-								ModalMsg.logger("成功加入备课夹：" +  data.name);
-								addPrepareAnimation();
-							}
-							else {
-								ModalMsg.logger("加入备课夹失败，请重试！")
-							}
-						})
+						// 批量加入 备课夹
+						if(!!all) {
+							//生成flags
+							var flags = new Array($scope.resList.select.length);
+							_.each(flags,function(v,i) {
+								flags[i] = $localStorage.fromFlag
+							})
+							Prepare.addResToPrepareId({
+								id: data.prepareId,
+								resIds: $scope.resList.select.toString(),
+								fromFlags: flags.toString()
+							}, function(data) {
+								if(data.code == 'OK' || data.code == 'ok') {
+									// 动画显示
+									addPrepareAnimation();
+									// 获取最近三个备课夹
+									getLatesPrepare();
+									ModalMsg.logger("批量加入成功");
+								} else {
+									ModalMsg.error(data);
+								}
+							})
+						}else{
+							Prepare.addResToPrepareId({
+								id: data.prepareId,
+								resIds: $scope.resList.list[listIndex].id,
+								fromFlags: $localStorage.fromFlag
+							}, function(d) {
+								if(d.code == "OK") {
+									// 获取最近三个备课夹
+									getLatesPrepare(true);
+									// 获取当前节点备课夹
+									getPrepare($localStorage.currentTreeNode.tfcode);
+									// 动画显示
+									ModalMsg.logger("成功加入备课夹：" +  data.name);
+									addPrepareAnimation();
+								}
+								else {
+									ModalMsg.logger("加入备课夹失败，请重试！")
+								}
+							})
+						}
+						
 					});
 				}
 				 
