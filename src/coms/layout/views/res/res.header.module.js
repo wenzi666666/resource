@@ -264,7 +264,9 @@
 							// 是否有数据 控制
 							$scope.VM.noTreeData = true;
 							$scope.VM.currentVersion = '';
+							$scope.VM.currentMaterialTmpShow = true;
 							$scope.$emit("noTreeData", true)
+							
 							return false;
 						}
 						
@@ -435,7 +437,8 @@
 							$scope.VM.currentVersion = '';
 							$scope.VM.currentMaterial = '';
 							$scope.VM.noTreeData = true;
-							$scope.$emit("noTreeData", true)
+							$scope.$emit("noTreeData", true);
+							$scope.VM.currentMaterialTmpShow = true;
 							return false;
 						}
 					}).$promise.then(function(data) {

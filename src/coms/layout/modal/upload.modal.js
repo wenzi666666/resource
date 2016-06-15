@@ -119,7 +119,7 @@
 								$timeout(function() {
 									// console.log($scope.progress)
 									$scope.uploadFinish = false;
-								}, 1000)
+								}, 2000)
 							}
 							//							
 						});
@@ -154,7 +154,7 @@
 						files = files.concat(tmp);
 					}
 
-					$scope.files = files;
+//					$scope.files = files;
 					// console.log("file:", $scope.files[0])
 						// 打开资源信息编辑
 					var openModal = function() {
@@ -169,7 +169,7 @@
 									ModalMsg.logger("请输入正确的网络地址, 如：http://www.tfedu.net");
 									return;
 								}
-							} else if (!$scope.files[0].responseName) {
+							} else if (!files[0].responseName) {
 								ModalMsg.logger("文件上传失败，请重新上传！");
 								return
 							}

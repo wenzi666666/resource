@@ -462,6 +462,7 @@
 						fromFlag: $scope.fromFlag
 					}, function(data) {
 						$scope.types =data.data;
+						$localStorage.types =data.data[0];
 						SystemRes.formats({
 							poolId: $scope.poolId,
 							pTfcode: tree ? tree.tfcode : currentTfcode,
@@ -470,6 +471,7 @@
 							typeId: 0
 						}, function(data) {
 							$scope.formats =data.data;
+							$localStorage.formats = data.data[0];
 						})
 					}, function(error) {
 						// console.log(error)
@@ -489,6 +491,7 @@
 				// 列出资源格式
 				$scope.listFormat = function(index) {
 					mTypeId = $scope.types[index].id;
+					$localStorage.types = $scope.types[index];
 					$scope.typeSelected = mTypeId;
 					page = 1;
 					$scope.VM.currentPageCtrl = 1;
@@ -502,12 +505,15 @@
 						typeId: mTypeId
 					}, function(data) {
 						$scope.formats = data.data;
+						$localStorage.formats = data.data[0];
+						$localStorage.formats = data.data;
 					})
 					
 				}
 				// 选择 格式
 				$scope.filterFormat = function(i) {
 					format = $scope.formats[i];
+					$localStorage.formats =  $scope.formats[i];
 					$scope.formatSelected = i;
 					page = 1;
 					$scope.VM.currentPageCtrl = 1;

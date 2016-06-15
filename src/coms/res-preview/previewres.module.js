@@ -278,7 +278,7 @@
 				//获取资源格式 只在系统/区本/校本跳转调用
 				function getTypes(){
 					$scope.sourceType=[];
-					$scope.sourceTypeId=0;
+					$scope.sourceTypeId= $localStorage.types?$localStorage.types.id:0;
 					$scope.typeLight=[];
 					$scope.typeLight[0]=true;
 					if ($scope.VM.fromFlag == "0") 
@@ -290,7 +290,6 @@
 							if(data.code=="OK")
 							{
 								$scope.sourceType=data.data;
-								$scope.sourceTypeId=$scope.sourceType[0].id;
 								$scope.typeName=$scope.sourceType[0].mtype;
 								current=1;
 								$scope.VM.allSourceList=[];
@@ -311,7 +310,7 @@
 							if(data.code=="OK")
 							{
 								$scope.sourceType=data.data;
-								$scope.sourceTypeId=$scope.sourceType[0].id;
+//								$scope.sourceTypeId=$scope.sourceType[0].id;
 								$scope.typeName=$scope.sourceType[0].mtype;
 								current=1;
 								$scope.VM.allSourceList=[];
@@ -348,12 +347,12 @@
 					$scope.currentSlideIndex = 0;
 					$scope.curImg=[];
 					if (($scope.VM.fromFlag == "0")&&($scope.VM.search=="html")) {
-						//系统
-						
+						// 系统
 						Preview.source({
 							resId:$scope.VM.resourceId,
 							poolId: 0,
 							typeId: typeId,//资源格式id
+							format: $localStorage.types?$localStorage.types.id:'全部',
 							fromFlag:$scope.VM.fromFlag,
 							tfcode: $scope.VM.tfCode,
 							page: current,
