@@ -352,7 +352,7 @@
 							resId:$scope.VM.resourceId,
 							poolId: 0,
 							typeId: typeId,//资源格式id
-							format: $localStorage.types?$localStorage.types.id:'全部',
+							format: $localStorage.format?$localStorage.format:'全部',
 							fromFlag:$scope.VM.fromFlag,
 							tfcode: $scope.VM.tfCode,
 							page: current,
@@ -404,6 +404,7 @@
 							resId:$scope.VM.resourceId,
 							fromFlag:$scope.VM.fromFlag,
 							typeId: typeId,//资源格式id
+							format: $localStorage.format?$localStorage.format:'全部',
 							tfcode: $scope.VM.tfCode,
 							page: current,
 							perPage: 20,
