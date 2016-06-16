@@ -409,7 +409,6 @@
 							page: current,
 							perPage: 20,
 							orderBy:$localStorage.orderBy
-	
 						}, function(data) {
 							$scope.VM.load=false;
 							if(data.code=="OK")
