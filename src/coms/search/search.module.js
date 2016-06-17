@@ -146,6 +146,7 @@
 					});
 					$scope.VM.currentTypeNum[index] = true;
 					$scope.VM.currentFormat = $scope.VM.typeNums[index];
+					$localStorage.searchFormat = $scope.VM.currentFormat;
 					clearPage();
 					getSourceList();
 				}

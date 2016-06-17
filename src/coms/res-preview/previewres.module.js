@@ -454,6 +454,7 @@
 							resId: $scope.VM.resourceId,
 							searchKeyword: $scope.searchKeyWord,
 							fromFlag: $scope.VM.fromFlag,
+							format: $localStorage.searchFormat?$localStorage.searchFormat:'全部',
 							isSearch: 1,
 							page: current,
 							perPage: 20
