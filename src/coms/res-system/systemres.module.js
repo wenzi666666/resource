@@ -470,8 +470,10 @@
 							fromFlag:$scope.fromFlag,
 							typeId: 0
 						}, function(data) {
-							$scope.formats =data.data;
-							$localStorage.formats = data.data[0];
+							if(data.code == "OK") {
+								$scope.formats =data.data;
+								$localStorage.formats = data.data[0];
+							}
 						})
 					}, function(error) {
 						// console.log(error)
@@ -504,9 +506,11 @@
 						fromFlag:$scope.fromFlag,
 						typeId: mTypeId
 					}, function(data) {
-						$scope.formats = data.data;
-						$localStorage.formats = data.data[0];
-						$localStorage.formats = data.data;
+						if(data.code == "OK") {
+							$scope.formats = data.data;
+							$localStorage.formats = data.data[0];
+							$localStorage.formats = data.data;
+						}
 					})
 					
 				}
