@@ -23,10 +23,8 @@
 			</div>
 			<ul class="search_list">
 				<li ng-repeat="typeNum in VM.typeNums track by $index" ng-class="VM.currentTypeNum[$index]?'selected':''" ng-click="VM.typeClick($index)">{{typeNum}}</li>
-
 			</ul>
 		</div>
-
 	</div>
 
 	<div class="list_box">
@@ -43,7 +41,7 @@
 						<img class="res-list-thumb" ng-src="{{source.thumbnailpath?source.thumbnailpath:'null'}}" fallback-src="{{source.fileExt | lowercase}}">
 					</a>
 					<span class="res-list-info" >
-						<a class="res-title text-ellipsis" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:VM.currentFromFlag,search:'search'})"  target="_blank" title="{{source.title}}">{{source.title}}</a>
+						<a class="res-title text-ellipsis" ui-sref="previewres({resId:source.id,curTfcode:'',fromFlag:source.fromFlag,search:'search'})"  target="_blank" title="{{source.title}}">{{source.title}}</a>
 						<label class="res-type">类型: {{source.mtype}}</label>
 						<label class="res-size">大小：{{source.fsize/1024/1024 | number:2}}M</label>
 						
