@@ -441,6 +441,7 @@
 				$scope.typeAndFormat = function(poolId, typeId, tree){
 					// 设值
 					$scope.poolId = poolId;
+					$localStorage.poolId = poolId;
 					format = "全部";
 					// 设置当前选择
 					$scope.poolsSelected = poolId;
