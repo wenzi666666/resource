@@ -106,6 +106,9 @@
 					//获取对应评论
 					getComment(id);
 				}
+				
+				//获取资源信息 评论
+				$scope.VM.listInfoCom($scope.VM.resourceId, $scope.VM.fromFlag);
 
 				//获取所有评论
 				$scope.userName = $localStorage.authUser.userName;
@@ -124,8 +127,6 @@
 								$scope.contentShow[i] = true;
 
 							});
-						} else {
-							alert(data.message);
 						}
 
 					});
@@ -136,8 +137,6 @@
 					}, function(data) {
 						if (data.code == "OK") {
 							$scope.otherCommentList = data.data;
-						} else {
-							alert(data.message);
 						}
 					});
 
@@ -198,8 +197,6 @@
 								$scope.VM.inputComment = "";
 								$scope.commentNum = 200;
 								ModalMsg.chromeLogger("评论成功！");
-							} else {
-								alert(data.message);
 							}
 						});
 					}
@@ -222,8 +219,6 @@
 
 							ModalMsg.chromeLogger("评分成功！");
 
-						} else {
-							alert(data.message);
 						}
 					});
 				}
@@ -236,8 +231,6 @@
 						}, function(data) {
 							if (data.code == "OK") {
 								$scope.myCommentList.splice(index, 1);
-							} else {
-								alert(data.message);
 							}
 						});
 
@@ -268,8 +261,6 @@
 										$scope.contentShow[i] = true;
 									});
 
-								} else {
-									alert(data.message);
 								}
 
 							});

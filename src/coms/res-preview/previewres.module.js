@@ -148,9 +148,9 @@
 						getResViewUrl($scope.VM.resourceId, $scope.VM.fromFlag);
 						
 						//获取资源信息 评论
-						setTimeout(function() {
-							$scope.VM.listInfoCom($scope.VM.resourceId, $scope.VM.fromFlag);
-						}, 300);
+//						setTimeout(function() {
+//							$scope.VM.listInfoCom($scope.VM.resourceId, $scope.VM.fromFlag);
+//						}, 300);
 						
 
 						//当前目录  返回显示
@@ -351,8 +351,6 @@
 									}
 									
 									$scope.VM.listInfoCom($scope.VM.resourceId, $scope.VM.fromFlag);
-								} else {
-									alert(data.message);
 								}
 
 							});
