@@ -539,6 +539,8 @@
 				
 				// 分页触发
 				$scope.VM.currentPageCtrl = 1;
+				// 用于资源推荐 页获取资源
+				$localStorage.resCurrentPage = $scope.VM.currentPageCtrl;
 				$scope.pageChanged = function(pagenum) {
 					if(!!pagenum &&pagenum.split('.').length > 1){
 						ModalMsg.logger("请输入正整数");
@@ -555,7 +557,9 @@
 					}
 					else {
 						ModalMsg.logger("请输入大于0，小于页码总数的正整数~");
-					} 
+					}
+					
+					$localStorage.resCurrentPage = $scope.VM.currentPageCtrl;
 				};
 
 				//转到

@@ -123,6 +123,8 @@
 						$scope.VM.comShow = false;
 						//备课夹显示问题
 						$scope.VM.prepareShow = false;
+						// 推荐资源页码控制
+						var resCurrentPage = false;
 
 						//当前页
 						var current = 1;
@@ -228,8 +230,10 @@
 								$scope.VM.tfCode = $scope.navList[0][$scope.navList[0].length - 1].tfcode;
 								$scope.VM.name = $scope.navList[0][$scope.navList[0].length - 1].name;
 								$scope.links[2] = true;
-								//						getTypes();//获取资源类型
 							});
+							// 暂缓实现，因前资源列表页和推荐页 的算法不一致
+//							resCurrentPage = $localStorage.resCurrentPage;
+							resCurrentPage = 1;
 							getAllSource();
 
 						}
@@ -310,7 +314,7 @@
 								typeId: $localStorage.types ? $localStorage.types.id : '0', //资源格式id
 								format: $localStorage.formats ? $localStorage.formats : '全部',
 								tfcode: $scope.VM.tfCode,
-								page: 1,
+								page: resCurrentPage?resCurrentPage:1,
 								perPage: 20,
 								orderBy: 0,
 								searchKeyword: $scope.searchKeyWord,
