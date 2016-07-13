@@ -309,7 +309,6 @@
 								poolId: $localStorage.poolId ? $localStorage.poolId : '0',
 								typeId: $localStorage.types ? $localStorage.types.id : '0', //资源格式id
 								format: $localStorage.formats ? $localStorage.formats : '全部',
-								fromFlag: $scope.VM.fromFlag,
 								tfcode: $scope.VM.tfCode,
 								page: 1,
 								perPage: 20,
@@ -318,7 +317,6 @@
 								isSearch: isSearch
 							}, function(data) {
 								$scope.VM.load = false;
-								console.log("OK", data)
 								if (data.code == "OK") {
 									pageSize = data.data.total;
 									$scope.localIndex = 0;
@@ -332,8 +330,7 @@
 										if ($scope.VM.resourceId == $scope.VM.allSourceList[i].id) {
 											$scope.currentSlideIndex = i;
 											$scope.curImg[i] = true;
-											$scope.VM.fromFlag = $scope.VM.allSourceList[i].fromFlag;
-											$scope.VM.resName = $scope.VM.allSourceList[i].title;
+											
 
 											break;
 
@@ -341,13 +338,14 @@
 											$scope.localIndex++;
 										}
 									}
+									
 									if ($scope.localIndex == $scope.VM.allSourceList.length) {
 										$scope.currentSlideIndex = 0;
 										$scope.curImg[0] = true;
 										$scope.VM.resourceId = $scope.VM.allSourceList[0].id;
-										$scope.VM.fromFlag = $scope.VM.allSourceList[0].fromFlag;
-										$scope.VM.resName = $scope.VM.allSourceList[0].title;
+										
 									}
+									
 									$scope.VM.listInfoCom($scope.VM.resourceId, $scope.VM.fromFlag);
 								} else {
 									alert(data.message);
