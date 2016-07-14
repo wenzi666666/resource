@@ -83,19 +83,37 @@ $(function(){
 			success: function(data){
 				if(data.code == "OK") {
 					var tocken = data.data.token;
-					window.localStorage.setItem("credentialsToken", tocken);
-					//初始化用户信息
-					window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
+					window.localStorage.clear();
+					
 					
 //					alert(window.localStorage.getItem("ngStorage-authUser"))
 					// 是否记住密码
 					if($('#checkFlag').prop("checked")) {
 						keep_select(true)
 					}
+					// 判断 老师或学生，
+					if(data.data.roleId == 1){ // 学生
+						$.ajax({
+							url: TomcatUrl+ "/resRestAPI/v1.0/autoLearning",
+							beforeSend: function(request) {
+		                        request.setRequestHeader("Authorization", tocken);
+		                    },
+							success: function(data){
+								if(data.code == "OK") {
+									window.location.href = data.data;
+								}
+							}
+						})	
+					}else{ // 老师
+						//初始化用户信息
+						window.localStorage.setItem("ngStorage-authUser", JSON.stringify(data.data));
+						window.localStorage.setItem("credentialsToken", tocken);
+						setTimeout(function(){
+							window.location.href = '/';
+						},300)
+					}
 					
-					setTimeout(function(){
-						window.location.href = '/';
-					},300)
+					
 				}else{
 					alert("用户名或密码不正确");
 					clickNum++;
