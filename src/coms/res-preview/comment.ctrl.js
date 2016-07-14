@@ -76,13 +76,11 @@
 							$scope.curStar[i] = true;
 						}
 
-						//							if(($scope.VM.personType=="0") || ($scope.VM.search=="prepare")) {
-						//							if($scope.VM.allSourceList.lenth == 0) {
-
+						// 第一个资源
 						var tmpList = {
 							"thumbnailpath": $scope.VM.info.fpath,
-							"fromFlag": $scope.VM.info.fromflag,
-							"id": $scope.VM.info.id,
+							"fromFlag": $scope.VM.info.fromflag?$scope.VM.info.fromflag:$scope.VM.fromFlag,
+							"id": $scope.VM.resourceId,
 							"title": $scope.VM.info.title,
 							"fileExt": $scope.VM.info.fileExt
 						}
