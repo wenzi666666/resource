@@ -24,10 +24,10 @@
 				<li><a ui-sref="systemres"ng-class="{'onactive':isActive('systemres')}">系统资源</a></li>
 				<li><a ui-sref="schoolres" ng-class="{'onactive':isActive('schoolres')}">校本资源</a></li>
 				<li><a ui-sref="areares"  ng-class="{'onactive':isActive('areares')}">区本资源</a></li>
-				<li><a ng-click="goToSpace()">学生学习空间</a></li>
+				<li ng-show="navCtrl[0]"><a ng-click="goToSpace()">学生学习空间</a></li>
 				<li><a ui-sref="customres" ng-class="{'onactive':isActive('customres')}">资源定制</a></li>
-				<li class="nav-width-custom"><a ng-click="goToQuestionLibrary()">题库</a></li>
-				<li><a ng-click="goToSceneEnglish()">情景英语</a></li>
+				<li ng-show="navCtrl[1]" class="nav-width-custom"><a ng-click="goToQuestionLibrary()">题库</a></li>
+				<li ng-show="navCtrl[2]"><a ng-click="goToSceneEnglish()">情景英语</a></li>
 				<li class="shopping-cart nav-custom"><a ng-click="goToPrepare()"><img src="assets/img/shopcart.png"/>备课夹</a></li>
 				<li class="nav-custom"><a ui-sref="personalcenter" ng-class="{'onactive':isActive('personalcenter')}"><img src="assets/img/profile.png"/>个人中心</a></li>
 			</ul>

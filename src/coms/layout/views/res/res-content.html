@@ -1,7 +1,7 @@
 <div class="res-content-header"></div>
 <div id="res-content-right">
 	<div class="res-header-catogry" ng-show="fromFlag==0">
-		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
+		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-show="v.display" ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源类型:</span>

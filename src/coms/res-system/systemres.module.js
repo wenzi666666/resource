@@ -48,8 +48,8 @@
 				})
 			}
 		])
-		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval','$uibModal',
-			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval,$uibModal) {
+		.controller("SystemResController", ['$scope', '$stateParams', '$state', '$location', 'SystemRes','Prepare','$localStorage','ModalMsg','$timeout','Res','$interval','$uibModal','RightCtrl',
+			function($scope, $stateParams, $state, $location,SystemRes,Prepare,$localStorage,ModalMsg,$timeout,Res,$interval,$uibModal,RightCtrl) {
 				// 筛选 主controller 
 				// 变量共享
 				$scope.VM = {};
@@ -429,7 +429,15 @@
 				
 				// 列出资源库
 				Res.pools({}, function(data) {
-					$scope.pools =data.data;
+					$scope.pools = data.data;
+					// 资源库显示 权限控制
+					_.each(data.data, function(v,i) {
+						data.data[i].display = false;
+						if(RightCtrl.hasRight($localStorage.authUser.funcList, v.name)) {
+							data.data[i].display = true;
+						}
+					})
+					
 				})
 				// 列出资源类型 和格式
 				$scope.poolId = 0;

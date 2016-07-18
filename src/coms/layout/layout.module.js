@@ -35,8 +35,8 @@
 				})
 			}
 		])
-		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','Layout','ModalMsg',
-			function($scope, $stateParams, $state, $location,$localStorage,Layout,ModalMsg) {
+		.controller("LayoutController", ['$scope', '$stateParams', '$state', '$location', '$localStorage','Layout','ModalMsg','RightCtrl',
+			function($scope, $stateParams, $state, $location,$localStorage,Layout,ModalMsg,RightCtrl) {
 				//主导航学生学习空间地址
 				var spaceNavUrl = '';
 				Layout.autoLearning({},function(data) {
@@ -73,6 +73,20 @@
 						openwin(data.data)
 					})
 				}
+				// 学生学习空间, 情景英语，题库  显示控制, 分别对应navCtrl的索引为 0 1 2
+				$scope.navCtrl = [false, false, false];
+				if(RightCtrl.hasRight($localStorage.authUser.funcList, '学生学习空间')) {
+					$scope.navCtrl[0] = true;
+				}
+				
+				if(RightCtrl.hasRight($localStorage.authUser.funcList, '情景英语')) {
+					$scope.navCtrl[1] = true;
+				}
+				
+				if(RightCtrl.hasRight($localStorage.authUser.funcList, '题库')) {
+					$scope.navCtrl[2] = true;
+				}
+				
 				//退出
 				$scope.logout = function() {
 					localStorage.removeItem("ngStorage-authUser");
