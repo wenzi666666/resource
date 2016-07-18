@@ -437,6 +437,8 @@
 							data.data[i].display = true;
 						}
 					})
+					// 全部要显示哦
+					data.data[0].display = true;
 					
 				})
 				// 列出资源类型 和格式
