@@ -11,6 +11,8 @@
     //inject sub module
     // 共用header footer 及导航
     ApplicationConfiguration.registerModule('webApp.coms.layout');
+    // 路由控制 跳转
+    ApplicationConfiguration.registerModule('webApp.coms.router');
     // 登陆
     ApplicationConfiguration.registerModule('webApp.coms.login');
     // 系统资源

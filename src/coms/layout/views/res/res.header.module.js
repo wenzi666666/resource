@@ -145,10 +145,6 @@
 				$scope.VM.currentVersionSeclet = [];
 				$scope.VM.currentMaterialSeclet = [];
 				
-				// 第一次登录全显示
-				$scope.VM.isFirstLogin = $localStorage.isFirstLogin?false:true;
-				$localStorage.isFirstLogin = 1;
-				
 				// 是否有数据 控制
 				$scope.VM.noTreeData = false;
 				//链式调用 
@@ -158,6 +154,14 @@
 				var history = {};
 				Res.getHistory({}, function(data){
 					history = data.data;
+					
+					// 第一次登录全显示 筛选展开
+					// 没有历史记录时，认为就是第一次登录
+					if(!history){
+						$scope.VM.isFirstLogin = true;
+					}else{
+						$scope.VM.isFirstLogin = false;
+					}
 				}).$promise.then(function(data) {
 					//读取 学段 学科 版本 和教材
 					return Res.getTerms({}, function(data) {

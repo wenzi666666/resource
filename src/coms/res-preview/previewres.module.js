@@ -220,6 +220,7 @@
 								fromFlag: $scope.VM.fromFlag
 							}, function(data) {
 								$scope.navList = data.data;
+								console.log($scope.navList)
 								$scope.currentNav = $scope.navList[0];
 								$scope.VM.tfCode = $scope.navList[0][$scope.navList[0].length - 1].tfcode;
 								$scope.VM.name = $scope.navList[0][$scope.navList[0].length - 1].name;
