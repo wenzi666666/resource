@@ -378,3 +378,7 @@
 	text-align: center;
 	margin-bottom: 0px;
 }
+/*隐藏统计*/
+a[title="站长统计"]{
+	display: none;
+}
