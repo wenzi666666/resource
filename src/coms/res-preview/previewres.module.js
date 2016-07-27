@@ -220,7 +220,12 @@
 								fromFlag: $scope.VM.fromFlag
 							}, function(data) {
 								$scope.navList = data.data;
-								console.log($scope.navList)
+								
+								// 相关路径 去掉第一个
+								$scope.navRealted = data.data;
+								$scope.navRealted = $scope.navRealted.slice(1);
+								
+								console.log($scope.navList, $scope.navRealted)
 								$scope.currentNav = $scope.navList[0];
 								$scope.VM.tfCode = $scope.navList[0][$scope.navList[0].length - 1].tfcode;
 								$scope.VM.name = $scope.navList[0][$scope.navList[0].length - 1].name;
@@ -580,6 +585,17 @@
 							}
 							$scope.hidePre = function() {
 								$scope.VM.showPre = false;
+							}
+							
+							
+							//				//切换目录
+							$scope.selectNav = function(index) {
+								//选中
+								$scope.currentNav = $scope.navRealted[index];
+								$scope.VM.tfCode=$scope.navList[index][$scope.navList[index].length-1].tfcode;
+								$scope.VM.name=$scope.navList[index][$scope.navList[index].length-1].name;
+								console.log($scope.VM.tfCode);
+								getPrepare();//获取备课夹
 							}
 
 						}

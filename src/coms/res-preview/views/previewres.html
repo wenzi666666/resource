@@ -5,17 +5,6 @@
 			<span ng-repeat="navCur in currentNav" ng-class="links[$index]?'links':''"  ng-click="back($index,navCur.tfcode)">{{navCur.name}}<i class="icon-angle-right"></i></span>
 			<span>{{VM.resName}}</span>
 		</div>
-		<!--<div class="nav_right">
-		  <span class="mulu" ng-show="otherShow">其他版本目录
-			<div class="popBox">
-				<ul>
-					<li ng-repeat="navs in navList" ng-class="VM.curNav[$index]?'selected':''" ng-click="selectNav($index)">
-						<span ng-repeat="nav in navs">{{nav.name}}<i class="icon-angle-right"></i></span>
-					</li>
-				</ul>
-		    </div>
-		  </span>
-	  </div>-->
 	</div>
 	<div class="slide-container col-md-10">
 		<div class="loading" ng-show="VM.load"><i class="icon-spinner icon-spin icon-3x"></i></div>
@@ -72,15 +61,16 @@
 			<div class="intro-details">{{VM.info.des}}</div>
 		</div>
 		<!--相关路径-->
-		<!--<div class="related-path">
+		<div class="related-path" ng-show="navRealted">
 			<div class="related-banner">相关路径</div>
-			<div class="related-info">
-				<div class="path-item" ng-repeat=" list in navList">list.name</div>
-			</div>
-		</div>-->
+			<ul class="related-info">
+				<li ng-repeat="navs in navRealted track by $index" class="path-item" ng-click="selectNav($index)">
+					<span ng-repeat="nav in navs"> {{nav.name}} <i class="icon-angle-right"></i> </span> {{VM.resName}} 
+				</li>
+			</ul>
+		</div>
 		
-	
-		<div ng-controller="resCommentCtrl" data-ng-include="'/coms/res-preview/views/comment.html'"></div>
+	  <div ng-controller="resCommentCtrl" data-ng-include="'/coms/res-preview/views/comment.html'"></div>
 	
 	</div>
 </div>
