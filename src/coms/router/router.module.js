@@ -37,6 +37,8 @@
 							$scope.logout();
 						}
 					}
+				}, function(error) {
+					$scope.logout();
 				})
 				
 				//退出
