@@ -133,7 +133,7 @@
 					<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex, true)">更多备课夹...</div>
 				</div>
 			</div>
-			<label class="res-download res-download-all" ng-click="downLoadSelect()"><i class="icon-download-alt"></i> 打包下载 </label>
+			<label class="res-download res-download-all" ng-click="downLoadSelect()" ng-hide="poolId == 5"><i class="icon-download-alt"></i> 打包下载 </label>
 		</div>
 		<div class="coms-pagination" ng-show="isLoadingFinish">
 		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage" ng-change="pageChanged()"></uib-pagination>
