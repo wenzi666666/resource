@@ -11,7 +11,8 @@
 
 	<div class="conment-list">
 		<div class="comment-type">
-			<span class="other-comment" ng-click="changeBlock('other')" ng-class="otherShow?'comment-active':''">他人评论</span>
+			<span class="other-comment" ng-click="changeBlock('other')"
+				ng-class="otherShow?'comment-active':''">他人评论</span>
 			<span class="my-comment " ng-click="changeBlock('my')" ng-class="myShow?'comment-active':''">我的评论</span>
 		</div>
 		<div class="my" ng-show="myShow">
@@ -28,7 +29,7 @@
 					</div>
 				</div>
 				<div class="editReplace" ng-hide="contentShow[$index]">
-					<textarea  ng-model="comment.acontent"></textarea>
+					<textarea ng-model="comment.acontent"></textarea>
 					<div class="edit-btn-select">
 						<button class="btn btn-primary" ng-click="editSure($index)">确定</button>
 						<button class="btn btn-default" ng-click="offModal($index)">取消</button>
@@ -53,17 +54,25 @@
 <div class="bottom-fixed">
 	<div class="fix-inner container">
 		<span class="comment-star" ng-hide="VM.comShow">
-			<i class="icon-star" ng-repeat="star in showStar" ng-class="{'starLight':curStar[$index],'starHover':hoverStar[$index]}" ng-mouseover="mouseOverStar($index)" ng-mouseout="mouseOutStar($index)" ng-click="starClick($index)"></i>
+			<i class="icon-star" ng-repeat="star in showStar"
+				ng-class="{'starLight':curStar[$index],'starHover':hoverStar[$index]}"
+				ng-mouseover="mouseOverStar($index)" ng-mouseout="mouseOutStar($index)"
+				ng-click="starClick($index)"></i>
 		</span>
 		<span class="comment-count">已有{{VM.info.userNum}}人评分,平均分{{VM.info.avgScore}}</span>
 		<span>下载次数:{{VM.info.dloadTimes}}</span>
 		<span>浏览次数:{{VM.info.clickTimes}}</span>
 
-		<button class="btn btn-danger" ng-click="addToCurrentPrepare('btn')" ng-mouseover="showPre()" ng-mouseout="hidePre()" ng-disabled="VM.prepareShow">加入备课夹</button>
-		<span class="down-orign" ng-click="resDownload(VM.resourceId)" ng-hide='VM.info.mtype=="多媒体教辅" || VM.info.mtype=="综合案例" || VM.info.mtype=="索引目录"'>下载到本地</span>
+		<button class="btn btn-danger" ng-click="addToCurrentPrepare('btn')" ng-mouseover="showPre()"
+			ng-mouseout="hidePre()" ng-disabled="VM.prepareShow">加入收藏夹</button>
+		<span class="down-orign" ng-click="resDownload(VM.resourceId)"
+			ng-hide='VM.info.mtype=="多媒体教辅" || VM.info.mtype=="综合案例" || VM.info.mtype=="索引目录"'>下载到本地</span>
 		<ul class="prepareList" ng-show="VM.showPre" ng-mouseover="showPre()" ng-mouseout="hidePre()">
-			<li ng-repeat="item in prepareList track by $index"  class="text-ellipsis" ng-class="curPre?'curPre':''" ng-click="addToCurrentPrepare('list',item.id)">{{$index+1}}、{{item.title}} <span class="prepare-num">({{item.contentNumber}})</li>
-			<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
+			<li ng-repeat="item in prepareList track by $index" class="text-ellipsis" ng-class="curPre?'curPre':''"
+				ng-click="addToCurrentPrepare('list',item.id)">{{$index+1}}、{{item.title}} <span
+					class="prepare-num">({{item.contentNumber}})</li>
+			<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0"
+				ng-click="selectPrepare($event,parentIndex)">更多收藏夹...</div>
 		</ul>
 	</div>
 </div>

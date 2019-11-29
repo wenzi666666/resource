@@ -3,12 +3,13 @@
 	<a class="prepare-shop" ui-sref="prepare" target="_blank">
 		<img src="assets/img/shopcart.png" />
 		<span class="shop-count">{{ shopCount }}</span>
-		<div class="prepare-text">备课夹</div>
+		<div class="prepare-text">收藏夹</div>
 	</a>
 	<!--<a class="prepare-ctrls" ui-sref="prepare" target="_blank">-->
 	<a class="prepare-ctrls">
 		<div class="ctrls-prepare-list">
-			<div class="ctrls-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index">{{$index+1}}、{{item.title}} <span class="prepare-num">({{item.contentNumber}})</span></div>
+			<div class="ctrls-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index">
+				{{$index+1}}、{{item.title}} <span class="prepare-num">({{item.contentNumber}})</span></div>
 			<!--<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>-->
 		</div>
 	</a>
@@ -30,12 +31,12 @@
 				</div>
 				<div class="prepare-seperate"><i class="icon-angle-right"></i><i class="icon-angle-right"></i></div>
 				<div class="modal-prepare-name">
-					<span>选择备课夹:</span>
+					<span>选择收藏夹:</span>
 					<!--<select ng-change="selectPrepare(currentPrepare)" ng-model="currentPrepare">-->
 					<div class="select-prepare-list">
 						<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>
 						<div ng-repeat="pp in prepares track by $index" class="text-ellipsis" ng-class="{'select-active':isActive($index)}" ng-click="selectPrepare($index)" ng-bind="pp.title" value="{{pp}}"></div>
-						<div ng-show="prepares.length == 0">当前选择下没有备课夹，请重新选择 或者 新建</div>
+						<div ng-show="prepares.length == 0">当前选择下没有收藏夹，请重新选择 或者 新建</div>
 					</div>
 					<!--</select>-->
 				</div>

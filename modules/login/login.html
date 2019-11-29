@@ -1,147 +1,157 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
-        <meta name="renderer" content="webkit">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">		
-		<title>资源中心</title>
-		<link rel="stylesheet" href="css/home.css"/>
-		<link rel="stylesheet" href="css/slides.css"/>
-		<!--<link rel="shortcut icon" href="pageicon.png"/>-->
-	</head>
-	<body>
-		<div id="lineOne">
-			<div id="headLogo">
-				<div id="logoLeft">
-					<img src="image/logo.png" />
-				</div>
-				<div id="logoRight">
-					<a href="modules/client-download/index.html" target="_blank" class="client"></a>
-				</div>
-			</div>
-		</div>
-		<div id="rollLine">			
-				<div class="rollBox">
-					<marquee direction="up" loop="-1" height="30px" scrolldelay="400" align="center" width="600px">
-						<ul>
-							<li class="rollli">
-								<a href="http://zy.tfedu.net/index/pdf-reader/web/viewer.html?file=/index/1.pdf" target="_blank"></a>
-							</li>
-						</ul>
-					</marquee>
-				</div>						
-		</div>
-		<div id="lineTwo">
-			<div class="nr">
-				<div class="s_lb" id="slides">
-					<div class="slides_container">
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/1.jpg" width="860" height="364" /></div>
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/2.jpg" width="860" height="364" /></div>
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/3.jpg" width="860" height="364" /></div>
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/4.jpg" width="860" height="364" /></div>
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/5.jpg" width="860" height="364" /></div>
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/6.jpg" width="860" height="364" /></div>
-						<div class="slide"><a href="javascript:;"></a><img src="image/lunbo/7.jpg" width="860" height="364" /></div>
-					</div>
-				</div>
-				<div class="loginBox">
-					<div id="userSelect">
-						<ul>
-							<li class="userli">教师</li>
-							<li class="userli">学生</li>
-							<li class="userli" id="managerli">管理者</li>
-						</ul>
-					</div>
-					<div class="loginInfo">
-						<form class="contentBox">
-							<div class="inputContainer">
-								<input type="text" name="username" value="" placeholder="用户名">
-								<img src="image/username.png"><!--absolute locate-->
-							</div>
-							<div class="inputContainer">
-								<input type="password" name="passwd" value="" placeholder="密码">
-								<img src="image/passwd.png">
-							</div>
-							<div class="inputContainer showBox">
-								<input type="text" name="validCode" placeholder="验证码" id="validCode" style="text-indent: 5px;">
-								<span class="showCode">5478</span>
-							</div>
-							
-							<div class="inputContainer">
-								<input type="checkbox" id="checkFlag" name="checkFlag" onclick="keep_select();"><label>记住密码</label>
-								<a href="#" onclick="pwd_tip()">忘记密码</a>
-							</div>
-						</form>
-						<div class="inputContainer">
-							<div class="btn btn-primary loginBtn">登录</div>
-							<div class="btn btn-primary registerBtn show" onclick="register();">注册</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="lineThree">
-			<div class="nr">
-				<div class="videoBox">
-					 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="460" height="270" id="ASPFLV" align="middle">
-                       <param name="allowScriptAccess" value="sameDomain" />
-                       <param name="allowFullScreen" value="true" />
-                       <param name="movie" value="/assets/swf/Mp4.swf" />
-                       <param name="quality" value="high" />
-                       <param name="bgcolor" value="#ffffff" />
-                       <param name="FlashVars" value="qjmovie=http://chat.tfedu.net/res/video/res-intro.MP4&chang=0" />  
-                       <embed src="/assets/swf/Mp4.swf" allowFullScreen="true" FlashVars="qjmovie=http://chat.tfedu.net/res/video/res-intro.MP4&chang=0" quality="high" bgcolor="#ffffff" width="460" height="270" name="ASPFLV" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-                  </object>			
-				</div>
-				<div class="textBox">
-					<div class="textContent">
-						<h5>课程资源中心</h5>
-					    <p>以应用为驱动，实现教育资源与教学平台的有机统一。支持班班通多媒体教学，支持人人都有网络学习空间的应用需求。资源动态更新，独家特色服务，在课程资源中心，做最好的自己。</p>
-					</div>
-				</div>
-				<div class="statisticBox">
-					<div class="staticticContent">
-						<h5>资源统计</h5>
-						<p>资源总量： <a>756812</a>条、<a>1.9</a>TB</p>
-						<p>用户上传量： <a>2502</a>条、<a>1.1</a>GB</p>
-						<p>日平均下载： <a>310</a>条、 <a>120</a>MB</p>
-						<p>基础资源最近更新：<a>3000</a>条、 <a>3</a>GB</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="lineFour">
-			<div class="nr" id="one">
-				<img src="image/1.jpg"/>
-			</div>
-			<div class="nr" id="two">
-				<img src="image/2.jpg"/>
-			</div>
-			<div class="nr" id="three">
-				<img src="image/3.jpg"/>
-			</div>
-		</div>
-		<div id="lineFive">
-			<div class="footBox">
-				<div class="footTextBox">
-					<p class="footInfo">电话：400-0518-958　传真：010-68434907　QQ：924305138，1335547592（服务时间：每天8:30-17:30）　邮箱：kefu@tfedu.net</p>
-					<p class="footInfo">地址：北京市海淀区王庄路1号清华同方科技广场A座17层　邮编：100084</p>
-					<p class="footInfo">Copyright©2005-2011，All Rights Reserved　版权所有：同方知好乐教育科技（北京）有限公司</p>
-					<p class="footInfo">京ICP备 05083011</p>
-				</div>
-			</div>
-		</div>
-		<div class="zwx" style="position: fixed;bottom: 10px; right:10px;z-index: 1000;">
-			<a href="http://zwx.tfedu.net/" target="_blank"><img src="http://7xl900.com1.z0.glb.clouddn.com/zwx.png"></a>
-		</div>
-	</body>
-	<script type="text/javascript" src="webconfig.js"></script>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.xdomainrequest.min.js"></script>
-	<script type="text/javascript" src="js/slides.jquery.js"></script>
-	<script type="text/javascript" src="js/slides.jquery.js"></script>
-	<script src="js/rolltext.js"></script>
-	<script type="text/javascript" src="js/home.js" ></script>
-	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1259878090'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259878090' type='text/javascript'%3E%3C/script%3E"));</script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+  <meta name="renderer" content="webkit" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+  <title>资源中心</title>
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/slides.css" />
+  <!--<link rel="shortcut icon" href="pageicon.png"/>-->
+</head>
+
+<body>
+  <div id="lineOne">
+    <div id="headLogo">
+      <div id="logoLeft"><img src="image/logo_zx.png" /></div>
+    </div>
+  </div>
+
+  <div id="lineTwo">
+    <div class="nr">
+      <!-- <div class="s_lb" id="slides">
+        <div class="slides_container">
+          <div class="slide">
+            <a href="javascript:;"></a><img src="image/banner.png" width="860" height="364" />
+          </div>
+        </div>
+      </div> -->
+      <div class="loginBox">
+        <div id="userSelect">
+          <img src="image/banner.png" width="1060" height="364" />
+        </div>
+        <div class="loginInfo" style="padding-left:660px;">
+          <form class="contentBox">
+            <div>
+              <img src="image/login_zx.png" style="padding-left:0px; width:280px; height:240px;" />
+            </div>
+            <div class="inputContainer" style="top:-230px;left:20px;">&nbsp;</div>
+            <div class="inputContainer" style="top:-220px;">
+              <input type="text" name="username" value="" placeholder="用户名" />
+              <img src="image/username.png" />
+              <!--absolute locate-->
+            </div>
+            <div class="inputContainer" style="top:-220px;">
+              <input type="password" name="passwd" value="" placeholder="密码" />
+              <img src="image/passwd.png" />
+            </div>
+            <!-- <div class="inputContainer showBox"> -->
+            <!-- <div class="inputContainer">
+              <input type="text" name="validCode" placeholder="验证码" id="validCode" style="text-indent: 5px;" />
+              <span class="showCode">5478</span>
+            </div> -->
+
+            <div class="inputContainer" style="top:-220px;">
+              <input type="checkbox" id="checkFlag" name="checkFlag" onclick="keep_select();" />
+              <label>记住密码</label>
+              <!-- <a href="#" onclick="pwd_tip()">忘记密码</a> -->
+            </div>
+          </form>
+          <div class="inputContainer" style="top:-220px;">
+            <div class="btn btn-primary loginBtn">登录</div>
+            <!-- <div class="btn btn-primary registerBtn show" onclick="register();">注册</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div id="lineThree">
+    <div class="nr">
+      <div class="videoBox">
+        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+          codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="460"
+          height="270" id="ASPFLV" align="middle">
+          <param name="allowScriptAccess" value="sameDomain" />
+          <param name="allowFullScreen" value="true" />
+          <param name="movie" value="/assets/swf/Mp4.swf" />
+          <param name="quality" value="high" />
+          <param name="bgcolor" value="#ffffff" />
+          <param name="FlashVars" value="qjmovie=http://chat.tfedu.net/res/video/res-intro.MP4&chang=0" />
+          <embed src="/assets/swf/Mp4.swf" allowFullScreen="true"
+            FlashVars="qjmovie=http://chat.tfedu.net/res/video/res-intro.MP4&chang=0" quality="high" bgcolor="#ffffff"
+            width="460" height="270" name="ASPFLV" align="middle" allowScriptAccess="sameDomain"
+            type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+        </object>
+      </div>
+      <div class="textBox">
+        <div class="textContent">
+          <h5>课程资源中心</h5>
+          <p>
+            以应用为驱动，实现教育资源与教学平台的有机统一。支持班班通多媒体教学，支持人人都有网络学习空间的应用需求。资源动态更新，独家特色服务，在课程资源中心，做最好的自己。
+          </p>
+        </div>
+      </div>
+      <div class="statisticBox">
+        <div class="staticticContent">
+          <h5>资源统计</h5>
+          <p>资源总量： <a>756812</a>条、<a>1.9</a>TB</p>
+          <p>用户上传量： <a>2502</a>条、<a>1.1</a>GB</p>
+          <p>日平均下载： <a>310</a>条、 <a>120</a>MB</p>
+          <p>基础资源最近更新：<a>3000</a>条、 <a>3</a>GB</p>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- <div id="lineFour">
+    <div class="nr" id="one">
+      <img src="image/1.jpg" />
+    </div>
+    <div class="nr" id="two">
+      <img src="image/2.jpg" />
+    </div>
+    <div class="nr" id="three">
+      <img src="image/3.jpg" />
+    </div>
+  </div> -->
+  <div id="lineFive">
+    <div class="footBox">
+      <div class="footTextBox" style="width:1060px;margin-left:-1px;">
+        <p class="footInfo" style="text-align: center;">
+          中新金桥信息技术（北京）有限公司
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          知好乐教育科技集团有限公司
+        </p>
+        <p>&nbsp;</p>
+        <p class="footInfo" style="text-align: center;">
+          Copyright©2005-2015，All Rights Reserved　京ICP备 10003979
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="zwx" style="position: fixed;bottom: 10px; right:10px;z-index: 1000;">
+    <a href="http://zwx.tfedu.net/" target="_blank"><img src="http://7xl900.com1.z0.glb.clouddn.com/zwx.png" /></a>
+  </div> -->
+</body>
+<script type="text/javascript" src="js/webconfig.js"></script> <!-- For Linux -->
+<!-- <script type="text/javascript" src="webconfig.js"></script> -->
+<!--For Windows -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.xdomainrequest.min.js"></script>
+<script type="text/javascript" src="js/slides.jquery.js"></script>
+<script src="js/rolltext.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+<script type="text/javascript">
+  var cnzz_protocol =
+    "https:" == document.location.protocol ? " https://" : " http://";
+  document.write(
+    unescape(
+      "%3Cspan id='cnzz_stat_icon_1259878090'%3E%3C/span%3E%3Cscript src='" +
+      cnzz_protocol +
+      "s4.cnzz.com/z_stat.php%3Fid%3D1259878090' type='text/javascript'%3E%3C/script%3E"
+    )
+  );
+</script>
+
 </html>

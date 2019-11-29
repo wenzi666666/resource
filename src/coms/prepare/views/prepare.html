@@ -1,5 +1,5 @@
 ﻿<div class="container" style="position: relative;">
-		<button class="btn btn-new-prepare new-prepare" ng-click="newPrepare()">新建备课夹</button>
+	<button class="btn btn-new-prepare new-prepare" ng-click="newPrepare()">新建收藏夹</button>
 </div>
 <div class="empty-nav empty-nav-custom"></div>
 <div class="container" id="prepare-container">
@@ -26,10 +26,10 @@
 	<div ng-show="VM.isList" data-ng-include="'/coms/prepare/views/prepare-content-list.html'"></div>
 </div>
 
-<!-- 新建备课夹模态框 -->
+<!-- 新建收藏夹模态框 -->
 <script type="text/ng-template" id="modal-prepare.html">
 	<div class="modal-body modal-prepare-body">
-		<div class="modal-prepare-header">新建备课夹</div>
+		<div class="modal-prepare-header">新建收藏夹</div>
 		<div class="select-prepare-content">
 			<div class="select-inner-content">
 				<div class="modal-catogry">
@@ -42,7 +42,7 @@
 				</div>
 				<div class="prepare-seperate"><i class="icon-angle-right"></i><i class="icon-angle-right"></i></div>
 				<div class="prepare-title-box prepare-new-box">
-					<p>请输入备课夹名称：</p>
+					<p>请输入收藏夹名称：</p>
 					<input class="prepare-title-input" ng-model="prepareName" value="prepareName">
 					<!--<button class="btn-op">确定</button>-->
 				</div>
@@ -54,7 +54,7 @@
 	</div>
 </script>
 
-<!-- 移动/复制备课夹模态框 -->
+<!-- 移动/复制收藏夹模态框 -->
 <script type="text/ng-template" id="modal-prepare-op.html">
 	<div class="modal-body">
 		<div class="modal-prepare-header">{{opName}}</div>
@@ -76,7 +76,7 @@
 	</div>
 </script>
 
-<!-- 调整资源 到备课夹-->
+<!-- 调整资源 到收藏夹-->
 <script type="text/ng-template" id="move-prepare.html">
 <div class="modal-body">
 		<div class="modal-prepare-header">{{optypeText}}</div>
@@ -92,12 +92,12 @@
 				</div>
 				<div class="prepare-seperate"><i class="icon-angle-right"></i><i class="icon-angle-right"></i></div>
 				<div class="modal-prepare-name">
-					<span>选择备课夹:</span>
+					<span>选择收藏夹:</span>
 					<!--<select ng-change="selectPrepare(currentPrepare)" ng-model="currentPrepare">-->
 					<div class="select-prepare-list">
 						<!--<div class="ctrls-prepare-list-item text-ellipsis" editable-text="VM.newPrepare">{{ VM.newPrepare}}</div>-->
 						<div ng-repeat="pp in prepares track by $index" ng-class="{'select-active':isActive($index)}" ng-click="selectPrepare($index)" ng-bind="pp.title" value="{{pp}}"></div>
-						<div ng-show="prepares.length == 0">当前选择下没有备课夹，请重新选择</div>
+						<div ng-show="prepares.length == 0">当前选择下没有收藏夹，请重新选择</div>
 					</div>
 					<!--</select>-->
 				</div>

@@ -1,0 +1,49 @@
+.edui-dialog-resource .edui-resource-wrapper{font-size: 12px;margin: 15px;}
+
+/*upload*/
+.edui-dialog-resource .edui-resource-upload1{position: absolute;top:20%;left:30%;width:344px;height:238px;margin-top:-19px; margin-left: -22px;}
+.edui-dialog-resource .edui-resource-upload2{position:relative;float:left;width:120px;height:120px;margin:5px 0 0 5px;}
+
+.edui-dialog-resource .edui-resource-form{position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;opacity: 0;cursor: pointer;}
+.edui-dialog-resource .edui-resource-form .edui-resource-file{width: 100%;filter: alpha(opacity=0)}
+
+/*.edui-dialog-resource .edui-resource-upload1 .edui-resource-icon{display: inline-block;width:44px;height:38px;background-resource: url('resources/upload1.png')}
+.edui-dialog-resource .edui-resource-upload1 .edui-resource-icon.hover{background-position: -50px 0;}*/
+.edui-dialog-resource .edui-resource-upload2 .edui-resource-icon{display: inline-block;width:120px;height:120px;background-resource: url('resources/upload2.png')}
+
+.edui-dialog-resource .edui-resource-dragTip{
+	display: none;
+ }   
+    
+
+.edui-dialog-resource .edui-resource-content{height:230px;width:100%;position: relative;}
+.edui-dialog-resource .edui-resource-custom{
+	margin: 10px 180px 0 180px;
+	text-align: center;
+	height:280px;
+	/*background: url('resources/shangchuanyinpinresource.png') no-repeat;*/
+}
+.edui-dialog-resource .edui-resource-mask{display: none;position: absolute;top:0;left:0;width: 100%; height: 100%;background-color:#fff;
+    text-align: center;line-height:300px;color:#000;font-size:14px;font-weight:bold;opacity: 0.6;filter: alpha(opacity=60);}
+.edui-dialog-resource .edui-resource-mask.edui-active{display: block;}
+
+/*network*/
+.edui-dialog-resource .edui-resource-searchBar{margin: 10px;}
+.edui-dialog-resource .edui-resource-searchBar .edui-resource-searchTxt{display: inline-block !important;*display: inline !important;*zoom:1;width:400px; border: 1px solid #c5d2ff; height: 20px; line-height: 18px; font-size: 14px; padding: 3px; margin: 0;outline:0;}
+.edui-dialog-resource .edui-resource-searchBar .edui-resource-searchAdd{display: inline-block !important;*display: inline !important;*zoom:1;
+    width:60px; text-align:center;height: 25px;text-align: center;line-height: 25px;
+    background-color: #ffffff;padding: 0; border: 1px solid #ababab;margin-left: 20px;cursor: pointer;
+}
+.edui-dialog-resource .edui-resource-searchBar .edui-resource-searchAdd.hover{
+    background-color: #d5e1f2;
+    padding: 0;
+    border: 1px solid #a3bde3;
+}
+.edui-dialog-resource .edui-resource-searchRes{height:200px;overflow:auto;}
+
+
+/*common*/
+.edui-dialog-resource .edui-resource-item{position:relative;float:left;width:120px;height:120px;border: 1px solid #CCC;cursor: default;margin: 5px 0 0 5px;}
+.edui-dialog-resource .edui-resource-item .edui-resource-pic{position: absolute;left:-9999px;max-width: 100%;max-height: 100%}
+.edui-dialog-resource .edui-resource-item .edui-resource-close{position:absolute;right:0;background: url('resources/close.png');width:17px;height:17px;cursor:pointer;z-index:1}
+.edui-dialog-resource .edui-resource-item.hover .edui-resource-close{display: block;}

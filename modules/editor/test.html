@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>测试编辑器</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="third-party/jquery.min.js"></script>
+	</head>
+	<body id="umedtorzhl">
+		<!--style给定宽度可以影响编辑器的最终宽度-->
+		<iframe id="testEditor" class="zhlEditor" src="" frameborder="0" width="100%" height="530"></iframe>
+
+		<button onclick="getContent()">获得内容</button>&nbsp;
+		<button onclick="showContent()">显示内容</button>&nbsp;
+
+		<button onclick="editContent()">编辑内容</button>&nbsp;
+		<p id="test"></p>
+		<p id="show"></p>
+
+		<script type="text/javascript">
+			// 给编辑器iframe赋 上传地址
+		  //   $(document).ready(function(){
+		    	// var path = '\\upFile\\2015\\336\\390320126';
+		  //   	var uploadUrl = "http://192.168.111.8//textAjax_getFileUploadUrl.action"
+		  //   	var param="filePath="+path;
+				// $.ajax({
+				// 	cache:false,
+				// 	type:"POST",
+				// 	async : false,
+				// 	url: uploadUrl,
+				// 	data:param,
+				// 	success:function(data){
+				// 		console.log(data)
+				// 		// 上传地址
+		  //   			$('#testEditor').attr('src', 'editor.html?uploadUrl=' + data.fileUploadUrl)
+				// 	}
+				// })
+		    	
+		  //   })
+		    var uploadUrl = 'http://192.168.111.22:8099//down/push.do?code=dWlkPTEwMDE5Nzg1NjI4OTEmZmlsZT1MM1Z3Um1sc1pTOHlNREUyTHpFeU5pOHpPVEF6TnpBeE1qWXYmc249MjFkMjIyNTgtNTY1YS00MDE4LTg4ZWItYzM5ZTkxOTZiN2VjJnNpZ249ZTA2N2Q0MzM4NTNkMjViNzY2NzJjY2UyM2QwNWNjNWI=';
+		    $('#testEditor').attr('src', 'editor.html?uploadUrl=' + uploadUrl)
+
+			// 获取编辑器的值，存入数据库
+		    function getContent() {
+		    	// 编辑器iframe， 其中id为iframe id， id必须唯一
+				var editor = document.getElementById("testEditor").contentWindow;
+		    	
+				// 取值, 固定写法
+				var content = editor.replaceContent(editor.um.getContent());
+				
+				// 显示内容
+				$("#test").text(content)
+
+		    }
+
+		    // 从数据库取值展示
+		    function showContent() {
+		    	// 编辑器iframe， 其中id为iframe id， id必须唯一
+				var editor = document.getElementById("testEditor").contentWindow;
+		    	
+				// 取值
+				var content = editor.addServerToPath($('#test').text());
+				// 显示内容
+				$("#show").html(content)
+		    }
+
+		    // 传回编辑器编辑
+		    function editContent() {
+		    	// 编辑器iframe， 其中id为iframe id， id必须唯一
+				var editor = document.getElementById("testEditor").contentWindow;
+		    	
+				// 设值
+				editor.$('#zhlEditor').html(editor.setContent($('#test').text()));
+		    }
+
+		</script> 
+	</body>
+</html>

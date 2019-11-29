@@ -1,40 +1,55 @@
 <div class="res-content-header"></div>
 <div id="res-content-right">
 	<div class="res-header-catogry" ng-show="fromFlag==0">
-		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-show="v.display" ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
+		<span class="catogry-item" ng-repeat="v in pools track by $index" ng-show="v.display"
+			ng-class="{'catogry-item-active':isPoolActive(v.id)}" ng-click="typeAndFormat($index,0)">{{v.name}}</span>
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源类型:</span>
-		<span class="type-list" ng-repeat="v in types track by $index" ng-class="{'type-active':isTypeActive(v.id)}" ng-click="listFormat($index)"> {{v.mtype}} </span>
+		<span class="type-list" ng-repeat="v in types track by $index" ng-class="{'type-active':isTypeActive(v.id)}"
+			ng-click="listFormat($index)"> {{v.mtype}} </span>
 	</div>
 	<div class="res-header-type">
 		<span class="type-title">资源格式:</span>
-		<span class="type-list" ng-repeat="v in formats track by $index" ng-class="{'type-active':isFormatActive($index)}" ng-click="filterFormat($index)"> {{ v}}</span>
+		<span class="type-list" ng-repeat="v in formats track by $index"
+			ng-class="{'type-active':isFormatActive($index)}" ng-click="filterFormat($index)"> {{ v}}</span>
 	</div>
 	<div class="statistic-tab">
-		<span class="statistic-item" ng-click="dataSortByType(0)" ng-class="orderBy==0?'active':''"><i class="icon-bar-chart"></i>综合排序</span>
-		<span class="statistic-item" ng-click="dataSortByType(1)" ng-class="orderBy==1?'active':''"><i class="icon-bar-chart"></i>最多下载</span>
-		<span class="statistic-item" ng-click="dataSortByType(2)" ng-class="orderBy==2?'active':''"><i class="icon-bar-chart"></i>最新发布</span>
+		<span class="statistic-item" ng-click="dataSortByType(0)" ng-class="orderBy==0?'active':''"><i
+				class="icon-bar-chart"></i>综合排序</span>
+		<span class="statistic-item" ng-click="dataSortByType(1)" ng-class="orderBy==1?'active':''"><i
+				class="icon-bar-chart"></i>最多下载</span>
+		<span class="statistic-item" ng-click="dataSortByType(2)" ng-class="orderBy==2?'active':''"><i
+				class="icon-bar-chart"></i>最新发布</span>
 		<span class="statistic-item"></span>
-		<span class="statistic-item" ng-click="switchList(true)" ng-class="isList==true?'active':''"><i class="icon-th-list"></i></span>
-		<span class="statistic-item" ng-click="switchList(false)" ng-class="isList==false?'active':''"><i class="icon-th-large"></i></span>
+		<span class="statistic-item" ng-click="switchList(true)" ng-class="isList==true?'active':''"><i
+				class="icon-th-list"></i></span>
+		<span class="statistic-item" ng-click="switchList(false)" ng-class="isList==false?'active':''"><i
+				class="icon-th-large"></i></span>
 	</div>
 
 	<div class="res-list-main">
 		<ul class="res-ul-list" ng-show="isList">
 			<div class="loading res-loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="res-input res-list-item " ng-repeat="list in resList.list track by $index" ng-init="parentIndex = $index">
+			<li class="res-input res-list-item " ng-repeat="list in resList.list track by $index"
+				ng-init="parentIndex = $index">
 				<div title="{{list.title}}">
-					<input id="page{{VM.currentPageCtrl}}_{{$index}}" class="res-checkbox" checklist-model="resList.select" checklist-value="list.id" type="checkbox" ng-click="addItemSelect(list.id)" />
+					<input id="page{{VM.currentPageCtrl}}_{{$index}}" class="res-checkbox"
+						checklist-model="resList.select" checklist-value="list.id" type="checkbox"
+						ng-click="addItemSelect(list.id)" />
 					<label for="page{{VM.currentPageCtrl}}_{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-list" src="assets/img/new.png" />
-					<a class="img-thumb-list img-thumb-list-res" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
-						<img class="prepare-shop res-list-thumb" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+					<a class="img-thumb-list img-thumb-list-res"
+						ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank">
+						<img class="prepare-shop res-list-thumb"
+							ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}"
+							fallback-src="{{list.fileExt | lowercase}}">
 						<span class="res-author" ng-show="fromFlag==0 && list.speaker">主讲人：{{ list.speaker }}</span>
 					</a>
 					<span class="res-list-info">
 						<div>
-							<a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >{{ list.title }}</a>
+							<a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})"
+								target="_blank">{{ list.title }}</a>
 						</div>
 						<label class="res-type">类型: {{ list.mtype }}</label>
 						<label class="res-size">
@@ -47,22 +62,30 @@
 						<label class="res-number">{{list.clickTimes}}浏览/{{list.dloadTimes}}下载</label>
 					</span>
 				</div>
-				
+
 				<span class="res-list-tools">
-					
+
 					<div class="addPrepare-list addLatestPrepare">
 						<i class="icon-sort-down"></i>
 						<div class="res-prepare-list">
-							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index"  ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
-							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
-							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
+							<div class="res-prepare-list-item addPrepareInner text-ellipsis"
+								ng-repeat="item in prepareList track by $index"
+								ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">
+								{{$index+1}}、{{item.title}} <span class="prepare-num">({{item.contentNumber}})</span>
+							</div>
+							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">
+								当前目录节点下还没有收藏夹，点击加入收藏夹，会默认创建</div>
+							<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0"
+								ng-click="selectPrepare($event,parentIndex)">更多收藏夹...</div>
 						</div>
 					</div>
 					<div class="res-select addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
-						加入备课夹&nbsp;&nbsp;&nbsp;&nbsp;
+						加入收藏夹&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<br>
-					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例" || list.mtype=="索引目录"'><i class="icon-download-alt"></i>点击下载</label>
+					<label class="res-download" ng-click="resDownload(list)"
+						ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例" || list.mtype=="索引目录"'><i
+							class="icon-download-alt"></i>点击下载</label>
 				</span>
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status!=6">【未审核】</span>
 				<span class="res-status" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
@@ -70,24 +93,31 @@
 		</ul>
 		<ul class="res-ul-thubmlist" ng-show="!isList">
 			<div class="loading res-loading" ng-show="isLoading"><i class="icon-spinner icon-spin icon-3x"></i></div>
-			<li class="res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"  ng-init="parentIndex = $index">
+			<li class="res-input res-thubmlist-item col-md-4" ng-repeat="list in resList.list track by $index"
+				ng-init="parentIndex = $index">
 				<div title="{{list.title}}">
-					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select" checklist-value="list.id" ng-click="addItemSelect(list.id)">
+					<input id="{{$index}}" class="res-checkbox" type="checkbox" checklist-model="resList.select"
+						checklist-value="list.id" ng-click="addItemSelect(list.id)">
 					<label for="{{$index}}"></label>
 					<img ng-show="list.new" class="is-new-thumb" src="assets/img/new.png" />
-					<a class="img-thumb2-list" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
-						<img class="prepare-shop" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}" fallback-src="{{list.fileExt | lowercase}}">
+					<a class="img-thumb2-list" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})"
+						target="_blank">
+						<img class="prepare-shop" ng-src="{{list.thumbnailpath ? list.thumbnailpath:'null'}}"
+							fallback-src="{{list.fileExt | lowercase}}">
 						<span class="res-author" ng-show="fromFlag==0 && list.speaker">主讲人：{{ list.speaker }}</span>
 					</a>
 					<div class="res-thubmlist-info">
-						<div><a class="res-title text-ellipsis" ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank" >
-							<span class="res-status-thumb" ng-show="(fromFlag==3 || fromFlag==4) && list.status!=6">【未审核】</span>
-							<span class="res-status-thumb" ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
-							{{ list.title }}
+						<div><a class="res-title text-ellipsis"
+								ui-sref="previewres({resId:list.id,curTfcode:curTfcode})" target="_blank">
+								<span class="res-status-thumb"
+									ng-show="(fromFlag==3 || fromFlag==4) && list.status!=6">【未审核】</span>
+								<span class="res-status-thumb"
+									ng-show="(fromFlag==3 || fromFlag==4) && list.status==6">【已审核】</span>
+								{{ list.title }}
 							</a>
 						</div>
 						<label class="res-type"> 类型: {{ list.mtype }} </label>
-						
+
 						<label class="res-size">
 							<res-size data-value="{{list.fsize}}"></res-size>
 						</label><br>
@@ -96,19 +126,28 @@
 					</div>
 				</div>
 				<div class="res-thubmlist-tools thubmlist-tools-custom">
-					<label class="res-download" ng-click="resDownload(list)" ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'> <i class="icon-download-alt"></i> 点击下载</label>
+					<label class="res-download" ng-click="resDownload(list)"
+						ng-hide='list.mtype=="多媒体教辅" || list.mtype=="综合案例"'> <i class="icon-download-alt"></i>
+						点击下载</label>
 					<div class="res-select addPrepare  addPrepare-custom">
 						<i class="icon-sort-down icon-sort-down-custom"></i>
-						<div class="res-prepare-thumb" >
-							<div class="res-prepare-list-item addPrepareInner text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">{{$index+1}}、{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
-							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
-							<div class="res-prepare-list-item res-prepare-list-more res-prepare-list-item" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多备课夹...</div>
+						<div class="res-prepare-thumb">
+							<div class="res-prepare-list-item addPrepareInner text-ellipsis"
+								ng-repeat="item in prepareList track by $index"
+								ng-click="addToPrepare($event, parentIndex, $index)" title="{{item.title}}">
+								{{$index+1}}、{{item.title}} <span class="prepare-num">({{item.contentNumber}})</span>
+							</div>
+							<div class="res-prepare-list-item" ng-show="prepareList.length == 0">
+								当前目录节点下还没有收藏夹，点击加入收藏夹，会默认创建</div>
+							<div class="res-prepare-list-item res-prepare-list-more res-prepare-list-item"
+								ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex)">更多收藏夹...
+							</div>
 						</div>
 					</div>
 					<div class="add-prepare-thumb addPrepare" ng-click="addToCurrentPrepare(parentIndex)">
-						  加入备课夹
+						加入收藏夹
 					</div>
-					
+
 				</div>
 			</li>
 		</ul>
@@ -117,32 +156,41 @@
 		</div>
 		<div style="clear:both"></div>
 		<div class="page-ctrl" ng-show="isLoadingFinish">
-			<input id="test" class="res-checkbox-page" type="checkbox" ng-model="VM.checkAll" ng-click="checkAll()" /> 本页全选
+			<input id="test" class="res-checkbox-page" type="checkbox" ng-model="VM.checkAll" ng-click="checkAll()" />
+			本页全选
 			<label for="test"></label>
 			<span class="res-text-total"> 共 {{bigTotalItems}}条，</span>
-			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage" ng-blur="changPerPage()"/>条</span>
-			
+			<span class="res-text-perpage"> 每页显示<input type="text" ng-model="VM.perPage"
+					ng-blur="changPerPage()" />条</span>
+
 			<div class="res-select addPrepareAll res-add-prepare-all" ng-click="addAllToPrepare($event)">
-				加入备课夹&nbsp;&nbsp;
+				加入收藏夹&nbsp;&nbsp;
 			</div>
 			<div class="addPrepareAll-list addAllLatestPrepare">
 				<i class="icon-sort-down"></i>
 				<div class="res-prepare-all addPrepareAllInner">
-					<div class="res-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index" ng-click="addAllToLatestPrepare($event, $index)" title="{{item.title}}">{{item.title}}  <span class="prepare-num">({{item.contentNumber}})</span></div>
-					<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有备课夹，点击加入备课夹，会默认创建</div>
-					<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0" ng-click="selectPrepare($event,parentIndex, true)">更多备课夹...</div>
+					<div class="res-prepare-list-item text-ellipsis" ng-repeat="item in prepareList track by $index"
+						ng-click="addAllToLatestPrepare($event, $index)" title="{{item.title}}">{{item.title}} <span
+							class="prepare-num">({{item.contentNumber}})</span></div>
+					<div class="res-prepare-list-item" ng-show="prepareList.length == 0">当前目录节点下还没有收藏夹，点击加入收藏夹，会默认创建
+					</div>
+					<div class="res-prepare-list-item res-prepare-list-more" ng-hide="prepareList.length == 0"
+						ng-click="selectPrepare($event,parentIndex, true)">更多收藏夹...</div>
 				</div>
 			</div>
-			<label class="res-download res-download-all" ng-click="downLoadSelect()" ng-hide="poolId == 5"><i class="icon-download-alt"></i> 打包下载 </label>
+			<label class="res-download res-download-all" ng-click="downLoadSelect()" ng-hide="poolId == 5"><i
+					class="icon-download-alt"></i> 打包下载 </label>
 		</div>
 		<div class="coms-pagination" ng-show="isLoadingFinish">
-		 	<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"  boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage" ng-change="pageChanged()"></uib-pagination>
+			<uib-pagination total-items="bigTotalItems" ng-model="VM.currentPageCtrl" max-size="maxSize"
+				boundary-link-numbers="true" previous-text="上一页" next-text="下一页" items-per-page="perPage"
+				ng-change="pageChanged()"></uib-pagination>
 			<div class="page-go">
 				<span class="page-text">转到</span>
-				<input class="page-input" ng-model="pageTo"/>
+				<input class="page-input" ng-model="pageTo" />
 				<span class="page-go-btn" ng-click="pageChanged(pageTo)">Go</span>
-				<input class="page-input" type="checkbox"/>
+				<input class="page-input" type="checkbox" />
 			</div>
-		</div> 
+		</div>
 	</div>
 </div>

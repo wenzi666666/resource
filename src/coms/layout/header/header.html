@@ -1,37 +1,45 @@
 <!--一级页面header-->
 <div id="header">
 	<div class="header-top container headroom" id="header-top">
-		<img ui-sref="systemres" class="logo" src="assets/img/logo.png" />
+		<img ui-sref="systemres" class="logo" style="height: 85px; margin-top: -20px;" src="assets/img/logo_zx.png" />
 		<ul class="message">
 			<li><a ui-sref="settings" target="_blank"><i class="icon-user"></i> {{ userTrueName }},欢迎您</a></li>
-			<li><a href="modules/client-download/index.html" target="_blank">下载客户端</a></li>
+
+			<li class="nav-custom">
+				<a ui-sref="personalcenter" ng-class="{'onactive':isActive('personalcenter')}">
+					<!-- <img src="assets/img/profile.png" /> -->个人中心
+				</a>
+			</li>
+			<!-- <li><a href="modules/client-download/index.html" target="_blank">下载客户端</a></li> -->
 			<li><a ui-sref="message" target="_blank">消息</a></li>
 			<li><a ui-sref="help" target="_blank">帮助中心</a></li>
 			<li><a ng-click="logout()">退出</a></li>
 		</ul>
 	</div>
 	<div id="banner" class="headroom">
-		<div class="container banner"><img src="assets/img/banner.png" /></div>
-	
-		<div class="banner-footer">
+		<div style="height:1px; border:0px;"></div>
+		<!-- <div class="container banner"><img src="assets/img/banner.png" /></div> -->
+
+		<!-- <div class="banner-footer">
 			<div class="banner-footer-header"></div>
 			<div class="banner-footer-footer"></div>
-		</div>
+		</div> -->
 	</div>
 	<div class="main-nav nav-pills headroom" id="main-nav">
 		<div class="container">
 			<ul class="nav">
-				<li><a ui-sref="systemres"ng-class="{'onactive':isActive('systemres')}">系统资源</a></li>
-				<li><a ui-sref="schoolres" ng-class="{'onactive':isActive('schoolres')}">校本资源</a></li>
-				<li><a ui-sref="areares"  ng-class="{'onactive':isActive('areares')}">区本资源</a></li>
-				<li ng-show="navCtrl[0]"><a ng-click="goToSpace()">学生学习空间</a></li>
-				<li><a ui-sref="customres" ng-class="{'onactive':isActive('customres')}">资源定制</a></li>
+				<li><a ui-sref="systemres" ng-class="{'onactive':isActive('systemres')}">资源库</a></li>
+				<!-- <li><a ui-sref="schoolres" ng-class="{'onactive':isActive('schoolres')}">校本资源</a></li>
+				<li><a ui-sref="areares" ng-class="{'onactive':isActive('areares')}">区本资源</a></li> -->
+				<!-- <li ng-show="navCtrl[0]"><a ng-click="goToSpace()">学生学习空间</a></li> -->
+				<!-- <li><a ui-sref="customres" ng-class="{'onactive':isActive('customres')}">资源定制</a></li> -->
 				<li ng-show="navCtrl[1]" class="nav-width-custom"><a ng-click="goToQuestionLibrary()">题库</a></li>
 				<li ng-show="navCtrl[2]"><a ng-click="goToSceneEnglish()">情景英语</a></li>
-				<li class="shopping-cart nav-custom"><a ng-click="goToPrepare()"><img src="assets/img/shopcart.png"/>备课夹</a></li>
-				<li class="nav-custom"><a ui-sref="personalcenter" ng-class="{'onactive':isActive('personalcenter')}"><img src="assets/img/profile.png"/>个人中心</a></li>
+				<li class="shopping-cart nav-custom">
+					<a ng-click="goToPrepare()"><img src="assets/img/shopcart.png" />收藏夹</a>
+				</li>
+				<!-- <li class="nav-custom"><a ui-sref="personalcenter" ng-class="{'onactive':isActive('personalcenter')}"><img src="assets/img/profile.png"/>个人中心</a></li> -->
 			</ul>
 		</div>
 	</div>
 </div>
-

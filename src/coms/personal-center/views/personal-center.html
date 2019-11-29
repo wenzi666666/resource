@@ -6,36 +6,46 @@
 					<div class="user-avatar">
 						<div class="avatar-box">
 							<img ng-src="{{user.userImage}}" fallback-src="personalcenter">
-							<img class="edit-avatar-icon" src="assets/img/person/edit_avatar.png" ui-sref="settings"></img>		
+							<img class="edit-avatar-icon" src="assets/img/person/edit_avatar.png"
+								ui-sref="settings"></img>
 						</div>
 						<span class="user-name">{{user.trueName }}</span>
-						
+
 					</div>
 					<div class="user-info user-info-custom">
-						<span><img src="assets/img/loc.png" /><i>{{ user.termName }}</i>|<i>{{ user.subjectNames }}老师 </i>|<i ng-class="user.male == '男'? 'icon-male':'icon-female'"></i></span>
-						<span class="user-school"><img class="user-info-icon" src="assets/img/tie.png" />{{ user.schoolName }}</span>
-						<button class="btn-general btn-pink" ng-click="uploadRes()">上传资源</button>
+						<span><img src="assets/img/loc.png" /><i>{{ user.termName }}</i>|<i>{{ user.subjectNames }}老师
+							</i>|<i ng-class="user.male == '男'? 'icon-male':'icon-female'"></i></span>
+						<span class="user-school"><img class="user-info-icon"
+								src="assets/img/tie.png" />{{ user.schoolName }}</span>
+						<!-- <button class="btn-general btn-pink" ng-click="uploadRes()">上传资源</button> -->
 					</div>
 				</div>
 				<div class="op-btn-group nav-item-select">
-					<ul>
-						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[0]}" ng-click="switchItem(0)">我的备课</button></li>
+					<!-- <ul>
+						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[0]}" ng-click="switchItem(0)">我的收藏</button></li>
 						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[1]}" ng-click="switchItem(1)">我的上传</button></li>
 						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[2]}" ng-click="switchItem(2)">我的下载</button></li>
 						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[3]}" ng-click="switchItem(3)">我的评论</button></li>
 						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[4]}" ng-click="switchItem(4)">最近浏览</button></li>
+					</ul> -->
+					<ul>
+						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[0]}"
+								ng-click="switchItem(0)">我的收藏</button></li>
+						<li><button class="btn-general" ng-class="{'btn-white':!switchItemCtrl[4]}"
+								ng-click="switchItem(4)">最近浏览</button></li>
 					</ul>
 				</div>
 			</div>
 			<div class="col-md-9 col-sm-12 cen-right">
 				<div class="cen-right-up">
-					<h3 class="cen-h2">备课统计</h3>
-					<div  ng-hide="noPrepareData">
+					<h3 class="cen-h2">收藏统计</h3>
+					<div ng-hide="noPrepareData">
 						<div class="left-arrow">
 							<span></span><i ng-click="pre()" class="icon-chevron-left"></i>
 						</div>
 						<div class="statistic-content">
-							<p>需要备课的课程总数：{{currentPrepare.nodeOmitNums + currentPrepare.nodeFinishedNums}}，有备课夹章节：{{currentPrepare.nodeFinishedNums}}，备课夹：{{currentPrepare.prepareNums}}，使用资源：{{currentPrepare.resourceNums}}</p>
+							<p>需要收藏的课程总数：{{currentPrepare.nodeOmitNums + currentPrepare.nodeFinishedNums}}，有收藏夹章节：{{currentPrepare.nodeFinishedNums}}，收藏夹：{{currentPrepare.prepareNums}}，使用资源：{{currentPrepare.resourceNums}}
+							</p>
 							<div class="statistic-box">
 								<highchart config="chartConfig"></highchart>
 							</div>
@@ -47,20 +57,25 @@
 						</div>
 					</div>
 					<div class="no-prepare-statistic" ng-show="noPrepareData">
-						<i class="icon-comment-alt"></i>您还没有在任何教材下进行备课，暂无统计数据。 可以选择资源加入备课夹，进行在线备课。
+						<i class="icon-comment-alt"></i>您还没有在任何教材下进行收藏，暂无统计数据。 可以选择资源加入收藏夹，进行在线收藏。
 					</div>
 				</div>
 
-				<!-- 我的备课 -->
-				<div ng-show="switchItemCtrl[0]"  ng-controller="myPrepareCtrl" data-ng-include="'/coms/personal-center/views/my-prepare.html'"></div>
+				<!-- 我的收藏 -->
+				<div ng-show="switchItemCtrl[0]" ng-controller="myPrepareCtrl"
+					data-ng-include="'/coms/personal-center/views/my-prepare.html'"></div>
 				<!-- 我的上传 -->
-				<div ng-show="switchItemCtrl[1]" ng-controller="myUploadCtrl" data-ng-include="'/coms/personal-center/views/my-upload.html'"></div>
+				<div ng-show="switchItemCtrl[1]" ng-controller="myUploadCtrl"
+					data-ng-include="'/coms/personal-center/views/my-upload.html'"></div>
 				<!-- 我的下载 -->
-				<div ng-show="switchItemCtrl[2]" ng-controller="myDownloadCtrl" data-ng-include="'/coms/personal-center/views/my-download.html'"></div>
+				<div ng-show="switchItemCtrl[2]" ng-controller="myDownloadCtrl"
+					data-ng-include="'/coms/personal-center/views/my-download.html'"></div>
 				<!-- 我的评论 -->
-				<div ng-show="switchItemCtrl[3]" ng-controller="myCommentCtrl" data-ng-include="'/coms/personal-center/views/my-comment.html'"></div>
+				<div ng-show="switchItemCtrl[3]" ng-controller="myCommentCtrl"
+					data-ng-include="'/coms/personal-center/views/my-comment.html'"></div>
 				<!-- 最近浏览-->
-				<div ng-show="switchItemCtrl[4]" ng-controller="myRecentCtrl" data-ng-include="'/coms/personal-center/views/my-recent.html'"></div>
+				<div ng-show="switchItemCtrl[4]" ng-controller="myRecentCtrl"
+					data-ng-include="'/coms/personal-center/views/my-recent.html'"></div>
 
 			</div>
 		</div>
@@ -70,4 +85,3 @@
 <!-- 模态框（Modal） -->
 <!-- 上传模态框 -->
 <div data-ng-include="'/coms/layout/modal/modal/upload-modal.html'"></div>
-
