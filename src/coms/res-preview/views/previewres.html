@@ -2,7 +2,8 @@
 
 	<div class="header-nav-tips">
 		<div class="nav_left">
-			<span ng-repeat="navCur in currentNav" ng-class="links[$index]?'links':''"  ng-click="back($index,navCur.tfcode)">{{navCur.name}}<i class="icon-angle-right"></i></span>
+			<span ng-repeat="navCur in currentNav" ng-class="links[$index]?'links':''"
+				ng-click="back($index,navCur.tfcode)">{{navCur.name}}<i class="icon-angle-right"></i></span>
 			<span>{{VM.resName}}</span>
 		</div>
 	</div>
@@ -10,8 +11,10 @@
 		<div class="loading" ng-show="VM.load"><i class="icon-spinner icon-spin icon-3x"></i></div>
 
 		<div class="slide-content">
-			<div class="slide-arrow slide-pre" ng-click="slidePre()" ng-hide="VM.slide"><i class="icon-chevron-left"></i></div>
-			<div class="slide-arrow slide-next" ng-click="slideNext()" ng-hide="VM.slide"><i class="icon-chevron-right"></i></div>
+			<div class="slide-arrow slide-pre" ng-click="slidePre()" ng-hide="VM.slide"><i
+					class="icon-chevron-left"></i></div>
+			<div class="slide-arrow slide-next" ng-click="slideNext()" ng-hide="VM.slide"><i
+					class="icon-chevron-right"></i></div>
 			<div class="slide-content-inner">
 				<div id="res-slide-content"></div>
 			</div>
@@ -19,7 +22,7 @@
 		</div>
 		<div class="slide-fullscreen" ng-click="toggleFullscreen()">全屏查看 <i class="icon-fullscreen"></i></div>
 	</div>
-	<div class="col-md-2" >
+	<div class="col-md-2">
 		<!--<div class="slide_head">类型：<span class="type_box"><span>{{typeName}}</span><i class="icon-angle-down" ng-hide="VM.preShow"></i></span>-->
 		<div class="slide_head">推荐资源：
 			<!--<div class="pop-type-box" ng-hide="VM.preShow">
@@ -32,16 +35,18 @@
 		</div>
 		<div class="slide-list-container">
 			<div class="slide-list">
-				<div class="slide-list-item" ng-repeat="item in VM.allSourceList" ng-click="slideChange(item.id,$index,item.fromFlag)">
+				<div class="slide-list-item" ng-repeat="item in VM.allSourceList"
+					ng-click="slideChange(item.id,$index,item.fromFlag)">
 					<div class="img-box" ng-class="curImg[$index]?'line':''">
-						<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}"  fallback-src="{{item.fileExt | lowercase}}">
+						<img ng-src="{{ item.thumbnailpath ? item.thumbnailpath: 'null'}}"
+							fallback-src="{{item.fileExt | lowercase}}">
 					</div>
 					<span class="text-ellipsis">{{item.title}}</span>
 				</div>
 				<!--<div class="more" ng-click="getAllSourceMore()" ng-hide="VM.resShow">加载更多</div>-->
 			</div>
 		</div>
-		
+
 	</div>
 	<div class="clearfix"></div>
 	<div class="banner-footer banner-footer-preview">
@@ -49,7 +54,7 @@
 		<div class="banner-footer-footer"></div>
 	</div>
 
-<!-- 资源简介 -->
+	<!-- 资源简介 -->
 	<div class="preview-content">
 		<div class="res-intro">
 			<div class="intro-banner">资源简介</div>
@@ -61,17 +66,17 @@
 			<div class="intro-details">{{VM.info.des}}</div>
 		</div>
 		<!--相关路径-->
-		<div class="related-path" ng-show="navRealted">
+		<!--<div class="related-path" ng-show="navRealted">
 			<div class="related-banner">相关路径</div>
 			<ul class="related-info">
 				<li ng-repeat="navs in navRealted track by $index" class="path-item" ng-click="selectNav($index)">
 					<span ng-repeat="nav in navs"> {{nav.name}} <i class="icon-angle-right"></i> </span> {{VM.resName}} 
 				</li>
 			</ul>
-		</div>
-		
-	  <div ng-controller="resCommentCtrl" data-ng-include="'/coms/res-preview/views/comment.html'"></div>
-	
+		</div>-->
+
+		<div ng-controller="resCommentCtrl" data-ng-include="'/coms/res-preview/views/comment.html'"></div>
+
 	</div>
 </div>
 <!-- 加入备课夹  -->
